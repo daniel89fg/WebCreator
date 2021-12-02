@@ -1,0 +1,46 @@
+{% extends "Web/Public/PortalTemplate.html.twig" %}
+
+{% block body %}
+    <div class="bg-light pt-5 pb-3">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    {% if fsc.contact %}
+                        <i class="fas fa-lock fa-3x" aria-hidden="true"></i>
+                        <h1 class="h3 mt-2">
+                            {{ i18n.customTrans(fsc.webPage.filelang, 'access-denied') }}
+                        </h1>
+                    {% else %}
+                        <i class="fas fa-user-circle fa-3x" aria-hidden="true"></i>
+                        <h1 class="h3 mt-2">
+                            {{ i18n.customTrans(fsc.webPage.filelang, 'login-to-continue') }}
+                        </h1>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container pt-3">
+        <div class="row">
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-6">
+                {% if fsc.contact %}
+                    <p class="text-center">{{ i18n.customTrans(fsc.webPage.filelang, 'portal-access-denied-p') }}</p>
+                {% else %}
+                    <p class="text-center">{{ i18n.customTrans(fsc.webPage.filelang, 'login-to-continue-p') }}</p>
+                    <div class="text-center mb-3">
+                        <a class="btn btn-lg btn-primary" href="#" data-toggle="modal" data-target="#loginModal">
+                            {{ i18n.customTrans(fsc.webPage.filelang, 'login') }}
+                        </a>
+                    </div>
+                    <div class="text-center mb-3">
+                        <a class="btn btn-lg btn-success" href="{{ asset('Me') }}">
+                            {{ i18n.customTrans(fsc.webPage.filelang, 'register-me') }}
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

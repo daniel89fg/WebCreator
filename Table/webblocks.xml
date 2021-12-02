@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : webblocks.xml
+    Author     : Carlos Garcia Gomez
+    Description:
+        Structure for the webblocks table.
+-->
+<table>
+    <column>
+        <name>content</name>
+        <type>longblob</type>
+    </column>
+    <column>
+        <name>idblock</name>
+        <type>serial</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>lastmod</name>
+        <type>date</type>
+    </column>
+    <column>
+        <name>name</name>
+        <type>character varying(100)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>ordernum</name>
+        <type>integer</type>
+    </column>
+    <column>
+        <name>type</name>
+        <type>character varying(60)</type>
+    </column>
+    <constraint>
+        <name>webblocks_pkey</name>
+        <type>PRIMARY KEY (idblock)</type>
+    </constraint>
+</table>

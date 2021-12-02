@@ -1,0 +1,17 @@
+{
+    "name": "facturascripts/webcreator",
+    "description": "CMS plugin for FacturaScripts.",
+    "authors": [
+        {
+            "name": "carlos",
+            "email": "carlos@facturascripts.com"
+        },
+        {
+            "name": "athos online",
+            "email": "info@athosonline.com"
+        }
+    ],
+    "require": {
+        "voku/email-check": "3.*"
+    }
+}

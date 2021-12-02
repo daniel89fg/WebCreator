@@ -1,0 +1,160 @@
+{% set currentView = fsc.getCurrentView() %}
+{% set formName = 'form' ~ currentView.getViewName() %}
+{% set weblang = fsc.pageComposer.getCookie('weblang') %}
+
+<script type="text/javascript">
+    var listViewDeleteCancel = "{{ i18n.customTrans(weblang, 'cancel') }}";
+    var listViewDeleteConfirm = "{{ i18n.customTrans(weblang, 'confirm') }}";
+    var listViewDeleteMessage = "{{ i18n.customTrans(weblang, 'are-you-sure') }}";
+    var listViewDeleteTitle = "{{ i18n.customTrans(weblang, 'confirm-delete') }}";
+</script>
+
+<form id="{{ formName }}" method="post">
+    <input type="hidden" name="action"/>
+    <input type="hidden" name="activetab" value="{{ currentView.getViewName() }}"/>
+    <input type="hidden" name="loadfilter" value="{{ currentView.pageFilterKey }}"/>
+    <input type="hidden" name="offset" value="{{ currentView.offset }}"/>
+    <input type="hidden" name="order" value="{{ currentView.orderKey }}"/>
+    <div class="row mb-2">
+        {% if currentView.searchFields is not empty %}
+            <div class="col-sm mb-2">
+                {# -- Search field -- #}
+                {{ _self.searchControl(currentView, i18n, weblang) }}
+            </div>
+        {% endif %}
+        <div class="col-md mb-2">
+            {# -- Filters button -- #}
+            {{ _self.filterButton(currentView, i18n, weblang) }}
+            {# -- OrderBy button -- #}
+            {{ _self.sortButton(currentView, weblang) }}
+        </div>
+        {# -- Left buttons -- #}
+        <div class="col text-right mb-2">
+            {% if currentView.settings.btnNew %}
+                {% if currentView.settings.modalInsert %}
+                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal{{ currentView.settings.modalInsert }}">
+                        <i class="fas fa-plus fa-fw" aria-hidden="true"></i>
+                    </button>
+                {% else %}
+                    <a href="{{ asset(currentView.btnNewUrl()) }}" class="btn btn-outline-success" title="{{ i18n.customTrans(weblang, 'new') }}">
+                        <i class="fas fa-plus fa-fw" aria-hidden="true"></i>
+                    </a>
+                {% endif %}
+            {% endif %}
+            {# -- Row actions -- #}
+            {{ currentView.getRow('actions').render(true, currentView.getViewName()) | raw }}
+            {# -- Row statistics -- #}
+            {{ currentView.getRow('statistics').render(fsc) | raw }}
+        </div>
+    </div>
+    {# -- Filters -- #}
+    {% set divFiltersStyle = currentView.showFilters ? '' : 'display: none;' %}
+    <div id="form{{ currentView.getViewName() }}Filters" class="row align-items-center" style="{{ divFiltersStyle }}">
+        {% for filterName, filter in currentView.filters %}
+            {{ filter.render() | raw }}
+        {% endfor %}
+    </div>
+    {# -- Row header -- #}
+    <div class="row">
+        {{ currentView.getRow('header').render(currentView.getViewName(), 'listViewSetAction', fsc) | raw }}
+    </div>
+
+    {# -- Cards -- #}
+    {% for model in currentView.cursor %}
+        {% set rowStatus = currentView.getRow('status') %}
+        <div class="card {{ rowStatus.trClass(model, 'border-') }} shadow mb-3">
+            <div class="card-body">
+                <a href="{{ asset(model.url('public')) }}" class="h5">
+                    {{ currentView.getRow('cardtitle').show(model) | raw }}
+                </a>
+                <p class="text-justify mb-0">
+                    {{ currentView.getRow('cardbody').show(model) | raw }}
+                </p>
+            </div>
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <tr class="{{ rowStatus.trClass(model) }}">
+                        {% for column in currentView.getColumns() %}
+                            {{ column.tableCell(model) | raw }}
+                        {% endfor %}
+                    </tr>
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-warning shadow-sm">
+            {{ i18n.customTrans(weblang, 'no-data') }}
+        </div>
+    {% endfor %}
+
+    {# -- Pagination -- #}
+    {% set pages = currentView.getPagination() %}
+    {% if pages | length > 0 %}
+        <div class="pb-3 pt-3 text-center">
+            <div class="btn-group bg-white">
+                {% for page in currentView.getPagination() %}
+                    {% set btnClass = page.active ? 'btn btn-outline-dark active' : 'btn btn-outline-dark' %}
+                    <button type="button" class="{{ btnClass }}" onclick="listViewSetOffset('{{ currentView.getViewName() }}', '{{ page.offset }}');">
+                        {{ page.num }}
+                    </button>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    {# -- Row footer -- #}
+    <div class="container-fluid">
+        <div class="row">
+            {{ currentView.getRow('footer').render(currentView.getViewName(), 'listViewSetAction', fsc) | raw }}
+        </div>
+    </div>
+</form>
+
+{# -- Modals -- #}
+{% for group in currentView.getModals() %}
+    {{ group.modal(currentView.model, currentView.getViewName()) | raw }}
+{% endfor %}
+
+{# -- Macros -- #}
+{% macro filterButton(currentView, i18n, weblang) %}
+    {% if currentView.filters is not empty %}
+        <div class="btn-group">
+            <button type="button" class="btn btn-light" onclick="listViewShowFilters('{{ currentView.getViewName() }}');">
+                <i class="fas fa-filter fa-fw" aria-hidden="true"></i> {{ i18n.customTrans(weblang, 'filters') }}
+            </button>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro searchControl(currentView, i18n, weblang) %}
+    <div class="input-group">
+        <input class="form-control" type="text" name="query" value="{{ currentView.query }}" autocomplete="off" placeholder="{{ i18n.customTrans(weblang, 'search') }}"/>
+        <span class="input-group-append">
+            <button type="submit" class="btn btn-secondary">
+                <i class="fas fa-search" aria-hidden="true"></i>
+            </button>
+        </span>
+    </div>
+{% endmacro %}
+
+{% macro sortButton(currentView, weblang) %}
+    {% if currentView.orderOptions is not empty %}
+        <div class="btn-group">
+            <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                {% set icon = (currentView.orderOptions[currentView.orderKey]['type'] == 'ASC') ? 'fas fa-arrow-up' : 'fas fa-arrow-down' %}
+                <i class="{{ icon }} fa-fw" aria-hidden="true"></i>
+                <span>{{ currentView.orderOptions[currentView.orderKey]['label'] }}</span>
+                <span class="caret"></span>
+            </button>
+            <div class="dropdown-menu">
+                {% for key, orderby in currentView.orderOptions %}
+                    {% set activeClass = (currentView.orderKey == key) ? ' active' : '' %}
+                    {% set icon = (orderby.type == 'ASC') ? 'fas fa-arrow-up' : 'fas fa-arrow-down' %}
+                    <a class="dropdown-item{{ activeClass }}" href="#" onclick="listViewSetOrder('{{ currentView.getViewName() }}', '{{ key }}');">
+                        <i class="{{ icon }} fa-fw" aria-hidden="true"></i> {{ orderby.label }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}

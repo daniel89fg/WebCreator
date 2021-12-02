@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view>
+    <columns>
+        <column name="total" order="100">
+            <widget type="money" fieldname="total">
+                <option color="danger">lt:0</option>
+            </widget>
+        </column>
+        <column name="status" display="right" order="110">
+            <widget type="autocomplete" fieldname="idestado">
+                <values source="estados_documentos" fieldcode="idestado" fieldtitle="nombre" />
+            </widget>
+        </column>
+        <column name="date" display="right" order="120">
+            <widget type="date" fieldname="fecha" />
+        </column>
+    </columns>
+    <rows>
+        <row type="cardtitle" fieldname="codigo" />
+        <row type="cardbody" fieldname="observaciones" />
+        <row type="status">
+            <option color="success" title="approved" fieldname="idestado">2</option>
+            <option color="danger" title="cancelled" fieldname="idestado">3</option>
+            <option color="danger" title="expired" fieldname="idestado">23</option>
+            <option color="warning" title="non-editable-document" fieldname="editable">0</option>
+            <option color="info" title="email-sent" fieldname="femail">notnull:</option>
+        </row>
+    </rows>
+</view>

@@ -1,0 +1,857 @@
+{% set currentView = fsc.getCurrentView() %}
+{% set dataHeader = currentView.model  %}
+{% set imagesGallery = fsc.imagesGallery() %}
+
+<form id="formEditWebHeader" method="post" enctype="multipart/form-data">
+    
+    {% if dataHeader.idheader %}
+        <input type="hidden" name="action" value="edit">
+    {% else %}
+        <input type="hidden" name="action" value="insert">
+    {% endif %}
+    
+    <input type="hidden" name="activetab" value="EditWebHeader">
+    <input type="hidden" name="code" value="{{ dataHeader.idheader }}">
+    <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
+    
+    <div class="container-fluid px-0">
+        <div class="card mt-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <label class="form-label">{{ i18n.trans('name') }}</label>
+                        <input name="name" value="{{ dataHeader.name }}" type="text" class="form-control" required/>
+                    </div>
+
+                    <div class="col-12 col-md-6 d-flex justify-content-end align-self-center">
+                        <button type="button" class="btn btn-warning mr-3" data-toggle="modal" data-target="#modalGeneralSettings">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                        
+                        <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                            <li class="nav-item tab-desktop" role="presentation">
+                                <a class="nav-link active" data-toggle="pill" href="#pills-desktop" role="tab" aria-selected="true">
+                                    <i class="fas fa-desktop"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item tab-mobile headerlayout header01" role="presentation">
+                                <a class="nav-link" data-toggle="pill" href="#pills-mobile" role="tab" aria-selected="false">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DESKTOP -->
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-desktop" role="tabpanel">
+                {% block headerContentDesktop %}
+                    <div class="headerlayout header01">
+                        <div class="card mt-4 shadow">
+                            <div class="card-header">
+                                <div class="d-flex bd-highlight">
+                                    <div class="mr-auto bd-highlight"></div>
+                                    <div class="bd-highlight">
+                                        <button type="button" class="btn btn-secondary d-flex justify-content-end" data-toggle="modal" data-target="#modalHeaderMain">
+                                            <i class="fas fa-cog"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12 col-md-4">
+                                        <div id="header0101" class="codemirror htmlEditor">
+                                            <textarea class="d-none" name="header0101"></textarea>
+                                            <code class="d-none">{{ dataHeader.content.header0101 }}</code>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <div id="header0102" class="codemirror htmlEditor">
+                                            <textarea class="d-none" name="header0102"></textarea>
+                                            <code class="d-none">{{ dataHeader.content.header0102 }}</code>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <div id="header0103" class="codemirror htmlEditor">
+                                            <textarea class="d-none" name="header0103"></textarea>
+                                            <code class="d-none">{{ dataHeader.content.header0103 }}</code>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endblock %}
+            </div>
+
+            <!-- MOBILE -->
+            <div class="tab-pane fade" id="pills-mobile" role="tabpanel">                
+                {% block headerContentMobile %}
+                    <div class="headerlayout header01">
+                        <div class="card mt-4 shadow">
+                            <div class="card-header">
+                                <div class="d-flex bd-highlight">
+                                    <div class="mr-auto bd-highlight">
+                                        
+                                    </div>
+                                    <div class="bd-highlight">
+                                        <button type="button" class="btn btn-secondary d-flex justify-content-end" data-toggle="modal" data-target="#modalHeaderMain">
+                                            <i class="fas fa-cog"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <p class="col-12 mt-3">
+                                        {{ i18n.trans('header-toogle-box') }}
+                                    </p>
+
+                                    <div class="col-12">   
+                                        <div id="header0104" class="codemirror htmlEditor">
+                                            <textarea class="d-none" name="header0104"></textarea>
+                                            <code class="d-none">{{ dataHeader.content.header0104 }}</code>
+                                        </div>
+                                    </div>
+
+                                    <hr/>
+
+                                    <p class="col-12 mt-3">
+                                        {{ i18n.trans('header-toogle') }}
+                                    </p>
+
+                                    <div class="col-12">
+                                        <div id="header0105" class="codemirror htmlEditor">
+                                            <textarea class="d-none" name="header0105"></textarea>
+                                            <code class="d-none">{{ dataHeader.content.header0105 }}</code>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-6">
+                <button type="button" class="btn btn-sm btn-danger" onclick="editViewDelete('EditWebHeader');">
+                    <i class="fas fa-trash-alt fa-fw" aria-hidden="true"></i>
+                    <span class="d-none d-sm-inline-block">{{ i18n.trans('delete') }}</span>
+                </button>
+            </div>
+            
+            <div class="col-6 text-right">
+                <button class="btn btn-sm btn-secondary" type="reset">
+                    <i class="fas fa-undo fa-fw" aria-hidden="true"></i>
+                    <span class="d-none d-sm-inline-block">{{ i18n.trans('undo') }}</span>
+                </button>
+                <button class="btn btn-sm btn-primary" type="submit">
+                        <i class="fas fa-save fa-fw" aria-hidden="true"></i>
+                        <span class="d-none d-sm-inline-block">{{ i18n.trans('save') }}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal General Settings -->
+    <div class="modal fade" id="modalGeneralSettings" tabindex="-1" aria-labelledby="modalGeneralSettingsLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalGeneralSettingsLabel">{{ i18n.trans('card-general-settings') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" role="tablist">
+                        {% block modalGeneralTab %}
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" data-toggle="tab" href="#generalSettings" role="tab" aria-selected="true">
+                                    {{ i18n.trans('general') }}
+                                </a>
+                            </li>
+                            <li class="nav-item generalTabSticky headerlayout header01" role="presentation">
+                                <a class="nav-link" data-toggle="tab" href="#generalStickyHeader" role="tab" aria-selected="false">
+                                    {{ i18n.trans('sticky-header') }}
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" data-toggle="tab" href="#generalBackground" role="tab" aria-selected="false">
+                                    {{ i18n.trans('background') }}
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" data-toggle="tab" href="#generalMobile" role="tab" aria-selected="false">
+                                    {{ i18n.trans('mobile') }}
+                                </a>
+                            </li>
+                        {% endblock %}
+                    </ul>
+
+                    <div class="tab-content">
+                        {% block modalGeneralContent %}
+                            <div class="tab-pane fade show active" id="generalSettings" role="tabpanel">
+                                {% block modalGeneralSettings %}
+                                    <div class="mt-3">
+                                        <label class="form-label">{{ i18n.trans('width') }}</label>
+                                        <select class="form-control" name="headerwidth">
+                                            <option value="container" {{ (dataHeader.properties.headerwidth == 'container') ? 'selected' : '' }}>Container</values>
+                                            <option value="container-sm" {{ (dataHeader.properties.headerwidth == 'container-sm') ? 'selected' : '' }}>Container sm</option>
+                                            <option value="container-md" {{ (dataHeader.properties.headerwidth == 'container-md') ? 'selected' : '' }}>Container md</option>
+                                            <option value="container-lg" {{ (dataHeader.properties.headerwidth == 'container-lg') ? 'selected' : '' }}>Container lg</option>
+                                            <option value="container-fluid" {{ (dataHeader.properties.headerwidth == 'container-fluid') ? 'selected' : '' }}>Container fluid</option>
+                                        </select>
+                                    </div>
+
+                                    <hr/>
+
+                                    <div class="form-group form-check mt-3">
+                                        <input type="checkbox" class="form-check-input" id="generalPositionToggleMobile" name="generalpositiontogglemobile" {{ (dataHeader.properties.generalpositiontogglemobile) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="generalPositionToggleMobile">{{ i18n.trans('position-toggle-mobile') }}</label>
+                                        <div class="text-muted font-italic font-size-10">{{ i18n.trans('position-toggle-mobile-help') }}</div>
+                                    </div>
+
+                                    <hr/>
+
+                                    <div class="mt-3">
+                                        <div>
+                                            <label class="form-check-label">{{ i18n.trans('header-layout') }}</label>
+                                        </div>
+                                        <div class="btn-group btn-group-toggle py-2 row" data-toggle="buttons">
+                                            {% block headerStyles %}
+                                                <label class="btn btn-secondary col-6 col-lg-4">
+                                                    <input type="radio" name="headerlayout" value="01" {{ (dataHeader.properties.headerlayout == '01' or dataHeader.properties.headerlayout is not defined) ? 'checked' : '' }}>
+                                                    <img src="{{ asset('Dinamic/Assets/Images/header01.png') }}" />
+                                                </label>
+                                            {% endblock %}
+                                        </div>
+                                        <div class="text-muted font-italic font-size-10">{{ i18n.trans('footer-layout-help') }}</div>
+                                    </div>
+                                {% endblock %}
+                            </div>
+
+                            <div class="tab-pane fade" id="generalStickyHeader" role="tabpanel">
+                                {% block modalGeneralSticky %}
+                                    <div class="form-group form-check mt-3">
+                                        <input type="checkbox" class="form-check-input" id="generalStickyOverlap" name="generalstickyoverlap" {{ (dataHeader.properties.generalstickyoverlap) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="generalStickyOverlap">{{ i18n.trans('make-sticky') }}</label>
+                                        <div class="text-muted font-italic font-size-10">{{ i18n.trans('make-sticky-help') }}</div>
+                                    </div>
+
+                                    <hr/>
+                                    
+                                    <div class="form-group form-check mt-3">
+                                        <input type="checkbox" class="form-check-input" id="generalStickyHeaderShadow" name="generalstickyheadershadow" {{ (dataHeader.properties.generalstickyheadershadow) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="generalStickyHeaderShadow">{{ i18n.trans('sticky-header-shadow') }}</label>
+                                        <div class="text-muted font-italic font-size-10">{{ i18n.trans('sticky-header-shadow-help') }}</div>
+                                    </div>
+
+                                    <hr/>
+
+                                    <div class="form-group form-check mt-3">
+                                        <input type="checkbox" class="form-check-input" id="generalStickyHideScrollingDown" name="generalstickyhidescrollingdown" {{ (dataHeader.properties.generalstickyhidescrollingdown) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="generalStickyHideScrollingDown">{{ i18n.trans('hide-scrolling-down') }}</label>
+                                        <div class="text-muted font-italic font-size-10">{{ i18n.trans('hide-scrolling-down-help') }}</div>
+                                    </div>
+
+                                    <hr/>
+
+                                    <div class="form-group form-check mt-3">
+                                        <input type="checkbox" class="form-check-input" id="generalStickyPaddingTopBody" name="generalstickypaddingtopbody" {{ (dataHeader.properties.generalstickypaddingtopbody) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="generalStickyPaddingTopBody">{{ i18n.trans('sticky-padding-body') }}</label>
+                                        <div class="text-muted font-italic font-size-10">{{ i18n.trans('sticky-padding-body-help') }}</div>
+                                    </div>
+                                {% endblock %}
+                            </div>
+
+                            <div class="tab-pane fade" id="generalBackground" role="tabpanel">
+                                {% block modalGeneralBackground %}
+                                    <div class="row mt-3">
+                                        <div class="col-12 bg-secondary text-light py-2">
+                                            {{ i18n.trans('background-settings') }}
+                                        </div>
+
+                                        <div class="col-12 col-md-6 mt-3">
+                                            <label class="form-label">{{ i18n.trans('select-image') }}</label>
+                                            <select class="form-control" name="generalbackgroundimage">
+                                                {% for img in imagesGallery %}
+                                                    <option value="{{ img.code }}" {{ (img.code == dataHeader.properties.generalbackgroundimage) ? 'selected' : '' }}>{{ img.description }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+                                        <div class="col-12 col-md-6 mt-3">
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    <label class="form-label">{{ i18n.trans('color') }}</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="fas fa-palette fa-fw"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="color" name="generalbackgroundcolor" value="{{ (dataHeader.properties.generalbackgroundcolor) ? dataHeader.properties.generalbackgroundcolor : '#ffffff' }}" class="form-control selectColor" autocomplete="off">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-5">
+                                                    <label for="generalbackgroundcoloropacity">{{ i18n.trans('opacity') }}: <output name="ageOutputName" id="generalBackgroundColorOpacityOutput">{{ (dataHeader.properties.generalbackgroundcoloropacity) ? dataHeader.properties.generalbackgroundcoloropacity : 1 }}</output></label>
+                                                    <input type="range" class="form-control-range selectOpacity" name="generalbackgroundcoloropacity" id="generalBackgroundColorOpacityInput" value="{{ (dataHeader.properties.generalbackgroundcoloropacity) ? dataHeader.properties.generalbackgroundcoloropacity : 1 }}" min="0" max="1" step="0.1" oninput="generalBackgroundColorOpacityOutput.value = generalBackgroundColorOpacityInput.value">
+                                                </div>
+
+                                                <div class="col-2 text-center">
+                                                    <label><i class="far fa-eye"></i></label>
+                                                    <div class="backgroundColor" style="width: 100%; height: 25px; border: 1px solid #f1f1f1;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-md-6 mt-3">
+                                            <label class="form-label">{{ i18n.trans('background-image-repeat') }}</label>
+                                            <select class="form-control" name="generalbackgroundimagerepeat">
+                                                <option value="inherit" {{ (dataHeader.properties.generalbackgroundimagerepeat == 'inherit') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                                <option value="no-repeat" {{ (dataHeader.properties.generalbackgroundimagerepeat == 'no-repeat') ? 'selected' : '' }}>{{ i18n.trans('no-repeat') }}</option>
+                                                <option value="repeat" {{ (dataHeader.properties.generalbackgroundimagerepeat == 'repeat') ? 'selected' : '' }}>{{ i18n.trans('repeat') }}</option>
+                                                <option value="repeat-x" {{ (dataHeader.properties.generalbackgroundimagerepeat == 'repeat-x') ? 'selected' : '' }}>{{ i18n.trans('repeat-x') }}</option>
+                                                <option value="repeat-y" {{ (dataHeader.properties.generalbackgroundimagerepeat == 'repeat-y') ? 'selected' : '' }}>{{ i18n.trans('repeat-y') }}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-12 col-md-6 mt-3">
+                                            <label class="form-label">{{ i18n.trans('background-image-size') }}</label>
+                                            <select class="form-control" name="generalbackgroundimagesize">
+                                                <option value="inherit" {{ (dataHeader.properties.generalbackgroundimagesize == 'inherit') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                                <option value="cover" {{ (dataHeader.properties.generalbackgroundimagesize == 'cover') ? 'selected' : '' }}>{{ i18n.trans('cover') }}</option>
+                                                <option value="contain" {{ (dataHeader.properties.generalbackgroundimagesize == 'contain') ? 'selected' : '' }}>{{ i18n.trans('contain') }}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-12 col-md-6 mt-3">
+                                            <label class="form-label">{{ i18n.trans('background-image-attachment') }}</label>
+                                            <select class="form-control" name="generalbackgroundimageattachment">
+                                                <option value="inherit" {{ (dataHeader.properties.generalbackgroundimageattachment == 'inherit') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                                <option value="fixed" {{ (dataHeader.properties.generalbackgroundimageattachment == 'fixed') ? 'selected' : '' }}>{{ i18n.trans('fixed') }}</option>
+                                                <option value="scroll" {{ (dataHeader.properties.generalbackgroundimageattachment == 'scroll') ? 'selected' : '' }}>{{ i18n.trans('scroll') }}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-12 col-md-6 mt-3">
+                                            <label class="form-label">{{ i18n.trans('background-image-position') }}</label>
+                                            <select class="form-control" name="generalbackgroundimageposition">
+                                                <option value="inherit" {{ (dataHeader.properties.generalbackgroundimageposition == 'scroll') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                                <option value="left top" {{ (dataHeader.properties.generalbackgroundimageposition == 'left top') ? 'selected' : '' }}>{{ i18n.trans('left-top') }}</option>
+                                                <option value="left center" {{ (dataHeader.properties.generalbackgroundimageposition == 'left center') ? 'selected' : '' }}>{{ i18n.trans('left-center') }}</option>
+                                                <option value="left bottom" {{ (dataHeader.properties.generalbackgroundimageposition == 'left bottom') ? 'selected' : '' }}>{{ i18n.trans('left-bottom') }}</option>
+                                                <option value="center top" {{ (dataHeader.properties.generalbackgroundimageposition == 'center top') ? 'selected' : '' }}>{{ i18n.trans('center-top') }}</option>
+                                                <option value="center center" {{ (dataHeader.properties.generalbackgroundimageposition == 'center center') ? 'selected' : '' }}>{{ i18n.trans('center-center') }}</option>
+                                                <option value="center bottom" {{ (dataHeader.properties.generalbackgroundimageposition == 'center bottom') ? 'selected' : '' }}>{{ i18n.trans('center-bottom') }}</option>
+                                                <option value="right top" {{ (dataHeader.properties.generalbackgroundimageposition == 'right top') ? 'selected' : '' }}>{{ i18n.trans('right-top') }}</option>
+                                                <option value="right center" {{ (dataHeader.properties.generalbackgroundimageposition == 'right center') ? 'selected' : '' }}>{{ i18n.trans('right-center') }}</option>
+                                                <option value="right bottom" {{ (dataHeader.properties.generalbackgroundimageposition == 'right bottom') ? 'selected' : '' }}>{{ i18n.trans('right-bottom') }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                {% endblock %}
+                            </div>
+
+                            <div class="tab-pane fade" id="generalMobile" role="tabpanel">
+                                {% block modalGeneralMobile %}
+                                    <div class="row mt-3">
+                                        <div class="col-12 bg-secondary text-light py-2">
+                                            {{ i18n.trans('button-color') }}
+                                        </div>
+
+                                        <div class="col-12 mt-3">
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    <label class="form-label">{{ i18n.trans('color') }}</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="fas fa-palette fa-fw"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="color" name="generalmobilebuttoncolor" value="{{ (dataHeader.properties.generalmobilebuttoncolor) ? dataHeader.properties.generalmobilebuttoncolor : '#ffffff' }}" class="form-control selectColor" autocomplete="off">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-5">
+                                                    <label for="generalmobilebuttoncoloropacity">{{ i18n.trans('opacity') }}: <output name="ageOutputName" id="generalMobileButtonOpacityOutput">{{ (dataHeader.properties.generalmobilebuttonopacity) ? dataHeader.properties.generalmobilebuttonopacity : 1 }}</output></label>
+                                                    <input type="range" class="form-control-range selectOpacity" name="generalmobilebuttonopacity" id="generalMobileButtonOpacityInput" value="{{ (dataHeader.properties.generalmobilebuttonopacity) ? dataHeader.properties.generalmobilebuttonopacity : 1 }}" min="0" max="1" step="0.1" oninput="generalMobileButtonOpacityOutput.value = generalMobileButtonOpacityInput.value">
+                                                </div>
+
+                                                <div class="col-2 text-center">
+                                                    <label><i class="far fa-eye"></i></label>
+                                                    <div class="backgroundColor" style="width: 100%; height: 25px; border: 1px solid #f1f1f1;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3 headerlayout header01 mobilebtnbordercolor">
+                                        <div class="col-12 bg-secondary text-light py-2">
+                                            {{ i18n.trans('button-border-color') }}
+                                        </div>
+
+                                        <div class="col-12 mt-3">
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    <label class="form-label">{{ i18n.trans('color') }}</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="fas fa-palette fa-fw"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="color" name="generalmobilebordercolor" value="{{ (dataHeader.properties.generalmobilebordercolor) ? dataHeader.properties.generalmobilebordercolor : '#ffffff' }}" class="form-control selectColor" autocomplete="off">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-5">
+                                                    <label for="generalmobilebordercoloropacity">{{ i18n.trans('opacity') }}: <output name="ageOutputName" id="generalMobileBorderOpacityOutput">{{ (dataHeader.properties.generalmobileborderopacity) ? dataHeader.properties.generalmobileborderopacity : 1 }}</output></label>
+                                                    <input type="range" class="form-control-range selectOpacity" name="generalmobileborderopacity" id="generalMobileBorderOpacityInput" value="{{ (dataHeader.properties.generalmobileborderopacity) ? dataHeader.properties.generalmobileborderopacity : 1 }}" min="0" max="1" step="0.1" oninput="generalMobileBorderOpacityOutput.value = generalMobileBorderOpacityInput.value">
+                                                </div>
+
+                                                <div class="col-2 text-center">
+                                                    <label><i class="far fa-eye"></i></label>
+                                                    <div class="backgroundColor" style="width: 100%; height: 25px; border: 1px solid #f1f1f1;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endblock %}
+                            </div>
+                        {% endblock %}
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">
+                        {{ i18n.trans('accept') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Individual Settings -->
+    {% set items = ['HeaderTop', 'HeaderMain', 'HeaderBottom'] %}
+    {% for item in items %}
+        <div class="modal fade" id="modal{{ item }}" tabindex="-1" aria-labelledby="modal{{ item }}Label" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal{{ item }}Label">
+                            {% if item starts with 'HeaderTop' %}
+                                {{ i18n.trans('modal-top-settings') }}
+                            {% elseif item starts with 'HeaderMain' %}
+                                {{ i18n.trans('modal-main-settings') }}
+                            {% else %}
+                                {{ i18n.trans('modal-bottom-settings') }}
+                            {% endif %}
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <ul class="nav nav-tabs" role="tablist">
+                            {% block modalIndividualTab %}
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active" data-toggle="tab" href="#{{ item }}Settings" role="tab" aria-selected="true">
+                                        {{ i18n.trans('general') }}
+                                    </a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" data-toggle="tab" href="#{{ item }}Background" role="tab" aria-selected="false">
+                                        {{ i18n.trans('background') }}
+                                    </a>
+                                </li>
+                                <li class="nav-item headerlayout header01 individualTabBorder" role="presentation">
+                                    <a class="nav-link" data-toggle="tab" href="#{{ item }}Borders" role="tab" aria-selected="false">
+                                        {{ i18n.trans('borders') }}
+                                    </a>
+                                </li>
+                            {% endblock %}
+                        </ul>
+
+                        <div class="tab-content">
+                            {% block modalIndividualContent %}
+                                <div class="tab-pane fade show active" id="{{ item }}Settings" role="tabpanel">
+                                    {% block modalIndividualSettings %}
+                                        <div class="mt-3">
+                                            <div>
+                                                <label class="form-check-label">{{ i18n.trans('row-flex-layout') }}</label>
+                                            </div>
+                                            <div class="btn-group btn-group-toggle py-2" data-toggle="buttons">
+                                                <label class="btn btn-secondary">
+                                                    <input type="radio" name="{{ item|lower }}rowflexlayout" value="0" {{ (dataHeader.properties[item|lower ~ 'rowflexlayout'] == 0) ? 'checked' : '' }}>
+                                                    <img src="{{ asset('Dinamic/Assets/Images/header-layout-1.jpg') }}" />
+                                                </label>
+                                                <label class="btn btn-secondary">
+                                                    <input type="radio" name="{{ item|lower }}rowflexlayout" value="1" {{ (dataHeader.properties[item|lower ~ 'rowflexlayout'] == 1) ? 'checked' : '' }}>
+                                                    <img src="{{ asset('Dinamic/Assets/Images/header-layout-2.jpg') }}" />
+                                                </label>
+                                            </div>
+                                            <div class="text-muted font-italic font-size-10">{{ i18n.trans('row-flex-layout-help') }}</div>
+                                        </div>
+
+                                        <hr/>
+
+                                        <div class="form-group mt-3">
+                                            <label for="{{ item }}RowHeight">{{ i18n.trans('row-height') }} <output name="ageOutputName" id="{{ item }}RowHeightOutput">{{ (dataHeader.properties[item|lower ~ 'rowheight'] >= 0) ? dataHeader.properties[item|lower ~ 'rowheight'] : 40 }}</output>px</label>
+                                            <input type="range" class="form-control-range" name="{{ item|lower }}rowheight" id="{{ item }}RowHeightInput" value="{{ (dataHeader.properties[item|lower ~ 'rowheight'] >= 0) ? dataHeader.properties[item|lower ~ 'rowheight'] : 40 }}" min="0" max="200" oninput="{{ item }}RowHeightOutput.value = {{ item }}RowHeightInput.value">                                        
+                                            <div class="text-muted font-italic font-size-10">{{ i18n.trans('row-height-help') }}</div>
+                                        </div>
+
+                                        <hr/>
+
+                                        <div class="form-group form-check mt-3">
+                                            <input type="checkbox" class="form-check-input" id="{{ item }}HideDesktop" name="{{ item|lower }}hidedesktop" {{ (dataHeader.properties[item|lower ~ 'hidedesktop']) ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="{{ item }}HideDesktop">{{ i18n.trans('hide-desktop') }}</label>
+                                            <div class="text-muted font-italic font-size-10">{{ i18n.trans('hide-desktop-help') }}</div>
+                                        </div>
+
+                                        <hr/>
+
+                                        <div class="form-group form-check mt-3">
+                                            <input type="checkbox" class="form-check-input" id="{{ item }}HideMobile" name="{{ item|lower }}hidemobile" {{ (dataHeader.properties[item|lower ~ 'hidemobile']) ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="{{ item }}HideMobile">{{ i18n.trans('hide-mobile') }}</label>
+                                            <div class="text-muted font-italic font-size-10">{{ i18n.trans('hide-mobile-help') }}</div>
+                                        </div>
+
+                                        <div class="form-group form-check mt-3 individualsticky headerlayout header01">
+                                            <hr/>
+                                            
+                                            <input type="checkbox" class="form-check-input changeShip" id="{{ item }}MakeSticky" name="{{ item|lower }}makesticky" {{ (dataHeader.properties[item|lower ~ 'makesticky']) ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="{{ item }}MakeSticky">{{ i18n.trans('make-sticky') }}</label>
+                                            <div class="text-muted font-italic font-size-10">{{ i18n.trans('make-sticky-help') }}</div>
+                                        </div>
+
+                                        <hr/>
+
+                                        <div class="form-group form-check mt-3">
+                                            <input type="checkbox" class="form-check-input" id="{{ item }}Shadow" name="{{ item|lower }}shadow" {{ (dataHeader.properties[item|lower ~ 'shadow']) ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="{{ item }}Shadow">{{ i18n.trans('shadow') }}</label>
+                                            <div class="text-muted font-italic font-size-10">{{ i18n.trans('shadow-help') }}</div>
+                                        </div>
+                                    {% endblock %}
+                                </div>
+
+                                <div class="tab-pane fade" id="{{ item }}Background" role="tabpanel">
+                                    {% block modalIndividualbackground %}
+                                        <div class="row mt-3">
+                                            <div class="col-12 bg-secondary text-light py-2">
+                                                {{ i18n.trans('background-settings') }}
+                                            </div>
+
+                                            <div class="col-12 col-md-6 mt-3">
+                                                <label class="form-label">{{ i18n.trans('select-image') }}</label>
+                                                <select class="form-control" name="{{ item|lower }}backgroundimage">
+                                                    {% for img in imagesGallery %}
+                                                        <option value="{{ img.code }}" {{ (img.code == dataHeader.properties[item|lower ~ 'backgroundimage']) ? 'selected' : '' }}>{{ img.description }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 mt-3">
+                                                <div class="row">
+                                                    <div class="col-5">
+                                                        <label class="form-label">{{ i18n.trans('color') }}</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">
+                                                                    <i class="fas fa-palette fa-fw"></i>
+                                                                </span>
+                                                            </div>
+                                                            <input type="color" name="{{ item|lower }}backgroundcolor" value="{{ (dataHeader.properties[item|lower ~ 'backgroundcolor']) ? dataHeader.properties[item|lower ~ 'backgroundcolor'] : '#ffffff' }}" class="form-control selectColor" autocomplete="off">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-5">
+                                                        <label for="{{ item }}backgroundcoloropacity">{{ i18n.trans('opacity') }}: <output name="ageOutputName" id="{{ item }}BackgroundColorOpacityOutput">{{ (dataHeader.properties[item|lower ~ 'backgroundcoloropacity']) ? dataHeader.properties[item|lower ~ 'backgroundcoloropacity'] : 1 }}</output></label>
+                                                        <input type="range" class="form-control-range selectOpacity" name="{{ item|lower }}backgroundcoloropacity" id="{{ item }}BackgroundColorOpacityInput" value="{{ (dataHeader.properties[item|lower ~ 'backgroundcoloropacity']) ? dataHeader.properties[item|lower ~ 'backgroundcoloropacity'] : 1 }}" min="0" max="1" step="0.1" oninput="{{ item }}BackgroundColorOpacityOutput.value = {{ item }}BackgroundColorOpacityInput.value">
+                                                    </div>
+
+                                                    <div class="col-2 text-center">
+                                                        <label><i class="far fa-eye"></i></label>
+                                                        <div class="backgroundColor" style="width: 100%; height: 25px; border: 1px solid #f1f1f1;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 mt-3">
+                                                <label class="form-label">{{ i18n.trans('background-image-repeat') }}</label>
+                                                <select class="form-control" name="{{ item|lower }}backgroundimagerepeat">
+                                                    <option value="inherit" {{ (dataHeader.properties[item|lower ~ 'backgroundimagerepeat'] == 'inherit') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                                    <option value="no-repeat" {{ (dataHeader.properties[item|lower ~ 'backgroundimagerepeat'] == 'no-repeat') ? 'selected' : '' }}>{{ i18n.trans('no-repeat') }}</option>
+                                                    <option value="repeat" {{ (dataHeader.properties[item|lower ~ 'backgroundimagerepeat'] == 'repeat') ? 'selected' : '' }}>{{ i18n.trans('repeat') }}</option>
+                                                    <option value="repeat-x" {{ (dataHeader.properties[item|lower ~ 'backgroundimagerepeat'] == 'repeat-x') ? 'selected' : '' }}>{{ i18n.trans('repeat-x') }}</option>
+                                                    <option value="repeat-y" {{ (dataHeader.properties[item|lower ~ 'backgroundimagerepeat'] == 'repeat-y') ? 'selected' : '' }}>{{ i18n.trans('repeat-y') }}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 mt-3">
+                                                <label class="form-label">{{ i18n.trans('background-image-size') }}</label>
+                                                <select class="form-control" name="{{ item|lower }}backgroundimagesize">
+                                                    <option value="inherit" {{ (dataHeader.properties[item|lower ~ 'backgroundimagesize'] == 'inherit') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                                    <option value="cover" {{ (dataHeader.properties[item|lower ~ 'backgroundimagesize'] == 'cover') ? 'selected' : '' }}>{{ i18n.trans('cover') }}</option>
+                                                    <option value="contain" {{ (dataHeader.properties[item|lower ~ 'backgroundimagesize'] == 'contain') ? 'selected' : '' }}>{{ i18n.trans('contain') }}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 mt-3">
+                                                <label class="form-label">{{ i18n.trans('background-image-attachment') }}</label>
+                                                <select class="form-control" name="{{ item|lower }}backgroundimageattachment">
+                                                    <option value="inherit" {{ (dataHeader.properties[item|lower ~ 'backgroundimageattachment'] == 'inherit') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                                    <option value="fixed" {{ (dataHeader.properties[item|lower ~ 'backgroundimageattachment'] == 'fixed') ? 'selected' : '' }}>{{ i18n.trans('fixed') }}</option>
+                                                    <option value="scroll" {{ (dataHeader.properties[item|lower ~ 'backgroundimageattachment'] == 'scroll') ? 'selected' : '' }}>{{ i18n.trans('scroll') }}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 mt-3">
+                                                <label class="form-label">{{ i18n.trans('background-image-position') }}</label>
+                                                <select class="form-control" name="{{ item|lower }}backgroundimageposition">
+                                                    <option value="inherit" {{ (dataHeader.properties[item|lower ~ 'backgroundimageposition'] == 'scroll') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                                    <option value="left top" {{ (dataHeader.properties[item|lower ~ 'backgroundimageposition'] == 'left top') ? 'selected' : '' }}>{{ i18n.trans('left-top') }}</option>
+                                                    <option value="left center" {{ (dataHeader.properties[item|lower ~ 'backgroundimageposition'] == 'left center') ? 'selected' : '' }}>{{ i18n.trans('left-center') }}</option>
+                                                    <option value="left bottom" {{ (dataHeader.properties[item|lower ~ 'backgroundimageposition'] == 'left bottom') ? 'selected' : '' }}>{{ i18n.trans('left-bottom') }}</option>
+                                                    <option value="center top" {{ (dataHeader.properties[item|lower ~ 'backgroundimageposition'] == 'center top') ? 'selected' : '' }}>{{ i18n.trans('center-top') }}</option>
+                                                    <option value="center center" {{ (dataHeader.properties[item|lower ~ 'backgroundimageposition'] == 'center center') ? 'selected' : '' }}>{{ i18n.trans('center-center') }}</option>
+                                                    <option value="center bottom" {{ (dataHeader.properties[item|lower ~ 'backgroundimageposition'] == 'center bottom') ? 'selected' : '' }}>{{ i18n.trans('center-bottom') }}</option>
+                                                    <option value="right top" {{ (dataHeader.properties[item|lower ~ 'backgroundimageposition'] == 'right top') ? 'selected' : '' }}>{{ i18n.trans('right-top') }}</option>
+                                                    <option value="right center" {{ (dataHeader.properties[item|lower ~ 'backgroundimageposition'] == 'right center') ? 'selected' : '' }}>{{ i18n.trans('right-center') }}</option>
+                                                    <option value="right bottom" {{ (dataHeader.properties[item|lower ~ 'backgroundimageposition'] == 'right bottom') ? 'selected' : '' }}>{{ i18n.trans('right-bottom') }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    {% endblock %}
+                                </div>
+
+                                <div class="tab-pane fade" id="{{ item }}Borders" role="tabpanel">
+                                    {% block modalIndividualBorders %}
+                                        <div class="row mt-3">
+                                            <div class="col-12 bg-secondary text-light py-2">
+                                                {{ i18n.trans('border-top') }}
+                                            </div>
+
+                                            <div class="col-6 col-md-6 mt-3">
+                                                <label class="form-label">{{ i18n.trans('width') }}</label>
+                                                <input type="number" name="{{ item|lower }}bordertopwidth" value="{{ dataHeader.properties[item|lower ~ 'bordertopwidth'] }}" class="form-control" />
+                                            </div>
+
+                                            <div class="col-6 col-md-6 mt-3">
+                                                <label class="form-label">{{ i18n.trans('color') }}</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-palette fa-fw"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="color" name="{{ item|lower }}bordertopcolor" value="{{ (dataHeader.properties[item|lower ~ 'bordertopcolor']) ? dataHeader.properties[item|lower ~ 'bordertopcolor'] : '#ffffff' }}" class="form-control selectColor" autocomplete="off">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6 col-md-6 mt-3">
+                                                <label class="form-label">{{ i18n.trans('style') }}</label>
+                                                <select class="form-control" name="{{ item|lower }}bordertopstyle">
+                                                    <option value="solid" {{ (dataHeader.properties[item|lower ~ 'bordertopstyle'] == 'solid') ? 'selected' : '' }}>{{ i18n.trans('solid') }}</option>
+                                                    <option value="dotted" {{ (dataHeader.properties[item|lower ~ 'bordertopstyle'] == 'dotted') ? 'selected' : '' }}>{{ i18n.trans('dotted') }}</option>
+                                                    <option value="dashed" {{ (dataHeader.properties[item|lower ~ 'bordertopstyle'] == 'dashed') ? 'selected' : '' }}>{{ i18n.trans('dashed') }}</option>
+                                                    <option value="double" {{ (dataHeader.properties[item|lower ~ 'bordertopstyle'] == 'double') ? 'selected' : '' }}>{{ i18n.trans('double') }}</option>
+                                                    <option value="groove" {{ (dataHeader.properties[item|lower ~ 'bordertopstyle'] == 'groove') ? 'selected' : '' }}>{{ i18n.trans('groove') }}</option>
+                                                    <option value="ridge" {{ (dataHeader.properties[item|lower ~ 'bordertopstyle'] == 'ridge') ? 'selected' : '' }}>{{ i18n.trans('ridge') }}</option>
+                                                    <option value="inset" {{ (dataHeader.properties[item|lower ~ 'bordertopstyle'] == 'inset') ? 'selected' : '' }}>{{ i18n.trans('inset') }}</option>
+                                                    <option value="outset" {{ (dataHeader.properties[item|lower ~ 'bordertopstyle'] == 'outset') ? 'selected' : '' }}>{{ i18n.trans('outset') }}</option>
+                                                    <option value="inherit" {{ (dataHeader.properties[item|lower ~ 'bordertopstyle'] == 'inherit') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-6 col-md-6 mt-3">
+                                                <label class="form-label">{{ i18n.trans('container') }}</label>
+                                                <select class="form-control" name="{{ item|lower }}bordertopcontainer">
+                                                    <option value="fullwidth" {{ (dataHeader.properties[item|lower ~ 'bordertopcontainer'] == 'fullwidth') ? 'selected' : '' }}>{{ i18n.trans('fullwidth') }}</option>
+                                                    <option value="boxed" {{ (dataHeader.properties[item|lower ~ 'bordertopcontainer'] == 'boxed') ? 'selected' : '' }}>{{ i18n.trans('boxed') }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-3">
+                                            <div class="col-12 bg-secondary text-light py-2">
+                                                {{ i18n.trans('border-bottom') }}
+                                            </div>
+
+                                            <div class="col-6 col-md-6 mt-3">
+                                                <label class="form-label">{{ i18n.trans('width') }}</label>
+                                                <input type="number" name="{{ item|lower }}borderbottomwidth" value="{{ dataHeader.properties[item|lower ~ 'borderbottomwidth'] }}" class="form-control" />
+                                            </div>
+
+                                            <div class="col-6 col-md-6 mt-3">
+                                                <label class="form-label">{{ i18n.trans('color') }}</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-palette fa-fw"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="color" name="{{ item|lower }}borderbottomcolor" value="{{ (dataHeader.properties[item|lower ~ 'borderbottomcolor']) ? dataHeader.properties[item|lower ~ 'borderbottomcolor'] : '#ffffff' }}" class="form-control selectColor" autocomplete="off">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6 col-md-6 mt-3">
+                                                <label class="form-label">{{ i18n.trans('style') }}</label>
+                                                <select class="form-control" name="{{ item|lower }}borderbottomstyle">
+                                                    <option value="solid" {{ (dataHeader.properties[item|lower ~ 'borderbottomstyle'] == 'solid') ? 'selected' : '' }}>{{ i18n.trans('solid') }}</option>
+                                                    <option value="dotted" {{ (dataHeader.properties[item|lower ~ 'borderbottomstyle'] == 'dotted') ? 'selected' : '' }}>{{ i18n.trans('dotted') }}</option>
+                                                    <option value="dashed" {{ (dataHeader.properties[item|lower ~ 'borderbottomstyle'] == 'dashed') ? 'selected' : '' }}>{{ i18n.trans('dashed') }}</option>
+                                                    <option value="double" {{ (dataHeader.properties[item|lower ~ 'borderbottomstyle'] == 'double') ? 'selected' : '' }}>{{ i18n.trans('double') }}</option>
+                                                    <option value="groove" {{ (dataHeader.properties[item|lower ~ 'borderbottomstyle'] == 'groove') ? 'selected' : '' }}>{{ i18n.trans('groove') }}</option>
+                                                    <option value="ridge" {{ (dataHeader.properties[item|lower ~ 'borderbottomstyle'] == 'ridge') ? 'selected' : '' }}>{{ i18n.trans('ridge') }}</option>
+                                                    <option value="inset" {{ (dataHeader.properties[item|lower ~ 'borderbottomstyle'] == 'inset') ? 'selected' : '' }}>{{ i18n.trans('inset') }}</option>
+                                                    <option value="outset" {{ (dataHeader.properties[item|lower ~ 'borderbottomstyle'] == 'outset') ? 'selected' : '' }}>{{ i18n.trans('outset') }}</option>
+                                                    <option value="inherit" {{ (dataHeader.properties[item|lower ~ 'borderbottomstyle'] == 'inherit') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-6 col-md-6 mt-3">
+                                                <label class="form-label">{{ i18n.trans('container') }}</label>
+                                                <select class="form-control" name="{{ item|lower }}borderbottomcontainer">
+                                                    <option value="fullwidth" {{ (dataHeader.properties[item|lower ~ 'borderbottomcontainer'] == 'fullwidth') ? 'selected' : '' }}>{{ i18n.trans('fullwidth') }}</option>
+                                                    <option value="boxed" {{ (dataHeader.properties[item|lower ~ 'borderbottomcontainer'] == 'boxed') ? 'selected' : '' }}>{{ i18n.trans('boxed') }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    {% endblock %}
+                                </div>
+                            {% endblock %}
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">
+                            {{ i18n.trans('accept') }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</form>
+
+{% block javascript %}
+    <script type="text/javascript">
+        function editViewDelete(viewName) {
+            bootbox.confirm({
+                title: "{{ i18n.trans('confirm-delete') }}",
+                message: "{{ i18n.trans('are-you-sure') }}",
+                closeButton: false,
+                buttons: {
+                    cancel: {
+                        label: '<i class="fas fa-times"></i> {{ i18n.trans('cancel') }}'
+                    },
+                    confirm: {
+                        label: '<i class="fas fa-check"></i> {{ i18n.trans('confirm') }}',
+                        className: "btn-danger"
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        $("#form" + viewName + " :input[name=\"action\"]").val("delete");
+                        $("#form" + viewName).submit();
+                    }
+                }
+            });
+            return false;
+        }
+
+        $(document).ready(function(){
+            function backgroundColorPreview(color, opacity, divColor) {
+                $(divColor).css('opacity', opacity);
+                $(divColor).css('background-color', color);
+            }
+
+            $('.selectColor').each(function(){
+                var color = $(this).val();
+                var opacity = $(this).parent().parent().parent().find('.selectOpacity').val();
+                var divColor = $(this).parent().parent().parent().find('.backgroundColor');
+                backgroundColorPreview(color, opacity, divColor);
+            });
+
+            $('.selectColor').change(function(value){
+                var color = $(this).val();
+                var opacity = $(this).parent().parent().parent().find('.selectOpacity').val();
+                var divColor = $(this).parent().parent().parent().find('.backgroundColor');
+                backgroundColorPreview(color, opacity, divColor);
+            });
+
+            $('.selectOpacity').change(function(value){
+                var color = $(this).parent().parent().find('.selectColor').val();
+                var opacity = $(this).val();
+                var divColor = $(this).parent().parent().find('.backgroundColor');
+                backgroundColorPreview(color, opacity, divColor);
+            });
+
+            function changeShip(checkbox) {
+                var div = $(checkbox).parent().find('div.changeShip');
+                
+                if($(checkbox).is(':checked')) {
+                    div.show();
+                } else {
+                    div.hide();
+                }
+            }
+
+            $('input.changeShip').each(function(){
+                changeShip(this);
+            });
+            
+            $('input.changeShip').on('click', function() {
+                changeShip(this);
+            });
+
+            function changeStickyShip(checkbox) {
+                var div = $(checkbox).parent().parent().parent().find('div.changeGeneralSticky');
+                
+                if($(checkbox).is(':checked')) {
+                    div.show();
+                } else {
+                    div.hide();
+                }
+            }
+
+            $('input.hideGeneralSticky').on('click', function(){
+                var div = $(this).parent().parent().parent().find('div.changeGeneralSticky');
+                div.hide();
+            });
+
+            $('input.showGeneralSticky').each(function(){
+                changeStickyShip(this);
+            });
+            
+            $('input.showGeneralSticky').on('click', function() {
+                changeStickyShip(this);
+            });
+
+            function layoutsHeader() {
+                $('.headerlayout').hide();
+                $('.header' + $('input[name="headerlayout"]:checked').val()).show();
+            }
+
+            layoutsHeader();
+
+            $('input[name="headerlayout"]').on('click', function(){
+                layoutsHeader();
+                $('.modal-header button').click();
+            });
+        });
+    </script>
+{% endblock %}

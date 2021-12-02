@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : webpages.xml
+    Author     : Carlos Garcia Gomez
+    Description:
+        Structure for the webpages table.
+-->
+<table>
+    <column>
+        <name>content</name>
+        <type>longblob</type>
+    </column>
+    <column>
+        <name>creationdate</name>
+        <type>date</type>
+    </column>
+    <column>
+        <name>customcontroller</name>
+        <type>character varying(40)</type>
+    </column>
+    <column>
+        <name>description</name>
+        <type>character varying(150)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>idfile</name>
+        <type>integer</type>
+    </column>
+    <column>
+        <name>idpage</name>
+        <type>serial</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>lastmod</name>
+        <type>date</type>
+    </column>
+    <column>
+        <name>pagecss</name>
+        <type>longblob</type>
+    </column>
+    <column>
+        <name>pagejshead</name>
+        <type>longblob</type>
+    </column>
+    <column>
+        <name>pagejsfooter</name>
+        <type>longblob</type>
+    </column>
+    <column>
+        <name>pagemeta</name>
+        <type>longblob</type>
+    </column>
+    <column>
+        <name>pageparent</name>
+        <type>integer</type>
+    </column>
+    <column>
+        <name>permalink</name>
+        <type>text</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>properties</name>
+        <type>longblob</type>
+    </column>
+    <column>
+        <name>title</name>
+        <type>character varying(60)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>type</name>
+        <type>character varying(40)</type>
+        <null>NO</null>
+    </column>
+    <constraint>
+        <name>webpages_pkey</name>
+        <type>PRIMARY KEY (idpage)</type>
+    </constraint>
+    <constraint>
+        <name>ca_webpages_attached_files</name>
+        <type>FOREIGN KEY (idfile) REFERENCES attached_files (idfile) ON DELETE RESTRICT ON UPDATE CASCADE</type>
+    </constraint>
+</table>

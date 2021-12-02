@@ -1,0 +1,18 @@
+{% set order = fsc.getCurrentView().model %}
+
+<div class="container pt-2 pb-3">
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            <h1 class="h3">
+                <i class="fas fa-copy"></i> {{ i18n.customTrans(fsc.webPage.filelang, 'estimation') }} {{ order.codigo }}
+            </h1>
+        </div>
+
+        <div class="col-12 col-lg-6 text-right">
+            <a href="{{ asset('Me') }}?activetab=CardPresupuestoCliente" class="btn btn-secondary">
+                <i class="fas fa-list fa-fw"></i>
+                {{ i18n.customTrans(fsc.webPage.filelang, 'all') }}
+            </a>
+        </div>
+    </div>
+</div>

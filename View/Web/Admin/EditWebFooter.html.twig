@@ -1,0 +1,682 @@
+{% set currentView = fsc.getCurrentView() %}
+{% set dataFooter = currentView.model  %}
+{% set imagesGallery = fsc.imagesGallery() %}
+
+<form id="formEditWebFooter" method="post" enctype="multipart/form-data">
+    
+    {% if dataFooter.idfooter %}
+        <input type="hidden" name="action" value="edit">
+    {% else %}
+        <input type="hidden" name="action" value="insert">
+    {% endif %}
+    
+    <input type="hidden" name="activetab" value="EditWebFooter">
+    <input type="hidden" name="code" value="{{ dataFooter.idfooter }}">
+    <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
+    
+    <div class="container-fluid px-0">
+        <div class="card mt-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <label class="form-label">{{ i18n.trans('name') }}</label>
+                        <input name="name" value="{{ dataFooter.name }}" type="text" class="form-control" required/>
+                    </div>
+
+                    <div class="col-12 col-md-6 d-flex justify-content-end align-self-center">
+                        <button type="button" class="btn btn-warning mr-3" data-toggle="modal" data-target="#modalGeneralSettings">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4 shadow">
+            <div class="card-header">
+                <div class="d-flex bd-highlight">
+                    <div class="mr-auto bd-highlight">
+                        {{ i18n.trans('card-top') }}
+                    </div>
+                    <div class="bd-highlight">
+                        <button type="button" class="btn btn-secondary d-flex justify-content-end" data-toggle="modal" data-target="#modalFooterTop">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-4">
+                        <div id="footer5001" class="codemirror htmlEditor">
+                            <textarea class="d-none" name="footer5001"></textarea>
+                            <code class="d-none">{{ dataFooter.content.footer5001 }}</code>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div id="footer5002" class="codemirror htmlEditor">
+                            <textarea class="d-none" name="footer5002"></textarea>
+                            <code class="d-none">{{ dataFooter.content.footer5002 }}</code>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div id="footer5003" class="codemirror htmlEditor">
+                            <textarea class="d-none" name="footer5003"></textarea>
+                            <code class="d-none">{{ dataFooter.content.footer5003 }}</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4 shadow">
+            <div class="card-header">
+                <div class="d-flex bd-highlight">
+                    <div class="mr-auto bd-highlight">
+                        {{ i18n.trans('card-main') }}
+                    </div>
+                    <div class="bd-highlight">
+                        <button type="button" class="btn btn-secondary d-flex justify-content-end" data-toggle="modal" data-target="#modalFooterMain">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                {% block footerContent %}
+                    <div class="footerlayout" id="footer01">
+                        <div class="row">
+                            <div class="col-12">
+                                <div id="footer0101" class="codemirror htmlEditor">
+                                    <textarea class="d-none" name="footer0101"></textarea>
+                                    <code class="d-none">{{ dataFooter.content.footer0101 }}</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+
+        <div class="card mt-4 shadow">
+            <div class="card-header">
+                <div class="d-flex bd-highlight">
+                    <div class="mr-auto bd-highlight">
+                        {{ i18n.trans('card-bottom') }}
+                    </div>
+                    <div class="bd-highlight">
+                        <button type="button" class="btn btn-secondary d-flex justify-content-end" data-toggle="modal" data-target="#modalFooterBottom">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-4">
+                        <div id="footer6001" class="codemirror htmlEditor">
+                            <textarea class="d-none" name="footer6001"></textarea>
+                            <code class="d-none">{{ dataFooter.content.footer6001 }}</code>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div id="footer6002" class="codemirror htmlEditor">
+                            <textarea class="d-none" name="footer6002"></textarea>
+                            <code class="d-none">{{ dataFooter.content.footer6002 }}</code>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div id="footer6003" class="codemirror htmlEditor">
+                            <textarea class="d-none" name="footer6003"></textarea>
+                            <code class="d-none">{{ dataFooter.content.footer6003 }}</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-6">
+                <button type="button" class="btn btn-sm btn-danger" onclick="editViewDelete('EditWebFooter');">
+                    <i class="fas fa-trash-alt fa-fw" aria-hidden="true"></i>
+                    <span class="d-none d-sm-inline-block">{{ i18n.trans('delete') }}</span>
+                </button>
+            </div>
+            
+            <div class="col-6 text-right">
+                <button class="btn btn-sm btn-secondary" type="reset">
+                    <i class="fas fa-undo fa-fw" aria-hidden="true"></i>
+                    <span class="d-none d-sm-inline-block">{{ i18n.trans('undo') }}</span>
+                </button>
+                <button class="btn btn-sm btn-primary" type="submit">
+                        <i class="fas fa-save fa-fw" aria-hidden="true"></i>
+                        <span class="d-none d-sm-inline-block">{{ i18n.trans('save') }}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal General Settings -->
+    <div class="modal fade" id="modalGeneralSettings" tabindex="-1" aria-labelledby="modalGeneralSettingsLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-footer">
+                    <h5 class="modal-title" id="modalGeneralSettingsLabel">{{ i18n.trans('card-general-settings') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" data-toggle="tab" href="#generalSettings" role="tab" aria-selected="true">
+                                {{ i18n.trans('general') }}
+                            </a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" data-toggle="tab" href="#generalBackground" role="tab" aria-selected="false">
+                                {{ i18n.trans('background') }}
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="generalSettings" role="tabpanel">
+                            <div class="col-4 mt-3">
+                                <label class="form-label">{{ i18n.trans('width') }}</label>
+                                <select class="form-control" name="footerwidth">
+                                    <option value="container" {{ (dataFooter.properties.footerwidth == 'container') ? 'selected' : '' }}>Container</values>
+                                    <option value="container-sm" {{ (dataFooter.properties.footerwidth == 'container-sm') ? 'selected' : '' }}>Container sm</option>
+                                    <option value="container-md" {{ (dataFooter.properties.footerwidth == 'container-md') ? 'selected' : '' }}>Container md</option>
+                                    <option value="container-lg" {{ (dataFooter.properties.footerwidth == 'container-lg') ? 'selected' : '' }}>Container lg</option>
+                                    <option value="container-fluid" {{ (dataFooter.properties.footerwidth == 'container-fluid') ? 'selected' : '' }}>Container fluid</option>
+                                </select>
+                            </div>
+
+                            <hr>
+
+                            <div class="form-group form-check mt-3">
+                                <input type="checkbox" class="form-check-input" id="footerShadow" name="footershadow" {{ (dataFooter.properties.footershadow) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="footerShadow">{{ i18n.trans('shadow') }}</label>
+                                <div class="text-muted font-italic font-size-10">{{ i18n.trans('shadow-footer-help') }}</div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="generalBackground" role="tabpanel">
+                            <div class="row mt-3">
+                                <div class="col-12 bg-secondary text-light py-2">
+                                    {{ i18n.trans('background-settings') }}
+                                </div>
+
+                                <div class="col-12 col-md-6 mt-3">
+                                    <label class="form-label">{{ i18n.trans('select-image') }}</label>
+                                    <select class="form-control" name="footerbackgroundimage">
+                                        {% for img in imagesGallery %}
+                                            <option value="{{ img.code }}" {{ (img.code == dataFooter.properties.footerbackgroundimage) ? 'selected' : '' }}>{{ img.description }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-6 mt-3">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <label class="form-label">{{ i18n.trans('color') }}</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="fas fa-palette fa-fw"></i>
+                                                    </span>
+                                                </div>
+                                                <input type="color" name="footerbackgroundcolor" value="{{ (dataFooter.properties.footerbackgroundcolor) ? dataFooter.properties.footerbackgroundcolor : '#ffffff' }}" class="form-control selectColor" autocomplete="off">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-5">
+                                            <label for="footerbackgroundcoloropacity">{{ i18n.trans('opacity') }}: <output name="ageOutputName" id="footerBackgroundColorOpacityOutput">{{ (dataFooter.properties.footerbackgroundcoloropacity) ? dataFooter.properties.footerbackgroundcoloropacity : 1 }}</output></label>
+                                            <input type="range" class="form-control-range selectOpacity" name="footerbackgroundcoloropacity" id="footerBackgroundColorOpacityInput" value="{{ (dataFooter.properties.footerbackgroundcoloropacity) ? dataFooter.properties.footerbackgroundcoloropacity : 1 }}" min="0" max="1" step="0.1" oninput="footerBackgroundColorOpacityOutput.value = footerBackgroundColorOpacityInput.value">
+                                        </div>
+
+                                        <div class="col-2 text-center">
+                                            <label><i class="far fa-eye"></i></label>
+                                            <div class="backgroundColor" style="width: 100%; height: 25px; border: 1px solid #f1f1f1;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 mt-3">
+                                    <label class="form-label">{{ i18n.trans('background-image-repeat') }}</label>
+                                    <select class="form-control" name="footerbackgroundimagerepeat">
+                                        <option value="inherit" {{ (dataFooter.properties.footerbackgroundimagerepeat == 'inherit') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                        <option value="no-repeat" {{ (dataFooter.properties.footerbackgroundimagerepeat == 'no-repeat') ? 'selected' : '' }}>{{ i18n.trans('no-repeat') }}</option>
+                                        <option value="repeat" {{ (dataFooter.properties.footerbackgroundimagerepeat == 'repeat') ? 'selected' : '' }}>{{ i18n.trans('repeat') }}</option>
+                                        <option value="repeat-x" {{ (dataFooter.properties.footerbackgroundimagerepeat == 'repeat-x') ? 'selected' : '' }}>{{ i18n.trans('repeat-x') }}</option>
+                                        <option value="repeat-y" {{ (dataFooter.properties.footerbackgroundimagerepeat == 'repeat-y') ? 'selected' : '' }}>{{ i18n.trans('repeat-y') }}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-6 mt-3">
+                                    <label class="form-label">{{ i18n.trans('background-image-size') }}</label>
+                                    <select class="form-control" name="footerbackgroundimagesize">
+                                        <option value="inherit" {{ (dataFooter.properties.footerbackgroundimagesize == 'inherit') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                        <option value="cover" {{ (dataFooter.properties.footerbackgroundimagesize == 'cover') ? 'selected' : '' }}>{{ i18n.trans('cover') }}</option>
+                                        <option value="contain" {{ (dataFooter.properties.footerbackgroundimagesize == 'contain') ? 'selected' : '' }}>{{ i18n.trans('contain') }}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-6 mt-3">
+                                    <label class="form-label">{{ i18n.trans('background-image-attachment') }}</label>
+                                    <select class="form-control" name="footerbackgroundimageattachment">
+                                        <option value="inherit" {{ (dataFooter.properties.footerbackgroundimageattachment == 'inherit') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                        <option value="fixed" {{ (dataFooter.properties.footerbackgroundimageattachment == 'fixed') ? 'selected' : '' }}>{{ i18n.trans('fixed') }}</option>
+                                        <option value="scroll" {{ (dataFooter.properties.footerbackgroundimageattachment == 'scroll') ? 'selected' : '' }}>{{ i18n.trans('scroll') }}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-6 mt-3">
+                                    <label class="form-label">{{ i18n.trans('background-image-position') }}</label>
+                                    <select class="form-control" name="footerbackgroundimageposition">
+                                        <option value="inherit" {{ (dataFooter.properties.footerbackgroundimageposition == 'scroll') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                        <option value="left top" {{ (dataFooter.properties.footerbackgroundimageposition == 'left top') ? 'selected' : '' }}>{{ i18n.trans('left-top') }}</option>
+                                        <option value="left center" {{ (dataFooter.properties.footerbackgroundimageposition == 'left center') ? 'selected' : '' }}>{{ i18n.trans('left-center') }}</option>
+                                        <option value="left bottom" {{ (dataFooter.properties.footerbackgroundimageposition == 'left bottom') ? 'selected' : '' }}>{{ i18n.trans('left-bottom') }}</option>
+                                        <option value="center top" {{ (dataFooter.properties.footerbackgroundimageposition == 'center top') ? 'selected' : '' }}>{{ i18n.trans('center-top') }}</option>
+                                        <option value="center center" {{ (dataFooter.properties.footerbackgroundimageposition == 'center center') ? 'selected' : '' }}>{{ i18n.trans('center-center') }}</option>
+                                        <option value="center bottom" {{ (dataFooter.properties.footerbackgroundimageposition == 'center bottom') ? 'selected' : '' }}>{{ i18n.trans('center-bottom') }}</option>
+                                        <option value="right top" {{ (dataFooter.properties.footerbackgroundimageposition == 'right top') ? 'selected' : '' }}>{{ i18n.trans('right-top') }}</option>
+                                        <option value="right center" {{ (dataFooter.properties.footerbackgroundimageposition == 'right center') ? 'selected' : '' }}>{{ i18n.trans('right-center') }}</option>
+                                        <option value="right bottom" {{ (dataFooter.properties.footerbackgroundimageposition == 'right bottom') ? 'selected' : '' }}>{{ i18n.trans('right-bottom') }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">
+                        {{ i18n.trans('accept') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Individual Settings -->
+    {% set items = ['FooterTop', 'FooterMain', 'FooterBottom'] %}
+    {% for item in items %}
+        <div class="modal fade" id="modal{{ item }}" tabindex="-1" aria-labelledby="modal{{ item }}Label" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-footer">
+                        <h5 class="modal-title" id="modal{{ item }}Label">
+                            {% if item starts with 'FooterTop' %}
+                                {{ i18n.trans('modal-top-settings') }}
+                            {% elseif item starts with 'FooterMain' %}
+                                {{ i18n.trans('modal-main-settings') }}
+                            {% else %}
+                                {{ i18n.trans('modal-bottom-settings') }}
+                            {% endif %}
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" data-toggle="tab" href="#{{ item }}General" role="tab" aria-selected="true">
+                                    {{ i18n.trans('general') }}
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" data-toggle="tab" href="#{{ item }}Background" role="tab" aria-selected="false">
+                                    {{ i18n.trans('background') }}
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" data-toggle="tab" href="#{{ item }}Borders" role="tab" aria-selected="false">
+                                    {{ i18n.trans('borders') }}
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="{{ item }}General" role="tabpanel">
+                                {% if item == 'FooterMain' %}
+                                    <div class="mt-3">
+                                        <div>
+                                            <label class="form-check-label">{{ i18n.trans('footer-layout') }}</label>
+                                        </div>
+                                        <div class="btn-group btn-group-toggle py-2 row" data-toggle="buttons">
+                                            {% block footerStyles %}
+                                                <label class="btn btn-secondary col-6 col-lg-4">
+                                                    <input type="radio" name="footerlayout" value="01" {{ (dataFooter.properties.footerlayout == '01' or dataFooter.properties.footerlayout is not defined) ? 'checked' : '' }}>
+                                                    <img src="{{ asset('Dinamic/Assets/Images/footer01.png') }}" />
+                                                </label>
+                                            {% endblock %}
+                                        </div>
+                                        <div class="text-muted font-italic font-size-10">{{ i18n.trans('footer-layout-help') }}</div>
+                                    </div>
+                                {% else %}
+                                    <div class="mt-3">
+                                        <div>
+                                            <label class="form-check-label">{{ i18n.trans('row-flex-layout') }}</label>
+                                        </div>
+                                        <div class="btn-group btn-group-toggle py-2" data-toggle="buttons">
+                                            <label class="btn btn-secondary">
+                                                <input type="radio" name="{{ item|lower }}rowflexlayout" value="0" {{ (dataFooter.properties[item|lower ~ 'rowflexlayout'] == 0) ? 'checked' : '' }}>
+                                                <img src="{{ asset('Dinamic/Assets/Images/header-layout-1.jpg') }}" />
+                                            </label>
+                                            <label class="btn btn-secondary">
+                                                <input type="radio" name="{{ item|lower }}rowflexlayout" value="1" {{ (dataFooter.properties[item|lower ~ 'rowflexlayout'] == 1) ? 'checked' : '' }}>
+                                                <img src="{{ asset('Dinamic/Assets/Images/header-layout-2.jpg') }}" />
+                                            </label>
+                                        </div>
+                                        <div class="text-muted font-italic font-size-10">{{ i18n.trans('row-flex-layout-help') }}</div>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="tab-pane fade" id="{{ item }}Background" role="tabpanel">
+                                <div class="row mt-3">
+                                    <div class="col-12 bg-secondary text-light py-2">
+                                        {{ i18n.trans('background-settings') }}
+                                    </div>
+
+                                    <div class="col-12 col-md-6 mt-3">
+                                        <label class="form-label">{{ i18n.trans('select-image') }}</label>
+                                        <select class="form-control" name="{{ item|lower }}backgroundimage">
+                                            {% for img in imagesGallery %}
+                                                <option value="{{ img.code }}" {{ (img.code == dataFooter.properties[item|lower ~ 'backgroundimage']) ? 'selected' : '' }}>{{ img.description }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <div class="col-12 col-md-6 mt-3">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <label class="form-label">{{ i18n.trans('color') }}</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-palette fa-fw"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="color" name="{{ item|lower }}backgroundcolor" value="{{ (dataFooter.properties[item|lower ~ 'backgroundcolor']) ? dataFooter.properties[item|lower ~ 'backgroundcolor'] : '#ffffff' }}" class="form-control selectColor" autocomplete="off">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-5">
+                                                <label for="{{ item }}backgroundcoloropacity">{{ i18n.trans('opacity') }}: <output name="ageOutputName" id="{{ item }}BackgroundColorOpacityOutput">{{ (dataFooter.properties[item|lower ~ 'backgroundcoloropacity'] or dataFooter.properties[item|lower ~ 'backgroundcoloropacity'] == 0) ? dataFooter.properties[item|lower ~ 'backgroundcoloropacity'] : 1 }}</output></label>
+                                                <input type="range" class="form-control-range selectOpacity" name="{{ item|lower }}backgroundcoloropacity" id="{{ item }}BackgroundColorOpacityInput" value="{{ (dataFooter.properties[item|lower ~ 'backgroundcoloropacity'] or dataFooter.properties[item|lower ~ 'backgroundcoloropacity'] == 0) ? dataFooter.properties[item|lower ~ 'backgroundcoloropacity'] : 1 }}" min="0" max="1" step="0.1" oninput="{{ item }}BackgroundColorOpacityOutput.value = {{ item }}BackgroundColorOpacityInput.value">
+                                            </div>
+
+                                            <div class="col-2 text-center">
+                                                <label><i class="far fa-eye"></i></label>
+                                                <div class="backgroundColor" style="width: 100%; height: 25px; border: 1px solid #f1f1f1;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-6 mt-3">
+                                        <label class="form-label">{{ i18n.trans('background-image-repeat') }}</label>
+                                        <select class="form-control" name="{{ item|lower }}backgroundimagerepeat">
+                                            <option value="inherit" {{ (dataFooter.properties[item|lower ~ 'backgroundimagerepeat'] == 'inherit') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                            <option value="no-repeat" {{ (dataFooter.properties[item|lower ~ 'backgroundimagerepeat'] == 'no-repeat') ? 'selected' : '' }}>{{ i18n.trans('no-repeat') }}</option>
+                                            <option value="repeat" {{ (dataFooter.properties[item|lower ~ 'backgroundimagerepeat'] == 'repeat') ? 'selected' : '' }}>{{ i18n.trans('repeat') }}</option>
+                                            <option value="repeat-x" {{ (dataFooter.properties[item|lower ~ 'backgroundimagerepeat'] == 'repeat-x') ? 'selected' : '' }}>{{ i18n.trans('repeat-x') }}</option>
+                                            <option value="repeat-y" {{ (dataFooter.properties[item|lower ~ 'backgroundimagerepeat'] == 'repeat-y') ? 'selected' : '' }}>{{ i18n.trans('repeat-y') }}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-12 col-md-6 mt-3">
+                                        <label class="form-label">{{ i18n.trans('background-image-size') }}</label>
+                                        <select class="form-control" name="{{ item|lower }}backgroundimagesize">
+                                            <option value="inherit" {{ (dataFooter.properties[item|lower ~ 'backgroundimagesize'] == 'inherit') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                            <option value="cover" {{ (dataFooter.properties[item|lower ~ 'backgroundimagesize'] == 'cover') ? 'selected' : '' }}>{{ i18n.trans('cover') }}</option>
+                                            <option value="contain" {{ (dataFooter.properties[item|lower ~ 'backgroundimagesize'] == 'contain') ? 'selected' : '' }}>{{ i18n.trans('contain') }}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-12 col-md-6 mt-3">
+                                        <label class="form-label">{{ i18n.trans('background-image-attachment') }}</label>
+                                        <select class="form-control" name="{{ item|lower }}backgroundimageattachment">
+                                            <option value="inherit" {{ (dataFooter.properties[item|lower ~ 'backgroundimageattachment'] == 'inherit') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                            <option value="fixed" {{ (dataFooter.properties[item|lower ~ 'backgroundimageattachment'] == 'fixed') ? 'selected' : '' }}>{{ i18n.trans('fixed') }}</option>
+                                            <option value="scroll" {{ (dataFooter.properties[item|lower ~ 'backgroundimageattachment'] == 'scroll') ? 'selected' : '' }}>{{ i18n.trans('scroll') }}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-12 col-md-6 mt-3">
+                                        <label class="form-label">{{ i18n.trans('background-image-position') }}</label>
+                                        <select class="form-control" name="{{ item|lower }}backgroundimageposition">
+                                            <option value="inherit" {{ (dataFooter.properties[item|lower ~ 'backgroundimageposition'] == 'scroll') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                            <option value="left top" {{ (dataFooter.properties[item|lower ~ 'backgroundimageposition'] == 'left top') ? 'selected' : '' }}>{{ i18n.trans('left-top') }}</option>
+                                            <option value="left center" {{ (dataFooter.properties[item|lower ~ 'backgroundimageposition'] == 'left center') ? 'selected' : '' }}>{{ i18n.trans('left-center') }}</option>
+                                            <option value="left bottom" {{ (dataFooter.properties[item|lower ~ 'backgroundimageposition'] == 'left bottom') ? 'selected' : '' }}>{{ i18n.trans('left-bottom') }}</option>
+                                            <option value="center top" {{ (dataFooter.properties[item|lower ~ 'backgroundimageposition'] == 'center top') ? 'selected' : '' }}>{{ i18n.trans('center-top') }}</option>
+                                            <option value="center center" {{ (dataFooter.properties[item|lower ~ 'backgroundimageposition'] == 'center center') ? 'selected' : '' }}>{{ i18n.trans('center-center') }}</option>
+                                            <option value="center bottom" {{ (dataFooter.properties[item|lower ~ 'backgroundimageposition'] == 'center bottom') ? 'selected' : '' }}>{{ i18n.trans('center-bottom') }}</option>
+                                            <option value="right top" {{ (dataFooter.properties[item|lower ~ 'backgroundimageposition'] == 'right top') ? 'selected' : '' }}>{{ i18n.trans('right-top') }}</option>
+                                            <option value="right center" {{ (dataFooter.properties[item|lower ~ 'backgroundimageposition'] == 'right center') ? 'selected' : '' }}>{{ i18n.trans('right-center') }}</option>
+                                            <option value="right bottom" {{ (dataFooter.properties[item|lower ~ 'backgroundimageposition'] == 'right bottom') ? 'selected' : '' }}>{{ i18n.trans('right-bottom') }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="{{ item }}Borders" role="tabpanel">
+                                <div class="row mt-3">
+                                    <div class="col-12 bg-secondary text-light py-2">
+                                        {{ i18n.trans('border-top') }}
+                                    </div>
+
+                                    <div class="col-6 col-md-6 mt-3">
+                                        <label class="form-label">{{ i18n.trans('width') }}</label>
+                                        <input type="number" name="{{ item|lower }}bordertopwidth" value="{{ dataFooter.properties[item|lower ~ 'bordertopwidth'] }}" class="form-control" />
+                                    </div>
+
+                                    <div class="col-6 col-md-6 mt-3">
+                                        <label class="form-label">{{ i18n.trans('color') }}</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-palette fa-fw"></i>
+                                                </span>
+                                            </div>
+                                            <input type="color" name="{{ item|lower }}bordertopcolor" value="{{ (dataFooter.properties[item|lower ~ 'bordertopcolor']) ? dataFooter.properties[item|lower ~ 'bordertopcolor'] : '#ffffff' }}" class="form-control selectColor" autocomplete="off">
+                                        </div> 
+                                    </div>
+
+                                    <div class="col-6 col-md-6 mt-3">
+                                        <label class="form-label">{{ i18n.trans('style') }}</label>
+                                        <select class="form-control" name="{{ item|lower }}bordertopstyle">
+                                            <option value="solid" {{ (dataFooter.properties[item|lower ~ 'bordertopstyle'] == 'solid') ? 'selected' : '' }}>{{ i18n.trans('solid') }}</option>
+                                            <option value="dotted" {{ (dataFooter.properties[item|lower ~ 'bordertopstyle'] == 'dotted') ? 'selected' : '' }}>{{ i18n.trans('dotted') }}</option>
+                                            <option value="dashed" {{ (dataFooter.properties[item|lower ~ 'bordertopstyle'] == 'dashed') ? 'selected' : '' }}>{{ i18n.trans('dashed') }}</option>
+                                            <option value="double" {{ (dataFooter.properties[item|lower ~ 'bordertopstyle'] == 'double') ? 'selected' : '' }}>{{ i18n.trans('double') }}</option>
+                                            <option value="groove" {{ (dataFooter.properties[item|lower ~ 'bordertopstyle'] == 'groove') ? 'selected' : '' }}>{{ i18n.trans('groove') }}</option>
+                                            <option value="ridge" {{ (dataFooter.properties[item|lower ~ 'bordertopstyle'] == 'ridge') ? 'selected' : '' }}>{{ i18n.trans('ridge') }}</option>
+                                            <option value="inset" {{ (dataFooter.properties[item|lower ~ 'bordertopstyle'] == 'inset') ? 'selected' : '' }}>{{ i18n.trans('inset') }}</option>
+                                            <option value="outset" {{ (dataFooter.properties[item|lower ~ 'bordertopstyle'] == 'outset') ? 'selected' : '' }}>{{ i18n.trans('outset') }}</option>
+                                            <option value="inherit" {{ (dataFooter.properties[item|lower ~ 'bordertopstyle'] == 'inherit') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-6 col-md-6 mt-3">
+                                        <label class="form-label">{{ i18n.trans('container') }}</label>
+                                        <select class="form-control" name="{{ item|lower }}bordertopcontainer">
+                                            <option value="fullwidth" {{ (dataFooter.properties[item|lower ~ 'bordertopcontainer'] == 'fullwidth') ? 'selected' : '' }}>{{ i18n.trans('fullwidth') }}</option>
+                                            <option value="boxed" {{ (dataFooter.properties[item|lower ~ 'bordertopcontainer'] == 'boxed') ? 'selected' : '' }}>{{ i18n.trans('boxed') }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mt-3">
+                                    <div class="col-12 bg-secondary text-light py-2">
+                                        {{ i18n.trans('border-bottom') }}
+                                    </div>
+
+                                    <div class="col-6 col-md-6 mt-3">
+                                        <label class="form-label">{{ i18n.trans('width') }}</label>
+                                        <input type="number" name="{{ item|lower }}borderbottomwidth" value="{{ dataFooter.properties[item|lower ~ 'borderbottomwidth'] }}" class="form-control" />
+                                    </div>
+
+                                    <div class="col-6 col-md-6 mt-3">
+                                        <label class="form-label">{{ i18n.trans('color') }}</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-palette fa-fw"></i>
+                                                </span>
+                                            </div>
+                                            <input type="color" name="{{ item|lower }}borderbottomcolor" value="{{ (dataFooter.properties[item|lower ~ 'borderbottomcolor']) ? dataFooter.properties[item|lower ~ 'borderbottomcolor'] : '#ffffff' }}" class="form-control selectColor" autocomplete="off">
+                                        </div>   
+                                    </div>
+
+                                    <div class="col-6 col-md-6 mt-3">
+                                        <label class="form-label">{{ i18n.trans('style') }}</label>
+                                        <select class="form-control" name="{{ item|lower }}borderbottomstyle">
+                                            <option value="solid" {{ (dataFooter.properties[item|lower ~ 'borderbottomstyle'] == 'solid') ? 'selected' : '' }}>{{ i18n.trans('solid') }}</option>
+                                            <option value="dotted" {{ (dataFooter.properties[item|lower ~ 'borderbottomstyle'] == 'dotted') ? 'selected' : '' }}>{{ i18n.trans('dotted') }}</option>
+                                            <option value="dashed" {{ (dataFooter.properties[item|lower ~ 'borderbottomstyle'] == 'dashed') ? 'selected' : '' }}>{{ i18n.trans('dashed') }}</option>
+                                            <option value="double" {{ (dataFooter.properties[item|lower ~ 'borderbottomstyle'] == 'double') ? 'selected' : '' }}>{{ i18n.trans('double') }}</option>
+                                            <option value="groove" {{ (dataFooter.properties[item|lower ~ 'borderbottomstyle'] == 'groove') ? 'selected' : '' }}>{{ i18n.trans('groove') }}</option>
+                                            <option value="ridge" {{ (dataFooter.properties[item|lower ~ 'borderbottomstyle'] == 'ridge') ? 'selected' : '' }}>{{ i18n.trans('ridge') }}</option>
+                                            <option value="inset" {{ (dataFooter.properties[item|lower ~ 'borderbottomstyle'] == 'inset') ? 'selected' : '' }}>{{ i18n.trans('inset') }}</option>
+                                            <option value="outset" {{ (dataFooter.properties[item|lower ~ 'borderbottomstyle'] == 'outset') ? 'selected' : '' }}>{{ i18n.trans('outset') }}</option>
+                                            <option value="inherit" {{ (dataFooter.properties[item|lower ~ 'borderbottomstyle'] == 'inherit') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-6 col-md-6 mt-3">
+                                        <label class="form-label">{{ i18n.trans('container') }}</label>
+                                        <select class="form-control" name="{{ item|lower }}borderbottomcontainer">
+                                            <option value="fullwidth" {{ (dataFooter.properties[item|lower ~ 'borderbottomcontainer'] == 'fullwidth') ? 'selected' : '' }}>{{ i18n.trans('fullwidth') }}</option>
+                                            <option value="boxed" {{ (dataFooter.properties[item|lower ~ 'borderbottomcontainer'] == 'boxed') ? 'selected' : '' }}>{{ i18n.trans('boxed') }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">
+                            {{ i18n.trans('accept') }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</form>
+
+<script type="text/javascript">
+    function editViewDelete(viewName) {
+        bootbox.confirm({
+            title: "{{ i18n.trans('confirm-delete') }}",
+            message: "{{ i18n.trans('are-you-sure') }}",
+            closeButton: false,
+            buttons: {
+                cancel: {
+                    label: '<i class="fas fa-times"></i> {{ i18n.trans('cancel') }}'
+                },
+                confirm: {
+                    label: '<i class="fas fa-check"></i> {{ i18n.trans('confirm') }}',
+                    className: "btn-danger"
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    $("#form" + viewName + " :input[name=\"action\"]").val("delete");
+                    $("#form" + viewName).submit();
+                }
+            }
+        });
+        return false;
+    }
+
+    $(document).ready(function(){
+        function backgroundColorPreview(color, opacity, divColor) {
+            $(divColor).css('opacity', opacity);
+            $(divColor).css('background-color', color);
+        }
+
+        $('.selectColor').each(function(){
+            var color = $(this).val();
+            var opacity = $(this).parent().parent().parent().find('.selectOpacity').val();
+            var divColor = $(this).parent().parent().parent().find('.backgroundColor');
+            backgroundColorPreview(color, opacity, divColor);
+        });
+
+        $('.selectColor').change(function(value){
+            var color = $(this).val();
+            var opacity = $(this).parent().parent().parent().find('.selectOpacity').val();
+            var divColor = $(this).parent().parent().parent().find('.backgroundColor');
+            backgroundColorPreview(color, opacity, divColor);
+        });
+
+        $('.selectOpacity').change(function(value){
+            var color = $(this).parent().parent().find('.selectColor').val();
+            var opacity = $(this).val();
+            var divColor = $(this).parent().parent().find('.backgroundColor');
+            backgroundColorPreview(color, opacity, divColor);
+        });
+
+        function changeShip(checkbox) {
+            var div = $(checkbox).parent().find('div.changeShip');
+            
+            if($(checkbox).is(':checked')) {
+                div.show();
+            } else {
+                div.hide();
+            }
+        }
+
+        $('input.changeShip').each(function(){
+            changeShip(this);
+        });
+        
+        $('input.changeShip').on('click', function() {
+            changeShip(this);
+        });
+
+        function changeStickyShip(checkbox) {
+            var div = $(checkbox).parent().parent().parent().find('div.changeGeneralSticky');
+            
+            if($(checkbox).is(':checked')) {
+                div.show();
+            } else {
+                div.hide();
+            }
+        }
+
+        $('input.hideGeneralSticky').on('click', function(){
+            var div = $(this).parent().parent().parent().find('div.changeGeneralSticky');
+            div.hide();
+        });
+
+        $('input.showGeneralSticky').each(function(){
+            changeStickyShip(this);
+        });
+        
+        $('input.showGeneralSticky').on('click', function() {
+            changeStickyShip(this);
+        });
+
+        function layoutsFooter() {
+            $('.footerlayout').hide();
+            $('#footer' + $('input[name="footerlayout"]:checked').val()).show();
+        }
+
+        layoutsFooter();
+
+        $('input[name="footerlayout"]').on('click', function(){
+            layoutsFooter();
+            $('.modal-footer button').click();
+        });
+    });
+</script>

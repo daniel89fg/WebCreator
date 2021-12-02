@@ -1,0 +1,37 @@
+<header class="{{ (webHeader.properties.generalstickyoverlap) ? 'fixed-top' : '' }}">
+    <div class="header-main {{ (webHeader.properties.headermainshadow and webHeader.properties.headerbottomshadow == null) ? 'shadow-bottom-inside' : '' }} {{ (webHeader.properties.headermainhidedesktop and webHeader.properties.headermainhidemobile) ? 'd-none' : (webHeader.properties.headermainhidedesktop) ? 'd-lg-none' : (webHeader.properties.headermainhidemobile) ? 'd-none d-lg-block' }} {{ (webHeader.properties.headermainbordertopwidth > 0 and webHeader.properties.headermainbordertopcontainer == 'fullwidth') ? 'header-main-border-top' : '' }} {{ (webHeader.properties.headermainborderbottomwidth > 0 and webHeader.properties.headermainborderbottomcontainer == 'fullwidth') ? 'header-main-border-bottom' : '' }}">
+        <nav class="d-block d-lg-none navbar {{ (webHeader.properties.headermainborderbottomwidth > 0) ? 'header-main-border-bottom' : '' }}">
+            <div class="row w-100 m-auto pb-1 d-flex justify-content-between">
+                <div class="col-3 px-0 align-self-center {{ (webHeader.properties.generalpositiontogglemobile) ? 'order-2' : 'order-0' }}">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+
+                <div class="col-9 order-1 px-0 align-self-center {{ (webHeader.properties.generalpositiontogglemobile) ? 'text-left' : 'text-right' }}">
+                    {{ webHeader.content.header0104|raw }}
+                </div>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                {{ webHeader.content.header0105|raw }}
+            </div>
+        </nav>
+
+        <div class="content d-none d-lg-block {{ webHeader.properties.headerwidth }} {{ (webHeader.properties.headermainbordertopwidth > 0 and webHeader.properties.headermainbordertopcontainer == 'boxed') ? 'header-main-border-top' : '' }} {{ (webHeader.properties.headermainborderbottomwidth > 0 and webHeader.properties.headermainborderbottomcontainer == 'boxed') ? 'header-main-border-bottom' : '' }}">
+            <div class="d-flex justify-content-between">
+                <div class="d-none d-lg-block align-self-center {{ (webHeader.properties.headermainrowflexlayout == 1) ? 'flex-grow-1' : '' }}">
+                    {{ webHeader.content.header0101|raw }}
+                </div>
+
+                <div class="d-none d-lg-block align-self-center {{ (webHeader.properties.headermainrowflexlayout == 0) ? 'flex-grow-1' : '' }}">
+                    {{ webHeader.content.header0102|raw }}
+                </div>
+
+                <div class="d-none d-lg-block align-self-center {{ (webHeader.properties.headermainrowflexlayout == 1) ? 'flex-grow-1' : '' }}">
+                    {{ webHeader.content.header0103|raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

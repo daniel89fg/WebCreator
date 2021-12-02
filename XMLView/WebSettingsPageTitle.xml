@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * This file is part of WebCreator plugin for FacturaScripts.
+ * Copyright (C) 2020 Carlos Garcia Gomez  <carlos@facturascripts.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @author Athos Online <info@athosonline.com>
+-->
+<view>
+    <columns>
+        <column name="name" display="none">
+            <widget type="text" fieldname="name" readonly="true" required="true" />
+        </column>
+
+        <group name="page-title" numcolumns="12">
+            <column name="pagetitle" title="show" numcolumns="2" order="100">
+                <widget type="select" fieldname="pagetitle" translate="true" required="true">
+                    <values title="yes">1</values>
+                    <values title="no">0</values>
+                </widget>
+            </column>
+            
+            <column name="titlestyle" title="style" numcolumns="2" order="110">
+                <widget type="select" fieldname="titlestyle" translate="true" required="true">
+                    <values title="left">left</values>
+                    <values title="center">center</values>
+                    <values title="right">right</values>
+                </widget>
+            </column>
+
+            <column name="titletag" title="tag" numcolumns="2" order="130">
+                <widget type="select" fieldname="titletag" translate="false" required="true">
+                    <values title="h1">h1</values>
+                    <values title="h2">h2</values>
+                    <values title="h3">h3</values>
+                    <values title="h4">h4</values>
+                    <values title="h5">h5</values>
+                    <values title="h6">h6</values>
+                    <values title="p">p</values>
+                    <values title="div">div</values>
+                    <values title="span">span</values>
+                </widget>
+            </column>
+
+            <column name="width" numcolumns="2" order="140">
+                <widget type="select" fieldname="titlewidth" translate="false" required="true">
+                    <values title="Container">container</values>
+                    <values title="Container sm">container-sm</values>
+                    <values title="Container md">container-md</values>
+                    <values title="Container lg">container-lg</values>
+                    <values title="Container fluid">container-fluid</values>
+                </widget>
+            </column>
+        </group>
+        
+        <group name="page-title-background" title="color-and-background" numcolumns="12">
+            <column name="titlebackgroundimage" title="image" titleurl="ListAttachedFile" description="click-link-to-add" numcolumns="4" order="100">
+                <widget type="select" fieldname="titlebackgroundimage" onclick="EditAttachedFile" />
+            </column>
+            
+            <column name="titlebackgroundcolor" title="color" numcolumns="4" order="110">
+                <widget type="color" fieldname="titlebackgroundcolor" />
+            </column>
+
+            <column name="titlebackgroundopacity" title="opacity" numcolumns="4" order="120">
+                <widget type="number" decimal="1" min="0" max="1" step="0.1" fieldname="titlebackgroundopacity" />
+            </column>
+
+            <column name="titleimagerepeat" title="only-repeat" numcolumns="3" order="130">
+                <widget type="select" fieldname="titleimagerepeat" translate="true" required="true">
+                    <values title="inherit">inherit</values>
+                    <values title="no-repeat">no-repeat</values>
+                    <values title="repeat">repeat</values>
+                    <values title="repeat-x">repeat-x</values>
+                    <values title="repeat-y">repeat-y</values>
+                </widget>
+            </column>
+
+            <column name="titleimagesize" title="size" numcolumns="3" order="140">
+                <widget type="select" fieldname="titleimagesize" translate="true" required="true">
+                    <values title="inherit">inherit</values>
+                    <values title="cover">cover</values>
+                    <values title="contain">contain</values>
+                </widget>
+            </column>
+
+            <column name="titleimageattachment" title="fixed-attachment" numcolumns="3" order="150">
+                <widget type="select" fieldname="titleimageattachment" translate="true" required="true">
+                    <values title="inherit">inherit</values>
+                    <values title="fixed">fixed</values>
+                    <values title="scroll">scroll</values>
+                </widget>
+            </column>
+
+            <column name="titleimageposition" title="position" numcolumns="3" order="160">
+                <widget type="select" fieldname="titleimageposition" translate="true" required="true">
+                    <values title="inherit">inherit</values>
+                    <values title="left-top">left top</values>
+                    <values title="left-center">left center</values>
+                    <values title="left-bottom">left bottom</values>
+                    <values title="center-top">center top</values>
+                    <values title="center-center">center center</values>
+                    <values title="center-bottom">center bottom</values>
+                    <values title="right-top">right top</values>
+                    <values title="right-center">right center</values>
+                    <values title="right-bottom">right bottom</values>
+                </widget>
+            </column>
+        </group>
+
+        <group name="page-title-breadcrumbs" title="breadcrumbs" numcolumns="12">
+            <column name="titlebreadcrumbs" title="show" numcolumns="4" order="100">
+                <widget type="select" fieldname="titlebreadcrumbs" translate="true" required="true">
+                    <values title="yes">1</values>
+                    <values title="no">0</values>
+                </widget>
+            </column>
+
+            <column name="titlebreadcrumbsseparate" title="breadcrumbs-separate" numcolumns="4" order="110">
+                <widget type="text" fieldname="titlebreadcrumbsseparate" maxlength="5"/>
+            </column>
+        </group>
+    </columns>
+</view>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * This file is part of WebCreator plugin for FacturaScripts.
+ * Copyright (C) 2020 Carlos Garcia Gomez  <carlos@facturascripts.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @author Carlos García Gómez <carlos@facturascripts.com>
+-->
+<view>
+    <columns>
+        <group name="data" numcolumns="12">
+            <column name="code" display="none" order="100">
+                <widget type="text" fieldname="idblock" required="true" />
+            </column>
+            <column name="name" order="110">
+                <widget type="text" fieldname="name" required="true" />
+            </column>
+            <column name="type" order="120">
+                <widget type="select" fieldname="type">
+                    <values title="headbefore">head before</values>
+                    <values title="headafter">head after</values>
+                    <values title="metabefore">meta before</values>
+                    <values title="metaafter">meta after</values>
+                    <values title="iconsbefore">icons before</values>
+                    <values title="iconsafter">icons after</values>
+                    <values title="cssbefore">css before</values>
+                    <values title="cssafter">css after</values>
+                    <values title="javascriptheadbefore">javascript head before</values>
+                    <values title="javascriptheadafter">javascript head after</values>
+                    <values title="bodybefore">body before</values>
+                    <values title="bodyafter">body after</values>
+                    <values title="headerbefore">header before</values>
+                    <values title="headerafter">header after</values>
+                    <values title="pagetitlebefore">page title before</values>
+                    <values title="pagetitleafter">page title after</values>
+                    <values title="contentbefore">content before</values>
+                    <values title="contentafter">content after</values>
+                    <values title="messagesbefore">messages before</values>
+                    <values title="messagesafter">messages after</values>
+                    <values title="wrapperbefore">wrapper before</values>
+                    <values title="wrapperafter">wrapper after</values>
+                    <values title="sidebarbefore">sidebar before</values>
+                    <values title="sidebarafter">sidebar after</values>
+                    <values title="mainbefore">main before</values>
+                    <values title="mainafter">main after</values>
+                    <values title="footerbefore">footer before</values>
+                    <values title="footerafter">footer after</values>
+                    <values title="javascriptfooterbefore">javascript footer before</values>
+                    <values title="javascriptfooterafter">javascript footer after</values>
+                </widget>
+            </column>
+            <column name="sort" order="130">
+                <widget type="number" fieldname="ordernum" icon="fas fa-sort" />
+            </column>
+        </group>
+
+        <group name="content" numcolumns="12">
+            <column name="content" numcolumns="12" order="100">
+                <widget type="code" lang="html" fieldname="content" />
+            </column>
+        </group>
+    </columns>
+</view>

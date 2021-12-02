@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * This file is part of WebCreator plugin for FacturaScripts.
+ * Copyright (C) 2020 Carlos Garcia Gomez  <carlos@facturascripts.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @author Athos Online <info@athosonline.com>
+-->
+<view>
+    <columns>
+        <column name="name" display="none">
+            <widget type="text" fieldname="name" readonly="true" required="true" />
+        </column>
+        
+        <group name="group-font-default" title="font-default" description="font-default-help" numcolumns="12">            
+            <column name="font-default" title="typography" numcolumns="2" order="100">
+                <widget type="select" fieldname="fontdefault" translate="false" required="true">
+                    <values source="webfonts" fieldcode="idfont" fieldtitle="name" />
+                </widget>
+            </column>
+
+            <column name="font-default-weight" title="weight" numcolumns="2" order="110">
+                <widget type="select" parent="fontdefault" fieldname="fontdefaultweight" translate="false" required="true">
+                    <values fieldfilter="idfont" source="webfontsweight" fieldcode="idfontweight" fieldtitle="weight" />
+                </widget>
+            </column>
+        </group>
+
+        <group name="group-font-link" title="font-link" numcolumns="12">
+            <column name="font-link-color" title="color" numcolumns="2" order="80">
+                <widget type="color" fieldname="fontlinkcolor" />
+            </column>
+
+            <column name="font-link-color-hover" title="color-hover" numcolumns="2" order="90">
+                <widget type="color" fieldname="fontlinkcolorhover" />
+            </column>
+            
+            <column name="font-link" title="typography" numcolumns="2" order="100">
+                <widget type="select" fieldname="fontlink" translate="false" required="true">
+                    <values source="webfonts" fieldcode="idfont" fieldtitle="name" />
+                </widget>
+            </column>
+
+            <column name="font-link-weight" title="weight" numcolumns="2" order="110">
+                <widget type="select" parent="fontlink" fieldname="fontlinkweight" translate="false" required="true">
+                    <values fieldfilter="idfont" source="webfontsweight" fieldcode="idfontweight" fieldtitle="weight" />
+                </widget>
+            </column>
+        </group>
+
+        <group name="group-font-p" title="font-p" numcolumns="12">
+            <column name="font-p-color" title="color" numcolumns="2" order="90">
+                <widget type="color" fieldname="fontpcolor" />
+            </column>
+            
+            <column name="font-p" title="typography" numcolumns="2" order="100">
+                <widget type="select" fieldname="fontp" translate="false" required="true">
+                    <values source="webfonts" fieldcode="idfont" fieldtitle="name" />
+                </widget>
+            </column>
+
+            <column name="font-p-weight" title="weight" numcolumns="2" order="110">
+                <widget type="select" parent="fontp" fieldname="fontpweight" translate="false" required="true">
+                    <values fieldfilter="idfont" source="webfontsweight" fieldcode="idfontweight" fieldtitle="weight" />
+                </widget>
+            </column>
+        </group>
+
+        <group name="group-font-h1" title="font-h1" numcolumns="12">
+            <column name="font-h1-color" title="color" numcolumns="2" order="90">
+                <widget type="color" fieldname="fonth1color" />
+            </column>
+            
+            <column name="font-h1" title="typography" numcolumns="2" order="100">
+                <widget type="select" fieldname="fonth1" translate="false" required="true">
+                    <values source="webfonts" fieldcode="idfont" fieldtitle="name" />
+                </widget>
+            </column>
+
+            <column name="font-h1-weight" title="weight" numcolumns="2" order="110">
+                <widget type="select" parent="fonth1" fieldname="fonth1weight" translate="false" required="true">
+                    <values fieldfilter="idfont" source="webfontsweight" fieldcode="idfontweight" fieldtitle="weight" />
+                </widget>
+            </column>
+        </group>
+
+        <group name="group-font-h2" title="font-h2" numcolumns="12">
+            <column name="font-h2-color" title="color" numcolumns="2" order="90">
+                <widget type="color" fieldname="fonth2color" />
+            </column>
+
+            <column name="font-h2" title="typography" numcolumns="2" order="100">
+                <widget type="select" fieldname="fonth2" translate="false" required="true">
+                    <values source="webfonts" fieldcode="idfont" fieldtitle="name" />
+                </widget>
+            </column>
+
+            <column name="font-h2-weight" title="weight" numcolumns="2" order="110">
+                <widget type="select" parent="fonth2" fieldname="fonth2weight" translate="false" required="true">
+                    <values fieldfilter="idfont" source="webfontsweight" fieldcode="idfontweight" fieldtitle="weight" />
+                </widget>
+            </column>
+        </group>
+
+        <group name="group-font-h3" title="font-h3" numcolumns="12">
+            <column name="font-h3-color" title="color" numcolumns="2" order="90">
+                <widget type="color" fieldname="fonth3color" />
+            </column>
+            
+            <column name="font-h3" title="typography" numcolumns="2" order="100">
+                <widget type="select" fieldname="fonth3" translate="false" required="true">
+                    <values source="webfonts" fieldcode="idfont" fieldtitle="name" />
+                </widget>
+            </column>
+
+            <column name="font-h3-weight" title="weight" numcolumns="2" order="110">
+                <widget type="select" parent="fonth3" fieldname="fonth3weight" translate="false" required="true">
+                    <values fieldfilter="idfont" source="webfontsweight" fieldcode="idfontweight" fieldtitle="weight" />
+                </widget>
+            </column>
+        </group>
+
+        <group name="group-font-h4" title="font-h4" numcolumns="12">
+            <column name="font-h4-color" title="color" numcolumns="2" order="90">
+                <widget type="color" fieldname="fonth4color" />
+            </column>
+            
+            <column name="font-h4" title="typography" numcolumns="2" order="100">
+                <widget type="select" fieldname="fonth4" translate="false" required="true">
+                    <values source="webfonts" fieldcode="idfont" fieldtitle="name" />
+                </widget>
+            </column>
+
+            <column name="font-h4-weight" title="weight" numcolumns="2" order="110">
+                <widget type="select" parent="fonth4" fieldname="fonth4weight" translate="false" required="true">
+                    <values fieldfilter="idfont" source="webfontsweight" fieldcode="idfontweight" fieldtitle="weight" />
+                </widget>
+            </column>
+        </group>
+
+        <group name="group-font-h5" title="font-h5" numcolumns="12">
+            <column name="font-h5-color" title="color" numcolumns="2" order="90">
+                <widget type="color" fieldname="fonth5color" />
+            </column>
+            
+            <column name="font-h5" title="typography" numcolumns="2" order="100">
+                <widget type="select" fieldname="fonth5" translate="false" required="true">
+                    <values source="webfonts" fieldcode="idfont" fieldtitle="name" />
+                </widget>
+            </column>
+
+            <column name="font-h5-weight" title="weight" numcolumns="2" order="110">
+                <widget type="select" parent="fonth5" fieldname="fonth5weight" translate="false" required="true">
+                    <values fieldfilter="idfont" source="webfontsweight" fieldcode="idfontweight" fieldtitle="weight" />
+                </widget>
+            </column>
+        </group>
+
+        <group name="group-font-h6" title="font-h6" numcolumns="12">
+            <column name="font-h6-color" title="color" numcolumns="2" order="90">
+                <widget type="color" fieldname="fonth6color" />
+            </column>
+            
+            <column name="font-h6" title="typography" numcolumns="2" order="100">
+                <widget type="select" fieldname="fonth6" translate="false" required="true">
+                    <values source="webfonts" fieldcode="idfont" fieldtitle="name" />
+                </widget>
+            </column>
+
+            <column name="font-h6-weight" title="weight" numcolumns="2" order="110">
+                <widget type="select" parent="fonth6" fieldname="fonth6weight" translate="false" required="true">
+                    <values fieldfilter="idfont" source="webfontsweight" fieldcode="idfontweight" fieldtitle="weight" />
+                </widget>
+            </column>
+        </group>
+    </columns>
+</view>

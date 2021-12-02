@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : webblocks.xml
+    Author     : Carlos Garcia Gomez
+    Description:
+        Structure for the webblocks table.
+-->
+<table>
+    <column>
+        <name>idfont</name>
+        <type>integer</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>idfontweight</name>
+        <type>serial</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>lastmod</name>
+        <type>date</type>
+    </column>
+    <column>
+        <name>weight</name>
+        <type>character varying(30)</type>
+        <null>NO</null>
+    </column>
+    <constraint>
+        <name>webfontsweight_pkey</name>
+        <type>PRIMARY KEY (idfontweight)</type>
+    </constraint>
+    <constraint>
+        <name>uniq_idfont_weight_webfontsweight</name>
+        <type>UNIQUE (idfont,weight)</type>
+    </constraint>
+    <constraint>
+        <name>ca_webfontsweight_wefonts</name>
+        <type>FOREIGN KEY (idfont) REFERENCES webfonts (idfont) ON DELETE RESTRICT ON UPDATE CASCADE</type>
+    </constraint>
+</table>

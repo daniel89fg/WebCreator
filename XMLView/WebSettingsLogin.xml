@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * This file is part of WebCreator plugin for FacturaScripts.
+ * Copyright (C) 2020 Carlos Garcia Gomez  <carlos@facturascripts.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @author Athos Online <info@athosonline.com>
+-->
+<view>
+    <columns>
+        <column name="name" display="none">
+            <widget type="text" fieldname="name" readonly="true" required="true" />
+        </column>
+
+        <group name="login-register" numcolumns="12">
+            <column name="login-available" description="login-available-help" numcolumns="3" order="100">
+                <widget type="select" fieldname="loginavailable" translate="true" required="true">
+                    <values title="no">0</values>
+                    <values title="yes">1</values>
+                </widget>
+            </column>
+
+            <column name="register-available" description="register-available-help" numcolumns="3" order="110">
+                <widget type="select" fieldname="registeravailable" translate="true" required="true">
+                    <values title="no">0</values>
+                    <values title="yes">1</values>
+                </widget>
+            </column>
+        </group>
+
+        <group name="login-register-facebook" title="access-facebook" numcolumns="12">
+            <column name="facebook-app-id" order="100">
+                <widget type="text" fieldname="facebookappid" />
+            </column>
+
+            <column name="facebook-app-secret" order="110">
+                <widget type="text" fieldname="facebookappsecret" />
+            </column>
+        </group>
+
+        <group name="login-register-google" title="access-google" numcolumns="12">
+            <column name="google-app-id" order="100">
+                <widget type="text" fieldname="googleappid" />
+            </column>
+
+            <column name="google-app-secret" order="110">
+                <widget type="text" fieldname="googleappsecret" />
+            </column>
+        </group>
+    </columns>
+</view>

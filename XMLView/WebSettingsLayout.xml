@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * This file is part of WebCreator plugin for FacturaScripts.
+ * Copyright (C) 2020 Carlos Garcia Gomez  <carlos@facturascripts.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @author Athos Online <info@athosonline.com>
+-->
+<view>
+    <columns>
+        <column name="name" display="none">
+            <widget type="text" fieldname="name" readonly="true" required="true" />
+        </column>
+
+        <group name="layouts" numcolumns="12">
+            <column name="site-width" numcolumns="3" order="100">
+                <widget type="select" fieldname="sitewidth" translate="false" required="true">
+                    <values title="Container">container</values>
+                    <values title="Container sm">container-sm</values>
+                    <values title="Container md">container-md</values>
+                    <values title="Container lg">container-lg</values>
+                    <values title="Container fluid">container-fluid</values>
+                </widget>
+            </column>
+
+            <column name="sidebar-position" numcolumns="3" order="120">
+                <widget type="select" fieldname="sidebarposition" translate="true" required="true">
+                    <values title="left">1</values>
+                    <values title="right">2</values>
+                </widget>
+            </column>
+        </group>
+
+        <group name="default-header-footer" numcolumns="12">
+            <column name="header-default" titleurl="ListWebPage" numcolumns="3" order="100">
+                <widget type="select" fieldname="headerdefault" onclick="EditWebHeader">
+                    <values source="webheaders" fieldcode="idheader" fieldtitle="name" />
+                </widget>
+            </column>
+
+            <column name="footer-default" titleurl="ListWebFooter" numcolumns="3" order="110">
+                <widget type="select" fieldname="footerdefault" onclick="EditWebFooter">
+                    <values source="webfooters" fieldcode="idfooter" fieldtitle="name" />
+                </widget>
+            </column>
+
+            <column name="sidebar-default" titleurl="ListWebSidebar" numcolumns="3" order="120">
+                <widget type="select" fieldname="sidebardefault" onclick="EditWebSidebar">
+                    <values source="websidebars" fieldcode="idsidebar" fieldtitle="name" />
+                </widget>
+            </column>
+        </group>
+
+        <group name="default-pages" numcolumns="12">
+            <column name="homepage" titleurl="ListWebPage" numcolumns="3" order="100">
+                <widget type="select" fieldname="homepage" onclick="EditWebPage">
+                    <values source="webpages" fieldcode="idpage" fieldtitle="title" />
+                </widget>
+            </column>
+
+            <column name="cookies-page" titleurl="ListWebPage" numcolumns="3" order="110">
+                <widget type="select" fieldname="cookiespage" onclick="EditWebPage">
+                    <values source="webpages" fieldcode="idpage" fieldtitle="title" />
+                </widget>
+            </column>
+
+            <column name="privacy-page" titleurl="ListWebPage" numcolumns="3" order="120">
+                <widget type="select" fieldname="privacypage" onclick="EditWebPage">
+                    <values source="webpages" fieldcode="idpage" fieldtitle="title" />
+                </widget>
+            </column>
+
+            <column name="terms-page" titleurl="ListWebPage" numcolumns="3" order="130">
+                <widget type="select" fieldname="termspage" onclick="EditWebPage">
+                    <values source="webpages" fieldcode="idpage" fieldtitle="title" />
+                </widget>
+            </column>
+        </group>
+
+        <group name="text-color" title="colors" numcolumns="12">
+            <column name="text-color-first" description="text-color-first-help" numcolumns="2" order="100">
+                <widget type="color" fieldname="text-color-first" />
+            </column>
+            <column name="text-color-second" description="text-color-second-help" numcolumns="2" order="110">
+                <widget type="color" fieldname="text-color-second" />
+            </column>
+            <column name="text-color-third" description="text-color-third-help" numcolumns="2" order="120">
+                <widget type="color" fieldname="text-color-third" />
+            </column>
+            <column name="text-color-quarter" description="text-color-quarter-help" numcolumns="2" order="130">
+                <widget type="color" fieldname="text-color-quarter" />
+            </column>
+            <column name="text-color-fifth" description="text-color-fifth-help" numcolumns="2" order="140">
+                <widget type="color" fieldname="text-color-fifth" />
+            </column>
+            <column name="text-color-sixth" description="text-color-sixth-help" numcolumns="2" order="150">
+                <widget type="color" fieldname="text-color-sixth" />
+            </column>
+        </group>
+    </columns>
+</view>
