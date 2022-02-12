@@ -1,0 +1,13 @@
+<div class="text-center">
+    <form method="post" action="{{ fsc.url() }}">
+        <input type="hidden" name="idcontacto" value="{{ fsc.contact.idcontacto }}">
+        <input type="hidden" name="action" value="privacy">
+        <div class="h5">{{ i18n.trans('policy-privacy-account') }}</div>
+        <a href="{{ asset(fsc.privacyPage.url('public')) }}" target="_blank" class="btn btn-light mt-2">
+            {{ i18n.trans('privacy-policy') }}
+        </a>
+        <button type="submit" class="btn btn-primary mt-2">
+            {{ i18n.trans('accept') }}
+        </button>
+    </form>
+</div>

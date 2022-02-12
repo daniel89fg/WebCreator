@@ -7,13 +7,13 @@ namespace FacturaScripts\Plugins\WebCreator\Controller;
 
 use FacturaScripts\Dinamic\Lib\ExtendedController\BaseView;
 use FacturaScripts\Dinamic\Lib\ExportManager;
-use FacturaScripts\Dinamic\Lib\Portal\PortalViewController;
+use FacturaScripts\Dinamic\Lib\WebCreator\PortalViewController;
 
 /**
  * Description of ViewOrder
  *
  * @author Carlos García Gómez <carlos@facturascripts.com>
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class ViewOrder extends PortalViewController
 {
@@ -30,7 +30,7 @@ class ViewOrder extends PortalViewController
      * 
      * @return bool
      */
-    private function cancelAction()
+    protected function cancelAction(): bool
     {
         if (false === $this->permissions->allowAccess) {
             $this->toolBox()->i18nLog()->warning('access-denied');
@@ -47,7 +47,6 @@ class ViewOrder extends PortalViewController
 
         if ($order->save()) {
             $this->toolBox()->i18nLog()->notice('record-updated-correctly');
-            $this->redirect('/plugins');
             return true;
         }
 
@@ -67,7 +66,7 @@ class ViewOrder extends PortalViewController
         }
 
         parent::createViews();
-        $this->addHtmlView('info', 'Web/Private/OrderInfo', 'PedidoCliente', 'detail', 'fas fa-info-circle');
+        $this->addHtmlView('info', 'WebCreator/Private/OrderInfo', 'PedidoCliente', 'detail', 'fas fa-info-circle');
     }
 
     /**
@@ -109,7 +108,7 @@ class ViewOrder extends PortalViewController
         }
     }
 
-    private function printAction()
+    protected function printAction(): bool
     {
         if (false === $this->permissions->allowAccess) {
             $this->toolBox()->i18nLog()->warning('access-denied');

@@ -23,21 +23,33 @@ use FacturaScripts\Core\Base\ToolBox;
 /**
  * Description of Shortcode
  *
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 abstract class Shortcode
 {
-
     abstract public static function replace($content);
 
     /**
-     *
      * @var array
      */
     private static $codes = [];
+
+    /**
+     * @var array
+     */
     private static $codesActive = [];
 
-    public static function getClassName($className)
+    /**
+     *
+     * @param string $code
+     * @param string  $className
+     */
+    public static function addCode(string $code, string $className)
+    {
+        self::$codes[$code] = '\\FacturaScripts\\Dinamic\\Lib\\Shortcode\\'.$className;
+    }
+
+    public static function getClassName(string $className): bool
     {
         $className = explode('\\', $className);
         $className = end($className);
@@ -45,31 +57,12 @@ abstract class Shortcode
         if (in_array($className, self::$codesActive)) {
             return false;
         } else {
-            array_push(self::$codesActive, $className);
+            self::$codesActive[] = $className;
             return true;
         }
     }
 
-    /**
-     * 
-     * @param string $code
-     * @param string  $className
-     */
-    public static function addCode(string $code, $className)
-    {
-        self::$codes[$code] = '\\FacturaScripts\\Dinamic\\Lib\\Shortcode\\'.$className;
-    }
-
-    public static function getShortcodes($content)
-    {
-        foreach (self::$codes as $code => $className) {
-            $content = $className::replace($content);
-        }
-
-        return $content;
-    }
-
-    public static function getPageShortcodes($pageData)
+    public static function getPageShortcodes(array $pageData): array
     {
         foreach (self::$codes as $code => $className) {
             foreach ($pageData as $key => $value) {
@@ -111,44 +104,44 @@ abstract class Shortcode
         return $pageData;
     }
 
-    /*public static function getShortcodesCss($content)
+    /**
+     * Find and replace shortcodes
+     *
+     * @param string $content
+     *
+     * @return string
+     */
+    public static function getShortcodes(string $content): string
     {
-        $css = '';
-        $codesActive = [];
         foreach (self::$codes as $code => $className) {
-            if (method_exists($className, 'replaceCss')) {
-                $result = $className::replaceCss($content, $codesActive, $className);
-                if (!empty($result)) {
-                    array_push($codesActive, $className);
-                }
-            }
+            $content = $className::replace($content);
         }
 
-        return $css;
-    }*/
+        return $content;
+    }
 
     /**
      * Finds if the string with you the regular expression passed
      * 
      * @param string $content
-     * @param preg_match $search
+     * @param string $search
      *
-     * @return int
+     * @return array
      */
     protected static function searchCode($content, $search)
     {
-        preg_match_all((string)$search, $content, $matches);
+        preg_match_all($search, $content, $matches);
         return (count($matches) > 0) ? $matches : null;
     }
 
     /**
      * Obtained the attributes of a shortcode and saves them in an array
      * 
-     * @param string $matches
+     * @param string $short
      *
      * @return array
      */
-    protected static function getAttributes($short)
+    protected static function getAttributes(string $short): array
     {
         $short = static::toolBox()->utils()->fixHtml($short);
         preg_match_all('/[\S]*=["\'][^"\']*["\']/', $short, $matches);
@@ -167,7 +160,7 @@ abstract class Shortcode
         return $params;
     }
 
-    protected static function toolBox()
+    protected static function toolBox(): ToolBox
     {
         return new ToolBox();
     }

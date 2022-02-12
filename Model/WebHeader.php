@@ -23,43 +23,33 @@ use FacturaScripts\Core\Model\Base;
 /**
  * Description of WebHeader
  *
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class WebHeader extends Base\ModelClass
 {
-
     use Base\ModelTrait;
 
     /**
-     * Content.
-     *
      * @var string
      */
     public $content;
 
     /**
-     * Primary key.
-     *
      * @var int
      */
     public $idheader;
 
     /**
-     *
      * @var string
      */
     public $lastmod;
 
     /**
-     * Block name.
-     *
      * @var string
      */
     public $name;
 
     /**
-     * Set of configuration values.
-     *
      * @var array
      */
     public $properties;
@@ -70,7 +60,6 @@ class WebHeader extends Base\ModelClass
     public function clear()
     {
         parent::clear();
-        $this->lastmod = \date('d-m-Y');
         $this->properties = [];
         $this->content = [];
     }
@@ -104,7 +93,6 @@ class WebHeader extends Base\ModelClass
      */
     public function save()
     {
-        /// update last modification date
         $this->lastmod = date('d-m-Y');
         return parent::save();
     }
@@ -116,7 +104,7 @@ class WebHeader extends Base\ModelClass
      */
     public static function tableName()
     {
-        return 'webheaders';
+        return 'webcreator_headers';
     }
 
     /**
@@ -145,15 +133,6 @@ class WebHeader extends Base\ModelClass
      */
     public function url(string $type = 'auto', string $list = 'List')
     {
-        if ($type === 'public') {
-            $webPage = new WebPage();
-            if (!empty($this->idpage) && $webPage->loadFromCode($this->idpage)) {
-                return $webPage->url($type);
-            }
-
-            return '';
-        }
-
         return parent::url($type, 'ListWebPage?activetab=List');
     }
 }

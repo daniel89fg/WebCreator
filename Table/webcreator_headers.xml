@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : webcreator_headers.xml
+    Author     : Daniel Fernández Giménez
+    Description:
+        Structure for the webcreator_headers table.
+-->
+<table>
+    <column>
+        <name>content</name>
+        <type>longblob</type>
+    </column>
+    <column>
+        <name>idheader</name>
+        <type>serial</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>lastmod</name>
+        <type>date</type>
+    </column>
+    <column>
+        <name>name</name>
+        <type>character varying(100)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>properties</name>
+        <type>longblob</type>
+    </column>
+    <constraint>
+        <name>webcreator_headers_pkey</name>
+        <type>PRIMARY KEY (idheader)</type>
+    </constraint>
+</table>

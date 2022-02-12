@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : webcreator_fontsweight.xml
+    Author     : Daniel Fernández Giménez
+    Description:
+        Structure for the webcreator_fontsweight table.
+-->
+<table>
+    <column>
+        <name>idfont</name>
+        <type>integer</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>idfontweight</name>
+        <type>serial</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>lastmod</name>
+        <type>date</type>
+    </column>
+    <column>
+        <name>weight</name>
+        <type>character varying(30)</type>
+        <null>NO</null>
+    </column>
+    <constraint>
+        <name>webcreator_fontsweight_pkey</name>
+        <type>PRIMARY KEY (idfontweight)</type>
+    </constraint>
+    <constraint>
+        <name>uniq_idfont_weight_webcreator_fontsweight</name>
+        <type>UNIQUE (idfont,weight)</type>
+    </constraint>
+    <constraint>
+        <name>ca_webcreator_fontsweight_webcreator_fonts</name>
+        <type>FOREIGN KEY (idfont) REFERENCES webcreator_fonts (idfont) ON DELETE RESTRICT ON UPDATE CASCADE</type>
+    </constraint>
+</table>

@@ -18,7 +18,7 @@
  */
 namespace FacturaScripts\Plugins\WebCreator\Controller;
 
-use FacturaScripts\Dinamic\Lib\Portal\PortalController;
+use FacturaScripts\Dinamic\Lib\WebCreator\PortalController;
 
 /**
  * Description of PortalHome

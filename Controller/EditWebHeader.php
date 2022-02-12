@@ -26,7 +26,7 @@ use FacturaScripts\Dinamic\Lib\AssetManager;
 /**
  * Description of EditWebHeader
  *
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class EditWebHeader extends PanelController
 {
@@ -45,12 +45,39 @@ class EditWebHeader extends PanelController
         return $pagedata;
     }
 
+    public function imagesGallery(): array
+    {
+        return $this->codeModel->all('attached_files', 'idfile', 'filename', true, [
+            new DataBaseWhere('mimetype', 'image/gif,image/jpeg,image/png,image/svg+xml', 'IN')
+        ]);
+    }
+
     /**
      * Create views
      */
     protected function createViews()
     {
-        $this->addHtmlView('EditWebHeader', 'Web/Admin/EditWebHeader', 'WebHeader', 'header');
+        $this->addHtmlView('EditWebHeader', 'WebCreator/Admin/EditWebHeader', 'WebHeader', 'header');
+    }
+
+    /**
+     *
+     * @param string $action
+     */
+    protected function execPreviousAction($action)
+    {
+        switch ($action) {
+            case 'insert':
+                if ($this->saveDataAction()) {
+                    $this->redirect('EditWebHeader?code=' . $this->views['EditWebHeader']->model->idheader . '&action=save-ok');
+                }
+                return true;
+            case 'edit':
+                $this->saveDataAction();
+                return true;
+            default:
+                return parent::execPreviousAction($action);
+        }
     }
 
     /**
@@ -70,27 +97,7 @@ class EditWebHeader extends PanelController
         }
     }
 
-    /**
-     * 
-     * @param string $action
-     */
-    protected function execPreviousAction($action)
-    {
-        switch ($action) {
-            case 'insert':
-                if ($this->saveDataAction()) {
-                    $this->redirect('EditWebHeader?code='.$this->views['EditWebHeader']->model->idheader.'&action=save-ok');
-                }
-                return true;
-            case 'edit':
-                $this->saveDataAction();
-                return true;
-            default:
-                return parent::execPreviousAction($action);
-        }
-    }
-
-    private function saveDataAction()
+    protected function saveDataAction(): bool
     {
         $data = $this->request->request->all();
         $content = [];
@@ -125,12 +132,5 @@ class EditWebHeader extends PanelController
         }
 
         return false;
-    }
-
-    public function imagesGallery()
-    {
-        return $this->codeModel->all('attached_files', 'idfile', 'filename', true, [
-            new DataBaseWhere('mimetype', 'image/gif,image/jpeg,image/png,image/svg+xml', 'IN')
-        ]);
     }
 }

@@ -25,10 +25,10 @@ use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 /**
  * Description of WebCreator
  *
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
-class WebCreator extends PanelController {
-
+class WebCreator extends PanelController
+{
     /**
      * 
      * @return array
@@ -65,6 +65,19 @@ class WebCreator extends PanelController {
         $this->setSettings('WebSettingsPageTitle', 'btnDelete', false);
         $this->setSettings('WebSettingsTypography', 'btnDelete', false);
         $this->setSettings('WebSettingsPermalink', 'btnDelete', false);
+    }
+
+    protected function execPreviousAction($action)
+    {
+        switch ($action) {
+            case 'select':
+                $this->setTemplate(false);
+                $results = $this->selectAction();
+                $this->response->setContent(json_encode($results));
+                return false;
+            default:
+                return parent::execPreviousAction($action);
+        }
     }
 
     /**
@@ -128,5 +141,33 @@ class WebCreator extends PanelController {
 
             $columnLangCode->widget->setValuesFromArray($langs, false);
         }
+    }
+
+    /**
+     * Run the seleect action.
+     * Returns a JSON string for the searched values.
+     *
+     * @return array
+     */
+    protected function selectAction(): array
+    {
+        $data = $this->requestGet(['field', 'fieldcode', 'fieldfilter', 'fieldtitle', 'formname', 'source', 'term']);
+
+        $where = [];
+        foreach (DataBaseWhere::applyOperation($data['fieldfilter'] ?? '') as $field => $operation) {
+            $where[] = new DataBaseWhere($field, $data['term'], '=', $operation);
+        }
+
+        $results = [];
+        $utils = $this->toolBox()->utils();
+        foreach ($this->codeModel->all($data['source'], $data['fieldcode'], $data['fieldtitle'], false, $where) as $value) {
+            $results[] = ['key' => $utils->fixHtml($value->code), 'value' => $utils->fixHtml($value->description)];
+        }
+
+        if (empty($results)) {
+            $results[] = ['key' => null, 'value' => $this->toolBox()->i18n()->trans('no-data')];
+        }
+
+        return $results;
     }
 }

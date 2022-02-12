@@ -26,11 +26,10 @@ use FacturaScripts\Dinamic\Lib\AssetManager;
 /**
  * Description of EditWebFooter
  *
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class EditWebFooter extends PanelController
 {
-
     /**
      * Returns the model name
      *
@@ -56,12 +55,39 @@ class EditWebFooter extends PanelController
         return $pagedata;
     }
 
+    public function imagesGallery(): array
+    {
+        return $this->codeModel->all('attached_files', 'idfile', 'filename', true, [
+            new DataBaseWhere('mimetype', 'image/gif,image/jpeg,image/png,image/svg+xml', 'IN')
+        ]);
+    }
+
     /**
      * Create views
      */
     protected function createViews()
     {
-        $this->addHtmlView('EditWebFooter', 'Web/Admin/EditWebFooter', 'WebFooter', 'footer');
+        $this->addHtmlView('EditWebFooter', 'WebCreator/Admin/EditWebFooter', 'WebFooter', 'footer');
+    }
+
+    /**
+     *
+     * @param string $action
+     */
+    protected function execPreviousAction($action)
+    {
+        switch ($action) {
+            case 'insert':
+                if ($this->saveDataAction()) {
+                    $this->redirect('EditWebFooter?code=' . $this->views['EditWebFooter']->model->idfooter . '&action=save-ok');
+                }
+                return true;
+            case 'edit':
+                $this->saveDataAction();
+                return true;
+            default:
+                return parent::execPreviousAction($action);
+        }
     }
 
     /**
@@ -81,27 +107,7 @@ class EditWebFooter extends PanelController
         }
     }
 
-    /**
-     * 
-     * @param string $action
-     */
-    protected function execPreviousAction($action)
-    {
-        switch ($action) {
-            case 'insert':
-                if ($this->saveDataAction()) {
-                    $this->redirect('EditWebFooter?code='.$this->views['EditWebFooter']->model->idfooter.'&action=save-ok');
-                }
-                return true;
-            case 'edit':
-                $this->saveDataAction();
-                return true;
-            default:
-                return parent::execPreviousAction($action);
-        }
-    }
-
-    private function saveDataAction()
+    protected function saveDataAction(): bool
     {
         $data = $this->request->request->all();
         $content = [];
@@ -136,12 +142,5 @@ class EditWebFooter extends PanelController
         }
 
         return false;
-    }
-
-    public function imagesGallery()
-    {
-        return $this->codeModel->all('attached_files', 'idfile', 'filename', true, [
-            new DataBaseWhere('mimetype', 'image/gif,image/jpeg,image/png,image/svg+xml', 'IN')
-        ]);
     }
 }

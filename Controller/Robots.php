@@ -25,7 +25,7 @@ use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 /**
  * Description of Robots
  *
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class Robots extends Controller
 {

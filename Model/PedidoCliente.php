@@ -23,11 +23,10 @@ use FacturaScripts\Core\Model\PedidoCliente as ParentModel;
 /**
  * Description of PedidoCliente
  *
- * @author Carlos García Gómez <carlos@facturascripts.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class PedidoCliente extends ParentModel
 {
-
     /**
      * 
      * @param string $type

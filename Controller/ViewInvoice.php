@@ -20,16 +20,15 @@ namespace FacturaScripts\Plugins\WebCreator\Controller;
 
 use FacturaScripts\Dinamic\Lib\ExtendedController\BaseView;
 use FacturaScripts\Dinamic\Lib\ExportManager;
-use FacturaScripts\Dinamic\Lib\Portal\PortalViewController;
+use FacturaScripts\Dinamic\Lib\WebCreator\PortalViewController;
 
 /**
  * Description of ViewInvoice
  *
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class ViewInvoice extends PortalViewController
 {
-
     /**
      * 
      * @return string
@@ -43,7 +42,7 @@ class ViewInvoice extends PortalViewController
      * 
      * @return bool
      */
-    private function cancelAction()
+    protected function cancelAction(): bool
     {
         if (false === $this->permissions->allowAccess) {
             $this->toolBox()->i18nLog()->warning('access-denied');
@@ -79,7 +78,7 @@ class ViewInvoice extends PortalViewController
         }
 
         parent::createViews();
-        $this->addHtmlView('info', 'Web/Private/InvoiceInfo', 'PresupuestoCliente', 'detail', 'fas fa-info-circle');
+        $this->addHtmlView('info', 'WebCreator/Private/InvoiceInfo', 'PresupuestoCliente', 'detail', 'fas fa-info-circle');
     }
 
     /**
@@ -121,7 +120,7 @@ class ViewInvoice extends PortalViewController
         }
     }
 
-    private function printAction()
+    protected function printAction(): bool
     {
         if (false === $this->permissions->allowAccess) {
             $this->toolBox()->i18nLog()->warning('access-denied');

@@ -23,7 +23,7 @@ use FacturaScripts\Dinamic\Model\WebBlock as modelWebBlock;
 /**
  * Shortcode of Block
  *
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class webBlock extends Shortcode
 {
@@ -56,8 +56,6 @@ class webBlock extends Shortcode
             }
         }
 
-        $content = static::replace($content);
-
-        return $content;
+        return static::replace($content);
     }
 }

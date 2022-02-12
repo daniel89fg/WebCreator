@@ -21,21 +21,19 @@ namespace FacturaScripts\Plugins\WebCreator;
 require_once __DIR__ . '/vendor/autoload.php';
 
 use FacturaScripts\Core\Base\InitClass;
+use FacturaScripts\Dinamic\Lib\Shortcode\Shortcode;
+use FacturaScripts\Dinamic\Lib\WebCreator\UpdateRoutes;
 use FacturaScripts\Dinamic\Model\Empresa;
-use FacturaScripts\Plugins\WebCreator\Lib\Shortcode\Shortcode;
-use FacturaScripts\Plugins\WebCreator\Model\WebPage;
-use FacturaScripts\Plugins\WebCreator\Model\WebFont;
-use FacturaScripts\Plugins\WebCreator\Model\WebFontWeight;
-use FacturaScripts\Plugins\WebCreator\Lib\Portal\UpdateRoutes;
+use FacturaScripts\Dinamic\Model\WebPage;
 
 /**
  * Description of Init
  *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class Init extends InitClass
 {
-
     public function init()
     {
         Shortcode::addCode('block', 'webBlock');
@@ -53,8 +51,6 @@ class Init extends InitClass
     public function update()
     {
         new WebPage();
-        new WebFont();
-        new WebFontWeight();
         $this->configure();
     }
 
@@ -174,11 +170,10 @@ class Init extends InitClass
      * 
      * @return string
      */
-    protected function getSiteUrl()
+    protected function getSiteUrl(): string
     {
         $url = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
         $url .= '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-        $url = (substr($url, -1) == '/') ? $url = \substr($url, 0, -1) : $url;
-        return $url;
+        return \substr($url, 0, \strrpos($url, '/'));
     }
 }

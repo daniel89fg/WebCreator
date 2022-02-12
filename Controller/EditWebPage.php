@@ -25,18 +25,43 @@ use FacturaScripts\Dinamic\Model\WebHeader;
 use FacturaScripts\Dinamic\Model\WebSidebar;
 use FacturaScripts\Dinamic\Model\WebFooter;
 use FacturaScripts\Dinamic\Model\Page;
-use FacturaScripts\Plugins\WebCreator\Lib\Portal\PermalinkTrait;
+use FacturaScripts\Plugins\WebCreator\Lib\WebCreator\PermalinkTrait;
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 
 /**
  * Description of EditWebPage.
  *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class EditWebPage extends PanelController
 {
     use PermalinkTrait;
+
+    public function getControllers(): array
+    {
+        $page = new Page();
+        return $page->all([], [], 0, 0);
+    }
+
+    public function getFooters(): array
+    {
+        $footer = new WebFooter();
+        return $footer->all([], [], 0, 0);
+    }
+
+    public function getHeaders(): array
+    {
+        $header = new WebHeader();
+        return $header->all([], [], 0, 0);
+    }
+
+    public function getImages(): array
+    {
+        return $this->codeModel->all('attached_files', 'idfile', 'filename', true, [
+            new DataBaseWhere('mimetype', 'image/gif,image/jpeg,image/png', 'IN')
+        ]);
+    }
 
     /**
      * Returns basic page attributes.
@@ -53,23 +78,35 @@ class EditWebPage extends PanelController
         return $pageData;
     }
 
+    public function getPages($idpage): array
+    {
+        $webpage = new WebPage();
+        $result = array();
+        foreach ($webpage->all([], [], 0, 0) as $page) {
+            if ($idpage != $page->idpage) {
+                $result[] = $page;
+            }
+        }
+        return $result;
+    }
+
+    public function getSidebars(): array
+    {
+        $sidebar = new WebSidebar();
+        return $sidebar->all([], [], 0, 0);
+    }
+
+    public function getSiteUrl(): string
+    {
+        return $this->toolBox()->appSettings()->get('webcreator', 'siteurl');
+    }
+
     /**
      * Load views.
      */
     protected function createViews()
     {
-        $this->addHtmlView('EditWebPage', 'Web/Admin/EditWebPage', 'WebPage', 'page', 'fas fa-globe-americas');
-    }
-
-    protected function loadData($viewName, $view) {
-        switch ($viewName) {
-            default:
-                AssetManager::add('css', FS_ROUTE . '/Dinamic/Assets/CSS/codemirror.css');
-                AssetManager::add('js', FS_ROUTE . '/Dinamic/Assets/JS/codemirrorBundle.js');
-                $code = $this->request->get('code');
-                $view->loadData($code);
-                break;
-        }
+        $this->addHtmlView('EditWebPage', 'WebCreator/Admin/EditWebPage', 'WebPage', 'page', 'fas fa-globe-americas');
     }
 
     /**
@@ -103,7 +140,7 @@ class EditWebPage extends PanelController
                         $page->loadFromData($this->request->request->all());
 
                         if ($page->save()) {
-                            $this->redirect($activetab . '?code='.$page->idpage.'&action=save-ok');
+                            $this->redirect($activetab . '?code=' . $page->idpage . '&action=save-ok');
                         }
                         break;
 
@@ -125,51 +162,14 @@ class EditWebPage extends PanelController
         return parent::execPreviousAction($action);
     }
 
-    public function getSiteUrl()
-    {
-        return $this->toolBox()->appSettings()->get('webcreator', 'siteurl');
-    }
-
-    public function getImages()
-    {
-        return $this->codeModel->all('attached_files', 'idfile', 'filename', true, [
-            new DataBaseWhere('mimetype', 'image/gif,image/jpeg,image/png', 'IN')
-        ]);
-    }
-
-    public function getPages($idpage)
-    {
-        $webpage = new WebPage();
-        $result = array();
-        foreach ($webpage->all([], [], 0, 0) as $page) {
-            if ($idpage != $page->idpage) {
-                $result[] = $page;
-            }
+    protected function loadData($viewName, $view) {
+        switch ($viewName) {
+            default:
+                AssetManager::add('css', FS_ROUTE . '/Dinamic/Assets/CSS/codemirror.css');
+                AssetManager::add('js', FS_ROUTE . '/Dinamic/Assets/JS/codemirrorBundle.js');
+                $code = $this->request->get('code');
+                $view->loadData($code);
+                break;
         }
-        return $result;
-    }
-
-    public function getControllers()
-    {
-        $page = new Page();
-        return $page->all([], [], 0, 0);
-    }
-
-    public function getHeaders()
-    {
-        $header = new WebHeader();
-        return $header->all([], [], 0, 0);
-    }
-
-    public function getSidebars()
-    {
-        $sidebar = new WebSidebar();
-        return $sidebar->all([], [], 0, 0);
-    }
-
-    public function getFooters()
-    {
-        $footer = new WebFooter();
-        return $footer->all([], [], 0, 0);
     }
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : webcreator_blocks.xml
+    Author     : Carlos Garcia Gomez
+    Author     : Daniel Fernández Giménez
+    Description:
+        Structure for the webcreator_blocks table.
+-->
+<table>
+    <column>
+        <name>content</name>
+        <type>longblob</type>
+    </column>
+    <column>
+        <name>idblock</name>
+        <type>serial</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>lastmod</name>
+        <type>date</type>
+    </column>
+    <column>
+        <name>name</name>
+        <type>character varying(100)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>ordernum</name>
+        <type>integer</type>
+    </column>
+    <column>
+        <name>type</name>
+        <type>character varying(60)</type>
+    </column>
+    <constraint>
+        <name>webcreator_blocks_pkey</name>
+        <type>PRIMARY KEY (idblock)</type>
+    </constraint>
+</table>

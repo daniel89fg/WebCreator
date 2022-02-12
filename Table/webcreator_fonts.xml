@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : webcreator_fonts.xml
+    Author     : Daniel Fernández Giménez
+    Description:
+        Structure for the webcreator_fonts table.
+-->
+<table>
+    <column>
+        <name>idfont</name>
+        <type>serial</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>lastmod</name>
+        <type>date</type>
+    </column>
+    <column>
+        <name>name</name>
+        <type>character varying(100)</type>
+        <null>NO</null>
+    </column>
+    <constraint>
+        <name>webcreator_blocks_pkey</name>
+        <type>PRIMARY KEY (idfont)</type>
+    </constraint>
+    <constraint>
+        <name>uniq_name_webcreator_blocks</name>
+        <type>UNIQUE (name)</type>
+    </constraint>
+</table>

@@ -1,0 +1,39 @@
+{% extends "WebCreator/Private/PortalPanelTemplate.html.twig" %}
+
+{% block bodyHeaderOptions %}
+    {{ parent() }}
+    <div class="container pt-3 pb-3">
+        <div class="row">
+            <div class="col-sm">
+                <div class="media mb-3">
+                    <a href="https://es.gravatar.com/" target="_blank">
+                        <img src="{{ fsc.contact.gravatar() }}" class="mr-3" alt="{{ fsc.contact.alias() }}" />
+                    </a>
+                    <div class="media-body">
+                        <h1 class="h3 mb-0">
+                            {{ fsc.contact.email }}
+                            {% if fsc.contact.verificado %}
+                                <i class="fas fa-check-double" title="{{ i18n.customTrans(fsc.webPage.filelang, 'verified') }}"></i>
+                            {% endif %}
+                        </h1>
+                        <p class="text-muted">
+                            {{ i18n.customTrans(fsc.webPage.filelang, 'name') }}: {{ fsc.contact.fullName() }},
+                            {{ i18n.customTrans(fsc.webPage.filelang, 'created') }}: {{ fsc.contact.fechaalta }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            {% if fsc.user or fsc.contact %}
+                <div class="col-sm-2 text-right">
+                    <form action="{{ asset('Me') }}" method="post">
+                        <button type="submit" name="action" value="logout" class="btn btn-danger" title="{{ i18n.customTrans(fsc.webPage.filelang, 'logout') }}">
+                            <i class="fas fa-door-open"></i>
+                            {{ i18n.customTrans(fsc.webPage.filelang, 'exit') }}
+                        </button>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

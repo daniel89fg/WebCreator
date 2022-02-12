@@ -10,13 +10,13 @@ use FacturaScripts\Dinamic\Lib\Shortcode\Shortcode;
  * Shortcode of webAsset
  * Create the url to upload files
  *
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class webAsset extends Shortcode
 {
     /**
      * Replace the block shortcode with the content of the block if found
-     * 
+     *
      * @param string $content
      *
      * @return string
@@ -34,7 +34,7 @@ class webAsset extends Shortcode
         for ($x = 0; $x < count($shorts[1]); $x++) {
             $params = static::getAttributes($shorts[1][$x]);
             
-            $file = isset($params['file']) ? $params['file'] : null;
+            $file = $params['file'] ?? null;
 
             if (!is_null($file)) {
                 $url = $appSettings->get('webcreator', 'siteurl').$file;    

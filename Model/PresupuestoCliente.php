@@ -23,11 +23,10 @@ use FacturaScripts\Core\Model\PresupuestoCliente as ParentModel;
 /**
  * Description of PresupuestoCliente
  *
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class PresupuestoCliente extends ParentModel
 {
-
     /**
      * 
      * @param string $type

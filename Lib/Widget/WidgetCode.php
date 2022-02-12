@@ -24,13 +24,11 @@ use FacturaScripts\Core\Lib\Widget\BaseWidget;
 /**
  * Description of WidgetCode
  *
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class WidgetCode extends BaseWidget
 {
     /**
-     * Code language
-     *
      * @var string
      */
     protected $lang;

@@ -11,13 +11,13 @@ use FacturaScripts\Dinamic\Lib\Shortcode\Shortcode;
  * Shortcode of webLogo
  * Displays the default logo or the logo set in the general settings.
  *
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class webLogo extends Shortcode
 {
     /**
      * Replace the block shortcode with the content of the block if found
-     * 
+     *
      * @param string $content
      *
      * @return string
@@ -34,10 +34,10 @@ class webLogo extends Shortcode
         for ($x = 0; $x < count($shorts[1]); $x++) {
             $params = static::getAttributes($shorts[1][$x]);
             
-            $class = isset($params['class']) ? $params['class'] : '';
-            $id = isset($params['id']) ? $params['id'] : '';
-            $width = isset($params['width']) ? $params['width'] : '';
-            $height = isset($params['height']) ? $params['height'] : '';
+            $class = $params['class'] ?? '';
+            $id = $params['id'] ?? '';
+            $width = $params['width'] ?? '';
+            $height = $params['height'] ?? '';
 
             $logo = $appSettings->get('webcreator', 'siteurl').'/Dinamic/Assets/Images/webcreator.svg';
             

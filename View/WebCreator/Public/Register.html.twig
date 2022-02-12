@@ -1,0 +1,129 @@
+{% extends "WebCreator/Public/Login.html.twig" %}
+{% import 'Macro/Forms.html.twig' as forms %}
+
+{% block css %}
+    {{ parent() }}
+
+    <style>
+        .register-left {
+            background-image: url('/Dinamic/Assets/Images/bg-register.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .register-agreement-box label,
+        .register-agreement-box input {
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <main class="container-fluid overflow-hidden">
+        <div class="row">
+            <div class="register-left vh-100 bg-info col-lg-4 col-md-4 col-sm-5 d-none d-md-block"></div>
+            <div class="register-right vh-100 col-lg-8 col-md-8 col-sm-7 col-xs-12">
+                <div class="row py-3 d-flex align-items-center">
+                    <div class="col-12 col-md-6 text-center text-md-left">
+                        <h3 class="m-0 text-primary">FacturaScripts</h3>
+                    </div>
+                    <div class="col-12 col-md-6 text-center text-md-right text-secondary">
+                        {{ i18n.trans('have-and-account') }}
+                        <a href="/MeLogin">{{ i18n.trans('login') }}</a>
+                    </div>
+                </div>
+                <div class="form-register mx-auto mt-5">
+                    <div class="text-center">
+                        <strong>
+                            <h4 class="h3 mb-0">{{ i18n.trans('register-title') }}</h4>
+                        </strong>
+                    </div>
+                    <div class="small mb-4 text-center">
+                        {{ i18n.trans('register-subtitle') }}
+                    </div>
+                    <div class="g_id_signin d-flex justify-content-center"
+                         data-size="large"
+                         data-width="1000"
+                         data-type="standard"
+                         data-theme="outline"
+                         data-text="sign_in_with"
+                         data-shape="rectangular"
+                         data-logo_alignment="center">
+                    </div>
+                    <div class="separator text-center mb-4 mt-4">
+                        <div class="separator-text text-secondary">
+                            <span>{{ i18n.trans('or-regiter-with') }}</span>
+                        </div>
+                    </div>
+                    <form action="{{ fsc.url() }}" method="post">
+                        <input type="hidden" name="action" value="register"/>
+                        <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
+                        <div class="form-group">
+                            <label class="mb-0 text-secondary">{{ i18n.trans('name') }}</label>
+                            <input type="text" name="name" class="form-control"
+                                   value="{{ fsc.nameContact }}"
+                                   placeholder="{{ i18n.trans('entry-name') }}"
+                                   required="required"
+                                   maxlength="100">
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0 text-secondary">{{ i18n.trans('email') }}</label>
+                            <input type="email"
+                                   name="email" class="form-control"
+                                   value="{{ fsc.emailContact }}"
+                                   placeholder="{{ i18n.trans('entry-email') }}"
+                                   required="required"
+                                   maxlength="100">
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0 text-secondary">{{ i18n.trans('password') }}</label>
+                            <input type="password" name="newpasswd" class="form-control"
+                                   placeholder="{{ i18n.trans('entry-password') }}"
+                                   required="required"
+                                   maxlength="255">
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0 text-secondary">{{ i18n.trans('repeat-password') }}</label>
+                            <input type="password" name="newpasswd2" class="form-control"
+                                   placeholder="{{ i18n.trans('entry-password') }}"
+                                   required="required"
+                                   maxlength="255">
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0 text-secondary">{{ i18n.trans('phone') }}</label>
+                            <input type="text"
+                                   name="telefono1" class="form-control"
+                                   value="{{ fsc.phoneContact }}"
+                                   placeholder="{{ i18n.trans('entry-phone') }}"
+                                   maxlength="30">
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0 text-secondary">{{ i18n.trans('country') }}</label>
+                            {{ forms.simpleSelect('codpais', 'codpais', fsc.countryContact,
+                                fsc.getSelectValues('paises', 'codpais', 'nombre', true)) }}
+                        </div>
+                        <div class="register-agreement-box">
+                            <div class="text-secondary float-left mr-1">
+                                <input type="checkbox" name="okprivacy" value="true" id="agree_privacy"
+                                       required="required">
+                            </div>
+                            <label for="agree_privacy" class="text-secondary">{{ i18n.trans('i-accept-privacy-policy') }}</label>
+                            <a href="{{ fsc.pageComposer.getPagesDefault()['privacypage'] }}" target="_blank">
+                                {{ i18n.trans('read-more') }}
+                            </a>
+                        </div>
+                        <div class="mb-2 messages text-center">
+                            {% include 'WebCreator/Master/Messages.html.twig' %}
+                        </div>
+                        <div class="signup-complete-container">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                {{ i18n.trans('register-me') }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

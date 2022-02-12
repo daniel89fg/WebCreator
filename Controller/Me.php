@@ -23,35 +23,24 @@ use FacturaScripts\Dinamic\Lib\ExtendedController\BaseView;
 use FacturaScripts\Dinamic\Lib\Email\ButtonBlock;
 use FacturaScripts\Dinamic\Lib\Email\NewMail;
 use FacturaScripts\Dinamic\Model\Contacto;
-use FacturaScripts\Dinamic\Lib\Portal\PortalPanelController;
+use FacturaScripts\Dinamic\Lib\WebCreator\PortalPanelController;
 use FacturaScripts\Dinamic\Model\WebPage;
-use voku\helper\EmailCheck;
 use Symfony\Component\HttpFoundation\Cookie;
 
 /**
  * Description of Me
  *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class Me extends PortalPanelController
 {
-
-    const ACCOUNT_TEMPLATE = 'Web/Private/MeAccount';
-    const LOGIN_TEMPLATE = 'Web/Public/Me';
-    const REGISTER_TEMPLATE = 'Web/Public/Me';
+    const ACCOUNT_TEMPLATE = 'WebCreator/Private/MeAccount';
 
     /**
-     *
-     * @var WebPage
+     * @var string
      */
-    //public $cookiesPage;
-
-    /**
-     *
-     * @var WebPage
-     */
-    public $privacyPage;
+    public $emailContact;
 
     /**
      * 
@@ -92,11 +81,15 @@ class Me extends PortalPanelController
     protected function createViews()
     {
         if (empty($this->contact)) {
-            $this->setTemplate(self::REGISTER_TEMPLATE);
-            $this->title = $this->toolBox()->i18n()->trans('register-me');
+            $this->redirect('MeLogin');
             return;
         }
-        
+
+        if ($this->contact->aceptaprivacidad === false) {
+            $this->createViewsPrivacyContact();
+            return;
+        }
+
         $this->createViewsAccount();
         $this->createViewsBudgets();
         $this->createViewsOrders();
@@ -111,7 +104,7 @@ class Me extends PortalPanelController
     {
         $this->setTemplate(self::ACCOUNT_TEMPLATE);
         $this->title = $this->toolBox()->i18n()->trans('my-profile');
-        $this->addHtmlView($viewName, 'Web/Private/Me', 'Contacto', 'detail', 'fas fa-user-circle');
+        $this->addHtmlView($viewName, 'WebCreator/Private/Me', 'Contacto', 'detail', 'fas fa-user-circle');
     }
 
     /**
@@ -121,6 +114,19 @@ class Me extends PortalPanelController
     protected function createViewsBudgets(string $viewName = 'CardPresupuestoCliente')
     {
         $this->addCardListView($viewName, 'PresupuestoCliente', 'estimations', 'fas fa-copy');
+        $this->views[$viewName]->addOrderBy(['fecha', 'hora'], 'date', 2);
+        $this->views[$viewName]->addOrderBy(['total'], 'total');
+        $this->views[$viewName]->addSearchFields(['codigo', 'direccion', 'nombrecliente', 'observaciones']);
+        $this->disableButtons($viewName);
+    }
+
+    /**
+     *
+     * @param string $viewName
+     */
+    protected function createViewsInvoices(string $viewName = 'CardFacturaCliente')
+    {
+        $this->addCardListView($viewName, 'FacturaCliente', 'invoices', 'fas fa-file-invoice');
         $this->views[$viewName]->addOrderBy(['fecha', 'hora'], 'date', 2);
         $this->views[$viewName]->addOrderBy(['total'], 'total');
         $this->views[$viewName]->addSearchFields(['codigo', 'direccion', 'nombrecliente', 'observaciones']);
@@ -141,23 +147,20 @@ class Me extends PortalPanelController
     }
 
     /**
-     * 
      * @param string $viewName
      */
-    protected function createViewsInvoices(string $viewName = 'CardFacturaCliente')
+    protected function createViewsPrivacyContact(string $viewName = 'Me')
     {
-        $this->addCardListView($viewName, 'FacturaCliente', 'invoices', 'fas fa-file-invoice');
-        $this->views[$viewName]->addOrderBy(['fecha', 'hora'], 'date', 2);
-        $this->views[$viewName]->addOrderBy(['total'], 'total');
-        $this->views[$viewName]->addSearchFields(['codigo', 'direccion', 'nombrecliente', 'observaciones']);
-        $this->disableButtons($viewName);
+        $this->setTemplate(self::ACCOUNT_TEMPLATE);
+        $this->title = $this->toolBox()->i18n()->trans('my-profile');
+        $this->addHtmlView($viewName, 'WebCreator/Private/Privacy', 'Contacto', 'privacy-policy', 'fas fa-check-double');
     }
 
     /**
      * 
      * @param string $viewName
      */
-    private function disableButtons(string $viewName)
+    protected function disableButtons(string $viewName)
     {
         $this->setSettings($viewName, 'btnDelete', false);
         $this->setSettings($viewName, 'btnNew', false);
@@ -244,17 +247,14 @@ class Me extends PortalPanelController
             case 'edit-profile':
                 return $this->editProfileAction();
 
-            case 'login':
-                return $this->loginAction();
-
             case 'logout':
                 return $this->logoutAction();
 
+            case 'privacy':
+                return $this->privacyAction();
+
             case 'recover':
                 return $this->recoverAction();
-
-            case 'register':
-                return $this->registerAction();
 
             case 'send-verification':
                 if ($this->contact) {
@@ -314,57 +314,20 @@ class Me extends PortalPanelController
      * 
      * @return bool
      */
-    protected function loginAction()
-    {
-        $this->setTemplate(self::LOGIN_TEMPLATE);
-
-        $contact = new Contacto();
-        $email = \strtolower(\trim($this->request->request->get('email', '')));
-        $forgot = (bool) $this->request->request->get('forgot', '0');
-        $passwd = $this->request->request->get('passwd', '');
-
-        if (false === $contact->loadFromCode('', [new DataBaseWhere('email', $email)])) {
-            $this->toolBox()->i18nLog()->warning('email-not-registered', ['%email%' => $email]);
-            $this->setIPWarning();
-            return true;
-        } elseif (false === $contact->habilitado) {
-            $this->toolBox()->i18nLog()->warning('email-disabled', ['%email%' => $email]);
-            $this->setIPWarning();
-            return true;
-        } elseif (false === $contact->verificado) {
-            $this->toolBox()->i18nLog()->warning('email-not-verified', ['%email%' => $email]);
-            $this->sendEmailConfirmation($contact);
-            return true;
-        } elseif ($forgot) {
-            $this->sendRecoveryMail($contact);
-            return true;
-        } elseif (false === $contact->verifyPassword($passwd)) {
-            $this->toolBox()->i18nLog()->warning('login-password-fail');
-            $this->setIPWarning();
-            return true;
-        }
-
-        if (is_null($contact->codicu)) {
-            $contact->codicu = $_COOKIE['weblang'];
-            $contact->save();
-        }
-
-        $this->contact = $contact;
-        $this->saveCookies();
-        $this->createViewsAccount();
-        return true;
-    }
-
-    /**
-     * 
-     * @return bool
-     */
     protected function logoutAction()
     {
         $this->response->headers->clearCookie('fsIdcontacto');
         $this->response->headers->clearCookie('fsLogkey');
         $this->contact = null;
-        $this->setTemplate(self::LOGIN_TEMPLATE);
+        $this->redirect('/');
+        return true;
+    }
+
+    protected function privacyAction()
+    {
+        $this->contact->aceptaprivacidad = 1;
+        $this->contact->save();
+        $this->createViewsAccount();
         return true;
     }
 
@@ -396,58 +359,6 @@ class Me extends PortalPanelController
 
         $contact->verificado = true;
         $this->contact = $contact;
-        $this->saveCookies();
-        $this->createViewsAccount();
-        return true;
-    }
-
-    /**
-     * 
-     * @return bool
-     */
-    protected function registerAction()
-    {
-        $newContact = new Contacto();
-        $email = \strtolower(\trim($this->request->request->get('email', '')));
-        $newPasswd = $this->request->request->get('newpasswd', '');
-        $newPasswd2 = $this->request->request->get('newpasswd2', '');
-        $okprivacy = (bool) $this->request->request->get('okprivacy', '0');
-        
-        if (empty($email)) {
-            $this->toolBox()->i18nLog()->warning('email-missing');
-            return true;
-        } elseif (false === EmailCheck::isValid($email, true, true, true, true)) {
-            $this->toolBox()->i18nLog()->warning('not-valid-email', ['%email%' => $email]);
-            $this->setIPWarning();
-            return true;
-        } elseif ($newContact->loadFromCode('', [new DataBaseWhere('email', $email)])) {
-            $this->toolBox()->i18nLog()->warning('email-contact-already-used', ['%email%' => $email]);
-            $this->setIPWarning();
-            return true;
-        } elseif (empty($newPasswd) || empty($newPasswd2)) {
-            $this->toolBox()->i18nLog()->warning('new-password-missing');
-            return true;
-        } elseif (false === $okprivacy) {
-            $this->toolBox()->i18nLog()->warning('you-must-accept-privacy-policy');
-            return true;
-        }
-
-        $newContact->aceptaprivacidad = $okprivacy;
-        $newContact->email = $email;
-        $newContact->newPassword = $newPasswd;
-        $newContact->newPassword2 = $newPasswd2;
-        $newContact->nombre = $this->request->request->get('name', '');
-        $newContact->weblang = $_COOKIE['weblang'];
-        if (false === $newContact->save()) {
-            $this->toolBox()->i18nLog()->warning('record-save-error');
-            return true;
-        }
-        
-        $newContact->newPassword = $newContact->newPassword2 = null;
-        $this->sendEmailConfirmation($newContact);
-        $this->toolBox()->i18nLog()->notice('record-updated-correctly');
-
-        $this->contact = $newContact;
         $this->saveCookies();
         $this->createViewsAccount();
         return true;
@@ -489,34 +400,6 @@ class Me extends PortalPanelController
         }
 
         $this->toolBox()->i18nLog()->error('activation-email-sent-error');
-        return false;
-    }
-
-    /**
-     * 
-     * @param Contacto $contact
-     *
-     * @return bool
-     */
-    protected function sendRecoveryMail($contact)
-    {
-        $i18n = $this->toolBox()->i18n();
-        $link = $this->toolBox()->appSettings()->get('webcreator', 'siteurl') . '/Me?action=recover'
-            . '&email=' . \rawurlencode($contact->email)
-            . '&key=' . $this->getActivationCode($contact);
-
-        $mail = new NewMail();
-        $mail->fromName = $this->toolBox()->appSettings()->get('webcreator', 'title');
-        $mail->addAddress($contact->email);
-        $mail->title = $i18n->trans('recover-your-account-name', ['%name%' => $contact->nombre]);
-        $mail->text = $i18n->trans('recover-your-account-body');
-        $mail->addMainBlock(new ButtonBlock($i18n->trans('recover-your-account'), $link));
-        if ($mail->send()) {
-            $this->toolBox()->i18nLog()->notice('recover-email-send-ok');
-            return true;
-        }
-
-        $this->toolBox()->i18nLog()->critical('send-mail-error');
         return false;
     }
 

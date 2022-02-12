@@ -3,15 +3,21 @@
     "description": "CMS plugin for FacturaScripts.",
     "authors": [
         {
-            "name": "carlos",
+            "name": "Carlos García Gomez",
             "email": "carlos@facturascripts.com"
         },
         {
-            "name": "athos online",
-            "email": "info@athosonline.com"
+            "name": "Daniel Fernández Giménez",
+            "email": "hola@danielfg.es"
         }
     ],
+    "config": {
+        "platform": {
+            "php": "7.2"
+        }
+    },
     "require": {
-        "voku/email-check": "3.*"
+        "voku/email-check": "3.*",
+        "google/apiclient": "^2.12"
     }
 }

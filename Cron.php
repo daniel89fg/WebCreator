@@ -2,35 +2,21 @@
 
 namespace FacturaScripts\Plugins\WebCreator;
 
+use FacturaScripts\Core\Base\CronClass;
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
-use FacturaScripts\Plugins\WebCreator\Model\WebFont;
-use FacturaScripts\Plugins\WebCreator\Model\WebFontWeight;
+use FacturaScripts\Dinamic\Model\WebFont;
+use FacturaScripts\Dinamic\Model\WebFontWeight;
 
-class Cron extends \FacturaScripts\Core\Base\CronClass {
+class Cron extends CronClass
+{
     public function run() {
         if ($this->isTimeForJob('updateGoogleFonts', '30 days')) {
             $this->updateGoogleFonts();
             $this->jobDone('updateGoogleFonts');
         }
     }
-    
-    private function updateGoogleFonts()
-    {
-        $appSettings = $this->toolBox()->appSettings();
-        $googleApi = $appSettings->get('webcreator', 'google-api');
 
-        if (!empty($googleApi)) {
-            $googleFonts = json_decode(file_get_contents('https://www.googleapis.com/webfonts/v1/webfonts?key='.$googleApi));
-            if ($googleFonts) {
-                foreach ($googleFonts->items as $googleFont) {
-                    $font = $this->setFont($googleFont);
-                    $this->setFontWeight($googleFont->variants, $font);
-                }
-            }
-        }
-    }
-
-    private function setFont($googleFont)
+    private function setFont($googleFont): WebFont
     {
         $font = new WebFont();
         if (!$font->loadFromCode('', [new DataBaseWhere('name', $googleFont->family)])) {
@@ -43,7 +29,7 @@ class Cron extends \FacturaScripts\Core\Base\CronClass {
     private function setFontWeight($variants, $font)
     {
         $fontWeight = new WebFontWeight();
-        
+
         foreach ($variants as $variant) {
             $fontWeight->loadFromCode('', [
                 new DataBaseWhere('idfont', $font->primaryColumnValue()),
@@ -54,6 +40,22 @@ class Cron extends \FacturaScripts\Core\Base\CronClass {
                 $fontWeight->idfont = $font->primaryColumnValue();
                 $fontWeight->weight = $variant;
                 $fontWeight->save();
+            }
+        }
+    }
+    
+    private function updateGoogleFonts()
+    {
+        $appSettings = $this->toolBox()->appSettings();
+        $googleApi = $appSettings->get('webcreator', 'google-api');
+
+        if (!empty($googleApi)) {
+            $googleFonts = json_decode(file_get_contents('https://www.googleapis.com/webfonts/v1/webfonts?key=' . $googleApi));
+            if ($googleFonts) {
+                foreach ($googleFonts->items as $googleFont) {
+                    $font = $this->setFont($googleFont);
+                    $this->setFontWeight($googleFont->variants, $font);
+                }
             }
         }
     }

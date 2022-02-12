@@ -24,50 +24,38 @@ use FacturaScripts\Core\Model\Base;
  * Description of WebBlock
  *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class WebBlock extends Base\ModelClass
 {
-
     use Base\ModelTrait;
 
     /**
-     * Block content.
-     *
      * @var string
      */
     public $content;
 
     /**
-     * Primary key.
-     *
      * @var int
      */
     public $idblock;
 
     /**
-     *
      * @var string
      */
     public $lastmod;
 
     /**
-     * Block name.
-     *
      * @var string
      */
     public $name;
 
     /**
-     * Position number.
-     *
      * @var int
      */
     public $ordernum;
 
     /**
-     * Block type: body, meta, css, javascript, footer.
-     *
      * @var string
      */
     public $type;
@@ -79,7 +67,6 @@ class WebBlock extends Base\ModelClass
     {
         parent::clear();
         $this->content = 'Hello world!';
-        $this->lastmod = \date('d-m-Y');
     }
 
     /**
@@ -110,7 +97,7 @@ class WebBlock extends Base\ModelClass
      */
     public static function tableName()
     {
-        return 'webblocks';
+        return 'webcreator_blocks';
     }
 
     /**

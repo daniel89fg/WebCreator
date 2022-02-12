@@ -23,36 +23,28 @@ use FacturaScripts\Core\Model\Base;
 /**
  * Description of WebSidebar
  *
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class WebSidebar extends Base\ModelClass
 {
-
     use Base\ModelTrait;
 
     /**
-     * Block content.
-     *
      * @var string
      */
     public $content;
 
     /**
-     * Primary key.
-     *
      * @var int
      */
     public $idsidebar;
 
     /**
-     *
      * @var string
      */
     public $lastmod;
 
     /**
-     * Block name.
-     *
      * @var string
      */
     public $name;
@@ -64,7 +56,6 @@ class WebSidebar extends Base\ModelClass
     {
         parent::clear();
         $this->content = 'Hello world!';
-        $this->lastmod = \date('d-m-Y');
     }
 
     /**
@@ -83,7 +74,6 @@ class WebSidebar extends Base\ModelClass
      */
     public function save()
     {
-        /// update last modification date
         $this->lastmod = date('d-m-Y');
         return parent::save();
     }
@@ -95,17 +85,7 @@ class WebSidebar extends Base\ModelClass
      */
     public static function tableName()
     {
-        return 'websidebars';
-    }
-
-    /**
-     * Returns True if there is no errors on properties values.
-     *
-     * @return bool
-     */
-    public function test()
-    {
-        return parent::test();
+        return 'webcreator_sidebars';
     }
 
     /**
@@ -118,15 +98,6 @@ class WebSidebar extends Base\ModelClass
      */
     public function url(string $type = 'auto', string $list = 'List')
     {
-        if ($type === 'public') {
-            $webPage = new WebPage();
-            if (!empty($this->idpage) && $webPage->loadFromCode($this->idpage)) {
-                return $webPage->url($type);
-            }
-
-            return '';
-        }
-
         return parent::url($type, 'ListWebPage?activetab=List');
     }
 }

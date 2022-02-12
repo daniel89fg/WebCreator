@@ -40,16 +40,6 @@
             </column>
         </group>
 
-        <group name="login-register-facebook" title="access-facebook" numcolumns="12">
-            <column name="facebook-app-id" order="100">
-                <widget type="text" fieldname="facebookappid" />
-            </column>
-
-            <column name="facebook-app-secret" order="110">
-                <widget type="text" fieldname="facebookappsecret" />
-            </column>
-        </group>
-
         <group name="login-register-google" title="access-google" numcolumns="12">
             <column name="google-app-id" order="100">
                 <widget type="text" fieldname="googleappid" />

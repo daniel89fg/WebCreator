@@ -19,15 +19,20 @@
 namespace FacturaScripts\Plugins\WebCreator\Model;
 
 use FacturaScripts\Core\Model\Base;
-
-use FacturaScripts\Dinamic\Lib\Portal\UpdateRoutes;
-use FacturaScripts\Plugins\WebCreator\Lib\Portal\PermalinkTrait;
+use FacturaScripts\Dinamic\Lib\WebCreator\UpdateRoutes;
+use FacturaScripts\Plugins\WebCreator\Lib\WebCreator\PermalinkTrait;
+use FacturaScripts\Dinamic\Model\WebHeader;
+use FacturaScripts\Dinamic\Model\WebFooter;
+use FacturaScripts\Dinamic\Model\WebSidebar;
+use FacturaScripts\Dinamic\Model\WebBlock;
+use FacturaScripts\Dinamic\Model\WebFont;
+use FacturaScripts\Dinamic\Model\WebFontWeight;
 
 /**
  * Description of WebPage
  *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class WebPage extends Base\ModelOnChangeClass
 {
@@ -35,103 +40,76 @@ class WebPage extends Base\ModelOnChangeClass
     use PermalinkTrait;
 
     /**
-     * Page content.
-     *
      * @var string
      */
     public $content;
 
     /**
-     * Creation date.
-     *
      * @var string
      */
     public $creationdate;
 
     /**
-     * Page description.
-     *
      * @var string
      */
     public $description;
 
     /**
-     * image default.
-     *
      * @var string
      */
     public $idfile;
 
     /**
-     * Primary key.
-     *
      * @var int
      */
     public $idpage;
 
     /**
-     * Last modification date.
-     *
      * @var string
      */
     public $lastmod;
 
     /**
-     * ID page parent.
-     *
      * @var string
      */
-    public $pageparent;
+    public $pagecss;
 
     /**
-     * Page javascript head.
-     *
      * @var string
      */
     public $pagejshead;
 
     /**
-     * Page javascript footer.
-     *
      * @var string
      */
     public $pagejsfooter;
 
     /**
-     * Page meta.
-     *
      * @var string
      */
     public $pagemeta;
 
     /**
-     * Permanent link.
-     *
+     * @var string
+     */
+    public $pageparent;
+
+    /**
+     * @var string
+     */
+    public $pagetype;
+
+    /**
      * @var string
      */
     public $permalink;
 
     /**
-     * Page title.
-     *
      * @var string
      */
     public $title;
 
-    /**
-     * Type of the page.
-     *
-     * @var string
-     */
-    public $pagetype;
-
     public static $fieldsTranslate = ['title', 'description', 'permalink'];
-
-    protected function setPreviousData(array $fields = [])
-    {
-        $more = ['permalink', 'pageparent'];
-        parent::setPreviousData(array_merge($more, $fields));
-    }
 
     /**
      * Reset the values of all model properties.
@@ -140,27 +118,18 @@ class WebPage extends Base\ModelOnChangeClass
     {
         parent::clear();
         $this->creationdate = \date('d-m-Y');
-        $this->lastmod = $this->creationdate;
     }
 
-    /**
-     * Returns the name of the column that is the primary key of the model.
-     *
-     * @return string
-     */
-    public static function primaryColumn()
+    public function delete()
     {
-        return 'idpage';
-    }
+        if (parent::delete()) {
+            $this->refreshPermalinkSons($this, true);
+            $routes = new UpdateRoutes();
+            $routes->setRoutes();
+            return true;
+        }
 
-    /**
-     * Returns the name of the column that describes the model, such as name, description...
-     *
-     * @return string
-     */
-    public function primaryDescriptionColumn()
-    {
-        return 'permalink';
+        return false;
     }
 
     /**
@@ -180,38 +149,41 @@ class WebPage extends Base\ModelOnChangeClass
     }
 
     /**
-     * This method is called after a record is updated on the database (saveUpdate).
+     * This function is called when creating the model table. Returns the SQL
+     * that will be executed after the creation of the table. Useful to insert values
+     * default.
+     *
+     * @return string
      */
-    protected function onUpdate()
+    public function install()
     {
-        if ($this->previousData['permalink'] !== $this->permalink || $this->previousData['pageparent'] !== $this->pageparent) {
-            $this->refreshPermalinkSons($this);
-            $routes = new UpdateRoutes();
-            $routes->setRoutes();
-        }
-        parent::onUpdate();
+        new WebHeader();
+        new WebFooter();
+        new WebSidebar();
+        new WebBlock();
+        new WebFont();
+        new WebFontWeight();
+        return parent::install();
     }
 
     /**
-     * This method is called after a new record is saved on the database (saveInsert).
+     * Returns the name of the column that describes the model, such as name, description...
+     *
+     * @return string
      */
-    protected function onInsert()
+    public function primaryDescriptionColumn()
     {
-        $routes = new UpdateRoutes();
-        $routes->setRoutes();
-        parent::onInsert();
+        return 'permalink';
     }
 
-    public function delete()
+    /**
+     * Returns the name of the column that is the primary key of the model.
+     *
+     * @return string
+     */
+    public static function primaryColumn()
     {
-        if (parent::delete()) {
-            $this->refreshPermalinkSons($this, true);
-            $routes = new UpdateRoutes();
-            $routes->setRoutes();
-            return true;
-        }
-
-        return false;
+        return 'idpage';
     }
 
     public function test()
@@ -260,7 +232,7 @@ class WebPage extends Base\ModelOnChangeClass
      */
     public static function tableName()
     {
-        return 'webpages';
+        return 'webcreator_pages';
     }
 
     /**
@@ -275,19 +247,49 @@ class WebPage extends Base\ModelOnChangeClass
     {
         switch ($type) {
             case 'public':
+                $siteurl = $this->toolBox()->appSettings()->get('webcreator', 'siteurl');
                 /// don't use ===
                 if ($this->idpage == $this->toolBox()->appSettings()->get('webcreator', 'homepage')) {
-                    return $this->toolBox()->appSettings()->get('webcreator', 'siteurl');
+                    return $siteurl;
                 }
 
                 if ('*' === substr($this->permalink, -1)) {
-                    return $this->toolBox()->appSettings()->get('webcreator', 'siteurl') . substr($this->permalink, 0, -1);
+                    return $siteurl . substr($this->permalink, 0, -1);
                 }
 
-                return $this->toolBox()->appSettings()->get('webcreator', 'siteurl') . $this->permalink;
+                return $siteurl . $this->permalink;
 
             default:
                 return parent::url($type, $list);
         }
+    }
+
+    /**
+     * This method is called after a new record is saved on the database (saveInsert).
+     */
+    protected function onInsert()
+    {
+        $routes = new UpdateRoutes();
+        $routes->setRoutes();
+        parent::onInsert();
+    }
+
+    /**
+     * This method is called after a record is updated on the database (saveUpdate).
+     */
+    protected function onUpdate()
+    {
+        if ($this->previousData['permalink'] !== $this->permalink || $this->previousData['pageparent'] !== $this->pageparent) {
+            $this->refreshPermalinkSons($this);
+            $routes = new UpdateRoutes();
+            $routes->setRoutes();
+        }
+        parent::onUpdate();
+    }
+
+    protected function setPreviousData(array $fields = [])
+    {
+        $more = ['permalink', 'pageparent'];
+        parent::setPreviousData(array_merge($more, $fields));
     }
 }

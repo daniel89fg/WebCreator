@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : webcreator_sidebars.xml
+    Author     : Daniel Fernández Giménez
+    Description:
+        Structure for the webcreator_sidebars table.
+-->
+<table>
+    <column>
+        <name>content</name>
+        <type>longblob</type>
+    </column>
+    <column>
+        <name>idsidebar</name>
+        <type>serial</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>lastmod</name>
+        <type>date</type>
+    </column>
+    <column>
+        <name>name</name>
+        <type>character varying(100)</type>
+        <null>NO</null>
+    </column>
+    <constraint>
+        <name>webcreator_sidebars_pkey</name>
+        <type>PRIMARY KEY (idsidebar)</type>
+    </constraint>
+</table>

@@ -25,11 +25,10 @@ use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
  * Description of ListWebPage
  *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class ListWebPage extends ListController
 {
-
     /**
      * Returns basic page attributes
      *
@@ -57,43 +56,7 @@ class ListWebPage extends ListController
     }
 
     /**
-     * 
-     * @param string $viewName
-     */
-    protected function createViewWebSidebar(string $viewName = 'ListWebSidebar')
-    {
-        $this->addView($viewName, 'WebSidebar', 'sidebars', 'fas fa-caret-square-left');
-        $this->addSearchFields($viewName, ['name']);
-        $this->addOrderBy($viewName, ['name'], 'name');
-        $this->addOrderBy($viewName, ['lastmod'], 'last-update', 2);
-    }
-
-    /**
-     * 
-     * @param string $viewName
-     */
-    protected function createViewWebFooter(string $viewName = 'ListWebFooter')
-    {
-        $this->addView($viewName, 'WebFooter', 'footers', 'fas fa-caret-square-down');
-        $this->addSearchFields($viewName, ['name']);
-        $this->addOrderBy($viewName, ['name'], 'name');
-        $this->addOrderBy($viewName, ['lastmod'], 'last-update', 2);
-    }
-
-    /**
-     * 
-     * @param string $viewName
-     */
-    protected function createViewWebHeader(string $viewName = 'ListWebHeader')
-    {
-        $this->addView($viewName, 'WebHeader', 'headers', 'fas fa-caret-square-up');
-        $this->addSearchFields($viewName, ['name']);
-        $this->addOrderBy($viewName, ['name'], 'name');
-        $this->addOrderBy($viewName, ['lastmod'], 'last-update', 2);
-    }
-
-    /**
-     * 
+     *
      * @param string $viewName
      */
     protected function createViewWebBlock(string $viewName = 'ListWebBlock')
@@ -106,7 +69,31 @@ class ListWebPage extends ListController
     }
 
     /**
-     * 
+     *
+     * @param string $viewName
+     */
+    protected function createViewWebFooter(string $viewName = 'ListWebFooter')
+    {
+        $this->addView($viewName, 'WebFooter', 'footers', 'fas fa-caret-square-down');
+        $this->addSearchFields($viewName, ['name']);
+        $this->addOrderBy($viewName, ['name'], 'name');
+        $this->addOrderBy($viewName, ['lastmod'], 'last-update', 2);
+    }
+
+    /**
+     *
+     * @param string $viewName
+     */
+    protected function createViewWebHeader(string $viewName = 'ListWebHeader')
+    {
+        $this->addView($viewName, 'WebHeader', 'headers', 'fas fa-caret-square-up');
+        $this->addSearchFields($viewName, ['name']);
+        $this->addOrderBy($viewName, ['name'], 'name');
+        $this->addOrderBy($viewName, ['lastmod'], 'last-update', 2);
+    }
+
+    /**
+     *
      * @param string $viewName
      */
     protected function createViewWebPages(string $viewName = 'ListWebPage')
@@ -119,6 +106,18 @@ class ListWebPage extends ListController
 
         /// filters
         $this->addFilterCheckbox($viewName, 'noindex', 'no-index', 'noindex');
+    }
+
+    /**
+     * 
+     * @param string $viewName
+     */
+    protected function createViewWebSidebar(string $viewName = 'ListWebSidebar')
+    {
+        $this->addView($viewName, 'WebSidebar', 'sidebars', 'fas fa-caret-square-left');
+        $this->addSearchFields($viewName, ['name']);
+        $this->addOrderBy($viewName, ['name'], 'name');
+        $this->addOrderBy($viewName, ['lastmod'], 'last-update', 2);
     }
 
     protected function loadData($viewName, $view) {

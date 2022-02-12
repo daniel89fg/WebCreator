@@ -1,0 +1,605 @@
+{% import "WebCreator/Master/webMacros.html.twig" as webMacros %}
+
+{# Website config #}
+{% set pageData = fsc.pageComposer.getPageData(fsc.webPage) %}
+{% set webSettings = pageData.settings %}
+{% set webHeader = pageData.header %}
+{% set webFooter = pageData.footer %}
+{% set webSidebar = pageData.sidebar %}
+{% set webPage = pageData.page %}
+{% set webIncludes = fsc.pageComposer.includeView(template) %}
+{% set webUrl = appSettings.get('webcreator', 'siteurl', '') %}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ webPage.weblang }}" xml:lang="{{ webPage.weblang }}" >
+    <head>
+        {% block head %}
+
+            {{ webMacros.includeView(i18n, fsc, webIncludes, 'headBefore') }}
+
+            {% block meta %}
+                {{ webMacros.includeView(i18n, fsc, webIncludes, 'metaBefore') }}
+
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                <title>{{ fsc.title|raw }}</title>
+                <meta name="description" content="{{ fsc.description|raw }}" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta name="generator" content="FacturaScripts and Athos Online" />
+                <meta name="robots" content="{{ webPage.noindex ? 'noindex' : 'index' }}" />
+                <link rel="canonical" href="{{ fsc.canonicalUrl }}" />
+                {{ fsc.pageComposer.getGoogleFonts()|raw }}
+
+                {{ webMacros.includeView(i18n, fsc, webIncludes, 'metaAfter') }}
+
+                {# Add global Meta #}
+                {{ webSettings.globalmeta|raw }}
+
+                {# Add individual Meta page #}
+                {{ webPage.pagemeta|raw }}
+            {% endblock %}
+
+            {% block icons %}
+                {{ webMacros.includeView(i18n, fsc, webIncludes, 'iconsBefore') }}
+                <link rel="shortcut icon" href="{{ (webSettings.idfavicon) ? fsc.pageComposer.getAttachFile(webSettings.idfavicon) : asset('Dinamic/Assets/Images/favicon.svg') }}" />
+                <link rel="apple-touch-icon" sizes="180x180" href="{{ (webSettings.idfavicon) ? fsc.pageComposer.getAttachFile(webSettings.idfavicon) : asset('Dinamic/Assets/Images/favicon.svg') }}" />
+                {{ webMacros.includeView(i18n, fsc, webIncludes, 'iconsafter') }}
+            {% endblock %}
+
+            {% block css %}
+                {{ webMacros.includeView(i18n, fsc, webIncludes, 'cssBefore') }}
+
+                <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.min.css') }}" />
+                <link rel="stylesheet" href="{{ asset('node_modules/@fortawesome/fontawesome-free/css/all.min.css') }}" />
+                <link rel="stylesheet" href="{{ asset('node_modules/jquery-ui-dist/jquery-ui.min.css') }}" />
+                <link rel="stylesheet" href="{{ asset('Dinamic/Assets/CSS/custom.css') }}" />
+
+                {{ debugBarRender.renderHead()|raw }}
+
+                {# Adds custom CSS assets #}
+                {% for css in assetManager.get('css') %}
+                    <link rel="stylesheet" href="{{ css }}" />
+                {% endfor %}
+
+                <style>
+                    body, html {
+                        overflow-x: hidden;
+                        font-family: '{{ fsc.pageComposer.getFont(webSettings.fontdefault) }}', 'serif';
+                    }
+
+                    a {
+                        font-family: '{{ fsc.pageComposer.getFont(webSettings.fontdelink) }}', 'serif';
+                        color: {{ webSettings.fontlinkcolor }};
+                    }
+
+                    a:hover {
+                        color: {{ webSettings.fontlinkcolorhover }};
+                    }
+
+                    p {
+                        font-family: '{{ fsc.pageComposer.getFont(webSettings.fontp) }}', 'serif';
+                        color: {{ webSettings.fontpcolor }};
+                    }
+
+                    h1 {
+                        font-family: '{{ fsc.pageComposer.getFont(webSettings.fonth1) }}', 'serif';
+                        color: {{ webSettings.fonth1color }};
+                    }
+
+                    h2 {
+                        font-family: '{{ fsc.pageComposer.getFont(webSettings.fonth2) }}', 'serif';
+                        color: {{ webSettings.fonth2color }};
+                    }
+
+                    h3 {
+                        font-family: '{{ fsc.pageComposer.getFont(webSettings.fonth3) }}', 'serif';
+                        color: {{ webSettings.fonth3color }};
+                    }
+
+                    h4 {
+                        font-family: '{{ fsc.pageComposer.getFont(webSettings.fonth4) }}', 'serif';
+                        color: {{ webSettings.fonth4color }};
+                    }
+
+                    h5 {
+                        font-family: '{{ fsc.pageComposer.getFont(webSettings.fonth5) }}', 'serif';
+                        color: {{ webSettings.fonth5color }};
+                    }
+
+                    h6 {
+                        font-family: '{{ fsc.pageComposer.getFont(webSettings.fonth6) }}', 'serif';
+                        color: {{ webSettings.fonth6color }};
+                    }
+
+                    .header-main,
+                    .header-main .content,
+                    .header-main .content .d-flex {
+                        min-height: {{ webHeader.properties.headermainrowheight }}px;
+                    }
+
+                    .header-main {
+                        {% if webHeader.properties.headermainbackgroundimage %}
+                            background-image: url('{{ webSettings.siteurl ~ fsc.pageComposer.getAttachFile(webHeader.properties.headermainbackgroundimage) }}');
+                            background-repeat: {{ webHeader.properties.headermainbackgroundimagerepeat }};
+                            background-size: {{ webHeader.properties.headermainbackgroundimagesize }};
+                            background-attachment: {{ webHeader.properties.headermainbackgroundimageattachment }};
+                            background-position: {{ webHeader.properties.headermainbackgroundimageposition }};
+                        {% endif %}
+                    }
+
+                    .header-main-border-top {
+                        border-top-width: {{ webHeader.properties.headermainbordertopwidth }}px;
+                        border-top-color: {{ webHeader.properties.headermainbordertopcolor }};
+                        border-top-style: {{ webHeader.properties.headermainbordertopstyle }};
+                    }
+
+                    .header-main-border-bottom {
+                        border-bottom-width: {{ webHeader.properties.headermainborderbottomwidth }}px;
+                        border-bottom-color: {{ webHeader.properties.headermainborderbottomcolor }};
+                        border-bottom-style: {{ webHeader.properties.headermainborderbottomstyle }};
+                    }
+
+                    .shadow-bottom-inside {
+                        -moz-box-shadow: inset 0 -5px 5px -5px #e5e5e5;
+                        -webkit-box-shadow: inset 0 -5px 5px -5px #e5e5e5;
+                        box-shadow: inset 0 -5px 5px -5px #e5e5e5;
+                    }
+
+                    .shadow-bottom-outside {
+                        -moz-box-shadow: 0 1px 5px 1px #e5e5e5;
+                        -webkit-box-shadow: 0 1px 5px 1px #e5e5e5;
+                        box-shadow: 0 1px 5px 1px #e5e5e5;
+                    }
+
+                    .page-title {
+                        {% if webSettings.titlebackgroundimage %}
+                            background-image: url('{{ webSettings.siteurl ~ fsc.pageComposer.getAttachFile(webSettings.titlebackgroundimage) }}');
+                            background-repeat: {{ webSettings.titleimagerepeat }};
+                            background-size: {{ webSettings.titleimagesize }};
+                            background-attachment: {{ webSettings.titleimageattachment }};
+                            background-position: {{ webSettings.titleimageposition }};
+                        {% endif %}
+                    }
+
+                    .footer-shadow-bottom-outside {
+                        -moz-box-shadow: 0 -2px 4px -1px #e5e5e5;
+                        -webkit-box-shadow: 0 -2px 4px -1px #e5e5e5;
+                        box-shadow: 0 -2px 4px -1px #e5e5e5;
+                    }
+
+                    footer {
+                        {% if webFooter.properties.footerbackgroundimage %}
+                            background-image: url('{{ webSettings.siteurl ~ fsc.pageComposer.getAttachFile(webFooter.properties.footerbackgroundimage) }}');
+                            background-repeat: {{ webFooter.properties.footerbackgroundimagerepeat }};
+                            background-size: {{ webFooter.properties.footerbackgroundimagesize }};
+                            background-attachment: {{ webFooter.properties.footerbackgroundimageattachment }};
+                            background-position: {{ webFooter.properties.footerbackgroundimageposition }};
+                        {% endif %}
+                    }
+
+                    .footer-top-border-top {
+                        border-top-width: {{ webFooter.properties.footertopbordertopwidth }}px;
+                        border-top-color: {{ webFooter.properties.footertopbordertopcolor }};
+                        border-top-style: {{ webFooter.properties.footertopbordertopstyle }};
+                    }
+
+                    .footer-top-border-bottom {
+                        border-bottom-width: {{ webFooter.properties.footertopborderbottomwidth }}px;
+                        border-bottom-color: {{ webFooter.properties.footertopborderbottomcolor }};
+                        border-bottom-style: {{ webFooter.properties.footertopborderbottomstyle }};
+                    }
+
+                    .footer-main-border-top {
+                        border-top-width: {{ webFooter.properties.footermainbordertopwidth }}px;
+                        border-top-color: {{ webFooter.properties.footermainbordertopcolor }};
+                        border-top-style: {{ webFooter.properties.footermainbordertopstyle }};
+                    }
+
+                    .footer-main-border-bottom {
+                        border-bottom-width: {{ webFooter.properties.footermainborderbottomwidth }}px;
+                        border-bottom-color: {{ webFooter.properties.footermainborderbottomcolor }};
+                        border-bottom-style: {{ webFooter.properties.footermainborderbottomstyle }};
+                    }
+
+                    .footer-bottom-border-top {
+                        border-top-width: {{ webFooter.properties.footerbottombordertopwidth }}px;
+                        border-top-color: {{ webFooter.properties.footerbottombordertopcolor }};
+                        border-top-style: {{ webFooter.properties.footerbottombordertopstyle }};
+                    }
+
+                    .footer-bottom-border-bottom {
+                        border-bottom-width: {{ webFooter.properties.footerbottomborderbottomwidth }}px;
+                        border-bottom-color: {{ webFooter.properties.footerbottomborderbottomcolor }};
+                        border-bottom-style: {{ webFooter.properties.footerbottomborderbottomstyle }};
+                    }
+
+                    /* Extra small devices (portrait phones, less than 576px) */
+                    @media (max-width: 575.98px) {}
+
+                    /* Small devices (landscape phones, less than 768px) */
+                    @media (max-width: 767.98px) {}
+
+                    /* Medium devices (tablets, less than 992px) */
+                    @media (max-width: 991.98px) {
+                        .header-main,
+                        .header-main .content,
+                        .header-main .content .d-flex {
+                            min-height: auto;
+                        }
+                    }
+
+                    /* Large devices (desktops, less than 1200px) */
+                    @media (max-width: 1199.98px) {}
+
+                    /*
+                    Extra large devices (large desktops)
+                    No media query since the extra-large breakpoint has no upper bound on its width
+                    */
+                </style>
+
+                {{ webMacros.includeView(i18n, fsc, webIncludes, 'cssAfter') }}
+
+                {# Add global CSS #}
+                {{ fsc.pageComposer.regexCSS(webSettings.globalcss)|raw }}
+
+                {# Add individual CSS page #}
+                {{ fsc.pageComposer.regexCSS(webPage.pagecss)|raw }}
+            {% endblock %}
+
+            {% block javascriptHead %}
+                {{ webMacros.includeView(i18n, fsc, webIncludes, 'javascriptHeadBefore') }}
+
+                {# Add global JS #}
+                {{ fsc.pageComposer.regexJS(webSettings.globaljshead)|raw }}
+
+                {# Add individual JS page #}
+                {{ fsc.pageComposer.regexJS(webPage.pagejshead)|raw }}
+
+                {{ webMacros.includeView(i18n, fsc, webIncludes, 'javascriptHeadAfter') }}
+            {% endblock %}
+        {% endblock %}
+    </head>
+
+    <body id="{{ webPage.idbody }}" class="{{ webPage.classbody }}">
+        {% block body %}
+            {{ webMacros.includeView(i18n, fsc, webIncludes, 'bodyBefore') }}
+
+            {% block header %}
+                {{ webMacros.includeView(i18n, fsc, webIncludes, 'headerBefore') }}
+
+                {% if webPage.idheader is null or webPage.idheader == -1 and webSettings.headerdefault > 0 or webPage.idheader > 0 %}
+                    {% include['WebCreator/Public/Header' ~ webHeader.properties.headerlayout ~ '.html.twig', 'WebCreator/Public/Header01.html.twig'] %}
+                {% endif %}
+
+                {{ webMacros.includeView(i18n, fsc, webIncludes, 'headerAfter') }}
+            {% endblock %}
+
+            {% block pageTitle %}
+                {{ webMacros.includeView(i18n, fsc, webIncludes, 'pageTitleBefore') }}
+
+                {% if webPage.pagetitle == -1 and webSettings.pagetitle > 0 or webPage.pagetitle > 0 or webPage.pagetitle is null and webSettings.pagetitle > 0  %}
+                    <div class="row page-title">
+                        <div class="{{ webSettings.titlewidth }}">
+                            <div class="row">
+                                <div class="col-12 py-5 text-{{ webSettings.titlestyle }} color-{{ webSettings.titlecolor }}">
+                                    <{{ webSettings.titletag }} class="pl-2 pl-lg-0">{{ fsc.title|raw }}</{{ webSettings.titletag }}>
+                                    {% if (webSettings.titlebreadcrumbs == 1)  %}
+                                    <div class="breadcrumbs">
+                                        {{ fsc.pageComposer.getBreadcrumbs(webPage)|raw }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {{ webMacros.includeView(i18n, fsc, webIncludes, 'pageTitleAfter') }}
+            {% endblock %}
+
+            {% block content %}
+                {{ webMacros.includeView(i18n, fsc, webIncludes, 'contentBefore') }}
+
+                <div class="body-content {{ (webPage.pagewidth == -1 or webPage.pagewidth is not defined) ? webSettings.sitewidth : webPage.pagewidth }}">
+                    <div class="row">
+                        {% block messages %}
+                            {{ webMacros.includeView(i18n, fsc, webIncludes, 'messagesBefore') }}
+
+                            {% include 'WebCreator/Master/Messages.html.twig' %}
+
+                            {{ webMacros.includeView(i18n, fsc, webIncludes, 'messagesAfter') }}
+                        {% endblock %}
+
+                        {% block wrapper %}
+                            {{ webMacros.includeView(i18n, fsc, webIncludes, 'wrapperBefore') }}
+
+                            {% block sidebar %}
+                                {{ webMacros.includeView(i18n, fsc, webIncludes, 'sidebarBefore') }}
+
+                                {% if webPage.idsidebar == -1 and webSettings.sidebardefault > 0 or webPage.idsidebar > 0 or webPage.idsidebar is null and webSettings.sidebardefault > 0  %}
+                                    <aside class="py-5 {{ (webPage.idsidebar == -1 and webSettings.sidebarposition == 1 or webPage.idsidebar > 0 and webPage.sidebarposition == 1) ? 'order-1' : (webPage.idsidebar == -1 and webSettings.sidebarposition == 2 or webPage.idsidebar > 0 and webPage.sidebarposition == 2) ? 'order-3' : '' }} col-12 col-lg-4">
+                                        {{ webSidebar.content|raw }}
+                                    </aside>
+                                {% endif %}
+
+                                {{ webMacros.includeView(i18n, fsc, webIncludes, 'sidebarAfter') }}
+                            {% endblock %}
+
+                            {% block main %}
+                                {{ webMacros.includeView(i18n, fsc, webIncludes, 'mainBefore') }}
+
+                                <main class="py-5 order-2 col-12 {{ (webPage.idsidebar == -1 and webSettings.sidebardefault > 0 or webPage.idsidebar > 0) ? 'col-lg-8' : '' }}">
+                                    {{ webPage.content|raw }}
+                                </main>
+
+                                {{ webMacros.includeView(i18n, fsc, webIncludes, 'mainAfter') }}
+                            {% endblock %}
+
+                            {{ webMacros.includeView(i18n, fsc, webIncludes, 'wrapperAfter') }}
+                        {% endblock %}
+                    </div>
+                </div>
+
+                {{ webMacros.includeView(i18n, fsc, webIncludes, 'contentAfter') }}
+            {% endblock %}
+
+            {% block footer %}
+                {{ webMacros.includeView(i18n, fsc, webIncludes, 'footerBefore') }}
+
+                {% if webPage.idfooter is null or webPage.idfooter == -1 and webSettings.footerdefault > 0 or webPage.idfooter > 0 %}
+                    <footer class="{{ (webFooter.properties.footershadow) ? 'footer-shadow-bottom-outside' : '' }}">
+                        {% if webFooter.content.footer5001 != '' and webFooter.content.footer5002 != '' and webFooter.content.footer5003 != '' %}
+                            <div class="footer-top {{ (webFooter.properties.footertopbordertopwidth > 0 and webFooter.properties.footertopbordertopcontainer == 'fullwidth') ? 'footer-top-border-top' : '' }} {{ (webFooter.properties.footertopborderbottomwidth > 0 and webFooter.properties.footertopborderbottomcontainer == 'fullwidth') ? 'footer-top-border-bottom' : '' }}">
+                                <div class="content py-4 {{ webFooter.properties.footerwidth }} {{ (webFooter.properties.footertopbordertopwidth > 0 and webFooter.properties.footertopbordertopcontainer == 'boxed') ? 'footer-top-border-top' : '' }} {{ (webFooter.properties.footertopborderbottomwidth > 0 and webFooter.properties.footertopborderbottomcontainer == 'boxed') ? 'footer-top-border-bottom' : '' }}">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-none d-lg-block align-self-center {{ (webFooter.properties.footertoprowflexlayout == 1) ? 'flex-grow-1' : '' }}">
+                                            {{ webFooter.content.footer5001|raw }}
+                                        </div>
+
+                                        <div class="d-none d-lg-block align-self-center {{ (webFooter.properties.footertoprowflexlayout == 0) ? 'flex-grow-1' : '' }}">
+                                            {{ webFooter.content.footer5002|raw }}
+                                        </div>
+
+                                        <div class="d-none d-lg-block align-self-center {{ (webFooter.properties.footertoprowflexlayout == 1) ? 'flex-grow-1' : '' }}">
+                                            {{ webFooter.content.footer5003|raw }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% set footermain = true %}
+                        {% for key,value in webFooter.content %}
+                            {% if 'footer' ~ webFooter.properties.footerlayout in key and value == '' %}
+                                {% set footermain = false %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if footermain %}
+                            <div class="footer-main {{ (webFooter.properties.footermainbordertopwidth > 0 and webFooter.properties.footermainbordertopcontainer == 'fullwidth') ? 'footer-main-border-top' : '' }} {{ (webFooter.properties.footermainborderbottomwidth > 0 and webFooter.properties.footermainborderbottomcontainer == 'fullwidth') ? 'footer-main-border-bottom' : '' }}">
+                                <div class="content py-4 {{ webFooter.properties.footerwidth }} {{ (webFooter.properties.footermainbordertopwidth > 0 and webFooter.properties.footermainbordertopcontainer == 'boxed') ? 'footer-main-border-top' : '' }} {{ (webFooter.properties.footermainborderbottomwidth > 0 and webFooter.properties.footermainborderbottomcontainer == 'boxed') ? 'footer-main-border-bottom' : '' }}">
+                                    {% include['WebCreator/Public/Footer' ~ webFooter.properties.footerlayout ~ '.html.twig', 'WebCreator/Public/Footer01.html.twig'] %}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if webFooter.content.footer6001 != '' and webFooter.content.footer6002 != '' and webFooter.content.footer6003 != '' %}
+                            <div class="footer-bottom {{ (webFooter.properties.footerbottombordertopwidth > 0 and webFooter.properties.footerbottombordertopcontainer == 'fullwidth') ? 'footer-bottom-border-top' : '' }} {{ (webFooter.properties.footerbottomborderbottomwidth > 0 and webFooter.properties.footerbottomborderbottomcontainer == 'fullwidth') ? 'footer-bottom-border-bottom' : '' }}">
+                                <div class="content py-4 {{ webFooter.properties.footerwidth }} {{ (webFooter.properties.footerbottombordertopwidth > 0 and webFooter.properties.footerbottombordertopcontainer == 'boxed') ? 'footer-bottom-border-top' : '' }} {{ (webFooter.properties.footerbottomborderbottomwidth > 0 and webFooter.properties.footerbottomborderbottomcontainer == 'boxed') ? 'footer-bottom-border-bottom' : '' }}">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-none d-lg-block align-self-center {{ (webFooter.properties.footerbottomrowflexlayout == 1) ? 'flex-grow-1' : '' }}">
+                                            {{ webFooter.content.footer6001|raw }}
+                                        </div>
+
+                                        <div class="d-none d-lg-block align-self-center {{ (webFooter.properties.footerbottomrowflexlayout == 0) ? 'flex-grow-1' : '' }}">
+                                            {{ webFooter.content.footer6002|raw }}
+                                        </div>
+
+                                        <div class="d-none d-lg-block align-self-center {{ (webFooter.properties.footerbottomrowflexlayout == 1) ? 'flex-grow-1' : '' }}">
+                                            {{ webFooter.content.footer6003|raw }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </footer>
+                {% endif %}
+
+                {{ webMacros.includeView(i18n, fsc, webIncludes, 'footerAfter') }}
+            {% endblock %}
+
+            {% block javascriptFooter %}
+                {{ webMacros.includeView(i18n, fsc, webIncludes, 'javascriptFooterBefore') }}
+
+                <script type="text/javascript" src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
+                <script type="text/javascript" src="{{ asset('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+                <script type="text/javascript" src="{{ asset('node_modules/bootbox/dist/bootbox.min.js') }}"></script>
+                <script type="text/javascript" src="{{ asset('node_modules/bootbox/dist/bootbox.locales.min.js') }}"></script>
+                <script type="text/javascript" src="{{ asset('node_modules/jquery-ui-dist/jquery-ui.min.js') }}"></script>
+                <script type="text/javascript" src="{{ asset('Dinamic/Assets/JS/Custom.js') }}"></script>
+
+                {# Adds custom JS assets #}
+                {% for js in assetManager.get('js') %}
+                    <script src="{{ js }}"></script>
+                {% endfor %}
+
+                <script>
+                    $(document).ready(function(){
+                        function headerBackgroundColor() {
+                            var color = '{{ webHeader.properties.generalbackgroundcolor }}';
+                            var opacity = '{{ webHeader.properties.generalbackgroundcoloropacity }}';
+                            var r = parseInt(color.substr(1, 2), 16);
+                            var g = parseInt(color.substr(3, 2), 16);
+                            var b = parseInt(color.substr(5, 2), 16);
+                            $('header').css('background-color', 'rgb('+r+', '+g+', '+b+', '+opacity+')');
+                        }
+
+                        function headerMainBackgroundColor() {
+                            var color = '{{ webHeader.properties.headermainbackgroundcolor }}';
+                            var opacity = '{{ webHeader.properties.headermainbackgroundcoloropacity }}';
+                            var r = parseInt(color.substr(1, 2), 16);
+                            var g = parseInt(color.substr(3, 2), 16);
+                            var b = parseInt(color.substr(5, 2), 16);
+                            $('.header-main').css('background-color', 'rgb('+r+', '+g+', '+b+', '+opacity+')');
+                        }
+
+                        function pageTitleBackgroundColor() {
+                            var color = '{{ webSettings.titlebackgroundcolor }}';
+                            var opacity = '{{ webSettings.titlebackgroundopacity }}';
+                            var r = parseInt(color.substr(1, 2), 16);
+                            var g = parseInt(color.substr(3, 2), 16);
+                            var b = parseInt(color.substr(5, 2), 16);
+                            $('.page-title').css('background-color', 'rgb('+r+', '+g+', '+b+', '+opacity+')');
+                        }
+
+                        function footerBackgroundColor() {
+                            var color = '{{ webFooter.properties.footerbackgroundcolor }}';
+                            var opacity = '{{ webFooter.properties.footerbackgroundcoloropacity }}';
+                            var r = parseInt(color.substr(1, 2), 16);
+                            var g = parseInt(color.substr(3, 2), 16);
+                            var b = parseInt(color.substr(5, 2), 16);
+                            $('footer').css('background-color', 'rgb('+r+', '+g+', '+b+', '+opacity+')');
+                        }
+
+                        function footerTopBackgroundColor() {
+                            var color = '{{ webFooter.properties.footertopbackgroundcolor }}';
+                            var opacity = '{{ webFooter.properties.footertopbackgroundcoloropacity }}';
+                            var r = parseInt(color.substr(1, 2), 16);
+                            var g = parseInt(color.substr(3, 2), 16);
+                            var b = parseInt(color.substr(5, 2), 16);
+                            $('.footer-top').css('background-color', 'rgb('+r+', '+g+', '+b+', '+opacity+')');
+                        }
+
+                        function footerMainBackgroundColor() {
+                            var color = '{{ webFooter.properties.footermainbackgroundcolor }}';
+                            var opacity = '{{ webFooter.properties.footermainbackgroundcoloropacity }}';
+                            var r = parseInt(color.substr(1, 2), 16);
+                            var g = parseInt(color.substr(3, 2), 16);
+                            var b = parseInt(color.substr(5, 2), 16);
+                            $('.footer-main').css('background-color', 'rgb('+r+', '+g+', '+b+', '+opacity+')');
+                        }
+
+                        function footerBottomBackgroundColor() {
+                            var color = '{{ webFooter.properties.footerbottombackgroundcolor }}';
+                            var opacity = '{{ webFooter.properties.footerbottombackgroundcoloropacity }}';
+                            var r = parseInt(color.substr(1, 2), 16);
+                            var g = parseInt(color.substr(3, 2), 16);
+                            var b = parseInt(color.substr(5, 2), 16);
+                            $('.footer-bottom').css('background-color', 'rgb('+r+', '+g+', '+b+', '+opacity+')');
+                        }
+
+                        function mobileButtonColor() {
+                            var btnColor = '{{ webHeader.properties.generalmobilebuttoncolor }}';
+                            var btnOpacity = '{{ webHeader.properties.generalmobilebuttonopacity }}';
+                            var btnRed = parseInt(btnColor.substr(1, 2), 16);
+                            var btnGreen = parseInt(btnColor.substr(3, 2), 16);
+                            var btnBlue = parseInt(btnColor.substr(5, 2), 16);
+                            $('.navbar-toggler-icon').css('background-image', 'url("data:image/svg+xml;charset=utf8,%3Csvg viewBox=\'0 0 32 32\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath stroke=\'rgba('+btnRed+','+btnGreen+','+btnBlue+', '+btnOpacity+')\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-miterlimit=\'10\' d=\'M4 8h24M4 16h24M4 24h24\'/%3E%3C/svg%3E")');
+
+                            var btnBorder = '{{ webHeader.properties.generalmobilebordercolor }}';
+                            var btnBorderOpacity = '{{ webHeader.properties.generalmobileborderopacity }}';
+                            var btnBorderRed = parseInt(btnBorder.substr(1, 2), 16);
+                            var btnBorderGreen = parseInt(btnBorder.substr(3, 2), 16);
+                            var btnBorderBlue = parseInt(btnBorder.substr(5, 2), 16);
+                            $('.navbar-toggler').css('border-color', 'rgba('+btnBorderRed+','+btnBorderGreen+','+btnBorderBlue+','+btnBorderOpacity+')');
+                        }
+
+                        function backgroundColor() {
+                            headerBackgroundColor();
+                            headerMainBackgroundColor();
+                            pageTitleBackgroundColor();
+                            footerBackgroundColor();
+                            footerTopBackgroundColor();
+                            footerMainBackgroundColor();
+                            footerBottomBackgroundColor();
+                            mobileButtonColor();
+                        }
+                        backgroundColor();
+
+                        {% if webHeader.properties.headerlayout == 1 %}
+                            {% if webHeader.properties.generalstickypaddingtopbody %}
+                                $('body').css('padding-top', $('header').outerHeight() + 'px');
+                            {% endif %}
+
+                            var lastScroll = 0;
+                            $(window).on('scroll', function(){
+                                var scroll = $(window).scrollTop();
+                                var vh = $(window).height();
+
+                                {% if webHeader.properties.headerlayout == 1 %}
+                                    {% if webHeader.properties.generalstickyoverlap == false %}
+                                        // SINGLE FLOATING HEADBOARDS
+                                        if (scroll > 0) {
+                                            {% if webHeader.properties.generalstickyoverlap or webHeader.properties.headermainmakesticky %}
+                                                $('header').addClass('fixed-top');
+                                            {% else %}
+                                                {% if webHeader.properties.headermainmakesticky %}
+                                                    $('.header-main').addClass('fixed-top').show();
+                                                    $('header').css('min-height', $('.header-main').height() + 'px');
+                                                {% elseif webHeader.properties.generalstickyoverlap %}
+                                                    $('.header-main').hide();
+                                                {% endif %}
+                                            {% endif %}
+                                        } else {
+                                            $('header, .header-main')
+                                                .css('top', '')
+                                                .css('min-height', '')
+                                                .removeClass('fixed-top').show();
+                                        }
+                                    {% endif %}
+                                {% endif %}
+
+                                {% if webHeader.properties.generalstickyheadershadow %}
+                                    // SHOW OVERFLOW IN THE FLOATING MENU
+                                    if (scroll > 0) {
+                                        $('header').addClass('shadow-bottom-outside');
+                                    } else {
+                                        $('header').removeClass('shadow-bottom-outside');
+                                    }
+                                {% endif %}
+
+                                {% if webHeader.properties.generalstickyoverlap and webHeader.properties.generalstickyhidescrollingdown %}
+                                    // HIDE AND SHOW MENU BY MOVING SCROLL
+                                    if (scroll > lastScroll) {
+                                        // DOWN SCROLL
+                                        if (scroll >= ((vh * 20) / 100)) {
+                                            $('header').hide("slide", { direction: "up" }, 300);
+                                        } else {
+                                            $('header').show("slide", { direction: "up" }, 300);
+                                        }
+                                    } else {
+                                        // UP SCROLL
+                                        $('header').show("slide", { direction: "up" }, 300);
+                                    }
+
+                                    lastScroll = scroll;
+                                {% endif %}
+                            });
+                        {% endif %}
+                    });
+                </script>
+
+                {% if fsc.contact is null and appSettings.get('webcreator', 'googleappid', '') != '' %}
+                <div id="g_id_onload"
+                     data-client_id="{{ appSettings.get('webcreator', 'googleappid') }}"
+                     data-login_uri="{{ webUrl ~ asset('GoogleLogin') }}?return={{ fsc.canonicalUrl }}"
+                     data-your_own_param_1_to_login="any_value">
+                </div>
+                <script src="https://accounts.google.com/gsi/client" async defer></script>
+                {% endif %}
+
+                {{ webMacros.includeView(i18n, fsc, webIncludes, 'javascriptFooterAfter') }}
+
+                {# Add global JS #}
+                {{ fsc.pageComposer.regexJS(webSettings.globaljsfooter)|raw }}
+
+                {# Add individual JS page #}
+                {{ fsc.pageComposer.regexJS(webPage.pagejsfooter)|raw }}
+
+            {% endblock %}
+
+            {{ debugBarRender.render()|raw }}
+
+            {{ webMacros.includeView(i18n, fsc, webIncludes, 'bodyAfter') }}
+        {% endblock %}
+    </body>
+</html>

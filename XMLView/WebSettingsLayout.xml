@@ -27,6 +27,7 @@
         <group name="layouts" numcolumns="12">
             <column name="site-width" numcolumns="3" order="100">
                 <widget type="select" fieldname="sitewidth" translate="false" required="true">
+                    <values title="none"> </values>
                     <values title="Container">container</values>
                     <values title="Container sm">container-sm</values>
                     <values title="Container md">container-md</values>
@@ -46,19 +47,19 @@
         <group name="default-header-footer" numcolumns="12">
             <column name="header-default" titleurl="ListWebPage" numcolumns="3" order="100">
                 <widget type="select" fieldname="headerdefault" onclick="EditWebHeader">
-                    <values source="webheaders" fieldcode="idheader" fieldtitle="name" />
+                    <values source="webcreator_headers" fieldcode="idheader" fieldtitle="name" />
                 </widget>
             </column>
 
             <column name="footer-default" titleurl="ListWebFooter" numcolumns="3" order="110">
                 <widget type="select" fieldname="footerdefault" onclick="EditWebFooter">
-                    <values source="webfooters" fieldcode="idfooter" fieldtitle="name" />
+                    <values source="webcreator_footers" fieldcode="idfooter" fieldtitle="name" />
                 </widget>
             </column>
 
             <column name="sidebar-default" titleurl="ListWebSidebar" numcolumns="3" order="120">
                 <widget type="select" fieldname="sidebardefault" onclick="EditWebSidebar">
-                    <values source="websidebars" fieldcode="idsidebar" fieldtitle="name" />
+                    <values source="webcreator_sidebars" fieldcode="idsidebar" fieldtitle="name" />
                 </widget>
             </column>
         </group>
@@ -66,25 +67,25 @@
         <group name="default-pages" numcolumns="12">
             <column name="homepage" titleurl="ListWebPage" numcolumns="3" order="100">
                 <widget type="select" fieldname="homepage" onclick="EditWebPage">
-                    <values source="webpages" fieldcode="idpage" fieldtitle="title" />
+                    <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title" />
                 </widget>
             </column>
 
             <column name="cookies-page" titleurl="ListWebPage" numcolumns="3" order="110">
                 <widget type="select" fieldname="cookiespage" onclick="EditWebPage">
-                    <values source="webpages" fieldcode="idpage" fieldtitle="title" />
+                    <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title" />
                 </widget>
             </column>
 
             <column name="privacy-page" titleurl="ListWebPage" numcolumns="3" order="120">
                 <widget type="select" fieldname="privacypage" onclick="EditWebPage">
-                    <values source="webpages" fieldcode="idpage" fieldtitle="title" />
+                    <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title" />
                 </widget>
             </column>
 
             <column name="terms-page" titleurl="ListWebPage" numcolumns="3" order="130">
                 <widget type="select" fieldname="termspage" onclick="EditWebPage">
-                    <values source="webpages" fieldcode="idpage" fieldtitle="title" />
+                    <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title" />
                 </widget>
             </column>
         </group>

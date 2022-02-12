@@ -23,35 +23,21 @@ use FacturaScripts\Core\Model\Base;
 /**
  * Description of WebFont
  *
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class WebFont extends Base\ModelClass
 {
-
     use Base\ModelTrait;
 
     /**
-     *
      * @var string
      */
     public $lastmod;
 
     /**
-     * Name font.
-     * Primary key
-     *
      * @var string
      */
     public $name;
-
-    /**
-     * Reset the values of all model properties.
-     */
-    public function clear()
-    {
-        parent::clear();
-        $this->lastmod = \date('d-m-Y');
-    }
 
     /**
      * Returns the name of the column that is the primary key of the model.
@@ -69,7 +55,6 @@ class WebFont extends Base\ModelClass
      */
     public function save()
     {
-        /// update last modification date
         $this->lastmod = date('d-m-Y');
         return parent::save();
     }
@@ -81,6 +66,6 @@ class WebFont extends Base\ModelClass
      */
     public static function tableName()
     {
-        return 'webfonts';
+        return 'webcreator_fonts';
     }
 }

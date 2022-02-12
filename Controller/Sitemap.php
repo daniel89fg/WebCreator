@@ -28,6 +28,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Description of Sitemap
  *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class Sitemap extends Controller
 {

@@ -23,11 +23,10 @@ use FacturaScripts\Dinamic\Lib\ExtendedController\EditController;
 /**
  * Description of EditWebSidebar
  *
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class EditWebSidebar extends EditController
 {
-
     /**
      * Returns the model name
      *

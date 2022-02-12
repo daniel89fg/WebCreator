@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : webcreator_footers.xml
+    Author     : Daniel Fernández Giménez
+    Description:
+        Structure for the webcreator_footers table.
+-->
+<table>
+    <column>
+        <name>content</name>
+        <type>longblob</type>
+    </column>
+    <column>
+        <name>idfooter</name>
+        <type>serial</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>lastmod</name>
+        <type>date</type>
+    </column>
+    <column>
+        <name>name</name>
+        <type>character varying(100)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>properties</name>
+        <type>LONGBLOB</type>
+    </column>
+    <constraint>
+        <name>webcreator_footers_pkey</name>
+        <type>PRIMARY KEY (idfooter)</type>
+    </constraint>
+</table>

@@ -24,11 +24,10 @@ use FacturaScripts\Dinamic\Lib\ExtendedController\EditController;
  * Description of EditWebBlock
  *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class EditWebBlock extends EditController
 {
-
     /**
      * Returns the model name
      *

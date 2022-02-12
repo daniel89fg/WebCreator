@@ -20,13 +20,13 @@ namespace FacturaScripts\Plugins\WebCreator\Controller;
 
 use FacturaScripts\Dinamic\Lib\ExtendedController\BaseView;
 use FacturaScripts\Dinamic\Lib\ExportManager;
-use FacturaScripts\Dinamic\Lib\Portal\PortalViewController;
+use FacturaScripts\Dinamic\Lib\WebCreator\PortalViewController;
 
 /**
  * Description of ViewBudget
  *
  * @author Carlos García Gómez <carlos@facturascripts.com>
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class ViewBudget extends PortalViewController
 {
@@ -51,7 +51,7 @@ class ViewBudget extends PortalViewController
         }
 
         parent::createViews();
-        $this->addHtmlView('info', 'Web/Private/BudgetInfo', 'PresupuestoCliente', 'detail', 'fas fa-info-circle');
+        $this->addHtmlView('info', 'WebCreator/Private/BudgetInfo', 'PresupuestoCliente', 'detail', 'fas fa-info-circle');
     }
 
     /**
@@ -90,7 +90,7 @@ class ViewBudget extends PortalViewController
         }
     }
 
-    private function printAction()
+    protected function printAction(): bool
     {
         if (false === $this->permissions->allowAccess) {
             $this->toolBox()->i18nLog()->warning('access-denied');

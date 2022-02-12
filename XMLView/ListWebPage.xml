@@ -28,7 +28,7 @@
         </column>
         <column name="parent" order="120">
             <widget type="select" fieldname="pageparent">
-                <values source="webpages" fieldcode="idpage" fieldtitle="title" />
+                <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title" />
             </widget>
         </column>
         <column name="custom-controller" order="130">

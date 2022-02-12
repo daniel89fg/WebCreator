@@ -23,11 +23,10 @@ use FacturaScripts\Core\Model\FacturaCliente as ParentModel;
 /**
  * Description of FacturaCliente
  *
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class FacturaCliente extends ParentModel
 {
-
     /**
      * 
      * @param string $type

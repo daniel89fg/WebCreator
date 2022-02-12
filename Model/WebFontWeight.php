@@ -23,48 +23,31 @@ use FacturaScripts\Core\Model\Base;
 /**
  * Description of WebFontWeight
  *
- * @author Athos Online <info@athosonline.com>
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class WebFontWeight extends Base\ModelClass
 {
-
     use Base\ModelTrait;
 
     /**
-     *
      * @var string
      */
     public $lastmod;
 
     /**
-     * ID font parent
-     *
      * @var string
      */
     public $idfont;
 
     /**
-     * Primary key
-     *
      * @var string
      */
     public $idfontweight;
 
     /**
-     * Weight font
-     *
      * @var string
      */
     public $weight;
-
-    /**
-     * Reset the values of all model properties.
-     */
-    public function clear()
-    {
-        parent::clear();
-        $this->lastmod = \date('d-m-Y');
-    }
 
     /**
      * Returns the name of the column that is the primary key of the model.
@@ -82,7 +65,6 @@ class WebFontWeight extends Base\ModelClass
      */
     public function save()
     {
-        /// update last modification date
         $this->lastmod = date('d-m-Y');
         return parent::save();
     }
@@ -94,6 +76,6 @@ class WebFontWeight extends Base\ModelClass
      */
     public static function tableName()
     {
-        return 'webfontsweight';
+        return 'webcreator_fontsweight';
     }
 }
