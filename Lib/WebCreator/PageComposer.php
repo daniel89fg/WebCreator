@@ -188,7 +188,7 @@ class PageComposer
             'termspage' => $termspageUrl
         );
 
-        $pages = $this->pipe('getPagesDefaultAfter', $pages);
+        //$pages = $this->pipe('getPagesDefaultAfter', $pages);
         return $pages;
     }
 

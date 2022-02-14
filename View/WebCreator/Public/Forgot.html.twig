@@ -1,30 +1,94 @@
 {% extends "WebCreator/Public/Login.html.twig" %}
 
-{% block content %}
+{% block css %}
+    {{ parent() }}
+    <style>
+        body {
+            background-color: #ebeeef;
+        }
+
+        .login-form {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .strike {
+            display: block;
+            text-align: center;
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 20px;
+        }
+
+        .strike > span {
+            position: relative;
+            display: inline-block;
+            color: gray;
+        }
+
+        .strike > span:before,
+        .strike > span:after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 9999px;
+            height: 1px;
+            background: silver;
+        }
+
+        .strike > span:before {
+            right: 100%;
+            margin-right: 15px;
+        }
+
+        .strike > span:after {
+            left: 100%;
+            margin-left: 15px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
     <main class="d-flex flex-column align-items-center justify-content-center w-100 vh-100">
-        <div class="form-signin px-2">
-            <form action="{{ fsc.url() }}" method="post">
-                <input type="hidden" name="action" value="forgot"/>
-                <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
-                <h3 class="text-primary mb-4">FacturaScripts</h3>
-                <h3>{{ i18n.trans('recovery-password') }}</h3>
-                <div class="form-group">
-                    <label class="mb-0 text-secondary">{{ i18n.trans('forgot-password-info') }}</label>
-                    <input required="required" autofocus="autofocus" type="email"
-                           class="form-control" name="email" placeholder="{{ i18n.trans('entry-email') }}"
-                           value="{{ fsc.emailContact }}"
-                           maxlength="100">
+        <div class="login-form">
+            <div class="h3">{{ webTitle }}</div>
+            <div class="card shadow mb-5">
+                <img src="{{ asset('Dinamic/Assets/Images/bg-login-1.jpg') }}" class="card-img-top" alt="login">
+                <div class="card-body">
+                    <form action="{{ fsc.url() }}" method="post">
+                        <input type="hidden" name="action" value="forgot"/>
+                        <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
+                        <div class="form-group row mb-0">
+                            <div class="col-sm-9 offset-sm-3">
+                                <div class="strike">
+                                    <span>{{ i18n.trans('password-recovery') }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail" class="col-sm-3 col-form-label text-sm-right">
+                                {{ i18n.trans('email') }}
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="email" name="email" id="inputEmail" class="form-control"
+                                       placeholder="{{ i18n.trans('email') }}" value="{{ fsc.emailContact }}"
+                                       maxlength="100" required autofocus>
+                                <div class="mt-4 mb-4">
+                                    {% include 'WebCreator/Master/Messages.html.twig' %}
+                                </div>
+                                <button type="submit" class="btn btn-block btn-primary mb-3">
+                                    {{ i18n.trans('send') }}
+                                </button>
+                                <p class="text-muted text-justify mb-4">{{ i18n.trans('password-recovery-p') }}</p>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="mb-2 messages text-center">
-                    {% include 'WebCreator/Master/Messages.html.twig' %}
+                <div class="card-footer">
+                    <a href="/MeLogin" class="btn btn-block btn-link">{{ i18n.trans('login') }}</a>
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">
-                    {{ i18n.trans('send') }}
-                </button>
-            </form>
-        </div>
-        <div class="fixed-bottom text-center pb-3">
-            <a href="/MeLogin">{{ i18n.trans('back-to-login') }}</a>
+            </div>
+            <p class="text-center mt-5">{{ webCopyright }}</p>
         </div>
     </main>
 {% endblock %}

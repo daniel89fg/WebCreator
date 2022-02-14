@@ -39,15 +39,5 @@
                 </widget>
             </column>
         </group>
-
-        <group name="login-register-google" title="access-google" numcolumns="12">
-            <column name="google-app-id" order="100">
-                <widget type="text" fieldname="googleappid" />
-            </column>
-
-            <column name="google-app-secret" order="110">
-                <widget type="text" fieldname="googleappsecret" />
-            </column>
-        </group>
     </columns>
 </view>

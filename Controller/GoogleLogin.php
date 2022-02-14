@@ -45,7 +45,7 @@ class GoogleLogin extends Me
         parent::publicCore($response);
 
         $this->returnUrl = $this->request->get('return', 'Me');
-        $clientID = $this->toolBox()->appSettings()->get('webcreator', 'googleappid');
+        $clientID = $this->toolBox()->appSettings()->get('webcreator', 'google-api');
 
         $csrf_token_cookie = $this->request->cookies->get('g_csrf_token', '');
         $csrf_token_body = $this->request->get('g_csrf_token', '');

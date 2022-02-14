@@ -11,98 +11,124 @@
 
 {% block css %}
     {{ parent() }}
-
     <style>
-        .form-signin, .form-forgot, .form-register {
+        body {
+            background-color: #ebeeef;
+        }
+
+        .login-form {
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
         }
 
-        .messages .alert button span {
-            display: none;
+        .strike {
+            display: block;
+            text-align: center;
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 20px;
         }
 
-        .separator-text {
+        .strike > span {
             position: relative;
             display: inline-block;
+            color: gray;
         }
 
-        .separator-text::before, .separator-text::after {
-            position: absolute;
+        .strike > span:before,
+        .strike > span:after {
             content: "";
+            position: absolute;
             top: 50%;
-            -webkit-transform: translateY(-50%);
-            -moz-transform: translateY(-50%);
-            -ms-transform: translateY(-50%);
-            -o-transform: translateY(-50%);
-            transform: translateY(-50%);
-            width: 100px;
+            width: 9999px;
             height: 1px;
-            background-color: #eee;
+            background: silver;
         }
 
-        .separator-text::before {
-            left: calc(100% + 10px);
+        .strike > span:before {
+            right: 100%;
+            margin-right: 15px;
         }
 
-        .separator-text::after {
-            right: calc(100% + 10px);
+        .strike > span:after {
+            left: 100%;
+            margin-left: 15px;
         }
     </style>
 {% endblock %}
 
 {% block content %}
     <main class="d-flex flex-column align-items-center justify-content-center w-100 vh-100">
-        <div class="form-signin px-2">
-            <h3 class="text-primary text-center mb-4">FacturaScripts</h3>
-            <div class="g_id_signin d-flex justify-content-center"
-                 data-size="large"
-                 data-width="1000"
-                 data-type="standard"
-                 data-theme="outline"
-                 data-text="sign_in_with"
-                 data-shape="rectangular"
-                 data-logo_alignment="center">
-            </div>
-            <div class="separator text-center mb-4 mt-4">
-                <div class="separator-text text-secondary">
-                    <span>{{ i18n.trans('or-login-with') }}</span>
+        <div class="login-form">
+            <h1 class="h3">{{ fsc.title|raw }}</h1>
+            <div class="card shadow mb-5">
+                <img src="{{ asset('Dinamic/Assets/Images/bg-login-1.jpg') }}" class="card-img-top" alt="login">
+                <div class="card-body">
+                    {% if appSettings.get('webcreator','google-api') %}
+                        <div class="form-group row mb-0">
+                            <div class="col-sm-9 offset-sm-3">
+                                <div class="g_id_signin d-flex justify-content-center"
+                                     data-size="large"
+                                     data-width="1000"
+                                     data-type="standard"
+                                     data-theme="outline"
+                                     data-text="sign_in_with"
+                                     data-shape="rectangular"
+                                     data-logo_alignment="center">
+                                </div>
+                                <div class="strike">
+                                    <span>{{ i18n.trans('choose-method') }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <form action="{{ fsc.url() }}" method="post">
+                        <input type="hidden" name="action" value="login"/>
+                        <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
+                        <div class="form-group row">
+                            <label for="inputEmail" class="col-sm-3 col-form-label text-sm-right">
+                                {{ i18n.trans('email') }}
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="email" name="email" id="inputEmail" class="form-control"
+                                       placeholder="{{ i18n.trans('email') }}" value="{{ fsc.emailContact }}"
+                                       maxlength="100" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPasswd" class="col-sm-3 col-form-label text-sm-right">
+                                {{ i18n.trans('password') }}
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="password" name="passwd" id="inputPasswd" class="form-control"
+                                       placeholder="{{ i18n.trans('password') }}" maxlength="255">
+                                <a href="/MeForgot" class="btn btn-block btn-link">
+                                    {{ i18n.trans('forgot-password-q') }}
+                                </a>
+                                <div class="mb-3">
+                                    {% include 'WebCreator/Master/Messages.html.twig' %}
+                                </div>
+                                <button type="submit" class="btn btn-block btn-primary mb-4">
+                                    {{ i18n.trans('login') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <div class="row align-items-baseline">
+                        <div class="col-sm">
+                            <p class="text-right mb-0">{{ i18n.trans('do-not-have-account') }}</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <a href="/MeRegister" class="btn btn-block btn-success">
+                                {{ i18n.trans('register-me') }}
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <form action="{{ fsc.url() }}" method="post">
-                <input type="hidden" name="action" value="login"/>
-                <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
-                <div class="form-group">
-                    <label class="mb-0 text-secondary">{{ i18n.trans('email') }}</label>
-                    <input required="required" autofocus="autofocus" type="email"
-                           class="form-control" name="email" placeholder="{{ i18n.trans('entry-email') }}"
-                           value="{{ fsc.emailContact }}"
-                           maxlength="100">
-                </div>
-                <div class="form-group">
-                    <label class="w-100 mb-0 text-secondary">
-                        <span>{{ i18n.trans('password') }}</span>
-                        <span class="float-right">
-                        <a href="/MeForgot">{{ i18n.trans('forgotten-your-password') }}</a>
-                    </span>
-                    </label>
-                    <input required="required" type="password" class="form-control"
-                           name="passwd" placeholder="{{ i18n.trans('entry-password') }}"
-                           maxlength="255">
-                </div>
-                <div class="mb-2 messages text-center">
-                    {% include 'WebCreator/Master/Messages.html.twig' %}
-                </div>
-                <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">
-                    {{ i18n.trans('login') }}
-                </button>
-            </form>
-        </div>
-        <div class="fixed-bottom text-center pb-3 text-secondary">
-            {{ i18n.trans('new-in-facturascripts') }}
-            <strong>
-                <a href="/MeRegister">{{ i18n.trans('register-me') }}</a>
-            </strong>
+            <p class="text-center mt-5">{{ webCopyright }}</p>
         </div>
     </main>
 {% endblock %}

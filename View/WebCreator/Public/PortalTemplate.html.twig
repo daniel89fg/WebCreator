@@ -24,7 +24,7 @@
                 <title>{{ fsc.title|raw }}</title>
                 <meta name="description" content="{{ fsc.description|raw }}" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <meta name="generator" content="FacturaScripts and Athos Online" />
+                <meta name="generator" content="FacturaScripts" />
                 <meta name="robots" content="{{ webPage.noindex ? 'noindex' : 'index' }}" />
                 <link rel="canonical" href="{{ fsc.canonicalUrl }}" />
                 {{ fsc.pageComposer.getGoogleFonts()|raw }}
@@ -580,9 +580,9 @@
                     });
                 </script>
 
-                {% if fsc.contact is null and appSettings.get('webcreator', 'googleappid', '') != '' %}
+                {% if fsc.contact is null and appSettings.get('webcreator', 'google-api', '') != '' %}
                 <div id="g_id_onload"
-                     data-client_id="{{ appSettings.get('webcreator', 'googleappid') }}"
+                     data-client_id="{{ appSettings.get('webcreator', 'google-api') }}"
                      data-login_uri="{{ webUrl ~ asset('GoogleLogin') }}?return={{ fsc.canonicalUrl }}"
                      data-your_own_param_1_to_login="any_value">
                 </div>
