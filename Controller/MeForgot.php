@@ -20,6 +20,7 @@
 namespace FacturaScripts\Plugins\WebCreator\Controller;
 
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
+use FacturaScripts\Core\Base\ToolBox;
 use FacturaScripts\Dinamic\Lib\Email\ButtonBlock;
 use FacturaScripts\Dinamic\Lib\Email\NewMail;
 use FacturaScripts\Dinamic\Model\Contacto;
@@ -37,6 +38,11 @@ class MeForgot extends Me
 
     protected function createViews()
     {
+        if (ToolBox::appSettings()->get('webcreator', 'loginavailable') == false) {
+            $this->redirect('/');
+            return;
+        }
+
         if (empty($this->contact)) {
             $this->setTemplate(self::FORGOT_TEMPLATE);
             $this->title = $this->toolBox()->i18n()->trans('forgot-password');

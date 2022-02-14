@@ -210,6 +210,18 @@ class Me extends PortalPanelController
         if (empty($this->contact)) {
             $this->setIPWarning();
             return true;
+        } elseif (false === $this->validateFormToken()) {
+            return true;
+        }
+
+        $contact = new Contacto();
+        $newEmail = $this->request->request->get('email', $this->contact->email);
+        $contact->loadFromCode('', [new DataBaseWhere('email', $newEmail)]);
+        if (is_null($contact->idcontacto) === false && $contact->idcontacto != $this->contact->idcontacto) {
+            $this->toolBox()->i18nLog()->warning('email-contact-already-used', ['%email%' => $newEmail]);
+            return true;
+        } else {
+            $this->contact->email = $newEmail;
         }
 
         $fields = [

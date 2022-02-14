@@ -304,7 +304,9 @@
                         {% block messages %}
                             {{ webMacros.includeView(i18n, fsc, webIncludes, 'messagesBefore') }}
 
-                            {% include 'WebCreator/Master/Messages.html.twig' %}
+                            <div class="container">
+                                {% include 'WebCreator/Master/Messages.html.twig' %}
+                            </div>
 
                             {{ webMacros.includeView(i18n, fsc, webIncludes, 'messagesAfter') }}
                         {% endblock %}
@@ -425,81 +427,81 @@
                 <script>
                     $(document).ready(function(){
                         function headerBackgroundColor() {
-                            var color = '{{ webHeader.properties.generalbackgroundcolor }}';
-                            var opacity = '{{ webHeader.properties.generalbackgroundcoloropacity }}';
-                            var r = parseInt(color.substr(1, 2), 16);
-                            var g = parseInt(color.substr(3, 2), 16);
-                            var b = parseInt(color.substr(5, 2), 16);
+                            let color = '{{ webHeader.properties.generalbackgroundcolor }}';
+                            let opacity = '{{ webHeader.properties.generalbackgroundcoloropacity }}';
+                            let r = parseInt(color.substr(1, 2), 16);
+                            let g = parseInt(color.substr(3, 2), 16);
+                            let b = parseInt(color.substr(5, 2), 16);
                             $('header').css('background-color', 'rgb('+r+', '+g+', '+b+', '+opacity+')');
                         }
 
                         function headerMainBackgroundColor() {
-                            var color = '{{ webHeader.properties.headermainbackgroundcolor }}';
-                            var opacity = '{{ webHeader.properties.headermainbackgroundcoloropacity }}';
-                            var r = parseInt(color.substr(1, 2), 16);
-                            var g = parseInt(color.substr(3, 2), 16);
-                            var b = parseInt(color.substr(5, 2), 16);
+                            let color = '{{ webHeader.properties.headermainbackgroundcolor }}';
+                            let opacity = '{{ webHeader.properties.headermainbackgroundcoloropacity }}';
+                            let r = parseInt(color.substr(1, 2), 16);
+                            let g = parseInt(color.substr(3, 2), 16);
+                            let b = parseInt(color.substr(5, 2), 16);
                             $('.header-main').css('background-color', 'rgb('+r+', '+g+', '+b+', '+opacity+')');
                         }
 
                         function pageTitleBackgroundColor() {
-                            var color = '{{ webSettings.titlebackgroundcolor }}';
-                            var opacity = '{{ webSettings.titlebackgroundopacity }}';
-                            var r = parseInt(color.substr(1, 2), 16);
-                            var g = parseInt(color.substr(3, 2), 16);
-                            var b = parseInt(color.substr(5, 2), 16);
+                            let color = '{{ webSettings.titlebackgroundcolor }}';
+                            let opacity = '{{ webSettings.titlebackgroundopacity }}';
+                            let r = parseInt(color.substr(1, 2), 16);
+                            let g = parseInt(color.substr(3, 2), 16);
+                            let b = parseInt(color.substr(5, 2), 16);
                             $('.page-title').css('background-color', 'rgb('+r+', '+g+', '+b+', '+opacity+')');
                         }
 
                         function footerBackgroundColor() {
-                            var color = '{{ webFooter.properties.footerbackgroundcolor }}';
-                            var opacity = '{{ webFooter.properties.footerbackgroundcoloropacity }}';
-                            var r = parseInt(color.substr(1, 2), 16);
-                            var g = parseInt(color.substr(3, 2), 16);
-                            var b = parseInt(color.substr(5, 2), 16);
+                            let color = '{{ webFooter.properties.footerbackgroundcolor }}';
+                            let opacity = '{{ webFooter.properties.footerbackgroundcoloropacity }}';
+                            let r = parseInt(color.substr(1, 2), 16);
+                            let g = parseInt(color.substr(3, 2), 16);
+                            let b = parseInt(color.substr(5, 2), 16);
                             $('footer').css('background-color', 'rgb('+r+', '+g+', '+b+', '+opacity+')');
                         }
 
                         function footerTopBackgroundColor() {
-                            var color = '{{ webFooter.properties.footertopbackgroundcolor }}';
-                            var opacity = '{{ webFooter.properties.footertopbackgroundcoloropacity }}';
-                            var r = parseInt(color.substr(1, 2), 16);
-                            var g = parseInt(color.substr(3, 2), 16);
-                            var b = parseInt(color.substr(5, 2), 16);
+                            let color = '{{ webFooter.properties.footertopbackgroundcolor }}';
+                            let opacity = '{{ webFooter.properties.footertopbackgroundcoloropacity }}';
+                            let r = parseInt(color.substr(1, 2), 16);
+                            let g = parseInt(color.substr(3, 2), 16);
+                            let b = parseInt(color.substr(5, 2), 16);
                             $('.footer-top').css('background-color', 'rgb('+r+', '+g+', '+b+', '+opacity+')');
                         }
 
                         function footerMainBackgroundColor() {
-                            var color = '{{ webFooter.properties.footermainbackgroundcolor }}';
-                            var opacity = '{{ webFooter.properties.footermainbackgroundcoloropacity }}';
-                            var r = parseInt(color.substr(1, 2), 16);
-                            var g = parseInt(color.substr(3, 2), 16);
-                            var b = parseInt(color.substr(5, 2), 16);
+                            let color = '{{ webFooter.properties.footermainbackgroundcolor }}';
+                            let opacity = '{{ webFooter.properties.footermainbackgroundcoloropacity }}';
+                            let r = parseInt(color.substr(1, 2), 16);
+                            let g = parseInt(color.substr(3, 2), 16);
+                            let b = parseInt(color.substr(5, 2), 16);
                             $('.footer-main').css('background-color', 'rgb('+r+', '+g+', '+b+', '+opacity+')');
                         }
 
                         function footerBottomBackgroundColor() {
-                            var color = '{{ webFooter.properties.footerbottombackgroundcolor }}';
-                            var opacity = '{{ webFooter.properties.footerbottombackgroundcoloropacity }}';
-                            var r = parseInt(color.substr(1, 2), 16);
-                            var g = parseInt(color.substr(3, 2), 16);
-                            var b = parseInt(color.substr(5, 2), 16);
+                            let color = '{{ webFooter.properties.footerbottombackgroundcolor }}';
+                            let opacity = '{{ webFooter.properties.footerbottombackgroundcoloropacity }}';
+                            let r = parseInt(color.substr(1, 2), 16);
+                            let g = parseInt(color.substr(3, 2), 16);
+                            let b = parseInt(color.substr(5, 2), 16);
                             $('.footer-bottom').css('background-color', 'rgb('+r+', '+g+', '+b+', '+opacity+')');
                         }
 
                         function mobileButtonColor() {
-                            var btnColor = '{{ webHeader.properties.generalmobilebuttoncolor }}';
-                            var btnOpacity = '{{ webHeader.properties.generalmobilebuttonopacity }}';
-                            var btnRed = parseInt(btnColor.substr(1, 2), 16);
-                            var btnGreen = parseInt(btnColor.substr(3, 2), 16);
-                            var btnBlue = parseInt(btnColor.substr(5, 2), 16);
+                            let btnColor = '{{ webHeader.properties.generalmobilebuttoncolor }}';
+                            let btnOpacity = '{{ webHeader.properties.generalmobilebuttonopacity }}';
+                            let btnRed = parseInt(btnColor.substr(1, 2), 16);
+                            let btnGreen = parseInt(btnColor.substr(3, 2), 16);
+                            let btnBlue = parseInt(btnColor.substr(5, 2), 16);
                             $('.navbar-toggler-icon').css('background-image', 'url("data:image/svg+xml;charset=utf8,%3Csvg viewBox=\'0 0 32 32\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath stroke=\'rgba('+btnRed+','+btnGreen+','+btnBlue+', '+btnOpacity+')\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-miterlimit=\'10\' d=\'M4 8h24M4 16h24M4 24h24\'/%3E%3C/svg%3E")');
 
-                            var btnBorder = '{{ webHeader.properties.generalmobilebordercolor }}';
-                            var btnBorderOpacity = '{{ webHeader.properties.generalmobileborderopacity }}';
-                            var btnBorderRed = parseInt(btnBorder.substr(1, 2), 16);
-                            var btnBorderGreen = parseInt(btnBorder.substr(3, 2), 16);
-                            var btnBorderBlue = parseInt(btnBorder.substr(5, 2), 16);
+                            let btnBorder = '{{ webHeader.properties.generalmobilebordercolor }}';
+                            let btnBorderOpacity = '{{ webHeader.properties.generalmobileborderopacity }}';
+                            let btnBorderRed = parseInt(btnBorder.substr(1, 2), 16);
+                            let btnBorderGreen = parseInt(btnBorder.substr(3, 2), 16);
+                            let btnBorderBlue = parseInt(btnBorder.substr(5, 2), 16);
                             $('.navbar-toggler').css('border-color', 'rgba('+btnBorderRed+','+btnBorderGreen+','+btnBorderBlue+','+btnBorderOpacity+')');
                         }
 
@@ -520,10 +522,10 @@
                                 $('body').css('padding-top', $('header').outerHeight() + 'px');
                             {% endif %}
 
-                            var lastScroll = 0;
+                            let lastScroll = 0;
                             $(window).on('scroll', function(){
-                                var scroll = $(window).scrollTop();
-                                var vh = $(window).height();
+                                let scroll = $(window).scrollTop();
+                                let vh = $(window).height();
 
                                 {% if webHeader.properties.headerlayout == 1 %}
                                     {% if webHeader.properties.generalstickyoverlap == false %}

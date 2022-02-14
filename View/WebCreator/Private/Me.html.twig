@@ -4,22 +4,30 @@
 
 <form method="post">
     <input type="hidden" name="action" value="edit-profile" />
+    <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
     <div class="shadow-sm mb-3">
         <div class="card-body">
             <div class="form-row">
-                <div class="col-sm-3">
+                <div class="col-sm-6">
                     <div class="form-group">
                         {{ i18n.customTrans(fsc.webPage.filelang, 'name') }}
                         <input class="form-control" type="text" name="nombre" value="{{ fsc.contact.nombre }}" autocomplete="off" required=""/>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <div class="form-group">
                         {{ i18n.customTrans(fsc.webPage.filelang, 'surname') }}
                         <input class="form-control" type="text" name="apellidos" value="{{ fsc.contact.apellidos }}" autocomplete="off"/>
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {{ i18n.trans('email') }}
+                        <input class="form-control" type="email" name="email" value="{{ fsc.contact.email }}"
+                               autocomplete="off" required=""/>
+                    </div>
+                </div>
+                <div class="col-sm-3">
                     <div class="form-group">
                         {{ i18n.customTrans(fsc.webPage.filelang, 'fiscal-id') }}
                         <select class="form-control" name="tipoidfiscal">

@@ -20,6 +20,7 @@
 namespace FacturaScripts\Plugins\WebCreator\Controller;
 
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
+use FacturaScripts\Core\Base\ToolBox;
 use FacturaScripts\Dinamic\Model\Contacto;
 use FacturaScripts\Dinamic\Controller\Me;
 
@@ -35,6 +36,11 @@ class MeLogin extends Me
 
     protected function createViews()
     {
+        if (ToolBox::appSettings()->get('webcreator', 'loginavailable') == false) {
+            $this->redirect('/');
+            return;
+        }
+
         if (empty($this->contact)) {
             $this->setTemplate(self::LOGIN_TEMPLATE);
             $this->title = $this->toolBox()->i18n()->trans('login');

@@ -20,6 +20,7 @@
 namespace FacturaScripts\Plugins\WebCreator\Controller;
 
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
+use FacturaScripts\Core\Base\ToolBox;
 use FacturaScripts\Dinamic\Model\CodeModel;
 use FacturaScripts\Dinamic\Model\Contacto;
 use FacturaScripts\Dinamic\Controller\Me;
@@ -61,6 +62,11 @@ class MeRegister extends Me
 
     protected function createViews()
     {
+        if (ToolBox::appSettings()->get('webcreator', 'registeravailable') == false) {
+            $this->redirect('/');
+            return;
+        }
+
         if (empty($this->contact)) {
             $this->setTemplate(self::REGISTER_TEMPLATE);
             $this->title = $this->toolBox()->i18n()->trans('register-me');

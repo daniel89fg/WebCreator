@@ -62,10 +62,10 @@ class ListWebPage extends ListController
     protected function createViewWebBlock(string $viewName = 'ListWebBlock')
     {
         $this->addView($viewName, 'WebBlock', 'blocks', 'fas fa-code');
-        $this->addSearchFields($viewName, ['content']);
+        $this->addSearchFields($viewName, ['name']);
         $this->addOrderBy($viewName, ['idblock'], 'code');
         $this->addOrderBy($viewName, ['name'], 'name');
-        $this->addOrderBy($viewName, ['lastmod'], 'last-update', 2);
+        $this->addOrderBy($viewName, ['lastmod'], 'last-update');
     }
 
     /**
@@ -77,7 +77,7 @@ class ListWebPage extends ListController
         $this->addView($viewName, 'WebFooter', 'footers', 'fas fa-caret-square-down');
         $this->addSearchFields($viewName, ['name']);
         $this->addOrderBy($viewName, ['name'], 'name');
-        $this->addOrderBy($viewName, ['lastmod'], 'last-update', 2);
+        $this->addOrderBy($viewName, ['lastmod'], 'last-update');
     }
 
     /**
@@ -89,7 +89,7 @@ class ListWebPage extends ListController
         $this->addView($viewName, 'WebHeader', 'headers', 'fas fa-caret-square-up');
         $this->addSearchFields($viewName, ['name']);
         $this->addOrderBy($viewName, ['name'], 'name');
-        $this->addOrderBy($viewName, ['lastmod'], 'last-update', 2);
+        $this->addOrderBy($viewName, ['lastmod'], 'last-update');
     }
 
     /**
@@ -99,9 +99,10 @@ class ListWebPage extends ListController
     protected function createViewWebPages(string $viewName = 'ListWebPage')
     {
         $this->addView($viewName, 'WebPage', 'pages', 'fas fa-globe-americas');
-        $this->addSearchFields($viewName, ['title', 'description']);
-        $this->addOrderBy($viewName, ['permalink']);
-        $this->addOrderBy($viewName, ['title']);
+        $this->addSearchFields($viewName, ['title']);
+        $this->addOrderBy($viewName, ['CONCAT(title, pageparent)'], 'title-parent');
+        $this->addOrderBy($viewName, ['title'], 'title');
+        $this->addOrderBy($viewName, ['permalink'], 'permalink');
         $this->addOrderBy($viewName, ['lastmod'], 'last-update');
 
         /// filters
@@ -117,7 +118,7 @@ class ListWebPage extends ListController
         $this->addView($viewName, 'WebSidebar', 'sidebars', 'fas fa-caret-square-left');
         $this->addSearchFields($viewName, ['name']);
         $this->addOrderBy($viewName, ['name'], 'name');
-        $this->addOrderBy($viewName, ['lastmod'], 'last-update', 2);
+        $this->addOrderBy($viewName, ['lastmod'], 'last-update');
     }
 
     protected function loadData($viewName, $view) {
