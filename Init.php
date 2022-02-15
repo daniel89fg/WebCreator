@@ -159,6 +159,18 @@ class Init extends InitClass
             $appSettings->set('webcreator', 'fonth5weight', 3034);
             $appSettings->set('webcreator', 'fonth6weight', 3034);
         }
+
+        if (empty($appSettings->get('webcreator', 'fontlinkcolor'))) {
+            $appSettings->set('webcreator', 'fontlinkcolor', '#212529');
+            $appSettings->set('webcreator', 'fontlinkcolorhover', '#007bff');
+            $appSettings->set('webcreator', 'fontpcolor', '#212529');
+            $appSettings->set('webcreator', 'fonth1color', '#212529');
+            $appSettings->set('webcreator', 'fonth2color', '#212529');
+            $appSettings->set('webcreator', 'fonth3color', '#212529');
+            $appSettings->set('webcreator', 'fonth4color', '#212529');
+            $appSettings->set('webcreator', 'fonth5color', '#212529');
+            $appSettings->set('webcreator', 'fonth6color', '#212529');
+        }
         
         $appSettings->save();
 
