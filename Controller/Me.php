@@ -113,7 +113,7 @@ class Me extends PortalPanelController
      */
     protected function createViewsBudgets(string $viewName = 'CardPresupuestoCliente')
     {
-        $this->addCardListView($viewName, 'PresupuestoCliente', 'estimations', 'fas fa-copy');
+        $this->addCardListView($viewName, 'PresupuestoCliente', 'estimations', 'far fa-file-powerpoint');
         $this->views[$viewName]->addOrderBy(['fecha', 'hora'], 'date', 2);
         $this->views[$viewName]->addOrderBy(['total'], 'total');
         $this->views[$viewName]->addSearchFields(['codigo', 'direccion', 'nombrecliente', 'observaciones']);
@@ -126,7 +126,7 @@ class Me extends PortalPanelController
      */
     protected function createViewsInvoices(string $viewName = 'CardFacturaCliente')
     {
-        $this->addCardListView($viewName, 'FacturaCliente', 'invoices', 'fas fa-file-invoice');
+        $this->addCardListView($viewName, 'FacturaCliente', 'invoices', 'fas fa-file-invoice-dollar');
         $this->views[$viewName]->addOrderBy(['fecha', 'hora'], 'date', 2);
         $this->views[$viewName]->addOrderBy(['total'], 'total');
         $this->views[$viewName]->addSearchFields(['codigo', 'direccion', 'nombrecliente', 'observaciones']);
@@ -139,7 +139,7 @@ class Me extends PortalPanelController
      */
     protected function createViewsOrders(string $viewName = 'CardPedidoCliente')
     {
-        $this->addCardListView($viewName, 'PedidoCliente', 'orders', 'fas fa-shopping-cart');
+        $this->addCardListView($viewName, 'PedidoCliente', 'orders', 'fas fa-file-powerpoint');
         $this->views[$viewName]->addOrderBy(['fecha', 'hora'], 'date', 2);
         $this->views[$viewName]->addOrderBy(['total'], 'total');
         $this->views[$viewName]->addSearchFields(['codigo', 'direccion', 'nombrecliente', 'observaciones']);
