@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Lib\Shortcode;
 
 use FacturaScripts\Dinamic\Lib\Shortcode\Shortcode;
@@ -37,21 +38,21 @@ class webAsset extends Shortcode
      */
     public static function replace(?string $content): ?string
     {
-        
+
         $shorts = static::searchCode($content, "/\[webAsset(.*?)\]/");
-        
+
         if (count($shorts[0]) <= 0) {
             return $content;
         }
-        
+
         $appSettings = static::toolBox()->appSettings();
         for ($x = 0; $x < count($shorts[1]); $x++) {
             $params = static::getAttributes($shorts[1][$x]);
-            
+
             $file = $params['file'] ?? null;
 
             if (!is_null($file)) {
-                $url = $appSettings->get('webcreator', 'siteurl').$file;    
+                $url = $appSettings->get('webcreator', 'siteurl') . $file;
                 $content = str_replace($shorts[0][$x], $url, $content);
             }
         }

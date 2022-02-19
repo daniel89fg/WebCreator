@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -178,7 +179,7 @@ class Init extends InitClass
             $appSettings->set('webcreator', 'fonth5color', '#212529');
             $appSettings->set('webcreator', 'fonth6color', '#212529');
         }
-        
+
         $appSettings->save();
 
         $routes = new UpdateRoutes();
@@ -186,7 +187,7 @@ class Init extends InitClass
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getSiteUrl(): string

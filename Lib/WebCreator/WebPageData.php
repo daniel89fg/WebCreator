@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Lib\WebCreator;
 
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
@@ -132,12 +133,12 @@ class WebPageData
 
         $webPage->filelang = $this->toolbox()->appSettings()->get('webcreator', 'langcode');
         $webPage->weblang = str_replace('_', '-', $webPage->filelang);
-        
+
         if (!isset($_COOKIE['weblang'])) {
             $expire = \time() + \FS_COOKIES_EXPIRE;
             setcookie('weblang', $webPage->weblang, $expire, FS_ROUTE);
         }
-        
+
         //$webPage->canonicalUrl = $webPage->url('public');
 
         $this->pipe('setLangAfter');

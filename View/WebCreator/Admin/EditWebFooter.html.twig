@@ -1,19 +1,19 @@
 {% set currentView = fsc.getCurrentView() %}
-{% set dataFooter = currentView.model  %}
+{% set dataFooter = currentView.model %}
 {% set imagesGallery = fsc.imagesGallery() %}
 
 <form id="formEditWebFooter" method="post" enctype="multipart/form-data">
-    
+
     {% if dataFooter.idfooter %}
         <input type="hidden" name="action" value="edit">
     {% else %}
         <input type="hidden" name="action" value="insert">
     {% endif %}
-    
+
     <input type="hidden" name="activetab" value="EditWebFooter">
     <input type="hidden" name="code" value="{{ dataFooter.idfooter }}">
     <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
-    
+
     <div class="container-fluid px-0">
         <div class="card mt-4">
             <div class="card-body">
@@ -24,7 +24,8 @@
                     </div>
 
                     <div class="col-12 col-md-6 d-flex justify-content-end align-self-center">
-                        <button type="button" class="btn btn-warning mr-3" data-toggle="modal" data-target="#modalGeneralSettings">
+                        <button type="button" class="btn btn-warning mr-3" data-toggle="modal"
+                                data-target="#modalGeneralSettings">
                             <i class="fas fa-cog"></i>
                         </button>
                     </div>
@@ -39,7 +40,8 @@
                         {{ i18n.trans('card-top') }}
                     </div>
                     <div class="bd-highlight">
-                        <button type="button" class="btn btn-secondary d-flex justify-content-end" data-toggle="modal" data-target="#modalFooterTop">
+                        <button type="button" class="btn btn-secondary d-flex justify-content-end" data-toggle="modal"
+                                data-target="#modalFooterTop">
                             <i class="fas fa-cog"></i>
                         </button>
                     </div>
@@ -76,7 +78,8 @@
                         {{ i18n.trans('card-main') }}
                     </div>
                     <div class="bd-highlight">
-                        <button type="button" class="btn btn-secondary d-flex justify-content-end" data-toggle="modal" data-target="#modalFooterMain">
+                        <button type="button" class="btn btn-secondary d-flex justify-content-end" data-toggle="modal"
+                                data-target="#modalFooterMain">
                             <i class="fas fa-cog"></i>
                         </button>
                     </div>
@@ -105,7 +108,8 @@
                         {{ i18n.trans('card-bottom') }}
                     </div>
                     <div class="bd-highlight">
-                        <button type="button" class="btn btn-secondary d-flex justify-content-end" data-toggle="modal" data-target="#modalFooterBottom">
+                        <button type="button" class="btn btn-secondary d-flex justify-content-end" data-toggle="modal"
+                                data-target="#modalFooterBottom">
                             <i class="fas fa-cog"></i>
                         </button>
                     </div>
@@ -142,26 +146,28 @@
                     <span class="d-none d-sm-inline-block">{{ i18n.trans('delete') }}</span>
                 </button>
             </div>
-            
+
             <div class="col-6 text-right">
                 <button class="btn btn-sm btn-secondary" type="reset">
                     <i class="fas fa-undo fa-fw" aria-hidden="true"></i>
                     <span class="d-none d-sm-inline-block">{{ i18n.trans('undo') }}</span>
                 </button>
                 <button class="btn btn-sm btn-primary" type="submit">
-                        <i class="fas fa-save fa-fw" aria-hidden="true"></i>
-                        <span class="d-none d-sm-inline-block">{{ i18n.trans('save') }}</span>
+                    <i class="fas fa-save fa-fw" aria-hidden="true"></i>
+                    <span class="d-none d-sm-inline-block">{{ i18n.trans('save') }}</span>
                 </button>
             </div>
         </div>
     </div>
 
     <!-- Modal General Settings -->
-    <div class="modal fade" id="modalGeneralSettings" tabindex="-1" aria-labelledby="modalGeneralSettingsLabel" aria-hidden="true">
+    <div class="modal fade" id="modalGeneralSettings" tabindex="-1" aria-labelledby="modalGeneralSettingsLabel"
+         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-footer">
-                    <h5 class="modal-title" id="modalGeneralSettingsLabel">{{ i18n.trans('card-general-settings') }}</h5>
+                    <h5 class="modal-title"
+                        id="modalGeneralSettingsLabel">{{ i18n.trans('card-general-settings') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -170,12 +176,14 @@
                 <div class="modal-body">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link active" data-toggle="tab" href="#generalSettings" role="tab" aria-selected="true">
+                            <a class="nav-link active" data-toggle="tab" href="#generalSettings" role="tab"
+                               aria-selected="true">
                                 {{ i18n.trans('general') }}
                             </a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" data-toggle="tab" href="#generalBackground" role="tab" aria-selected="false">
+                            <a class="nav-link" data-toggle="tab" href="#generalBackground" role="tab"
+                               aria-selected="false">
                                 {{ i18n.trans('background') }}
                             </a>
                         </li>
@@ -186,18 +194,29 @@
                             <div class="col-4 mt-3">
                                 <label class="form-label">{{ i18n.trans('width') }}</label>
                                 <select class="form-control" name="footerwidth">
-                                    <option value="container" {{ (dataFooter.properties.footerwidth == 'container') ? 'selected' : '' }}>Container</option>
-                                    <option value="container-sm" {{ (dataFooter.properties.footerwidth == 'container-sm') ? 'selected' : '' }}>Container sm</option>
-                                    <option value="container-md" {{ (dataFooter.properties.footerwidth == 'container-md') ? 'selected' : '' }}>Container md</option>
-                                    <option value="container-lg" {{ (dataFooter.properties.footerwidth == 'container-lg') ? 'selected' : '' }}>Container lg</option>
-                                    <option value="container-fluid" {{ (dataFooter.properties.footerwidth == 'container-fluid') ? 'selected' : '' }}>Container fluid</option>
+                                    <option value="container" {{ (dataFooter.properties.footerwidth == 'container') ? 'selected' : '' }}>
+                                        Container
+                                    </option>
+                                    <option value="container-sm" {{ (dataFooter.properties.footerwidth == 'container-sm') ? 'selected' : '' }}>
+                                        Container sm
+                                    </option>
+                                    <option value="container-md" {{ (dataFooter.properties.footerwidth == 'container-md') ? 'selected' : '' }}>
+                                        Container md
+                                    </option>
+                                    <option value="container-lg" {{ (dataFooter.properties.footerwidth == 'container-lg') ? 'selected' : '' }}>
+                                        Container lg
+                                    </option>
+                                    <option value="container-fluid" {{ (dataFooter.properties.footerwidth == 'container-fluid') ? 'selected' : '' }}>
+                                        Container fluid
+                                    </option>
                                 </select>
                             </div>
 
                             <hr>
 
                             <div class="form-group form-check mt-3">
-                                <input type="checkbox" class="form-check-input" id="footerShadow" name="footershadow" {{ (dataFooter.properties.footershadow) ? 'checked' : '' }}>
+                                <input type="checkbox" class="form-check-input" id="footerShadow"
+                                       name="footershadow" {{ (dataFooter.properties.footershadow) ? 'checked' : '' }}>
                                 <label class="form-check-label" for="footerShadow">{{ i18n.trans('shadow') }}</label>
                                 <div class="text-muted font-italic font-size-10">{{ i18n.trans('shadow-footer-help') }}</div>
                             </div>
@@ -228,18 +247,29 @@
                                                         <i class="fas fa-palette fa-fw"></i>
                                                     </span>
                                                 </div>
-                                                <input type="color" name="footerbackgroundcolor" value="{{ (dataFooter.properties.footerbackgroundcolor) ? dataFooter.properties.footerbackgroundcolor : '#ffffff' }}" class="form-control selectColor" autocomplete="off">
+                                                <input type="color" name="footerbackgroundcolor"
+                                                       value="{{ (dataFooter.properties.footerbackgroundcolor) ? dataFooter.properties.footerbackgroundcolor : '#ffffff' }}"
+                                                       class="form-control selectColor" autocomplete="off">
                                             </div>
                                         </div>
 
                                         <div class="col-5">
-                                            <label for="footerbackgroundcoloropacity">{{ i18n.trans('opacity') }}: <output name="ageOutputName" id="footerBackgroundColorOpacityOutput">{{ (dataFooter.properties.footerbackgroundcoloropacity) ? dataFooter.properties.footerbackgroundcoloropacity : 1 }}</output></label>
-                                            <input type="range" class="form-control-range selectOpacity" name="footerbackgroundcoloropacity" id="footerBackgroundColorOpacityInput" value="{{ (dataFooter.properties.footerbackgroundcoloropacity) ? dataFooter.properties.footerbackgroundcoloropacity : 1 }}" min="0" max="1" step="0.1" oninput="footerBackgroundColorOpacityOutput.value = footerBackgroundColorOpacityInput.value">
+                                            <label for="footerbackgroundcoloropacity">{{ i18n.trans('opacity') }}:
+                                                <output name="ageOutputName"
+                                                        id="footerBackgroundColorOpacityOutput">{{ (dataFooter.properties.footerbackgroundcoloropacity) ? dataFooter.properties.footerbackgroundcoloropacity : 1 }}</output>
+                                            </label>
+                                            <input type="range" class="form-control-range selectOpacity"
+                                                   name="footerbackgroundcoloropacity"
+                                                   id="footerBackgroundColorOpacityInput"
+                                                   value="{{ (dataFooter.properties.footerbackgroundcoloropacity) ? dataFooter.properties.footerbackgroundcoloropacity : 1 }}"
+                                                   min="0" max="1" step="0.1"
+                                                   oninput="footerBackgroundColorOpacityOutput.value = footerBackgroundColorOpacityInput.value">
                                         </div>
 
                                         <div class="col-2 text-center">
                                             <label><i class="far fa-eye"></i></label>
-                                            <div class="backgroundColor" style="width: 100%; height: 25px; border: 1px solid #f1f1f1;"></div>
+                                            <div class="backgroundColor"
+                                                 style="width: 100%; height: 25px; border: 1px solid #f1f1f1;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -305,7 +335,8 @@
     <!-- Modal Individual Settings -->
     {% set items = ['FooterTop', 'FooterMain', 'FooterBottom'] %}
     {% for item in items %}
-        <div class="modal fade" id="modal{{ item }}" tabindex="-1" aria-labelledby="modal{{ item }}Label" aria-hidden="true">
+        <div class="modal fade" id="modal{{ item }}" tabindex="-1" aria-labelledby="modal{{ item }}Label"
+             aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-footer">
@@ -326,17 +357,20 @@
                     <div class="modal-body">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link active" data-toggle="tab" href="#{{ item }}General" role="tab" aria-selected="true">
+                                <a class="nav-link active" data-toggle="tab" href="#{{ item }}General" role="tab"
+                                   aria-selected="true">
                                     {{ i18n.trans('general') }}
                                 </a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" data-toggle="tab" href="#{{ item }}Background" role="tab" aria-selected="false">
+                                <a class="nav-link" data-toggle="tab" href="#{{ item }}Background" role="tab"
+                                   aria-selected="false">
                                     {{ i18n.trans('background') }}
                                 </a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" data-toggle="tab" href="#{{ item }}Borders" role="tab" aria-selected="false">
+                                <a class="nav-link" data-toggle="tab" href="#{{ item }}Borders" role="tab"
+                                   aria-selected="false">
                                     {{ i18n.trans('borders') }}
                                 </a>
                             </li>
@@ -352,8 +386,9 @@
                                         <div class="btn-group btn-group-toggle py-2 row" data-toggle="buttons">
                                             {% block footerStyles %}
                                                 <label class="btn btn-secondary col-6 col-lg-4">
-                                                    <input type="radio" name="footerlayout" value="01" {{ (dataFooter.properties.footerlayout == '01' or dataFooter.properties.footerlayout is not defined) ? 'checked' : '' }}>
-                                                    <img src="{{ asset('Dinamic/Assets/Images/footer01.png') }}" />
+                                                    <input type="radio" name="footerlayout"
+                                                           value="01" {{ (dataFooter.properties.footerlayout == '01' or dataFooter.properties.footerlayout is not defined) ? 'checked' : '' }}>
+                                                    <img src="{{ asset('Dinamic/Assets/Images/footer01.png') }}"/>
                                                 </label>
                                             {% endblock %}
                                         </div>
@@ -366,12 +401,14 @@
                                         </div>
                                         <div class="btn-group btn-group-toggle py-2" data-toggle="buttons">
                                             <label class="btn btn-secondary">
-                                                <input type="radio" name="{{ item|lower }}rowflexlayout" value="0" {{ (dataFooter.properties[item|lower ~ 'rowflexlayout'] == 0) ? 'checked' : '' }}>
-                                                <img src="{{ asset('Dinamic/Assets/Images/header-layout-1.jpg') }}" />
+                                                <input type="radio" name="{{ item|lower }}rowflexlayout"
+                                                       value="0" {{ (dataFooter.properties[item|lower ~ 'rowflexlayout'] == 0) ? 'checked' : '' }}>
+                                                <img src="{{ asset('Dinamic/Assets/Images/header-layout-1.jpg') }}"/>
                                             </label>
                                             <label class="btn btn-secondary">
-                                                <input type="radio" name="{{ item|lower }}rowflexlayout" value="1" {{ (dataFooter.properties[item|lower ~ 'rowflexlayout'] == 1) ? 'checked' : '' }}>
-                                                <img src="{{ asset('Dinamic/Assets/Images/header-layout-2.jpg') }}" />
+                                                <input type="radio" name="{{ item|lower }}rowflexlayout"
+                                                       value="1" {{ (dataFooter.properties[item|lower ~ 'rowflexlayout'] == 1) ? 'checked' : '' }}>
+                                                <img src="{{ asset('Dinamic/Assets/Images/header-layout-2.jpg') }}"/>
                                             </label>
                                         </div>
                                         <div class="text-muted font-italic font-size-10">{{ i18n.trans('row-flex-layout-help') }}</div>
@@ -404,18 +441,30 @@
                                                             <i class="fas fa-palette fa-fw"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="color" name="{{ item|lower }}backgroundcolor" value="{{ (dataFooter.properties[item|lower ~ 'backgroundcolor']) ? dataFooter.properties[item|lower ~ 'backgroundcolor'] : '#ffffff' }}" class="form-control selectColor" autocomplete="off">
+                                                    <input type="color" name="{{ item|lower }}backgroundcolor"
+                                                           value="{{ (dataFooter.properties[item|lower ~ 'backgroundcolor']) ? dataFooter.properties[item|lower ~ 'backgroundcolor'] : '#ffffff' }}"
+                                                           class="form-control selectColor" autocomplete="off">
                                                 </div>
                                             </div>
 
                                             <div class="col-5">
-                                                <label for="{{ item }}backgroundcoloropacity">{{ i18n.trans('opacity') }}: <output name="ageOutputName" id="{{ item }}BackgroundColorOpacityOutput">{{ (dataFooter.properties[item|lower ~ 'backgroundcoloropacity'] or dataFooter.properties[item|lower ~ 'backgroundcoloropacity'] == 0) ? dataFooter.properties[item|lower ~ 'backgroundcoloropacity'] : 1 }}</output></label>
-                                                <input type="range" class="form-control-range selectOpacity" name="{{ item|lower }}backgroundcoloropacity" id="{{ item }}BackgroundColorOpacityInput" value="{{ (dataFooter.properties[item|lower ~ 'backgroundcoloropacity'] or dataFooter.properties[item|lower ~ 'backgroundcoloropacity'] == 0) ? dataFooter.properties[item|lower ~ 'backgroundcoloropacity'] : 1 }}" min="0" max="1" step="0.1" oninput="{{ item }}BackgroundColorOpacityOutput.value = {{ item }}BackgroundColorOpacityInput.value">
+                                                <label for="{{ item }}backgroundcoloropacity">{{ i18n.trans('opacity') }}
+                                                    :
+                                                    <output name="ageOutputName"
+                                                            id="{{ item }}BackgroundColorOpacityOutput">{{ (dataFooter.properties[item|lower ~ 'backgroundcoloropacity'] or dataFooter.properties[item|lower ~ 'backgroundcoloropacity'] == 0) ? dataFooter.properties[item|lower ~ 'backgroundcoloropacity'] : 1 }}</output>
+                                                </label>
+                                                <input type="range" class="form-control-range selectOpacity"
+                                                       name="{{ item|lower }}backgroundcoloropacity"
+                                                       id="{{ item }}BackgroundColorOpacityInput"
+                                                       value="{{ (dataFooter.properties[item|lower ~ 'backgroundcoloropacity'] or dataFooter.properties[item|lower ~ 'backgroundcoloropacity'] == 0) ? dataFooter.properties[item|lower ~ 'backgroundcoloropacity'] : 1 }}"
+                                                       min="0" max="1" step="0.1"
+                                                       oninput="{{ item }}BackgroundColorOpacityOutput.value = {{ item }}BackgroundColorOpacityInput.value">
                                             </div>
 
                                             <div class="col-2 text-center">
                                                 <label><i class="far fa-eye"></i></label>
-                                                <div class="backgroundColor" style="width: 100%; height: 25px; border: 1px solid #f1f1f1;"></div>
+                                                <div class="backgroundColor"
+                                                     style="width: 100%; height: 25px; border: 1px solid #f1f1f1;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -475,7 +524,9 @@
 
                                     <div class="col-6 col-md-6 mt-3">
                                         <label class="form-label">{{ i18n.trans('width') }}</label>
-                                        <input type="number" name="{{ item|lower }}bordertopwidth" value="{{ dataFooter.properties[item|lower ~ 'bordertopwidth'] }}" class="form-control" />
+                                        <input type="number" name="{{ item|lower }}bordertopwidth"
+                                               value="{{ dataFooter.properties[item|lower ~ 'bordertopwidth'] }}"
+                                               class="form-control"/>
                                     </div>
 
                                     <div class="col-6 col-md-6 mt-3">
@@ -486,8 +537,10 @@
                                                     <i class="fas fa-palette fa-fw"></i>
                                                 </span>
                                             </div>
-                                            <input type="color" name="{{ item|lower }}bordertopcolor" value="{{ (dataFooter.properties[item|lower ~ 'bordertopcolor']) ? dataFooter.properties[item|lower ~ 'bordertopcolor'] : '#ffffff' }}" class="form-control selectColor" autocomplete="off">
-                                        </div> 
+                                            <input type="color" name="{{ item|lower }}bordertopcolor"
+                                                   value="{{ (dataFooter.properties[item|lower ~ 'bordertopcolor']) ? dataFooter.properties[item|lower ~ 'bordertopcolor'] : '#ffffff' }}"
+                                                   class="form-control selectColor" autocomplete="off">
+                                        </div>
                                     </div>
 
                                     <div class="col-6 col-md-6 mt-3">
@@ -513,7 +566,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row mt-3">
                                     <div class="col-12 bg-secondary text-light py-2">
                                         {{ i18n.trans('border-bottom') }}
@@ -521,7 +574,9 @@
 
                                     <div class="col-6 col-md-6 mt-3">
                                         <label class="form-label">{{ i18n.trans('width') }}</label>
-                                        <input type="number" name="{{ item|lower }}borderbottomwidth" value="{{ dataFooter.properties[item|lower ~ 'borderbottomwidth'] }}" class="form-control" />
+                                        <input type="number" name="{{ item|lower }}borderbottomwidth"
+                                               value="{{ dataFooter.properties[item|lower ~ 'borderbottomwidth'] }}"
+                                               class="form-control"/>
                                     </div>
 
                                     <div class="col-6 col-md-6 mt-3">
@@ -532,8 +587,10 @@
                                                     <i class="fas fa-palette fa-fw"></i>
                                                 </span>
                                             </div>
-                                            <input type="color" name="{{ item|lower }}borderbottomcolor" value="{{ (dataFooter.properties[item|lower ~ 'borderbottomcolor']) ? dataFooter.properties[item|lower ~ 'borderbottomcolor'] : '#ffffff' }}" class="form-control selectColor" autocomplete="off">
-                                        </div>   
+                                            <input type="color" name="{{ item|lower }}borderbottomcolor"
+                                                   value="{{ (dataFooter.properties[item|lower ~ 'borderbottomcolor']) ? dataFooter.properties[item|lower ~ 'borderbottomcolor'] : '#ffffff' }}"
+                                                   class="form-control selectColor" autocomplete="off">
+                                        </div>
                                     </div>
 
                                     <div class="col-6 col-md-6 mt-3">
@@ -599,27 +656,27 @@
         return false;
     }
 
-    $(document).ready(function(){
+    $(document).ready(function () {
         function backgroundColorPreview(color, opacity, divColor) {
             $(divColor).css('opacity', opacity);
             $(divColor).css('background-color', color);
         }
 
-        $('.selectColor').each(function(){
+        $('.selectColor').each(function () {
             var color = $(this).val();
             var opacity = $(this).parent().parent().parent().find('.selectOpacity').val();
             var divColor = $(this).parent().parent().parent().find('.backgroundColor');
             backgroundColorPreview(color, opacity, divColor);
         });
 
-        $('.selectColor').change(function(value){
+        $('.selectColor').change(function (value) {
             var color = $(this).val();
             var opacity = $(this).parent().parent().parent().find('.selectOpacity').val();
             var divColor = $(this).parent().parent().parent().find('.backgroundColor');
             backgroundColorPreview(color, opacity, divColor);
         });
 
-        $('.selectOpacity').change(function(value){
+        $('.selectOpacity').change(function (value) {
             var color = $(this).parent().parent().find('.selectColor').val();
             var opacity = $(this).val();
             var divColor = $(this).parent().parent().find('.backgroundColor');
@@ -628,42 +685,42 @@
 
         function changeShip(checkbox) {
             var div = $(checkbox).parent().find('div.changeShip');
-            
-            if($(checkbox).is(':checked')) {
+
+            if ($(checkbox).is(':checked')) {
                 div.show();
             } else {
                 div.hide();
             }
         }
 
-        $('input.changeShip').each(function(){
+        $('input.changeShip').each(function () {
             changeShip(this);
         });
-        
-        $('input.changeShip').on('click', function() {
+
+        $('input.changeShip').on('click', function () {
             changeShip(this);
         });
 
         function changeStickyShip(checkbox) {
             var div = $(checkbox).parent().parent().parent().find('div.changeGeneralSticky');
-            
-            if($(checkbox).is(':checked')) {
+
+            if ($(checkbox).is(':checked')) {
                 div.show();
             } else {
                 div.hide();
             }
         }
 
-        $('input.hideGeneralSticky').on('click', function(){
+        $('input.hideGeneralSticky').on('click', function () {
             var div = $(this).parent().parent().parent().find('div.changeGeneralSticky');
             div.hide();
         });
 
-        $('input.showGeneralSticky').each(function(){
+        $('input.showGeneralSticky').each(function () {
             changeStickyShip(this);
         });
-        
-        $('input.showGeneralSticky').on('click', function() {
+
+        $('input.showGeneralSticky').on('click', function () {
             changeStickyShip(this);
         });
 
@@ -674,7 +731,7 @@
 
         layoutsFooter();
 
-        $('input[name="footerlayout"]').on('click', function(){
+        $('input[name="footerlayout"]').on('click', function () {
             layoutsFooter();
             $('.modal-footer button').click();
         });

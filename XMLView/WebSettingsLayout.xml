@@ -21,13 +21,13 @@
 <view>
     <columns>
         <column name="name" display="none">
-            <widget type="text" fieldname="name" readonly="true" required="true" />
+            <widget type="text" fieldname="name" readonly="true" required="true"/>
         </column>
 
         <group name="layouts" numcolumns="12">
             <column name="site-width" numcolumns="3" order="100">
                 <widget type="select" fieldname="sitewidth" translate="false" required="true">
-                    <values title="none"> </values>
+                    <values title="none"></values>
                     <values title="Container">container</values>
                     <values title="Container sm">container-sm</values>
                     <values title="Container md">container-md</values>
@@ -47,19 +47,19 @@
         <group name="default-header-footer" numcolumns="12">
             <column name="header-default" titleurl="ListWebPage" numcolumns="3" order="100">
                 <widget type="select" fieldname="headerdefault" onclick="EditWebHeader">
-                    <values source="webcreator_headers" fieldcode="idheader" fieldtitle="name" />
+                    <values source="webcreator_headers" fieldcode="idheader" fieldtitle="name"/>
                 </widget>
             </column>
 
             <column name="footer-default" titleurl="ListWebFooter" numcolumns="3" order="110">
                 <widget type="select" fieldname="footerdefault" onclick="EditWebFooter">
-                    <values source="webcreator_footers" fieldcode="idfooter" fieldtitle="name" />
+                    <values source="webcreator_footers" fieldcode="idfooter" fieldtitle="name"/>
                 </widget>
             </column>
 
             <column name="sidebar-default" titleurl="ListWebSidebar" numcolumns="3" order="120">
                 <widget type="select" fieldname="sidebardefault" onclick="EditWebSidebar">
-                    <values source="webcreator_sidebars" fieldcode="idsidebar" fieldtitle="name" />
+                    <values source="webcreator_sidebars" fieldcode="idsidebar" fieldtitle="name"/>
                 </widget>
             </column>
         </group>
@@ -67,47 +67,47 @@
         <group name="default-pages" numcolumns="12">
             <column name="homepage" titleurl="ListWebPage" numcolumns="3" order="100">
                 <widget type="select" fieldname="homepage" onclick="EditWebPage">
-                    <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title" />
+                    <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title"/>
                 </widget>
             </column>
 
             <column name="cookies-page" titleurl="ListWebPage" numcolumns="3" order="110">
                 <widget type="select" fieldname="cookiespage" onclick="EditWebPage">
-                    <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title" />
+                    <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title"/>
                 </widget>
             </column>
 
             <column name="privacy-page" titleurl="ListWebPage" numcolumns="3" order="120">
                 <widget type="select" fieldname="privacypage" onclick="EditWebPage">
-                    <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title" />
+                    <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title"/>
                 </widget>
             </column>
 
             <column name="terms-page" titleurl="ListWebPage" numcolumns="3" order="130">
                 <widget type="select" fieldname="termspage" onclick="EditWebPage">
-                    <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title" />
+                    <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title"/>
                 </widget>
             </column>
         </group>
 
         <group name="text-color" title="colors" numcolumns="12">
             <column name="text-color-first" description="text-color-first-help" numcolumns="2" order="100">
-                <widget type="color" fieldname="text-color-first" />
+                <widget type="color" fieldname="text-color-first"/>
             </column>
             <column name="text-color-second" description="text-color-second-help" numcolumns="2" order="110">
-                <widget type="color" fieldname="text-color-second" />
+                <widget type="color" fieldname="text-color-second"/>
             </column>
             <column name="text-color-third" description="text-color-third-help" numcolumns="2" order="120">
-                <widget type="color" fieldname="text-color-third" />
+                <widget type="color" fieldname="text-color-third"/>
             </column>
             <column name="text-color-quarter" description="text-color-quarter-help" numcolumns="2" order="130">
-                <widget type="color" fieldname="text-color-quarter" />
+                <widget type="color" fieldname="text-color-quarter"/>
             </column>
             <column name="text-color-fifth" description="text-color-fifth-help" numcolumns="2" order="140">
-                <widget type="color" fieldname="text-color-fifth" />
+                <widget type="color" fieldname="text-color-fifth"/>
             </column>
             <column name="text-color-sixth" description="text-color-sixth-help" numcolumns="2" order="150">
-                <widget type="color" fieldname="text-color-sixth" />
+                <widget type="color" fieldname="text-color-sixth"/>
             </column>
         </group>
     </columns>

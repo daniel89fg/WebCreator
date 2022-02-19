@@ -3,7 +3,7 @@
 {{ webMacros.includeView(i18n, fsc, webIncludes, 'beforeFormEditProfile') }}
 
 <form method="post">
-    <input type="hidden" name="action" value="edit-profile" />
+    <input type="hidden" name="action" value="edit-profile"/>
     <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
     <div class="shadow-sm mb-3">
         <div class="card-body">
@@ -11,13 +11,15 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         {{ i18n.customTrans(fsc.webPage.filelang, 'name') }}
-                        <input class="form-control" type="text" name="nombre" value="{{ fsc.contact.nombre }}" autocomplete="off" required=""/>
+                        <input class="form-control" type="text" name="nombre" value="{{ fsc.contact.nombre }}"
+                               autocomplete="off" required=""/>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
                         {{ i18n.customTrans(fsc.webPage.filelang, 'surname') }}
-                        <input class="form-control" type="text" name="apellidos" value="{{ fsc.contact.apellidos }}" autocomplete="off"/>
+                        <input class="form-control" type="text" name="apellidos" value="{{ fsc.contact.apellidos }}"
+                               autocomplete="off"/>
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -31,7 +33,7 @@
                     <div class="form-group">
                         {{ i18n.customTrans(fsc.webPage.filelang, 'fiscal-id') }}
                         <select class="form-control" name="tipoidfiscal">
-                            {% for tipo in fsc.codeModel.all('IdentificadorFiscal', '', '') %} 
+                            {% for tipo in fsc.codeModel.all('IdentificadorFiscal', '', '') %}
                                 {% if tipo.code == fsc.contact.tipoidfiscal %}
                                     <option value="{{ tipo.code }}" selected="">{{ tipo.description }}</option>
                                 {% else %}
@@ -44,44 +46,51 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         {{ i18n.customTrans(fsc.webPage.filelang, 'fiscal-number') }}
-                        <input class="form-control" type="text" name="cifnif" value="{{ fsc.contact.cifnif }}" autocomplete="off"/>
+                        <input class="form-control" type="text" name="cifnif" value="{{ fsc.contact.cifnif }}"
+                               autocomplete="off"/>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
                         {{ i18n.customTrans(fsc.webPage.filelang, 'address') }}
-                        <input class="form-control" type="text" name="direccion" value="{{ fsc.contact.direccion }}" autocomplete="off"/>
+                        <input class="form-control" type="text" name="direccion" value="{{ fsc.contact.direccion }}"
+                               autocomplete="off"/>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         {{ i18n.customTrans(fsc.webPage.filelang, 'post-office-box') }}
-                        <input class="form-control" type="text" name="apartado" value="{{ fsc.contact.apartado }}" maxlength="10" placeholder="{{ i18n.customTrans(fsc.webPage.filelang, 'optional') }}" autocomplete="off"/>
+                        <input class="form-control" type="text" name="apartado" value="{{ fsc.contact.apartado }}"
+                               maxlength="10" placeholder="{{ i18n.customTrans(fsc.webPage.filelang, 'optional') }}"
+                               autocomplete="off"/>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         {{ i18n.customTrans(fsc.webPage.filelang, 'zip-code') }}
-                        <input class="form-control" type="text" name="codpostal" value="{{ fsc.contact.codpostal }}" maxlength="10" autocomplete="off"/>
+                        <input class="form-control" type="text" name="codpostal" value="{{ fsc.contact.codpostal }}"
+                               maxlength="10" autocomplete="off"/>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         {{ i18n.customTrans(fsc.webPage.filelang, 'city') }}
-                        <input class="form-control" type="text" name="ciudad" value="{{ fsc.contact.ciudad }}" autocomplete="off"/>
+                        <input class="form-control" type="text" name="ciudad" value="{{ fsc.contact.ciudad }}"
+                               autocomplete="off"/>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         {{ i18n.customTrans(fsc.webPage.filelang, 'province') }}
-                        <input class="form-control" type="text" name="provincia" value="{{ fsc.contact.provincia }}" autocomplete="off"/>
+                        <input class="form-control" type="text" name="provincia" value="{{ fsc.contact.provincia }}"
+                               autocomplete="off"/>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         {{ i18n.customTrans(fsc.webPage.filelang, 'country') }}
                         <select class="form-control" name="codpais">
-                            {% for pais in fsc.codeModel.all('Pais', '', '') %} 
+                            {% for pais in fsc.codeModel.all('Pais', '', '') %}
                                 {% if pais.code == fsc.contact.codpais %}
                                     <option value="{{ pais.code }}" selected="">{{ pais.description }}</option>
                                 {% else %}
@@ -110,12 +119,14 @@
             <div class="form-row">
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <input class="form-control" type="password" name="newPassword" placeholder="{{ i18n.customTrans(fsc.webPage.filelang, 'new-password') }}" />
+                        <input class="form-control" type="password" name="newPassword"
+                               placeholder="{{ i18n.customTrans(fsc.webPage.filelang, 'new-password') }}"/>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <input class="form-control" type="password" name="newPassword2" placeholder="{{ i18n.customTrans(fsc.webPage.filelang, 'repeat-password') }}" />
+                        <input class="form-control" type="password" name="newPassword2"
+                               placeholder="{{ i18n.customTrans(fsc.webPage.filelang, 'repeat-password') }}"/>
                     </div>
                 </div>
                 <div class="col-sm">
@@ -135,7 +146,7 @@
 {{ webMacros.includeView(i18n, fsc, webIncludes, 'beforeFormDeleteMe') }}
 
 <form method="post">
-    <input type="hidden" name="action" value="delete-profile" />
+    <input type="hidden" name="action" value="delete-profile"/>
     <div class="card border-danger shadow-sm">
         <div class="card-body">
             <h3 class="h5">
@@ -147,7 +158,7 @@
             <div class="form-row">
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <input class="form-control" type="text" name="security" required="" />
+                        <input class="form-control" type="text" name="security" required=""/>
                     </div>
                 </div>
                 <div class="col-sm">

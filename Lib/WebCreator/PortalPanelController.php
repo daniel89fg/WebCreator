@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Lib\WebCreator;
 
 use FacturaScripts\Dinamic\Lib\WebCreator\PortalController;
@@ -47,7 +48,7 @@ abstract class PortalPanelController extends PortalController
     public $hasData = false;
 
     /**
-     * 
+     *
      * @param string $className
      * @param string $uri
      */
@@ -285,7 +286,7 @@ abstract class PortalPanelController extends PortalController
 
     /**
      * Runs data insert action.
-     * 
+     *
      * @return bool
      */
     protected function insertAction(): bool

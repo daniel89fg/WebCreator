@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Controller;
 
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
@@ -43,7 +44,7 @@ class Me extends PortalPanelController
     public $emailContact;
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function activateAction(): bool
@@ -97,7 +98,7 @@ class Me extends PortalPanelController
     }
 
     /**
-     * 
+     *
      * @param string $viewName
      */
     protected function createViewsAccount(string $viewName = 'Me')
@@ -108,7 +109,7 @@ class Me extends PortalPanelController
     }
 
     /**
-     * 
+     *
      * @param string $viewName
      */
     protected function createViewsBudgets(string $viewName = 'CardPresupuestoCliente')
@@ -134,7 +135,7 @@ class Me extends PortalPanelController
     }
 
     /**
-     * 
+     *
      * @param string $viewName
      */
     protected function createViewsOrders(string $viewName = 'CardPedidoCliente')
@@ -157,7 +158,7 @@ class Me extends PortalPanelController
     }
 
     /**
-     * 
+     *
      * @param string $viewName
      */
     protected function disableButtons(string $viewName)
@@ -167,7 +168,7 @@ class Me extends PortalPanelController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function deleteAction(): bool
@@ -176,7 +177,7 @@ class Me extends PortalPanelController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function deleteProfileAction(): bool
@@ -193,7 +194,7 @@ class Me extends PortalPanelController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function editAction(): bool
@@ -202,7 +203,7 @@ class Me extends PortalPanelController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function editProfileAction()
@@ -242,7 +243,7 @@ class Me extends PortalPanelController
     }
 
     /**
-     * 
+     *
      * @param string $action
      *
      * @return bool
@@ -280,7 +281,7 @@ class Me extends PortalPanelController
     }
 
     /**
-     * 
+     *
      * @param Contacto $contact
      *
      * @return string
@@ -291,7 +292,7 @@ class Me extends PortalPanelController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function insertAction(): bool
@@ -300,8 +301,8 @@ class Me extends PortalPanelController
     }
 
     /**
-     * 
-     * @param string   $viewName
+     *
+     * @param string $viewName
      * @param BaseView $view
      */
     protected function loadData($viewName, $view)
@@ -323,7 +324,7 @@ class Me extends PortalPanelController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function logoutAction(): bool
@@ -344,7 +345,7 @@ class Me extends PortalPanelController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function recoverAction(): bool
@@ -387,7 +388,7 @@ class Me extends PortalPanelController
     }
 
     /**
-     * 
+     *
      * @param Contacto $contact
      *
      * @return bool

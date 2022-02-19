@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Model;
 
 use FacturaScripts\Core\Model\PresupuestoCliente as ParentModel;
@@ -28,7 +29,7 @@ use FacturaScripts\Core\Model\PresupuestoCliente as ParentModel;
 class PresupuestoCliente extends ParentModel
 {
     /**
-     * 
+     *
      * @param string $type
      * @param string $list
      *

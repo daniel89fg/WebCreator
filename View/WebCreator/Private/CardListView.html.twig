@@ -32,11 +32,13 @@
         <div class="col text-right mb-2">
             {% if currentView.settings.btnNew %}
                 {% if currentView.settings.modalInsert %}
-                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal{{ currentView.settings.modalInsert }}">
+                    <button type="button" class="btn btn-outline-success" data-toggle="modal"
+                            data-target="#modal{{ currentView.settings.modalInsert }}">
                         <i class="fas fa-plus fa-fw" aria-hidden="true"></i>
                     </button>
                 {% else %}
-                    <a href="{{ asset(currentView.btnNewUrl()) }}" class="btn btn-outline-success" title="{{ i18n.customTrans(weblang, 'new') }}">
+                    <a href="{{ asset(currentView.btnNewUrl()) }}" class="btn btn-outline-success"
+                       title="{{ i18n.customTrans(weblang, 'new') }}">
                         <i class="fas fa-plus fa-fw" aria-hidden="true"></i>
                     </a>
                 {% endif %}
@@ -94,7 +96,8 @@
             <div class="btn-group bg-white">
                 {% for page in currentView.getPagination() %}
                     {% set btnClass = page.active ? 'btn btn-outline-dark active' : 'btn btn-outline-dark' %}
-                    <button type="button" class="{{ btnClass }}" onclick="listViewSetOffset('{{ currentView.getViewName() }}', '{{ page.offset }}');">
+                    <button type="button" class="{{ btnClass }}"
+                            onclick="listViewSetOffset('{{ currentView.getViewName() }}', '{{ page.offset }}');">
                         {{ page.num }}
                     </button>
                 {% endfor %}
@@ -119,7 +122,8 @@
 {% macro filterButton(currentView, i18n, weblang) %}
     {% if currentView.filters is not empty %}
         <div class="btn-group">
-            <button type="button" class="btn btn-light" onclick="listViewShowFilters('{{ currentView.getViewName() }}');">
+            <button type="button" class="btn btn-light"
+                    onclick="listViewShowFilters('{{ currentView.getViewName() }}');">
                 <i class="fas fa-filter fa-fw" aria-hidden="true"></i> {{ i18n.customTrans(weblang, 'filters') }}
             </button>
         </div>
@@ -128,7 +132,8 @@
 
 {% macro searchControl(currentView, i18n, weblang) %}
     <div class="input-group">
-        <input class="form-control" type="text" name="query" value="{{ currentView.query }}" autocomplete="off" placeholder="{{ i18n.customTrans(weblang, 'search') }}"/>
+        <input class="form-control" type="text" name="query" value="{{ currentView.query }}" autocomplete="off"
+               placeholder="{{ i18n.customTrans(weblang, 'search') }}"/>
         <span class="input-group-append">
             <button type="submit" class="btn btn-secondary">
                 <i class="fas fa-search" aria-hidden="true"></i>
@@ -140,7 +145,8 @@
 {% macro sortButton(currentView, weblang) %}
     {% if currentView.orderOptions is not empty %}
         <div class="btn-group">
-            <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="true">
                 {% set icon = (currentView.orderOptions[currentView.orderKey]['type'] == 'ASC') ? 'fas fa-arrow-up' : 'fas fa-arrow-down' %}
                 <i class="{{ icon }} fa-fw" aria-hidden="true"></i>
                 <span>{{ currentView.orderOptions[currentView.orderKey]['label'] }}</span>
@@ -150,7 +156,8 @@
                 {% for key, orderby in currentView.orderOptions %}
                     {% set activeClass = (currentView.orderKey == key) ? ' active' : '' %}
                     {% set icon = (orderby.type == 'ASC') ? 'fas fa-arrow-up' : 'fas fa-arrow-down' %}
-                    <a class="dropdown-item{{ activeClass }}" href="#" onclick="listViewSetOrder('{{ currentView.getViewName() }}', '{{ key }}');">
+                    <a class="dropdown-item{{ activeClass }}" href="#"
+                       onclick="listViewSetOrder('{{ currentView.getViewName() }}', '{{ key }}');">
                         <i class="{{ icon }} fa-fw" aria-hidden="true"></i> {{ orderby.label }}
                     </a>
                 {% endfor %}

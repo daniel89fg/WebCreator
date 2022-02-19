@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Lib\WebCreator;
 
 use FacturaScripts\Dinamic\Model\WebPage;
@@ -57,7 +58,7 @@ trait PermalinkTrait
         if (\substr($permalink, -1) == '-' || substr($permalink, -1) == '/') {
             $permalink = \substr($permalink, 0, -1);
         }
-        
+
         if ($webpage->type !== 'WebPage') {
             $webSettings = new Settings();
             $propertie = 'permalink_' . strtolower($webpage->type);

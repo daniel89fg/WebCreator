@@ -3,6 +3,7 @@
  * @author Carlos García Gómez <carlos@facturascripts.com>
  * @copyright 2020, Carlos García Gómez. All Rights Reserved.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Controller;
 
 use FacturaScripts\Dinamic\Lib\ExtendedController\BaseView;
@@ -18,7 +19,7 @@ use FacturaScripts\Dinamic\Lib\WebCreator\PortalViewController;
 class ViewOrder extends PortalViewController
 {
     /**
-     * 
+     *
      * @return string
      */
     public function getModelClassName(): string
@@ -27,7 +28,7 @@ class ViewOrder extends PortalViewController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function cancelAction(): bool
@@ -70,7 +71,7 @@ class ViewOrder extends PortalViewController
     }
 
     /**
-     * 
+     *
      * @param string $action
      *
      * @return bool
@@ -90,8 +91,8 @@ class ViewOrder extends PortalViewController
     }
 
     /**
-     * 
-     * @param string   $viewName
+     *
+     * @param string $viewName
      * @param BaseView $view
      */
     protected function loadData($viewName, $view)

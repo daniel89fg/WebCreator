@@ -22,23 +22,23 @@
 <view>
     <columns>
         <column name="code" display="none" order="100">
-            <widget type="text" fieldname="idpage" onclick="EditWebPage" />
+            <widget type="text" fieldname="idpage" onclick="EditWebPage"/>
         </column>
         <column name="title" order="110">
-            <widget type="text" fieldname="title" />
+            <widget type="text" fieldname="title"/>
         </column>
         <column name="parent" order="120">
             <widget type="select" fieldname="pageparent">
-                <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title" />
+                <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title"/>
             </widget>
         </column>
         <column name="custom-controller" order="130">
             <widget type="select" fieldname="customcontroller">
-                <values source="pages" fieldcode="name" fieldtitle="name" />
+                <values source="pages" fieldcode="name" fieldtitle="name"/>
             </widget>
         </column>
         <column name="lastmod" title="last-update" order="140">
-            <widget type="date" fieldname="lastmod" />
+            <widget type="date" fieldname="lastmod"/>
         </column>
     </columns>
 </view>

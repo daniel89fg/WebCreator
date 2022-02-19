@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Lib\Shortcode;
 
 use FacturaScripts\Core\Base\ToolBox;
@@ -42,11 +43,11 @@ abstract class Shortcode
     /**
      *
      * @param string $code
-     * @param string  $className
+     * @param string $className
      */
     public static function addCode(string $code, string $className)
     {
-        self::$codes[$code] = '\\FacturaScripts\\Dinamic\\Lib\\Shortcode\\'.$className;
+        self::$codes[$code] = '\\FacturaScripts\\Dinamic\\Lib\\Shortcode\\' . $className;
     }
 
     public static function getClassName(string $className): bool
@@ -122,7 +123,7 @@ abstract class Shortcode
 
     /**
      * Finds if the string with you the regular expression passed
-     * 
+     *
      * @param string|null $content
      * @param string $search
      *
@@ -136,7 +137,7 @@ abstract class Shortcode
 
     /**
      * Obtained the attributes of a shortcode and saves them in an array
-     * 
+     *
      * @param string $short
      *
      * @return array
@@ -147,7 +148,7 @@ abstract class Shortcode
         preg_match_all('/[\S]*=["\'][^"\']*["\']/', $short, $matches);
 
         $params = [];
-        
+
         if (count($matches[0]) > 0) {
             foreach ($matches[0] as $a) {
                 $a = str_replace(['&#39;', "'"], "", $a);
@@ -156,7 +157,7 @@ abstract class Shortcode
                 $params[$param[0]] = $param[1];
             }
         }
-        
+
         return $params;
     }
 

@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Lib\WebCreator;
 
 use FacturaScripts\Core\Base\ToolBox;
@@ -124,7 +125,7 @@ class PageComposer
         $link .= $this->getFontH6($link);
 
         $link = substr($link, 0, -1);
-        return '<link href="'.$link.'" rel="stylesheet">';
+        return '<link href="' . $link . '" rel="stylesheet">';
     }
 
     public function getHeader(?int $idheader): WebHeader
@@ -234,8 +235,8 @@ class PageComposer
                         $directories = explode('/', $pathName);
 
                         $dirPlugin = '';
-                        if ($directories[count($directories)-2] != 'Include') {
-                            $dirPlugin = $directories[count($directories)-2] . '/';
+                        if ($directories[count($directories) - 2] != 'Include') {
+                            $dirPlugin = $directories[count($directories) - 2] . '/';
                         }
 
                         $files[] = $dirPlugin . $f->getFilename();
@@ -367,7 +368,7 @@ class PageComposer
         $fontWeight = new WebFontWeight();
         $font->loadFromCode($this->toolBox()->appSettings()->get('webcreator', 'fontdefault'));
         $fontWeight->loadFromCode($this->toolBox()->appSettings()->get('webcreator', 'fontdefaultweight'));
-        return $font->name.':'.$fontWeight->weight.'|';
+        return $font->name . ':' . $fontWeight->weight . '|';
     }
 
     private function getFontH1(): string
@@ -376,7 +377,7 @@ class PageComposer
         $fontWeight = new WebFontWeight();
         $font->loadFromCode($this->toolBox()->appSettings()->get('webcreator', 'fonth1'));
         $fontWeight->loadFromCode($this->toolBox()->appSettings()->get('webcreator', 'fonth1weight'));
-        return $font->name.':'.$fontWeight->weight.'|';
+        return $font->name . ':' . $fontWeight->weight . '|';
     }
 
     private function getFontH2(): string
@@ -385,7 +386,7 @@ class PageComposer
         $fontWeight = new WebFontWeight();
         $font->loadFromCode($this->toolBox()->appSettings()->get('webcreator', 'fonth2'));
         $fontWeight->loadFromCode($this->toolBox()->appSettings()->get('webcreator', 'fonth2weight'));
-        return $font->name.':'.$fontWeight->weight.'|';
+        return $font->name . ':' . $fontWeight->weight . '|';
     }
 
     private function getFontH3(): string
@@ -394,7 +395,7 @@ class PageComposer
         $fontWeight = new WebFontWeight();
         $font->loadFromCode($this->toolBox()->appSettings()->get('webcreator', 'fonth3'));
         $fontWeight->loadFromCode($this->toolBox()->appSettings()->get('webcreator', 'fonth3weight'));
-        return $font->name.':'.$fontWeight->weight.'|';
+        return $font->name . ':' . $fontWeight->weight . '|';
     }
 
     private function getFontH4(): string
@@ -403,7 +404,7 @@ class PageComposer
         $fontWeight = new WebFontWeight();
         $font->loadFromCode($this->toolBox()->appSettings()->get('webcreator', 'fonth4'));
         $fontWeight->loadFromCode($this->toolBox()->appSettings()->get('webcreator', 'fonth4weight'));
-        return $font->name.':'.$fontWeight->weight.'|';
+        return $font->name . ':' . $fontWeight->weight . '|';
     }
 
     private function getFontH5(): string
@@ -412,7 +413,7 @@ class PageComposer
         $fontWeight = new WebFontWeight();
         $font->loadFromCode($this->toolBox()->appSettings()->get('webcreator', 'fonth5'));
         $fontWeight->loadFromCode($this->toolBox()->appSettings()->get('webcreator', 'fonth5weight'));
-        return $font->name.':'.$fontWeight->weight.'|';
+        return $font->name . ':' . $fontWeight->weight . '|';
     }
 
     private function getFontH6(): string
@@ -421,7 +422,7 @@ class PageComposer
         $fontWeight = new WebFontWeight();
         $font->loadFromCode($this->toolBox()->appSettings()->get('webcreator', 'fonth6'));
         $fontWeight->loadFromCode($this->toolBox()->appSettings()->get('webcreator', 'fonth6weight'));
-        return $font->name.':'.$fontWeight->weight.'|';
+        return $font->name . ':' . $fontWeight->weight . '|';
     }
 
     private function getFontLink(): string
@@ -430,7 +431,7 @@ class PageComposer
         $fontWeight = new WebFontWeight();
         $font->loadFromCode($this->toolBox()->appSettings()->get('webcreator', 'fontlink'));
         $fontWeight->loadFromCode($this->toolBox()->appSettings()->get('webcreator', 'fontlinkweight'));
-        return $font->name.':'.$fontWeight->weight.'|';
+        return $font->name . ':' . $fontWeight->weight . '|';
     }
 
     private function getFontP(): string
@@ -439,7 +440,7 @@ class PageComposer
         $fontWeight = new WebFontWeight();
         $font->loadFromCode($this->toolBox()->appSettings()->get('webcreator', 'fontp'));
         $fontWeight->loadFromCode($this->toolBox()->appSettings()->get('webcreator', 'fontpweight'));
-        return $font->name.':'.$fontWeight->weight.'|';
+        return $font->name . ':' . $fontWeight->weight . '|';
     }
 
     private function getPageParent(string $breadcrumb, WebPage $page): string

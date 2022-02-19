@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Lib\Shortcode;
 
 use FacturaScripts\Dinamic\Model\WebBlock as modelWebBlock;
@@ -37,9 +38,9 @@ class webBlock extends Shortcode
      */
     public static function replace(?string $content): ?string
     {
-        
+
         $shorts = static::searchCode($content, "/\[webBlock(.*?)\]/");
-        
+
         if (count($shorts[0]) <= 0) {
             return $content;
         }
@@ -47,7 +48,7 @@ class webBlock extends Shortcode
         $blocks = new modelWebBlock();
         for ($x = 0; $x < count($shorts[1]); $x++) {
             $params = static::getAttributes($shorts[1][$x]);
-            
+
             if (isset($params['idblock'])) {
                 foreach ($blocks->all([], [], 0, 0) as $block) {
                     if ($block->idblock == $params['idblock']) {

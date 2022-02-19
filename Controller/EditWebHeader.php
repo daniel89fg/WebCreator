@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Controller;
 
 use FacturaScripts\Dinamic\Lib\ExtendedController\PanelController;
@@ -81,8 +82,8 @@ class EditWebHeader extends PanelController
     }
 
     /**
-     * 
-     * @param string   $viewName
+     *
+     * @param string $viewName
      * @param BaseView $view
      */
     protected function loadData($viewName, $view)
@@ -101,13 +102,13 @@ class EditWebHeader extends PanelController
     {
         $data = $this->request->request->all();
         $content = [];
-        
+
         $header = new WebHeader();
         if (!empty($data['code'])) {
             $header->idheader = $data['code'];
         }
 
-        foreach($data as $key => $value) {
+        foreach ($data as $key => $value) {
             preg_match("/header\d/", $key, $b);
 
             if ($b) {
@@ -125,7 +126,7 @@ class EditWebHeader extends PanelController
 
         $header->properties = json_encode($data);
         $header->content = json_encode($content);
-        
+
         if ($header->save()) {
             $this->views['EditWebHeader']->model = $header;
             return true;

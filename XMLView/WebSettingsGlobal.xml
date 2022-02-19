@@ -21,24 +21,24 @@
 <view>
     <columns>
         <column name="name" display="none">
-            <widget type="text" fieldname="name" readonly="true" required="true" />
+            <widget type="text" fieldname="name" readonly="true" required="true"/>
         </column>
 
         <group name="global-css-js" numcolumns="12">
             <column name='globalmeta' description="globalmeta-help" order='100' numcolumns='12'>
-                <widget type='code' lang="html" fieldname='globalmeta' />
+                <widget type='code' lang="html" fieldname='globalmeta'/>
             </column>
-            
+
             <column name='globalcss' description="globalcss-help" order='110' numcolumns='12'>
-                <widget type='code' lang="css" fieldname='globalcss' />
+                <widget type='code' lang="css" fieldname='globalcss'/>
             </column>
 
             <column name='globaljshead' description="globaljshead-help" order='120' numcolumns='12'>
-                <widget type='code' lang="js" fieldname='globaljshead' />
+                <widget type='code' lang="js" fieldname='globaljshead'/>
             </column>
 
             <column name='globaljsfooter' description="globaljsfooter-help" order='130' numcolumns='12'>
-                <widget type='code' lang="js" fieldname='globaljsfooter' />
+                <widget type='code' lang="js" fieldname='globaljsfooter'/>
             </column>
         </group>
     </columns>

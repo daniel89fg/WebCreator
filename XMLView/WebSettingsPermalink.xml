@@ -21,11 +21,11 @@
 <view>
     <columns>
         <column name="name" display="none">
-            <widget type="text" fieldname="name" readonly="true" required="true" />
+            <widget type="text" fieldname="name" readonly="true" required="true"/>
         </column>
 
         <group name="permalinks" numcolumns="12">
-            
+
         </group>
     </columns>
 </view>

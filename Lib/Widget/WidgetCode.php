@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Lib\Widget;
 
 use FacturaScripts\Core\Lib\AssetManager;
@@ -34,7 +35,7 @@ class WidgetCode extends BaseWidget
     protected $lang;
 
     /**
-     * 
+     *
      * @param array $data
      */
     public function __construct($data)
@@ -53,7 +54,7 @@ class WidgetCode extends BaseWidget
     }
 
     /**
-     * 
+     *
      * @param string $type
      * @param string $extraClass
      *
@@ -62,8 +63,8 @@ class WidgetCode extends BaseWidget
     protected function inputHtml($type = '', $extraClass = '')
     {
         $html = '<div id="' . $this->fieldname . '" class="codemirror ' . $this->lang . 'Editor">';
-            $html .= '<textarea class="d-none" name="' . $this->fieldname . '">' . htmlentities($this->value, ENT_QUOTES) . '</textarea>';
-            $html .= '<code class="d-none">' . htmlentities($this->value, ENT_QUOTES) . '</code>';
+        $html .= '<textarea class="d-none" name="' . $this->fieldname . '">' . htmlentities($this->value, ENT_QUOTES) . '</textarea>';
+        $html .= '<code class="d-none">' . htmlentities($this->value, ENT_QUOTES) . '</code>';
         $html .= '</div>';
         return $html;
     }

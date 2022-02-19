@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Lib\WebCreator;
 
 use FacturaScripts\Core\Base\Controller;
@@ -87,9 +88,9 @@ class PortalController extends Controller
     }
 
     /**
-     * 
-     * @param Response              $response
-     * @param User                  $user
+     *
+     * @param Response $response
+     * @param User $user
      * @param ControllerPermissions $permissions
      */
     public function privateCore(&$response, $user, $permissions)
@@ -116,7 +117,7 @@ class PortalController extends Controller
     }
 
     /**
-     * 
+     *
      * @param Response $response
      */
     public function publicCore(&$response)

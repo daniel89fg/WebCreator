@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Lib\WebCreator;
 
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
@@ -69,7 +70,7 @@ trait ExtendedControllerTrait
     /**
      * Loads the data to display.
      *
-     * @param string   $viewName
+     * @param string $viewName
      * @param BaseView $view
      */
     abstract protected function loadData($viewName, $view);
@@ -78,7 +79,7 @@ trait ExtendedControllerTrait
      * Adds a new button to the tab.
      *
      * @param string $viewName
-     * @param array  $btnArray
+     * @param array $btnArray
      */
     public function addButton($viewName, $btnArray)
     {
@@ -91,7 +92,7 @@ trait ExtendedControllerTrait
 
     /**
      *
-     * @param string            $viewName
+     * @param string $viewName
      * @param BaseView|ListView $view
      */
     public function addCustomView($viewName, $view)
@@ -172,7 +173,7 @@ trait ExtendedControllerTrait
      *
      * @param string $viewName
      * @param string $property
-     * @param mixed  $value
+     * @param mixed $value
      */
     public function setSettings($viewName, $property, $value)
     {
@@ -219,7 +220,7 @@ trait ExtendedControllerTrait
     }
 
     /**
-     * 
+     *
      * @param ModelClass $model
      *
      * @return bool

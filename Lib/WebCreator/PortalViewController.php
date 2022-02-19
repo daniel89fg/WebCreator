@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Lib\WebCreator;
 
 use FacturaScripts\Dinamic\Lib\WebCreator\PortalPanelController;
@@ -48,11 +49,11 @@ abstract class PortalViewController extends PortalPanelController
 
     protected function createViews()
     {
-        $this->addHtmlView(static::MAIN_VIEW_NAME, 'WebCreator/Private/'.$this->getClassName(), $this->getModelClassName(), static::MAIN_VIEW_NAME);
+        $this->addHtmlView(static::MAIN_VIEW_NAME, 'WebCreator/Private/' . $this->getClassName(), $this->getModelClassName(), static::MAIN_VIEW_NAME);
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getComposeUrlColumn(): string
@@ -61,8 +62,8 @@ abstract class PortalViewController extends PortalPanelController
     }
 
     /**
-     * 
-     * @param string   $viewName
+     *
+     * @param string $viewName
      * @param BaseView $view
      */
     protected function loadData($viewName, $view)
@@ -94,7 +95,7 @@ abstract class PortalViewController extends PortalPanelController
     }
 
     /**
-     * 
+     *
      * @return ModelClass
      */
     protected function preloadModel()

@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Controller;
 
 use FacturaScripts\Dinamic\Lib\ExtendedController\ListController;
@@ -110,7 +111,7 @@ class ListWebPage extends ListController
     }
 
     /**
-     * 
+     *
      * @param string $viewName
      */
     protected function createViewWebSidebar(string $viewName = 'ListWebSidebar')
@@ -121,7 +122,8 @@ class ListWebPage extends ListController
         $this->addOrderBy($viewName, ['lastmod'], 'last-update');
     }
 
-    protected function loadData($viewName, $view) {
+    protected function loadData($viewName, $view)
+    {
         switch ($viewName) {
             case 'ListWebPage':
                 $where = [new DataBaseWhere('type', 'WebPage')];

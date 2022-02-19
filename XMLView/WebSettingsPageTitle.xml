@@ -21,7 +21,7 @@
 <view>
     <columns>
         <column name="name" display="none">
-            <widget type="text" fieldname="name" readonly="true" required="true" />
+            <widget type="text" fieldname="name" readonly="true" required="true"/>
         </column>
 
         <group name="page-title" numcolumns="12">
@@ -31,7 +31,7 @@
                     <values title="no">0</values>
                 </widget>
             </column>
-            
+
             <column name="titlestyle" title="style" numcolumns="2" order="110">
                 <widget type="select" fieldname="titlestyle" translate="true" required="true">
                     <values title="left">left</values>
@@ -64,18 +64,19 @@
                 </widget>
             </column>
         </group>
-        
+
         <group name="page-title-background" title="color-and-background" numcolumns="12">
-            <column name="titlebackgroundimage" title="image" titleurl="ListAttachedFile" description="click-link-to-add" numcolumns="4" order="100">
-                <widget type="select" fieldname="titlebackgroundimage" onclick="EditAttachedFile" />
+            <column name="titlebackgroundimage" title="image" titleurl="ListAttachedFile"
+                    description="click-link-to-add" numcolumns="4" order="100">
+                <widget type="select" fieldname="titlebackgroundimage" onclick="EditAttachedFile"/>
             </column>
-            
+
             <column name="titlebackgroundcolor" title="color" numcolumns="4" order="110">
-                <widget type="color" fieldname="titlebackgroundcolor" />
+                <widget type="color" fieldname="titlebackgroundcolor"/>
             </column>
 
             <column name="titlebackgroundopacity" title="opacity" numcolumns="4" order="120">
-                <widget type="number" decimal="1" min="0" max="1" step="0.1" fieldname="titlebackgroundopacity" />
+                <widget type="number" decimal="1" min="0" max="1" step="0.1" fieldname="titlebackgroundopacity"/>
             </column>
 
             <column name="titleimagerepeat" title="only-repeat" numcolumns="3" order="130">

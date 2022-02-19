@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Controller;
 
 use FacturaScripts\Dinamic\Lib\ExtendedController\BaseView;
@@ -30,7 +31,7 @@ use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 class WebCreator extends PanelController
 {
     /**
-     * 
+     *
      * @return array
      */
     public function getPageData(): array
@@ -81,8 +82,8 @@ class WebCreator extends PanelController
     }
 
     /**
-     * 
-     * @param string   $viewName
+     *
+     * @param string $viewName
      * @param BaseView $view
      */
     protected function loadData($viewName, $view)
@@ -92,7 +93,7 @@ class WebCreator extends PanelController
         $images = $this->codeModel->all('attached_files', 'idfile', 'filename', true, [
             new DataBaseWhere('mimetype', 'image/gif,image/jpeg,image/png', 'IN')
         ]);
-        
+
         switch ($viewName) {
             case 'WebSettingsDefault':
                 $this->loadLanguageValues();

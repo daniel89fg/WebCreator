@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Controller;
 
 use FacturaScripts\Dinamic\Lib\ExtendedController\PanelController;
@@ -162,7 +163,8 @@ class EditWebPage extends PanelController
         return parent::execPreviousAction($action);
     }
 
-    protected function loadData($viewName, $view) {
+    protected function loadData($viewName, $view)
+    {
         switch ($viewName) {
             default:
                 AssetManager::add('css', FS_ROUTE . '/Dinamic/Assets/CSS/codemirror.css');

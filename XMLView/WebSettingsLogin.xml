@@ -21,7 +21,7 @@
 <view>
     <columns>
         <column name="name" display="none">
-            <widget type="text" fieldname="name" readonly="true" required="true" />
+            <widget type="text" fieldname="name" readonly="true" required="true"/>
         </column>
 
         <group name="login-register" numcolumns="12">

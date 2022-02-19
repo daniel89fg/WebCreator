@@ -1,11 +1,11 @@
 {% set currentView = fsc.getCurrentView() %}
-{% set dataPage = currentView.model  %}
-{% set pages = fsc.getPages(dataPage.idpage)  %}
-{% set controllers = fsc.getControllers()  %}
-{% set images = fsc.getImages()  %}
-{% set headers = fsc.getHeaders()  %}
-{% set sidebars = fsc.getSidebars()  %}
-{% set footers = fsc.getFooters()  %}
+{% set dataPage = currentView.model %}
+{% set pages = fsc.getPages(dataPage.idpage) %}
+{% set controllers = fsc.getControllers() %}
+{% set images = fsc.getImages() %}
+{% set headers = fsc.getHeaders() %}
+{% set sidebars = fsc.getSidebars() %}
+{% set footers = fsc.getFooters() %}
 
 <form id="formEditWebPage" method="post" enctype="multipart/form-data">
     {% if dataPage.idpage %}
@@ -18,7 +18,7 @@
     <input type="hidden" name="activetab" value="EditWebPage">
     <input type="hidden" name="code" value="{{ dataPage.idpage }}">
     <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
-    
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-md-9">
@@ -95,22 +95,25 @@
                     <div class="card-body">
                         <div class="form-group pagetitle">
                             <label>{{ i18n.trans('page-title') }}</label>
-                            <input type="text" class="form-control" name="title" maxlength="60" value="{{ dataPage.title }}" required>
+                            <input type="text" class="form-control" name="title" maxlength="60"
+                                   value="{{ dataPage.title }}" required>
                         </div>
 
                         <div class="form-group pagepermalink">
                             <label>{{ i18n.trans('permalink') }}</label>
                             {% set link = dataPage.permalink|split('/') %}
                             <input type="text" class="form-control" name="permalink" value="{{ link|last }}" required>
-                            <a target="_blank" href="{{ fsc.getSiteUrl() ~ dataPage.permalink }}">{{ fsc.getSiteUrl() ~ dataPage.permalink }}</a>
+                            <a target="_blank"
+                               href="{{ fsc.getSiteUrl() ~ dataPage.permalink }}">{{ fsc.getSiteUrl() ~ dataPage.permalink }}</a>
                         </div>
 
                         <div class="form-group pagedescription">
                             <label>{{ i18n.trans('description') }}</label>
-                            <textarea class="form-control" name="description" maxlength="150">{{ dataPage.description }}</textarea>
+                            <textarea class="form-control" name="description"
+                                      maxlength="150">{{ dataPage.description }}</textarea>
                         </div>
 
-                        <hr class="pageseparate" />
+                        <hr class="pageseparate"/>
 
                         <div>
                             <div>{{ i18n.trans('creation-date') }}: {{ dataPage.creationdate }}</div>
@@ -121,7 +124,8 @@
                         <div class="row">
                             <div class="col-12 col-md-6">
                                 {% if dataPage.idpage != '' %}
-                                    <button type="button" class="btn btn-sm btn-danger" onclick="editViewDelete('EditWebPage');">
+                                    <button type="button" class="btn btn-sm btn-danger"
+                                            onclick="editViewDelete('EditWebPage');">
                                         <i class="fas fa-trash-alt fa-fw" aria-hidden="true"></i>
                                         <span class="d-none d-sm-inline-block">{{ i18n.trans('delete') }}</span>
                                     </button>
@@ -130,8 +134,8 @@
 
                             <div class="col-12 col-md-6 text-right">
                                 <button class="btn btn-sm btn-primary" type="submit">
-                                        <i class="fas fa-save fa-fw" aria-hidden="true"></i>
-                                        <span class="d-none d-sm-inline-block">{{ i18n.trans('save') }}</span>
+                                    <i class="fas fa-save fa-fw" aria-hidden="true"></i>
+                                    <span class="d-none d-sm-inline-block">{{ i18n.trans('save') }}</span>
                                 </button>
                             </div>
                         </div>
@@ -144,7 +148,8 @@
                     </div>
                     <div class="card-body">
                         <div class="form-check form-check-inline">
-                            <input type="checkbox" class="form-check-input" id="noindex" name="noindex" value="1" {{ (dataPage.noindex) ? 'checked' : '' }}>
+                            <input type="checkbox" class="form-check-input" id="noindex" name="noindex"
+                                   value="1" {{ (dataPage.noindex) ? 'checked' : '' }}>
                             <label class="form-check-label" for="noindex">{{ i18n.trans('no-index') }}</label>
                         </div>
 
@@ -163,11 +168,21 @@
                             <select class="form-control" name="pagewidth">
                                 <option value="-1" {{ (dataPage.pagewidth == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
                                 <option value=" " {{ (dataPage.pagewidth == ' ') ? 'selected' : '' }}>{{ i18n.trans('none') }}</option>
-                                <option value="container" {{ (dataPage.pagewidth == 'container') ? 'selected' : '' }}>Container</option>
-                                <option value="container-sm" {{ (dataPage.pagewidth == 'container-sm') ? 'selected' : '' }}>Container sm</option>
-                                <option value="container-md" {{ (dataPage.pagewidth == 'container-md') ? 'selected' : '' }}>Container md</option>
-                                <option value="container-lg" {{ (dataPage.pagewidth == 'container-lg') ? 'selected' : '' }}>Container lg</option>
-                                <option value="container-fluid" {{ (dataPage.pagewidth == 'container-fluid') ? 'selected' : '' }}>Container fluid</option>
+                                <option value="container" {{ (dataPage.pagewidth == 'container') ? 'selected' : '' }}>
+                                    Container
+                                </option>
+                                <option value="container-sm" {{ (dataPage.pagewidth == 'container-sm') ? 'selected' : '' }}>
+                                    Container sm
+                                </option>
+                                <option value="container-md" {{ (dataPage.pagewidth == 'container-md') ? 'selected' : '' }}>
+                                    Container md
+                                </option>
+                                <option value="container-lg" {{ (dataPage.pagewidth == 'container-lg') ? 'selected' : '' }}>
+                                    Container lg
+                                </option>
+                                <option value="container-fluid" {{ (dataPage.pagewidth == 'container-fluid') ? 'selected' : '' }}>
+                                    Container fluid
+                                </option>
                             </select>
                         </div>
 
@@ -282,10 +297,10 @@
 </form>
 
 {% block javascript %}
-    <script>
-        function editViewDelete(viewName) {
-            bootbox.confirm({
-                title: "{{ i18n.trans('confirm-delete') }}",
+<script>
+    function editViewDelete(viewName) {
+    bootbox.confirm({
+        title: "{{ i18n.trans('confirm-delete') }}",
                 message: "{{ i18n.trans('are-you-sure') }}",
                 closeButton: false,
                 buttons: {

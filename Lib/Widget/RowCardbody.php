@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Lib\Widget;
 
 use FacturaScripts\Core\Lib\Widget\VisualItem;
@@ -41,7 +42,7 @@ class RowCardbody extends VisualItem
     protected $format;
 
     /**
-     * 
+     *
      * @param array $data
      */
     public function __construct($data)
@@ -51,7 +52,7 @@ class RowCardbody extends VisualItem
     }
 
     /**
-     * 
+     *
      * @param object $model
      *
      * @return string

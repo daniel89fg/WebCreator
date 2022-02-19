@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Controller;
 
 use FacturaScripts\Core\Base\Controller;
@@ -61,8 +62,8 @@ class Sitemap extends Controller
     /**
      * Runs the controller's private logic.
      *
-     * @param Response              $response
-     * @param User                  $user
+     * @param Response $response
+     * @param User $user
      * @param ControllerPermissions $permissions
      */
     public function privateCore(&$response, $user, $permissions)
@@ -75,10 +76,10 @@ class Sitemap extends Controller
      * Returns a valid sitemap item.
      *
      * @param string $loc
-     * @param int    $lastmod
+     * @param int $lastmod
      * @param string $changefreq
-     * @param float  $priority
-     * 
+     * @param float $priority
+     *
      * @return array
      */
     protected function createItem(string $loc, int $lastmod, string $changefreq = 'weekly', float $priority = 0.5): array

@@ -22,13 +22,13 @@
 <view>
     <columns>
         <column name="code" display="none" order="100">
-            <widget type="text" fieldname="idsidebar" onclick="EditWebSidebar" />
+            <widget type="text" fieldname="idsidebar" onclick="EditWebSidebar"/>
         </column>
         <column name="name" order="110">
-            <widget type="text" fieldname="name" />
+            <widget type="text" fieldname="name"/>
         </column>
         <column name="lastmod" title="last-update" display="right" order="120">
-            <widget type="date" fieldname="lastmod" />
+            <widget type="date" fieldname="lastmod"/>
         </column>
     </columns>
 </view>

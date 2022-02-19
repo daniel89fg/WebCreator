@@ -11,56 +11,60 @@
         <div class="table-responsive">
             <table class="table table-striped mb-0">
                 <tbody>
-                    {% if order.editable %}
-                        <tr class="table-success">
-                            <td class="text-center" colspan="2">
-                                {{ order.getStatus().nombre }}
-                            </td>
-                        </tr>
-                    {% elseif order.getStatus().generadoc is empty %}
-                        <tr class="table-danger">
-                            <td class="text-center" colspan="2">
-                                {{ order.getStatus().nombre }}
-                            </td>
-                        </tr>
-                    {% else %}
-                        <tr class="table-success">
-                            <td class="text-center" colspan="2">
-                                {{ order.getStatus().nombre }}
-                            </td>
-                        </tr>
-                    {% endif %}
-                    <tr>
-                        <td>{{ i18n.customTrans(fsc.webPage.filelang, 'date') }}</td>
-                        <td class="text-right">{{ order.fecha }}</td>
+                {% if order.editable %}
+                    <tr class="table-success">
+                        <td class="text-center" colspan="2">
+                            {{ order.getStatus().nombre }}
+                        </td>
                     </tr>
-                    <tr>
-                        <td>{{ i18n.customTrans(fsc.webPage.filelang, 'hour') }}</td>
-                        <td class="text-right">{{ order.hora }}</td>
+                {% elseif order.getStatus().generadoc is empty %}
+                    <tr class="table-danger">
+                        <td class="text-center" colspan="2">
+                            {{ order.getStatus().nombre }}
+                        </td>
                     </tr>
-                    <tr>
-                        <td>{{ i18n.customTrans(fsc.webPage.filelang, 'net') }}</td>
-                        <td class="text-right">{{ fsc.toolBox().coins().format(order.neto) }}</td>
+                {% else %}
+                    <tr class="table-success">
+                        <td class="text-center" colspan="2">
+                            {{ order.getStatus().nombre }}
+                        </td>
                     </tr>
-                    <tr>
-                        <td>{{ i18n.customTrans(fsc.webPage.filelang, 'taxes') }}</td>
-                        <td class="text-right">{{ fsc.toolBox().coins().format(order.totaliva) }}</td>
-                    </tr>
+                {% endif %}
+                <tr>
+                    <td>{{ i18n.customTrans(fsc.webPage.filelang, 'date') }}</td>
+                    <td class="text-right">{{ order.fecha }}</td>
+                </tr>
+                <tr>
+                    <td>{{ i18n.customTrans(fsc.webPage.filelang, 'hour') }}</td>
+                    <td class="text-right">{{ order.hora }}</td>
+                </tr>
+                <tr>
+                    <td>{{ i18n.customTrans(fsc.webPage.filelang, 'net') }}</td>
+                    <td class="text-right">{{ fsc.toolBox().coins().format(order.neto) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ i18n.customTrans(fsc.webPage.filelang, 'taxes') }}</td>
+                    <td class="text-right">{{ fsc.toolBox().coins().format(order.totaliva) }}</td>
+                </tr>
                 </tbody>
             </table>
         </div>
     </div>
     <div class="card">
         <div class="card-body">
-            <a class="btn btn-block btn-outline-info" href="{{ asset(order.url('public')) }}&action=print" target="_blank">
-                <i class="fas fa-print fa-fw" aria-hidden="true"></i> {{ i18n.customTrans(fsc.webPage.filelang, 'print') }}
+            <a class="btn btn-block btn-outline-info" href="{{ asset(order.url('public')) }}&action=print"
+               target="_blank">
+                <i class="fas fa-print fa-fw"
+                   aria-hidden="true"></i> {{ i18n.customTrans(fsc.webPage.filelang, 'print') }}
             </a>
             {% if order.editable %}
                 <a class="btn btn-block btn-outline-success mt-3" href="{{ asset(order.url('public')) }}&action=accept">
-                    <i class="fas fa-check-circle fa-fw" aria-hidden="true"></i> {{ i18n.customTrans(fsc.webPage.filelang, 'accept') }}
+                    <i class="fas fa-check-circle fa-fw"
+                       aria-hidden="true"></i> {{ i18n.customTrans(fsc.webPage.filelang, 'accept') }}
                 </a>
                 <a class="btn btn-block btn-outline-danger mt-3" href="{{ asset(order.url('public')) }}&action=cancel">
-                    <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i> {{ i18n.customTrans(fsc.webPage.filelang, 'cancel') }}
+                    <i class="fas fa-times-circle fa-fw"
+                       aria-hidden="true"></i> {{ i18n.customTrans(fsc.webPage.filelang, 'cancel') }}
                 </a>
             {% endif %}
         </div>
@@ -69,44 +73,44 @@
         <div class="table-responsive">
             <table class="table table-striped mb-0">
                 <tbody>
+                <tr>
+                    <td>{{ i18n.customTrans(fsc.webPage.filelang, 'name') }}</td>
+                    <td class="text-right">{{ order.nombrecliente }}</td>
+                </tr>
+                {% if order.cifnif %}
                     <tr>
-                        <td>{{ i18n.customTrans(fsc.webPage.filelang, 'name') }}</td>
-                        <td class="text-right">{{ order.nombrecliente }}</td>
+                        <td>{{ order.getSubject().tipoidfiscal }}</td>
+                        <td class="text-right">{{ order.cifnif }}</td>
                     </tr>
-                    {% if order.cifnif %}
-                        <tr>
-                            <td>{{ order.getSubject().tipoidfiscal }}</td>
-                            <td class="text-right">{{ order.cifnif }}</td>
-                        </tr>
-                    {% endif %}
+                {% endif %}
+                <tr>
+                    <td>{{ i18n.customTrans(fsc.webPage.filelang, 'address') }}</td>
+                    <td class="text-right">{{ order.direccion }}</td>
+                </tr>
+                {% if order.codpostal %}
                     <tr>
-                        <td>{{ i18n.customTrans(fsc.webPage.filelang, 'address') }}</td>
-                        <td class="text-right">{{ order.direccion }}</td>
+                        <td>{{ i18n.customTrans(fsc.webPage.filelang, 'zip-code') }}</td>
+                        <td class="text-right">{{ order.codpostal }}</td>
                     </tr>
-                    {% if order.codpostal %}
-                        <tr>
-                            <td>{{ i18n.customTrans(fsc.webPage.filelang, 'zip-code') }}</td>
-                            <td class="text-right">{{ order.codpostal }}</td>
-                        </tr>
-                    {% endif %}
-                    {% if order.apartado %}
-                        <tr>
-                            <td>{{ i18n.customTrans(fsc.webPage.filelang, 'post-office-box') }}</td>
-                            <td class="text-right">{{ order.apartado }}</td>
-                        </tr>
-                    {% endif %}
+                {% endif %}
+                {% if order.apartado %}
                     <tr>
-                        <td>{{ i18n.customTrans(fsc.webPage.filelang, 'city') }}</td>
-                        <td class="text-right">{{ order.ciudad }}</td>
+                        <td>{{ i18n.customTrans(fsc.webPage.filelang, 'post-office-box') }}</td>
+                        <td class="text-right">{{ order.apartado }}</td>
                     </tr>
-                    <tr>
-                        <td>{{ i18n.customTrans(fsc.webPage.filelang, 'province') }}</td>
-                        <td class="text-right">{{ order.provincia }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ i18n.customTrans(fsc.webPage.filelang, 'country') }}</td>
-                        <td class="text-right">{{ order.country() }}</td>
-                    </tr>
+                {% endif %}
+                <tr>
+                    <td>{{ i18n.customTrans(fsc.webPage.filelang, 'city') }}</td>
+                    <td class="text-right">{{ order.ciudad }}</td>
+                </tr>
+                <tr>
+                    <td>{{ i18n.customTrans(fsc.webPage.filelang, 'province') }}</td>
+                    <td class="text-right">{{ order.provincia }}</td>
+                </tr>
+                <tr>
+                    <td>{{ i18n.customTrans(fsc.webPage.filelang, 'country') }}</td>
+                    <td class="text-right">{{ order.country() }}</td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -126,44 +130,44 @@
     <div class="table-responsive">
         <table class="table table-striped mb-0">
             <thead>
-                <tr>
-                    <th>{{ i18n.customTrans(fsc.webPage.filelang, 'product') }}</th>
-                    <th class="text-right text-nowrap">{{ i18n.customTrans(fsc.webPage.filelang, 'quantity') }}</th>
-                    <th class="text-right text-nowrap">{{ i18n.customTrans(fsc.webPage.filelang, 'price') }}</th>
-                    <th class="text-right text-nowrap">{{ i18n.customTrans(fsc.webPage.filelang, 'dto') }}</th>
-                    <th class="text-right text-nowrap">{{ i18n.customTrans(fsc.webPage.filelang, 'tax') }}</th>
-                </tr>
+            <tr>
+                <th>{{ i18n.customTrans(fsc.webPage.filelang, 'product') }}</th>
+                <th class="text-right text-nowrap">{{ i18n.customTrans(fsc.webPage.filelang, 'quantity') }}</th>
+                <th class="text-right text-nowrap">{{ i18n.customTrans(fsc.webPage.filelang, 'price') }}</th>
+                <th class="text-right text-nowrap">{{ i18n.customTrans(fsc.webPage.filelang, 'dto') }}</th>
+                <th class="text-right text-nowrap">{{ i18n.customTrans(fsc.webPage.filelang, 'tax') }}</th>
+            </tr>
             </thead>
             <tbody>
-                {% for line in order.getLines() %}
-                    <tr>
-                        <td>
-                            <b>{{ line.referencia }}</b> {{ line.descripcion | raw | nl2br }}
-                        </td>
-                        <td class="text-right text-nowrap">
-                            {{ line.cantidad }}
-                        </td>
-                        <td class="text-right text-nowrap">
-                            {{ fsc.toolBox().coins().format(line.pvpunitario) }}
-                        </td>
-                        <td class="text-right text-nowrap">
-                            {% if line.dtopor == 0 %}
-                                -
-                            {% else %}
-                                {{ line.dtopor }} %
-                            {% endif %}
-                        </td>
-                        <td class="text-right text-nowrap">
-                            {{ line.iva }} %
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr class="table-warning">
-                        <td colspan="5">
-                            {{ i18n.customTrans(fsc.webPage.filelang, 'no-data') }}
-                        </td>
-                    </tr>
-                {% endfor %}
+            {% for line in order.getLines() %}
+                <tr>
+                    <td>
+                        <b>{{ line.referencia }}</b> {{ line.descripcion | raw | nl2br }}
+                    </td>
+                    <td class="text-right text-nowrap">
+                        {{ line.cantidad }}
+                    </td>
+                    <td class="text-right text-nowrap">
+                        {{ fsc.toolBox().coins().format(line.pvpunitario) }}
+                    </td>
+                    <td class="text-right text-nowrap">
+                        {% if line.dtopor == 0 %}
+                            -
+                        {% else %}
+                            {{ line.dtopor }} %
+                        {% endif %}
+                    </td>
+                    <td class="text-right text-nowrap">
+                        {{ line.iva }} %
+                    </td>
+                </tr>
+            {% else %}
+                <tr class="table-warning">
+                    <td colspan="5">
+                        {{ i18n.customTrans(fsc.webPage.filelang, 'no-data') }}
+                    </td>
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>

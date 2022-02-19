@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Controller;
 
 use FacturaScripts\Dinamic\Lib\ExtendedController\BaseView;
@@ -30,7 +31,7 @@ use FacturaScripts\Dinamic\Lib\WebCreator\PortalViewController;
 class ViewInvoice extends PortalViewController
 {
     /**
-     * 
+     *
      * @return string
      */
     public function getModelClassName(): string
@@ -39,7 +40,7 @@ class ViewInvoice extends PortalViewController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function cancelAction(): bool
@@ -82,7 +83,7 @@ class ViewInvoice extends PortalViewController
     }
 
     /**
-     * 
+     *
      * @param string $action
      *
      * @return bool
@@ -102,8 +103,8 @@ class ViewInvoice extends PortalViewController
     }
 
     /**
-     * 
-     * @param string   $viewName
+     *
+     * @param string $viewName
      * @param BaseView $view
      */
     protected function loadData($viewName, $view)

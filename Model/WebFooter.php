@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace FacturaScripts\Plugins\WebCreator\Model;
 
 use FacturaScripts\Core\Model\Base;
@@ -88,7 +89,7 @@ class WebFooter extends Base\ModelClass
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     public function save()
@@ -113,7 +114,7 @@ class WebFooter extends Base\ModelClass
      * @return bool
      */
     public function test()
-    {        
+    {
         $content = json_decode($this->content);
         foreach ($content as $key => $value) {
             $content->$key = $value;
