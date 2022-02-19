@@ -20,6 +20,7 @@ namespace FacturaScripts\Plugins\WebCreator;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+use FacturaScripts\Core\App\AppRouter;
 use FacturaScripts\Core\Base\InitClass;
 use FacturaScripts\Dinamic\Lib\Shortcode\Shortcode;
 use FacturaScripts\Dinamic\Lib\WebCreator\UpdateRoutes;
@@ -52,6 +53,12 @@ class Init extends InitClass
     {
         new WebPage();
         $this->configure();
+    }
+
+    public function uninstall()
+    {
+        $router = new AppRouter();
+        $router->setRoute('/', $this->toolBox()->appSettings()->get('default', 'homepage'));
     }
 
     protected function configure()
