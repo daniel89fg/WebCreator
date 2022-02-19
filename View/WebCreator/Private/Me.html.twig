@@ -1,6 +1,6 @@
 {% import "WebCreator/Master/webMacros.html.twig" as webMacros %}
 
-{{ webMacros.includeView(i18n, fsc, webIncludes, 'beforeFormEditProfile') }}
+{{ webMacros.includeView(webIncludes, templateVars, 'beforeFormEditProfile') }}
 
 <form method="post">
     <input type="hidden" name="action" value="edit-profile"/>
@@ -109,7 +109,7 @@
         </div>
     </div>
 
-    {{ webMacros.includeView(i18n, fsc, webIncludes, 'beforeFormPassword') }}
+    {{ webMacros.includeView(webIncludes, templateVars, 'beforeFormPassword') }}
 
     <div class="card border-warning shadow-sm mb-3">
         <div class="card-body">
@@ -138,12 +138,12 @@
         </div>
     </div>
 
-    {{ webMacros.includeView(i18n, fsc, webIncludes, 'afterFormPassword') }}
+    {{ webMacros.includeView(webIncludes, templateVars, 'afterFormPassword') }}
 </form>
 
-{{ webMacros.includeView(i18n, fsc, webIncludes, 'afterFormEditProfile') }}
+{{ webMacros.includeView(webIncludes, templateVars, 'afterFormEditProfile') }}
 
-{{ webMacros.includeView(i18n, fsc, webIncludes, 'beforeFormDeleteMe') }}
+{{ webMacros.includeView(webIncludes, templateVars, 'beforeFormDeleteMe') }}
 
 <form method="post">
     <input type="hidden" name="action" value="delete-profile"/>
@@ -171,6 +171,6 @@
     </div>
 </form>
 
-{{ webMacros.includeView(i18n, fsc, webIncludes, 'afterFormDeleteMe') }}
+{{ webMacros.includeView(webIncludes, templateVars, 'afterFormDeleteMe') }}
 
 <br/>

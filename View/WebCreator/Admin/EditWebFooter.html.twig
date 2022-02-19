@@ -4,6 +4,16 @@
 {% set dataFooter = currentView.model %}
 {% set imagesGallery = fsc.imagesGallery() %}
 {% set webIncludes = fsc.includeView('EditWebFooter') %}
+{% set templateVars = {
+    'i18n': i18n,
+    'appSettings': appSettings,
+    'assetManager': assetManager,
+    'controllerName': controllerName,
+    'debugBarRender': debugBarRender,
+    'fsc': fsc,
+    'menuManager': menuManager,
+    'template': 'EditWebFooter'}
+%}
 
 <form id="formEditWebFooter" method="post" enctype="multipart/form-data">
 
@@ -101,7 +111,7 @@
                         </div>
                     </div>
 
-                    {{ webMacros.includeView(i18n, fsc, webIncludes, 'footerContent') }}
+                    {{ webMacros.includeView(webIncludes, templateVars, 'footerContent') }}
                 {% endblock %}
             </div>
         </div>
@@ -396,7 +406,7 @@
                                                     <img src="{{ asset('Dinamic/Assets/Images/footer01.png') }}"/>
                                                 </label>
 
-                                                {{ webMacros.includeView(i18n, fsc, webIncludes, 'footerStyles') }}
+                                                {{ webMacros.includeView(webIncludes, templateVars, 'footerStyles') }}
                                             {% endblock %}
                                         </div>
                                         <div class="text-muted font-italic font-size-10">{{ i18n.trans('footer-layout-help') }}</div>

@@ -67,7 +67,7 @@ class PageComposer
         return ($_COOKIE[$name]) ?? '';
     }
 
-    public function getDataModel(string $modelName, array $arrayKeys, array $arrayValues, array $arrayOperators, string $return = '', bool $translate = true): ?mixed
+    public function getDataModel(string $modelName, array $arrayKeys, array $arrayValues, array $arrayOperators, string $return = '', bool $translate = true)
     {
         $this->pipe('getDataModelBefore', $modelName, $arrayKeys, $arrayValues, $arrayOperators, $return, $translate);
 
@@ -262,7 +262,7 @@ class PageComposer
         return $content;
     }
 
-    private function getDataModelOrigin(string $modelName, array $arrayKeys, array $arrayValues, array $arrayOperators, string $return): ?mixed
+    private function getDataModelOrigin(string $modelName, array $arrayKeys, array $arrayValues, array $arrayOperators, string $return)
     {
         $this->pipe('getDataModelOriginBefore', $modelName, $arrayKeys, $arrayValues, $arrayOperators, $return);
 
@@ -303,7 +303,7 @@ class PageComposer
         return $result;
     }
 
-    private function getDataModelTrans(array $arrayKeys, array $arrayValues, array $arrayOperators): ?string
+    private function getDataModelTrans(array $arrayKeys, array $arrayValues, array $arrayOperators)
     {
         $this->pipe('getDataModelTransBefore', $arrayKeys, $arrayValues, $arrayOperators);
 
