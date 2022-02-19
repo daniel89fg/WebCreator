@@ -1,13 +1,16 @@
-<div class="text-center">
-    <form method="post" action="{{ fsc.url() }}">
-        <input type="hidden" name="idcontacto" value="{{ fsc.contact.idcontacto }}">
-        <input type="hidden" name="action" value="privacy">
-        <div class="h5">{{ i18n.trans('policy-privacy-account') }}</div>
+<form method="post" action="{{ fsc.url() }}">
+    <input type="hidden" name="idcontacto" value="{{ fsc.contact.idcontacto }}">
+    <input type="hidden" name="action" value="privacy">
+    <div class="jumbotron">
+        <h2 class="display-4">{{ i18n.trans('i-accept-privacy-policy') }}</h2>
+        <p class="lead"></p>
+        <hr class="my-4">
+        <p>{{ i18n.trans('i-accept-privacy-policy-p') }}</p>
         <a href="{{ asset(fsc.privacyPage.url('public')) }}" target="_blank" class="btn btn-light mt-2">
-            {{ i18n.trans('privacy-policy') }}
+            {{ i18n.trans('read-more') }}
         </a>
         <button type="submit" class="btn btn-primary mt-2">
             {{ i18n.trans('accept') }}
         </button>
-    </form>
-</div>
+    </div>
+</form>

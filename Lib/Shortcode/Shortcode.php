@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of WebCreator plugin for FacturaScripts.
- * Copyright (C) 2020 Carlos Garcia Gomez <carlos@facturascripts.com>
+ * Copyright (C) 2022 Carlos Garcia Gomez <carlos@facturascripts.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -27,7 +27,7 @@ use FacturaScripts\Core\Base\ToolBox;
  */
 abstract class Shortcode
 {
-    abstract public static function replace($content);
+    abstract public static function replace(?string $content): ?string;
 
     /**
      * @var array
@@ -123,12 +123,12 @@ abstract class Shortcode
     /**
      * Finds if the string with you the regular expression passed
      * 
-     * @param string $content
+     * @param string|null $content
      * @param string $search
      *
-     * @return array
+     * @return array|null
      */
-    protected static function searchCode($content, $search)
+    protected static function searchCode(?string $content, string $search): ?array
     {
         preg_match_all($search, $content, $matches);
         return (count($matches) > 0) ? $matches : null;

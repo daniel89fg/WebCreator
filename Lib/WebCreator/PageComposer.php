@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of WebCreator plugin for FacturaScripts.
- * Copyright (C) 2020 Carlos Garcia Gomez <carlos@facturascripts.com>
+ * Copyright (C) 2022 Carlos Garcia Gomez <carlos@facturascripts.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -43,14 +43,14 @@ class PageComposer
 {
     use ExtensionsTrait;
 
-    public function getAttachFile($idfile)
+    public function getAttachFile(int $idfile): string
     {
         $file = new AttachedFile();
         $file->loadFromCode($idfile);
         return $file->url('download-permanent');
     }
 
-    public function getBreadcrumbs($page)
+    public function getBreadcrumbs(WebPage $page): string
     {
         $this->pipe('getBreadcrumbsBefore');
 
@@ -62,12 +62,12 @@ class PageComposer
         return $breadcrumb;
     }
 
-    public function getCookie($name)
+    public function getCookie(string $name): string
     {
         return ($_COOKIE[$name]) ?? '';
     }
 
-    public function getDataModel($modelName, $arrayKeys, $arrayValues, $arrayOperators, $return = '', $translate = true)
+    public function getDataModel(string $modelName, array $arrayKeys, array $arrayValues, array $arrayOperators, string $return = '', bool $translate = true): ?mixed
     {
         $this->pipe('getDataModelBefore', $modelName, $arrayKeys, $arrayValues, $arrayOperators, $return, $translate);
 
@@ -86,14 +86,14 @@ class PageComposer
         return $data;
     }
 
-    public function getFont($idfont)
+    public function getFont(int $idfont): string
     {
         $font = new WebFont();
         $font->loadFromCode($idfont);
         return $font->name;
     }
 
-    public function getFooter($idfooter)
+    public function getFooter(?int $idfooter): WebFooter
     {
         $footer = new WebFooter();
 
@@ -110,7 +110,7 @@ class PageComposer
         return $footer;
     }
 
-    public function getGoogleFonts()
+    public function getGoogleFonts(): string
     {
         $link = 'https://fonts.googleapis.com/css?family=';
         $link .= $this->getFontDefault($link);
@@ -127,7 +127,7 @@ class PageComposer
         return '<link href="'.$link.'" rel="stylesheet">';
     }
 
-    public function getHeader($idheader)
+    public function getHeader(?int $idheader): WebHeader
     {
         $header = new WebHeader();
 
@@ -139,16 +139,12 @@ class PageComposer
             $header->loadFromCode($idheader);
         }
 
-        /*foreach ((array)$header->content as $key => $value) {
-            $header->content[$key] = Shortcode::getShortcodes($value);
-        }*/
-
         $this->pipe('getHeaderAfter');
 
         return $header;
     }
 
-    public function getPageData($webPage)
+    public function getPageData(WebPage $webPage): array
     {
         $pageData = array(
             'settings' => $this->getWebSettings(),
@@ -161,7 +157,7 @@ class PageComposer
         return Shortcode::getPageShortcodes($pageData);
     }
 
-    public function getPagesDefault()
+    public function getPagesDefault(): array
     {
         $this->pipe('getPagesDefaultBefore');
 
@@ -192,12 +188,12 @@ class PageComposer
         return $pages;
     }
 
-    public function getShortcodes($pageData)
+    public function getShortcodes(string $content)
     {
-        return Shortcode::getShortcodes($pageData);
+        return Shortcode::getShortcodes($content);
     }
 
-    public function getSidebar($idsidebar)
+    public function getSidebar(?int $idsidebar): WebSidebar
     {
         $sidebar = new WebSidebar();
 
@@ -214,13 +210,13 @@ class PageComposer
         return $sidebar;
     }
 
-    public function getWebSettings()
+    public function getWebSettings(): array
     {
         $webSettings = new Settings();
         return $webSettings->get('webcreator')->properties;
     }
 
-    public function includeView($fileParent)
+    public function includeView($fileParent): array
     {
         $files = [];
         $fileParentTemp = explode('/', $fileParent);
@@ -252,12 +248,12 @@ class PageComposer
         return $files;
     }
 
-    public function regexCSS($content)
+    public function regexCSS(?string $content): ?string
     {
         $this->pipe('regexCSSBefore');
 
-        if (!empty($content)) {
-            preg_match_all((string)"/\<link(.*?)\>/", $content, $matches);
+        if (!is_null($content)) {
+            preg_match_all("/\<link(.*?)\>/", $content, $matches);
             $shorts = (count($matches) > 0) ? $matches : null;
 
             $styles = '';
@@ -275,12 +271,12 @@ class PageComposer
         return $content;
     }
 
-    public function regexJS($content)
+    public function regexJS(?string $content): ?string
     {
         $this->pipe('regexJSBefore');
 
-        if (!empty($content)) {
-            preg_match_all((string)"/\<script(.*?)\>\<\/script\>/", $content, $matches);
+        if (!is_null($content)) {
+            preg_match_all("/\<script(.*?)\>\<\/script\>/", $content, $matches);
             $shorts = (count($matches) > 0) ? $matches : null;
 
             $scripts = '';
@@ -298,7 +294,7 @@ class PageComposer
         return $content;
     }
 
-    private function getDataModelOrigin($modelName, $arrayKeys, $arrayValues, $arrayOperators, $return)
+    private function getDataModelOrigin(string $modelName, array $arrayKeys, array $arrayValues, array $arrayOperators, string $return): ?mixed
     {
         $this->pipe('getDataModelOriginBefore', $modelName, $arrayKeys, $arrayValues, $arrayOperators, $return);
 
@@ -319,12 +315,12 @@ class PageComposer
             if (is_null($result)) {
                 $where = [];
                 $index = 0;
-    
+
                 foreach ($arrayKeys as $key) {
                     $where[] = new DataBaseWhere($key, $arrayValues[$index], $arrayOperators[$index]);
                     $index++;
                 }
-    
+
                 $model->loadFromCode('', $where);
                 if (empty($return)) {
                     $result = $model;
@@ -339,7 +335,7 @@ class PageComposer
         return $result;
     }
 
-    private function getDataModelTrans($arrayKeys, $arrayValues, $arrayOperators)
+    private function getDataModelTrans(array $arrayKeys, array $arrayValues, array $arrayOperators): ?string
     {
         $this->pipe('getDataModelTransBefore', $arrayKeys, $arrayValues, $arrayOperators);
 
@@ -365,7 +361,7 @@ class PageComposer
         return $result;
     }
 
-    private function getFontDefault()
+    private function getFontDefault(): string
     {
         $font = new WebFont();
         $fontWeight = new WebFontWeight();
@@ -374,7 +370,7 @@ class PageComposer
         return $font->name.':'.$fontWeight->weight.'|';
     }
 
-    private function getFontH1()
+    private function getFontH1(): string
     {
         $font = new WebFont();
         $fontWeight = new WebFontWeight();
@@ -383,7 +379,7 @@ class PageComposer
         return $font->name.':'.$fontWeight->weight.'|';
     }
 
-    private function getFontH2()
+    private function getFontH2(): string
     {
         $font = new WebFont();
         $fontWeight = new WebFontWeight();
@@ -392,7 +388,7 @@ class PageComposer
         return $font->name.':'.$fontWeight->weight.'|';
     }
 
-    private function getFontH3()
+    private function getFontH3(): string
     {
         $font = new WebFont();
         $fontWeight = new WebFontWeight();
@@ -401,7 +397,7 @@ class PageComposer
         return $font->name.':'.$fontWeight->weight.'|';
     }
 
-    private function getFontH4()
+    private function getFontH4(): string
     {
         $font = new WebFont();
         $fontWeight = new WebFontWeight();
@@ -410,7 +406,7 @@ class PageComposer
         return $font->name.':'.$fontWeight->weight.'|';
     }
 
-    private function getFontH5()
+    private function getFontH5(): string
     {
         $font = new WebFont();
         $fontWeight = new WebFontWeight();
@@ -419,7 +415,7 @@ class PageComposer
         return $font->name.':'.$fontWeight->weight.'|';
     }
 
-    private function getFontH6()
+    private function getFontH6(): string
     {
         $font = new WebFont();
         $fontWeight = new WebFontWeight();
@@ -428,7 +424,7 @@ class PageComposer
         return $font->name.':'.$fontWeight->weight.'|';
     }
 
-    private function getFontLink()
+    private function getFontLink(): string
     {
         $font = new WebFont();
         $fontWeight = new WebFontWeight();
@@ -437,7 +433,7 @@ class PageComposer
         return $font->name.':'.$fontWeight->weight.'|';
     }
 
-    private function getFontP()
+    private function getFontP(): string
     {
         $font = new WebFont();
         $fontWeight = new WebFontWeight();
@@ -446,7 +442,7 @@ class PageComposer
         return $font->name.':'.$fontWeight->weight.'|';
     }
 
-    private function getPageParent($breadcrumb, $page)
+    private function getPageParent(string $breadcrumb, WebPage $page): string
     {
         $this->pipe('getPageParentBefore');
 
@@ -466,7 +462,7 @@ class PageComposer
         return $breadcrumb;
     }
 
-    private function setSeparatorBreadcrumb()
+    private function setSeparatorBreadcrumb(): string
     {
         $this->pipe('setSeparatorBreadcrumbBefore');
         $separator = $this->toolBox()->appSettings()->get('webcreator', 'titlebreadcrumbsseparate');
@@ -474,7 +470,7 @@ class PageComposer
         return '<span class="mx-1">' . $separator . '</span>';
     }
 
-    private function toolBox()
+    private function toolBox(): ToolBox
     {
         return new ToolBox();
     }

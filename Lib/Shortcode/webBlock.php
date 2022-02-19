@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of WebCreator plugin for FacturaScripts.
- * Copyright (C) 2020 Carlos Garcia Gomez <carlos@facturascripts.com>
+ * Copyright (C) 2022 Carlos Garcia Gomez <carlos@facturascripts.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -19,6 +19,7 @@
 namespace FacturaScripts\Plugins\WebCreator\Lib\Shortcode;
 
 use FacturaScripts\Dinamic\Model\WebBlock as modelWebBlock;
+use FacturaScripts\Dinamic\Lib\Shortcode\Shortcode;
 
 /**
  * Shortcode of Block
@@ -29,12 +30,12 @@ class webBlock extends Shortcode
 {
     /**
      * Replace the block shortcode with the content of the block if found
-     * 
-     * @param string $content
      *
-     * @return string
+     * @param string|null $content
+     *
+     * @return string|null
      */
-    public static function replace($content)
+    public static function replace(?string $content): ?string
     {
         
         $shorts = static::searchCode($content, "/\[webBlock(.*?)\]/");

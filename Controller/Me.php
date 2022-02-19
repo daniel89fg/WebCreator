@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of WebCreator plugin for FacturaScripts.
- * Copyright (C) 2020 Carlos Garcia Gomez <carlos@facturascripts.com>
+ * Copyright (C) 2022 Carlos Garcia Gomez <carlos@facturascripts.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -46,7 +46,7 @@ class Me extends PortalPanelController
      * 
      * @return bool
      */
-    protected function activateAction()
+    protected function activateAction(): bool
     {
         $cod = $this->request->get('cod', '');
         $email = $this->request->get('email', '');
@@ -170,7 +170,7 @@ class Me extends PortalPanelController
      * 
      * @return bool
      */
-    protected function deleteAction()
+    protected function deleteAction(): bool
     {
         return true;
     }
@@ -179,7 +179,7 @@ class Me extends PortalPanelController
      * 
      * @return bool
      */
-    protected function deleteProfileAction()
+    protected function deleteProfileAction(): bool
     {
         $secutiry = $this->request->request->get('security');
         if ($this->contact->exists() && 'DELETE' === $secutiry && $this->contact->delete()) {
@@ -196,7 +196,7 @@ class Me extends PortalPanelController
      * 
      * @return bool
      */
-    protected function editAction()
+    protected function editAction(): bool
     {
         return true;
     }
@@ -285,7 +285,7 @@ class Me extends PortalPanelController
      *
      * @return string
      */
-    protected function getActivationCode($contact): string
+    protected function getActivationCode(Contacto $contact): string
     {
         return \sha1($contact->idcontacto . $contact->password);
     }
@@ -294,7 +294,7 @@ class Me extends PortalPanelController
      * 
      * @return bool
      */
-    protected function insertAction()
+    protected function insertAction(): bool
     {
         return true;
     }
@@ -326,7 +326,7 @@ class Me extends PortalPanelController
      * 
      * @return bool
      */
-    protected function logoutAction()
+    protected function logoutAction(): bool
     {
         $this->response->headers->clearCookie('fsIdcontacto');
         $this->response->headers->clearCookie('fsLogkey');
@@ -335,7 +335,7 @@ class Me extends PortalPanelController
         return true;
     }
 
-    protected function privacyAction()
+    protected function privacyAction(): bool
     {
         $this->contact->aceptaprivacidad = 1;
         $this->contact->save();
@@ -347,7 +347,7 @@ class Me extends PortalPanelController
      * 
      * @return bool
      */
-    protected function recoverAction()
+    protected function recoverAction(): bool
     {
         $key = $this->request->get('key', '');
         $email = $this->request->get('email', '');
@@ -392,7 +392,7 @@ class Me extends PortalPanelController
      *
      * @return bool
      */
-    protected function sendEmailConfirmation($contact)
+    protected function sendEmailConfirmation(Contacto $contact): bool
     {
         $i18n = $this->toolBox()->i18n();
         $link = $this->toolBox()->appSettings()->get('webcreator', 'siteurl') . '/Me?action=activate'

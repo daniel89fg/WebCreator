@@ -1,7 +1,7 @@
 <?php
 /**
- * This file is part of Portal plugin for FacturaScripts.
- * Copyright (C) 2020-2021 Carlos Garcia Gomez <carlos@facturascripts.com>
+ * This file is part of WebCreator plugin for FacturaScripts.
+ * Copyright (C) 2022 Carlos Garcia Gomez <carlos@facturascripts.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -96,7 +96,7 @@ class MeForgot extends Me
      *
      * @return bool
      */
-    protected function sendRecoveryMail($contact): bool
+    protected function sendRecoveryMail(Contacto $contact): bool
     {
         $i18n = $this->toolBox()->i18n();
         $link = $this->toolBox()->appSettings()->get('webcreator', 'siteurl') . '/Me?action=recover'
