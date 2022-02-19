@@ -23,6 +23,7 @@ use FacturaScripts\Dinamic\Lib\ExtendedController\PanelController;
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 use FacturaScripts\Dinamic\Model\WebFooter;
 use FacturaScripts\Dinamic\Lib\AssetManager;
+use FacturaScripts\Plugins\WebCreator\Lib\WebCreator\IncludeViewTrait;
 
 /**
  * Description of EditWebFooter
@@ -31,6 +32,8 @@ use FacturaScripts\Dinamic\Lib\AssetManager;
  */
 class EditWebFooter extends PanelController
 {
+    use IncludeViewTrait;
+
     /**
      * Returns the model name
      *

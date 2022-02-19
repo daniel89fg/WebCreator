@@ -31,8 +31,6 @@ use FacturaScripts\Dinamic\Model\WebFont;
 use FacturaScripts\Dinamic\Model\WebFontWeight;
 use FacturaScripts\Core\Base\ExtensionsTrait;
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
-use RecursiveIteratorIterator;
-use RecursiveDirectoryIterator;
 
 /**
  * Description of PageComposer
@@ -43,6 +41,7 @@ use RecursiveDirectoryIterator;
 class PageComposer
 {
     use ExtensionsTrait;
+    use IncludeViewTrait;
 
     public function getAttachFile(int $idfile): string
     {
@@ -215,38 +214,6 @@ class PageComposer
     {
         $webSettings = new Settings();
         return $webSettings->get('webcreator')->properties;
-    }
-
-    public function includeView($fileParent): array
-    {
-        $files = [];
-        $fileParentTemp = explode('/', $fileParent);
-        $fileParent = str_replace('.html.twig', '', end($fileParentTemp));
-        $path = FS_FOLDER . '/Dinamic/View/WebCreator/Include/';
-
-        if (is_dir($path)) {
-            $ficheros = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
-
-            foreach ($ficheros as $f) {
-                if (!$f->isDir()) {
-                    $file = explode('_', $f->getFilename());
-                    if ($file[0] == $fileParent || $file[0] == 'PortalTemplate') {
-                        $pathName = str_replace('\\', '/', $f->getPathname());
-                        $directories = explode('/', $pathName);
-
-                        $dirPlugin = '';
-                        if ($directories[count($directories) - 2] != 'Include') {
-                            $dirPlugin = $directories[count($directories) - 2] . '/';
-                        }
-
-                        $files[] = $dirPlugin . $f->getFilename();
-                    }
-                }
-            }
-            sort($files);
-        }
-
-        return $files;
     }
 
     public function regexCSS(?string $content): ?string

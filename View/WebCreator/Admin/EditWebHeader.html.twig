@@ -1,6 +1,9 @@
+{% import "WebCreator/Master/webMacros.html.twig" as webMacros %}
+
 {% set currentView = fsc.getCurrentView() %}
 {% set dataHeader = currentView.model %}
 {% set imagesGallery = fsc.imagesGallery() %}
+{% set webIncludes = fsc.includeView('EditWebHeader') %}
 
 <form id="formEditWebHeader" method="post" enctype="multipart/form-data">
 
@@ -89,6 +92,8 @@
                             </div>
                         </div>
                     </div>
+
+                    {{ webMacros.includeView(i18n, fsc, webIncludes, 'headerContentDesktop') }}
                 {% endblock %}
             </div>
 
@@ -139,6 +144,8 @@
                             </div>
                         </div>
                     </div>
+
+                    {{ webMacros.includeView(i18n, fsc, webIncludes, 'headerContentMobile') }}
                 {% endblock %}
             </div>
         </div>
@@ -204,6 +211,8 @@
                                     {{ i18n.trans('mobile') }}
                                 </a>
                             </li>
+
+                            {{ webMacros.includeView(i18n, fsc, webIncludes, 'modalGeneralTab') }}
                         {% endblock %}
                     </ul>
 
@@ -215,7 +224,7 @@
                                         <label class="form-label">{{ i18n.trans('width') }}</label>
                                         <select class="form-control" name="headerwidth">
                                             <option value="container" {{ (dataHeader.properties.headerwidth == 'container') ? 'selected' : '' }}>
-                                                Container</values>
+                                                Container</option>
                                             <option value="container-sm" {{ (dataHeader.properties.headerwidth == 'container-sm') ? 'selected' : '' }}>
                                                 Container sm
                                             </option>
@@ -254,10 +263,14 @@
                                                            value="01" {{ (dataHeader.properties.headerlayout == '01' or dataHeader.properties.headerlayout is not defined) ? 'checked' : '' }}>
                                                     <img src="{{ asset('Dinamic/Assets/Images/header01.png') }}"/>
                                                 </label>
+
+                                                {{ webMacros.includeView(i18n, fsc, webIncludes, 'headerStyles') }}
                                             {% endblock %}
                                         </div>
                                         <div class="text-muted font-italic font-size-10">{{ i18n.trans('footer-layout-help') }}</div>
                                     </div>
+
+                                    {{ webMacros.includeView(i18n, fsc, webIncludes, 'modalGeneralSettings') }}
                                 {% endblock %}
                             </div>
 
@@ -301,6 +314,8 @@
                                                for="generalStickyPaddingTopBody">{{ i18n.trans('sticky-padding-body') }}</label>
                                         <div class="text-muted font-italic font-size-10">{{ i18n.trans('sticky-padding-body-help') }}</div>
                                     </div>
+
+                                    {{ webMacros.includeView(i18n, fsc, webIncludes, 'modalGeneralSticky') }}
                                 {% endblock %}
                             </div>
 
@@ -403,6 +418,8 @@
                                             </select>
                                         </div>
                                     </div>
+
+                                    {{ webMacros.includeView(i18n, fsc, webIncludes, 'modalGeneralBackground') }}
                                 {% endblock %}
                             </div>
 
@@ -495,8 +512,12 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    {{ webMacros.includeView(i18n, fsc, webIncludes, 'modalGeneralMobile') }}
                                 {% endblock %}
                             </div>
+
+                            {{ webMacros.includeView(i18n, fsc, webIncludes, 'modalGeneralContent') }}
                         {% endblock %}
                     </div>
                 </div>
@@ -553,6 +574,8 @@
                                         {{ i18n.trans('borders') }}
                                     </a>
                                 </li>
+
+                                {{ webMacros.includeView(i18n, fsc, webIncludes, 'modalIndividualTab') }}
                             {% endblock %}
                         </ul>
 
@@ -634,6 +657,8 @@
                                                    for="{{ item }}Shadow">{{ i18n.trans('shadow') }}</label>
                                             <div class="text-muted font-italic font-size-10">{{ i18n.trans('shadow-help') }}</div>
                                         </div>
+
+                                        {{ webMacros.includeView(i18n, fsc, webIncludes, 'modalIndividualSettings') }}
                                     {% endblock %}
                                 </div>
 
@@ -739,6 +764,8 @@
                                                 </select>
                                             </div>
                                         </div>
+
+                                        {{ webMacros.includeView(i18n, fsc, webIncludes, 'modalIndividualbackground') }}
                                     {% endblock %}
                                 </div>
 
@@ -844,8 +871,12 @@
                                                 </select>
                                             </div>
                                         </div>
+
+                                        {{ webMacros.includeView(i18n, fsc, webIncludes, 'modalIndividualBorders') }}
                                     {% endblock %}
                                 </div>
+
+                                {{ webMacros.includeView(i18n, fsc, webIncludes, 'modalIndividualContent') }}
                             {% endblock %}
                         </div>
                     </div>
@@ -916,7 +947,7 @@
 
             function changeShip(checkbox) {
                 var div = $(checkbox).parent().find('div.changeShip');
-                
+
                 if($(checkbox).is(':checked')) {
                     div.show();
                 } else {
@@ -927,14 +958,14 @@
             $('input.changeShip').each(function(){
                 changeShip(this);
             });
-            
+
             $('input.changeShip').on('click', function() {
                 changeShip(this);
             });
 
             function changeStickyShip(checkbox) {
                 var div = $(checkbox).parent().parent().parent().find('div.changeGeneralSticky');
-                
+
                 if($(checkbox).is(':checked')) {
                     div.show();
                 } else {
@@ -950,7 +981,7 @@
             $('input.showGeneralSticky').each(function(){
                 changeStickyShip(this);
             });
-            
+
             $('input.showGeneralSticky').on('click', function() {
                 changeStickyShip(this);
             });
@@ -968,4 +999,6 @@
             });
         });
     </script>
+
+    {{ webMacros.includeView(i18n, fsc, webIncludes, 'javascript') }}
 {% endblock %}

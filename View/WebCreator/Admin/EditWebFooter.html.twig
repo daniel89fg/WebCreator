@@ -1,6 +1,9 @@
+{% import "WebCreator/Master/webMacros.html.twig" as webMacros %}
+
 {% set currentView = fsc.getCurrentView() %}
 {% set dataFooter = currentView.model %}
 {% set imagesGallery = fsc.imagesGallery() %}
+{% set webIncludes = fsc.includeView('EditWebFooter') %}
 
 <form id="formEditWebFooter" method="post" enctype="multipart/form-data">
 
@@ -97,6 +100,8 @@
                             </div>
                         </div>
                     </div>
+
+                    {{ webMacros.includeView(i18n, fsc, webIncludes, 'footerContent') }}
                 {% endblock %}
             </div>
         </div>
@@ -390,6 +395,8 @@
                                                            value="01" {{ (dataFooter.properties.footerlayout == '01' or dataFooter.properties.footerlayout is not defined) ? 'checked' : '' }}>
                                                     <img src="{{ asset('Dinamic/Assets/Images/footer01.png') }}"/>
                                                 </label>
+
+                                                {{ webMacros.includeView(i18n, fsc, webIncludes, 'footerStyles') }}
                                             {% endblock %}
                                         </div>
                                         <div class="text-muted font-italic font-size-10">{{ i18n.trans('footer-layout-help') }}</div>
