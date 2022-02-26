@@ -43,12 +43,12 @@ class WebPage extends Base\ModelOnChangeClass
     /**
      * @var string
      */
-    public $content;
+    public $creationdate;
 
     /**
      * @var string
      */
-    public $creationdate;
+    public $content;
 
     /**
      * @var string
@@ -144,7 +144,7 @@ class WebPage extends Base\ModelOnChangeClass
         parent::loadFromData($data, ['properties', 'action']);
         $properties = isset($data['properties']) ? json_decode($data['properties'], true) : [];
         foreach ($properties as $key => $value) {
-            $this->$key = $value;
+            $this->{$key} = $value;
         }
         $this->setPreviousData();
     }
@@ -196,14 +196,14 @@ class WebPage extends Base\ModelOnChangeClass
             unset($this->code);
         }
 
-        $this->description = \str_replace("\n", ' ', $this->description);
+        $this->description = str_replace("\n", ' ', $utils->noHtml($this->description));
         $this->title = $utils->noHtml($this->title);
 
         if (isset($this->idbody)) {
             $this->idbody = str_replace(' ', '-', $utils->noHtml($this->idbody));
         }
 
-        if (isset($this->idbody)) {
+        if (isset($this->classbody)) {
             $this->classbody = $utils->noHtml($this->classbody);
         }
 
