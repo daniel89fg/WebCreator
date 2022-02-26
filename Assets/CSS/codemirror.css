@@ -22,9 +22,9 @@
 
 .codemirror .cm-scroller {
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: hidden;
     min-height: 400px;
-    max-height: 400px;
+    height: 100%;
     border: 1px solid #dfdfdf;
     border-radius: 3px;
 }

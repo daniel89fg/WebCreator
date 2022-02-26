@@ -1,3 +1,5 @@
+{% import "WebCreator/Master/webMacros.html.twig" as webMacros %}
+
 {% set currentView = fsc.getCurrentView() %}
 {% set dataPage = currentView.model %}
 {% set pages = fsc.getPages(dataPage.idpage) %}
@@ -6,6 +8,17 @@
 {% set headers = fsc.getHeaders() %}
 {% set sidebars = fsc.getSidebars() %}
 {% set footers = fsc.getFooters() %}
+{% set webIncludes = fsc.includeView('EditWebPage') %}
+{% set templateVars = {
+    'i18n': i18n,
+    'appSettings': appSettings,
+    'assetManager': assetManager,
+    'controllerName': controllerName,
+    'debugBarRender': debugBarRender,
+    'fsc': fsc,
+    'menuManager': menuManager,
+    'template': 'EditWebHeader'}
+%}
 
 <form id="formEditWebPage" method="post" enctype="multipart/form-data">
     {% if dataPage.idpage %}
@@ -24,65 +37,95 @@
             <div class="col-12 col-md-9">
                 <div class="card">
                     <div class="card-header">
-                        {{ i18n.trans('content') }}
-                    </div>
-                    <div class="card-body">
-                        <div id="content" class="codemirror htmlEditor">
-                            <textarea class="d-none" name="content"></textarea>
-                            <code class="d-none">{{ dataPage.content }}</code>
-                        </div>
-                    </div>
-                </div>
+                        <ul class="nav nav-pills" id="myTab" role="tablist">
+                            <li class="nav-item" role="content">
+                                <a class="nav-link active" id="content-tab" data-toggle="tab" href="#tabcontent" role="tab" aria-controls="tabcontent" aria-selected="true">
+                                    {{ i18n.trans('content') }}
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="pagecss-tab" data-toggle="tab" href="#tabpagecss" role="tab" aria-controls="tabpagecss" aria-selected="false">
+                                    {{ i18n.trans('page-css') }}
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="pagejshead-tab" data-toggle="tab" href="#tabpagejshead" role="tab" aria-controls="tabpagejshead" aria-selected="false">
+                                    {{ i18n.trans('javascript-head') }}
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="pagejsfooter-tab" data-toggle="tab" href="#tabpagejsfooter" role="tab" aria-controls="tabpagejsfooter" aria-selected="false">
+                                    {{ i18n.trans('javascript-footer') }}
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="pagemeta-tab" data-toggle="tab" href="#tabpagemeta" role="tab" aria-controls="tabpagemeta" aria-selected="false">
+                                    {{ i18n.trans('page-meta') }}
+                                </a>
+                            </li>
 
-                <div class="card mt-4">
-                    <div class="card-header">
-                        {{ i18n.trans('page-css') }}
+                            {{ webMacros.includeView(webIncludes, 'editPageTab', templateVars) }}
+                        </ul>
                     </div>
                     <div class="card-body">
-                        <div id="pagecss" class="codemirror cssEditor">
-                            <textarea class="d-none" name="pagecss"></textarea>
-                            <code class="d-none">{{ dataPage.pagecss }}</code>
-                        </div>
-                        <small class="form-text text-muted">{{ i18n.trans('page-css-help') }}</small>
-                    </div>
-                </div>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="tabcontent" role="tabpanel" aria-labelledby="tabcontent-tab">
+                                {% block content %}
+                                    <div id="content" class="codemirror htmlEditor">
+                                        <textarea class="d-none" name="content"></textarea>
+                                        <code class="d-none">{{ dataPage.content }}</code>
+                                    </div>
 
-                <div class="card mt-4">
-                    <div class="card-header">
-                        {{ i18n.trans('javascript-head') }}
-                    </div>
-                    <div class="card-body">
-                        <div id="pagejshead" class="codemirror jsEditor">
-                            <textarea class="d-none" name="pagejshead"></textarea>
-                            <code class="d-none">{{ dataPage.pagejshead }}</code>
-                        </div>
-                        <small class="form-text text-muted">{{ i18n.trans('javascript-head-help') }}</small>
-                    </div>
-                </div>
+                                    {{ webMacros.includeView(webIncludes, 'editPageContent', templateVars) }}
+                                {% endblock %}
+                            </div>
+                            <div class="tab-pane fade" id="tabpagecss" role="tabpanel" aria-labelledby="tabpagecss-tab">
+                                {% block editPageCss %}
+                                    <small class="form-text text-muted">{{ i18n.trans('page-css-help') }}</small>
+                                    <div id="pagecss" class="codemirror cssEditor">
+                                        <textarea class="d-none" name="pagecss"></textarea>
+                                        <code class="d-none">{{ dataPage.pagecss }}</code>
+                                    </div>
 
-                <div class="card mt-4">
-                    <div class="card-header">
-                        {{ i18n.trans('javascript-footer') }}
-                    </div>
-                    <div class="card-body">
-                        <div id="pagejsfooter" class="codemirror jsEditor">
-                            <textarea class="d-none" name="pagejsfooter"></textarea>
-                            <code class="d-none">{{ dataPage.pagejsfooter }}</code>
-                        </div>
-                        <small class="form-text text-muted">{{ i18n.trans('javascript-footer-help') }}</small>
-                    </div>
-                </div>
+                                    {{ webMacros.includeView(webIncludes, 'editPageCss', templateVars) }}
+                                {% endblock %}
+                            </div>
+                            <div class="tab-pane fade" id="tabpagejshead" role="tabpanel" aria-labelledby="tabpagejshead-tab">
+                                {% block editPageJsHead %}
+                                    <small class="form-text text-muted">{{ i18n.trans('javascript-head-help') }}</small>
+                                    <div id="pagejshead" class="codemirror jsEditor">
+                                        <textarea class="d-none" name="pagejshead"></textarea>
+                                        <code class="d-none">{{ dataPage.pagejshead }}</code>
+                                    </div>
 
-                <div class="card mt-4">
-                    <div class="card-header">
-                        {{ i18n.trans('page-meta') }}
-                    </div>
-                    <div class="card-body">
-                        <div id="pagemeta" class="codemirror htmlEditor">
-                            <textarea class="d-none" name="pagemeta"></textarea>
-                            <code class="d-none">{{ dataPage.pagemeta }}</code>
+                                    {{ webMacros.includeView(webIncludes, 'editPageJsHead', templateVars) }}
+                                {% endblock %}
+                            </div>
+                            <div class="tab-pane fade" id="tabpagejsfooter" role="tabpanel" aria-labelledby="tabpagejsfooter-tab">
+                                {% block editPageJsFooter %}
+                                    <small class="form-text text-muted">{{ i18n.trans('javascript-footer-help') }}</small>
+                                    <div id="pagejsfooter" class="codemirror jsEditor">
+                                        <textarea class="d-none" name="pagejsfooter"></textarea>
+                                        <code class="d-none">{{ dataPage.pagejsfooter }}</code>
+                                    </div>
+
+                                    {{ webMacros.includeView(webIncludes, 'editPageJsFooter', templateVars) }}
+                                {% endblock %}
+                            </div>
+                            <div class="tab-pane fade" id="tabpagemeta" role="tabpanel" aria-labelledby="tabpagemeta-tab">
+                                {% block editPageMeta %}
+                                    <small class="form-text text-muted">{{ i18n.trans('page-meta-help') }}</small>
+                                    <div id="pagemeta" class="codemirror htmlEditor">
+                                        <textarea class="d-none" name="pagemeta"></textarea>
+                                        <code class="d-none">{{ dataPage.pagemeta }}</code>
+                                    </div>
+
+                                    {{ webMacros.includeView(webIncludes, 'editPageMeta', templateVars) }}
+                                {% endblock %}
+                            </div>
+
+                            {{ webMacros.includeView(webIncludes, 'editPageTabContent', templateVars) }}
                         </div>
-                        <small class="form-text text-muted">{{ i18n.trans('page-meta-help') }}</small>
                     </div>
                 </div>
             </div>
@@ -93,25 +136,29 @@
                         {{ i18n.trans('general') }}
                     </div>
                     <div class="card-body">
-                        <div class="form-group pagetitle">
-                            <label>{{ i18n.trans('page-title') }}</label>
-                            <input type="text" class="form-control" name="title" maxlength="60"
-                                   value="{{ dataPage.title }}" required>
-                        </div>
+                        {% block editPageGeneral %}
+                            <div class="form-group pagetitle">
+                                <label>{{ i18n.trans('page-title') }}</label>
+                                <input type="text" class="form-control" name="title" maxlength="60"
+                                       value="{{ dataPage.title }}" required>
+                            </div>
 
-                        <div class="form-group pagepermalink">
-                            <label>{{ i18n.trans('permalink') }}</label>
-                            {% set link = dataPage.permalink|split('/') %}
-                            <input type="text" class="form-control" name="permalink" value="{{ link|last }}" required>
-                            <a target="_blank"
-                               href="{{ fsc.getSiteUrl() ~ dataPage.permalink }}">{{ fsc.getSiteUrl() ~ dataPage.permalink }}</a>
-                        </div>
+                            <div class="form-group pagepermalink">
+                                <label>{{ i18n.trans('permalink') }}</label>
+                                {% set link = dataPage.permalink|split('/') %}
+                                <input type="text" class="form-control" name="permalink" value="{{ link|last }}" required>
+                                <a target="_blank"
+                                   href="{{ fsc.getSiteUrl() ~ dataPage.permalink }}">{{ fsc.getSiteUrl() ~ dataPage.permalink }}</a>
+                            </div>
 
-                        <div class="form-group pagedescription">
-                            <label>{{ i18n.trans('description') }}</label>
-                            <textarea class="form-control" name="description"
-                                      maxlength="150">{{ dataPage.description }}</textarea>
-                        </div>
+                            <div class="form-group pagedescription">
+                                <label>{{ i18n.trans('description') }}</label>
+                                <textarea class="form-control" name="description"
+                                          maxlength="150">{{ dataPage.description }}</textarea>
+                            </div>
+
+                            {{ webMacros.includeView(webIncludes, 'editPageGeneral', templateVars) }}
+                        {% endblock %}
 
                         <hr class="pageseparate"/>
 
@@ -147,76 +194,80 @@
                         {{ i18n.trans('advanced') }}
                     </div>
                     <div class="card-body">
-                        <div class="form-check form-check-inline">
-                            <input type="checkbox" class="form-check-input" id="noindex" name="noindex"
-                                   value="1" {{ (dataPage.noindex) ? 'checked' : '' }}>
-                            <label class="form-check-label" for="noindex">{{ i18n.trans('no-index') }}</label>
-                        </div>
+                        {% block editPageAdvanced %}
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="noindex" name="noindex"
+                                       value="1" {{ (dataPage.noindex) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="noindex">{{ i18n.trans('no-index') }}</label>
+                            </div>
 
-                        <div class="form-group mt-2">
-                            <label>{{ i18n.trans('page-classbody') }}</label>
-                            <input type="text" class="form-control" name="classbody" value="{{ dataPage.classbody }}">
-                        </div>
+                            <div class="form-group mt-2">
+                                <label>{{ i18n.trans('page-classbody') }}</label>
+                                <input type="text" class="form-control" name="classbody" value="{{ dataPage.classbody }}">
+                            </div>
 
-                        <div class="form-group">
-                            <label>{{ i18n.trans('page-idbody') }}</label>
-                            <input type="text" class="form-control" name="idbody" value="{{ dataPage.idbody }}">
-                        </div>
+                            <div class="form-group">
+                                <label>{{ i18n.trans('page-idbody') }}</label>
+                                <input type="text" class="form-control" name="idbody" value="{{ dataPage.idbody }}">
+                            </div>
 
-                        <div class="form-group">
-                            <label>{{ i18n.trans('page-width') }}</label>
-                            <select class="form-control" name="pagewidth">
-                                <option value="-1" {{ (dataPage.pagewidth == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
-                                <option value=" " {{ (dataPage.pagewidth == ' ') ? 'selected' : '' }}>{{ i18n.trans('none') }}</option>
-                                <option value="container" {{ (dataPage.pagewidth == 'container') ? 'selected' : '' }}>
-                                    Container
-                                </option>
-                                <option value="container-sm" {{ (dataPage.pagewidth == 'container-sm') ? 'selected' : '' }}>
-                                    Container sm
-                                </option>
-                                <option value="container-md" {{ (dataPage.pagewidth == 'container-md') ? 'selected' : '' }}>
-                                    Container md
-                                </option>
-                                <option value="container-lg" {{ (dataPage.pagewidth == 'container-lg') ? 'selected' : '' }}>
-                                    Container lg
-                                </option>
-                                <option value="container-fluid" {{ (dataPage.pagewidth == 'container-fluid') ? 'selected' : '' }}>
-                                    Container fluid
-                                </option>
-                            </select>
-                        </div>
+                            <div class="form-group">
+                                <label>{{ i18n.trans('page-width') }}</label>
+                                <select class="form-control" name="pagewidth">
+                                    <option value="-1" {{ (dataPage.pagewidth == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                    <option value=" " {{ (dataPage.pagewidth == ' ') ? 'selected' : '' }}>{{ i18n.trans('none') }}</option>
+                                    <option value="container" {{ (dataPage.pagewidth == 'container') ? 'selected' : '' }}>
+                                        Container
+                                    </option>
+                                    <option value="container-sm" {{ (dataPage.pagewidth == 'container-sm') ? 'selected' : '' }}>
+                                        Container sm
+                                    </option>
+                                    <option value="container-md" {{ (dataPage.pagewidth == 'container-md') ? 'selected' : '' }}>
+                                        Container md
+                                    </option>
+                                    <option value="container-lg" {{ (dataPage.pagewidth == 'container-lg') ? 'selected' : '' }}>
+                                        Container lg
+                                    </option>
+                                    <option value="container-fluid" {{ (dataPage.pagewidth == 'container-fluid') ? 'selected' : '' }}>
+                                        Container fluid
+                                    </option>
+                                </select>
+                            </div>
 
-                        <div class="form-group">
-                            <label>{{ i18n.trans('image-default') }}</label>
-                            <select class="form-control" name="idfile">
-                                {% for image in images %}
-                                    {% set check = (dataPage.idfile == image.code) ? 'selected' : '' %}
-                                    <option value="{{ image.code }}" {{ check }}>{{ image.description }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
+                            <div class="form-group">
+                                <label>{{ i18n.trans('image-default') }}</label>
+                                <select class="form-control" name="idfile">
+                                    {% for image in images %}
+                                        {% set check = (dataPage.idfile == image.code) ? 'selected' : '' %}
+                                        <option value="{{ image.code }}" {{ check }}>{{ image.description }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
 
-                        <div class="form-group">
-                            <label>{{ i18n.trans('page-parent') }}</label>
-                            <select class="form-control" name="pageparent">
-                                <option value="">-----</option>
-                                {% for page in pages %}
-                                    {% set check = (dataPage.pageparent == page.idpage) ? 'selected' : '' %}
-                                    <option value="{{ page.idpage }}" {{ check }}>{{ page.title }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
+                            <div class="form-group">
+                                <label>{{ i18n.trans('page-parent') }}</label>
+                                <select class="form-control" name="pageparent">
+                                    <option value="">-----</option>
+                                    {% for page in pages %}
+                                        {% set check = (dataPage.pageparent == page.idpage) ? 'selected' : '' %}
+                                        <option value="{{ page.idpage }}" {{ check }}>{{ page.title }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
 
-                        <div class="form-group">
-                            <label>{{ i18n.trans('custom-controller') }}</label>
-                            <select class="form-control" name="customcontroller">
-                                <option value="">-----</option>
-                                {% for controller in controllers %}
-                                    {% set check = (dataPage.customcontroller == controller.name) ? 'selected' : '' %}
-                                    <option value="{{ controller.name }}" {{ check }}>{{ controller.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
+                            <div class="form-group">
+                                <label>{{ i18n.trans('custom-controller') }}</label>
+                                <select class="form-control" name="customcontroller">
+                                    <option value="">-----</option>
+                                    {% for controller in controllers %}
+                                        {% set check = (dataPage.customcontroller == controller.name) ? 'selected' : '' %}
+                                        <option value="{{ controller.name }}" {{ check }}>{{ controller.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            {{ webMacros.includeView(webIncludes, 'editPageAdvanced', templateVars) }}
+                        {% endblock %}
                     </div>
                 </div>
 
@@ -225,16 +276,20 @@
                         {{ i18n.trans('page-custom-head') }}
                     </div>
                     <div class="card-body">
-                        <div class="form-group">
-                            <select class="form-control" name="idheader">
-                                <option value="-1" {{ (dataPage.idheader == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
-                                <option value="0" {{ (dataPage.idheader == '0') ? 'selected' : '' }}>{{ i18n.trans('hidden') }}</option>
-                                {% for header in headers %}
-                                    {% set check = (dataPage.idheader == header.idheader) ? 'selected' : '' %}
-                                    <option value="{{ header.idheader }}" {{ check }}>{{ header.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
+                        {% block editPageHeader %}
+                            <div class="form-group">
+                                <select class="form-control" name="idheader">
+                                    <option value="-1" {{ (dataPage.idheader == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                    <option value="0" {{ (dataPage.idheader == '0') ? 'selected' : '' }}>{{ i18n.trans('hidden') }}</option>
+                                    {% for header in headers %}
+                                        {% set check = (dataPage.idheader == header.idheader) ? 'selected' : '' %}
+                                        <option value="{{ header.idheader }}" {{ check }}>{{ header.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            {{ webMacros.includeView(webIncludes, 'editPageHeader', templateVars) }}
+                        {% endblock %}
                     </div>
                 </div>
 
@@ -243,11 +298,17 @@
                         {{ i18n.trans('page-custom-title') }}
                     </div>
                     <div class="card-body">
-                        <select class="form-control" name="pagetitle">
-                            <option value="-1" {{ (dataPage.pagetitle == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
-                            <option value="0" {{ (dataPage.pagetitle == '0') ? 'selected' : '' }}>{{ i18n.trans('hidden') }}</option>
-                            <option value="1" {{ (dataPage.pagetitle == '1') ? 'selected' : '' }}>{{ i18n.trans('show') }}</option>
-                        </select>
+                        {% block editPageTitle %}
+                            <div class="form-group">
+                                <select class="form-control" name="pagetitle">
+                                    <option value="-1" {{ (dataPage.pagetitle == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                    <option value="0" {{ (dataPage.pagetitle == '0') ? 'selected' : '' }}>{{ i18n.trans('hidden') }}</option>
+                                    <option value="1" {{ (dataPage.pagetitle == '1') ? 'selected' : '' }}>{{ i18n.trans('show') }}</option>
+                                </select>
+                            </div>
+
+                            {{ webMacros.includeView(webIncludes, 'editPageTitle', templateVars) }}
+                        {% endblock %}
                     </div>
                 </div>
 
@@ -256,23 +317,27 @@
                         {{ i18n.trans('page-custom-sidebar') }}
                     </div>
                     <div class="card-body">
-                        <div class="form-group">
-                            <select class="form-control" name="idsidebar">
-                                <option value="-1" {{ (dataPage.idsidebar == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
-                                <option value="0" {{ (dataPage.idsidebar == '0') ? 'selected' : '' }}>{{ i18n.trans('hidden') }}</option>
-                                {% for sidebar in sidebars %}
-                                    {% set check = (dataPage.idsidebar == sidebar.idsidebar) ? 'selected' : '' %}
-                                    <option value="{{ sidebar.idsidebar }}" {{ check }}>{{ sidebar.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
+                        {% block editPageSidebar %}
+                            <div class="form-group">
+                                <select class="form-control" name="idsidebar">
+                                    <option value="-1" {{ (dataPage.idsidebar == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                    <option value="0" {{ (dataPage.idsidebar == '0') ? 'selected' : '' }}>{{ i18n.trans('hidden') }}</option>
+                                    {% for sidebar in sidebars %}
+                                        {% set check = (dataPage.idsidebar == sidebar.idsidebar) ? 'selected' : '' %}
+                                        <option value="{{ sidebar.idsidebar }}" {{ check }}>{{ sidebar.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
 
-                        <div class="form-group">
-                            <select class="form-control" name="sidebarposition">
-                                <option value="1" {{ (dataPage.sidebarposition == '1') ? 'selected' : '' }}>{{ i18n.trans('left') }}</option>
-                                <option value="2" {{ (dataPage.sidebarposition == '2') ? 'selected' : '' }}>{{ i18n.trans('right') }}</option>
-                            </select>
-                        </div>
+                            <div class="form-group">
+                                <select class="form-control" name="sidebarposition">
+                                    <option value="1" {{ (dataPage.sidebarposition == '1') ? 'selected' : '' }}>{{ i18n.trans('left') }}</option>
+                                    <option value="2" {{ (dataPage.sidebarposition == '2') ? 'selected' : '' }}>{{ i18n.trans('right') }}</option>
+                                </select>
+                            </div>
+
+                            {{ webMacros.includeView(webIncludes, 'editPageSidebar', templateVars) }}
+                        {% endblock %}
                     </div>
                 </div>
 
@@ -281,14 +346,20 @@
                         {{ i18n.trans('page-custom-footer') }}
                     </div>
                     <div class="card-body">
-                        <select class="form-control" name="idfooter">
-                            <option value="-1" {{ (dataPage.idfooter == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
-                            <option value="0" {{ (dataPage.idfooter == '0') ? 'selected' : '' }}>{{ i18n.trans('hidden') }}</option>
-                            {% for footer in footers %}
-                                {% set check = (dataPage.idfooter == footer.idfooter) ? 'selected' : '' %}
-                                <option value="{{ footer.idfooter }}" {{ check }}>{{ footer.name }}</option>
-                            {% endfor %}
-                        </select>
+                        {% block editPageFooter %}
+                            <div class="form-group">
+                                <select class="form-control" name="idfooter">
+                                    <option value="-1" {{ (dataPage.idfooter == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                    <option value="0" {{ (dataPage.idfooter == '0') ? 'selected' : '' }}>{{ i18n.trans('hidden') }}</option>
+                                    {% for footer in footers %}
+                                        {% set check = (dataPage.idfooter == footer.idfooter) ? 'selected' : '' %}
+                                        <option value="{{ footer.idfooter }}" {{ check }}>{{ footer.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            {{ webMacros.includeView(webIncludes, 'editPageFooter', templateVars) }}
+                        {% endblock %}
                     </div>
                 </div>
             </div>
@@ -299,41 +370,41 @@
 {% block javascript %}
 <script>
     function editViewDelete(viewName) {
-    bootbox.confirm({
-        title: "{{ i18n.trans('confirm-delete') }}",
-                message: "{{ i18n.trans('are-you-sure') }}",
-                closeButton: false,
-                buttons: {
-                    cancel: {
-                        label: '<i class="fas fa-times"></i> {{ i18n.trans('cancel') }}'
-                    },
-                    confirm: {
-                        label: '<i class="fas fa-check"></i> {{ i18n.trans('confirm') }}',
-                        className: "btn-danger"
-                    }
+        bootbox.confirm({
+            title: "{{ i18n.trans('confirm-delete') }}",
+            message: "{{ i18n.trans('are-you-sure') }}",
+            closeButton: false,
+            buttons: {
+                cancel: {
+                    label: '<i class="fas fa-times"></i> {{ i18n.trans('cancel') }}'
                 },
-                callback: function (result) {
-                    if (result) {
-                        $("#form" + viewName + " :input[name=\"action\"]").val("delete");
-                        $("#form" + viewName).submit();
-                    }
+                confirm: {
+                    label: '<i class="fas fa-check"></i> {{ i18n.trans('confirm') }}',
+                    className: "btn-danger"
                 }
-            });
-            return false;
-        }
-
-        function changeSidebar() {
-            if ($('select[name="idsidebar"] option:selected').val() > 0) {
-                $('select[name="sidebarposition"]').show();
-            } else {
-                $('select[name="sidebarposition"]').hide();
+            },
+            callback: function (result) {
+                if (result) {
+                    $("#form" + viewName + " :input[name=\"action\"]").val("delete");
+                    $("#form" + viewName).submit();
+                }
             }
-        }
-
-        $('select[name="idsidebar"]').on('change', function(){
-            changeSidebar();
         });
-        
+        return false;
+    }
+
+    function changeSidebar() {
+        if ($('select[name="idsidebar"] option:selected').val() > 0) {
+            $('select[name="sidebarposition"]').show();
+        } else {
+            $('select[name="sidebarposition"]').hide();
+        }
+    }
+
+    $('select[name="idsidebar"]').on('change', function(){
         changeSidebar();
-    </script>
+    });
+
+    changeSidebar();
+</script>
 {% endblock %}
