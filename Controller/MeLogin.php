@@ -44,6 +44,14 @@ class MeLogin extends Me
         if (empty($this->contact)) {
             $this->setTemplate(self::LOGIN_TEMPLATE);
             $this->title = $this->toolBox()->i18n()->trans('login');
+
+            if ($this->request->get('action', '') === 'register-ok' && false === empty($this->request->get('email', ''))) {
+                $this->toolBox()->i18nLog()->notice('register-new-contact-ok');
+                if ($this->request->get('sendmail', false)) {
+                    $this->toolBox()->i18nLog()->notice('activation-email-sent');
+                }
+            }
+
             return;
         }
 
@@ -78,6 +86,11 @@ class MeLogin extends Me
             return true;
         } elseif (false === $contact->loadFromCode('', [new DataBaseWhere('email', $this->emailContact)])) {
             $this->toolBox()->i18nLog()->warning('email-not-registered', ['%email%' => $this->emailContact]);
+            $this->setIPWarning();
+            return true;
+        } elseif (false === $contact->verificado) {
+            $this->toolBox()->i18nLog()->warning('unverified-email', ['%email%' => $this->emailContact]);
+            $this->sendEmailConfirmation($contact);
             $this->setIPWarning();
             return true;
         } elseif (false === $contact->habilitado) {

@@ -138,15 +138,8 @@ class MeRegister extends Me
             return true;
         }
 
-        $newContact->newPassword = $newContact->newPassword2 = null;
-        $this->sendEmailConfirmation($newContact);
-        $this->toolBox()->i18nLog()->notice('record-updated-correctly');
-
-        $this->contact = $newContact;
-        // add the contact to the token generation seed
-        $this->multiRequestProtection->addSeed($this->contact->email);
-        $this->saveCookies();
-        $this->createViewsAccount();
+        $sendmail = $this->sendEmailConfirmation($newContact);
+        $this->redirect('MeLogin?action=register-ok&sendmail=' . $sendmail . '&email=' . $this->emailContact);
         return true;
     }
 }
