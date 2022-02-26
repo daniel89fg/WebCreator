@@ -25,10 +25,10 @@
 <head>
     {% block head %}
 
-        {{ webMacros.includeView(webIncludes, templateVars, 'headBefore') }}
+        {{ webMacros.includeView(webIncludes, 'headBefore', templateVars) }}
 
         {% block meta %}
-            {{ webMacros.includeView(webIncludes, templateVars, 'metaBefore') }}
+            {{ webMacros.includeView(webIncludes, 'metaBefore', templateVars) }}
 
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
             <title>{{ fsc.title|raw }}</title>
@@ -39,7 +39,7 @@
             <link rel="canonical" href="{{ fsc.canonicalUrl }}"/>
             {{ fsc.pageComposer.getGoogleFonts()|raw }}
 
-            {{ webMacros.includeView(webIncludes, templateVars, 'metaAfter') }}
+            {{ webMacros.includeView(webIncludes, 'metaAfter', templateVars) }}
 
             {# Add global Meta #}
             {{ webSettings.globalmeta|raw }}
@@ -49,16 +49,16 @@
         {% endblock %}
 
         {% block icons %}
-            {{ webMacros.includeView(webIncludes, templateVars, 'iconsBefore') }}
+            {{ webMacros.includeView(webIncludes, 'iconsBefore', templateVars) }}
             <link rel="shortcut icon"
                   href="{{ (webSettings.idfavicon) ? fsc.pageComposer.getAttachFile(webSettings.idfavicon) : asset('Dinamic/Assets/Images/favicon.svg') }}"/>
             <link rel="apple-touch-icon" sizes="180x180"
                   href="{{ (webSettings.idfavicon) ? fsc.pageComposer.getAttachFile(webSettings.idfavicon) : asset('Dinamic/Assets/Images/favicon.svg') }}"/>
-            {{ webMacros.includeView(webIncludes, templateVars, 'iconsafter') }}
+            {{ webMacros.includeView(webIncludes, 'iconsafter', templateVars) }}
         {% endblock %}
 
         {% block css %}
-            {{ webMacros.includeView(webIncludes, templateVars, 'cssBefore') }}
+            {{ webMacros.includeView(webIncludes, 'cssBefore', templateVars) }}
 
             <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.min.css') }}"/>
             <link rel="stylesheet" href="{{ asset('node_modules/@fortawesome/fontawesome-free/css/all.min.css') }}"/>
@@ -248,7 +248,7 @@
                 */
             </style>
 
-            {{ webMacros.includeView(webIncludes, templateVars, 'cssAfter') }}
+            {{ webMacros.includeView(webIncludes, 'cssAfter', templateVars) }}
 
             {# Add global CSS #}
             {{ fsc.pageComposer.regexCSS(webSettings.globalcss)|raw }}
@@ -258,7 +258,7 @@
         {% endblock %}
 
         {% block javascriptHead %}
-            {{ webMacros.includeView(webIncludes, templateVars, 'javascriptHeadBefore') }}
+            {{ webMacros.includeView(webIncludes, 'javascriptHeadBefore', templateVars) }}
 
             {# Add global JS #}
             {{ fsc.pageComposer.regexJS(webSettings.globaljshead)|raw }}
@@ -266,27 +266,27 @@
             {# Add individual JS page #}
             {{ fsc.pageComposer.regexJS(webPage.pagejshead)|raw }}
 
-            {{ webMacros.includeView(webIncludes, templateVars, 'javascriptHeadAfter') }}
+            {{ webMacros.includeView(webIncludes, 'javascriptHeadAfter', templateVars) }}
         {% endblock %}
     {% endblock %}
 </head>
 
 <body id="{{ webPage.idbody }}" class="{{ webPage.classbody }}">
 {% block body %}
-    {{ webMacros.includeView(webIncludes, templateVars, 'bodyBefore') }}
+    {{ webMacros.includeView(webIncludes, 'bodyBefore', templateVars) }}
 
     {% block header %}
-        {{ webMacros.includeView(webIncludes, templateVars, 'headerBefore') }}
+        {{ webMacros.includeView(webIncludes, 'headerBefore', templateVars) }}
 
         {% if webPage.idheader is null or webPage.idheader == -1 and webSettings.headerdefault > 0 or webPage.idheader > 0 %}
             {% include['WebCreator/Public/Header' ~ webHeader.properties.headerlayout ~ '.html.twig', 'WebCreator/Public/Header01.html.twig'] %}
         {% endif %}
 
-        {{ webMacros.includeView(webIncludes, templateVars, 'headerAfter') }}
+        {{ webMacros.includeView(webIncludes, 'headerAfter', templateVars) }}
     {% endblock %}
 
 {% block pageTitle %}
-    {{ webMacros.includeView(webIncludes, templateVars, 'pageTitleBefore') }}
+    {{ webMacros.includeView(webIncludes, 'pageTitleBefore', templateVars) }}
 
     {% if webPage.pagetitle == -1 and webSettings.pagetitle > 0 or webPage.pagetitle > 0 or webPage.pagetitle is null and webSettings.pagetitle > 0 %}
     <div class="row page-title">
@@ -305,29 +305,29 @@
     </div>
     {% endif %}
 
-    {{ webMacros.includeView(webIncludes, templateVars, 'pageTitleAfter') }}
+    {{ webMacros.includeView(webIncludes, 'pageTitleAfter', templateVars) }}
 {% endblock %}
 
 {% block content %}
-    {{ webMacros.includeView(webIncludes, templateVars, 'contentBefore') }}
+    {{ webMacros.includeView(webIncludes, 'contentBefore', templateVars) }}
 
     <div class="body-content {{ (webPage.pagewidth == -1 or webPage.pagewidth is not defined) ? webSettings.sitewidth : webPage.pagewidth }}">
         <div class="row">
             {% block messages %}
-                {{ webMacros.includeView(webIncludes, templateVars, 'messagesBefore') }}
+                {{ webMacros.includeView(webIncludes, 'messagesBefore', templateVars) }}
 
                 <div class="container">
                     {% include 'WebCreator/Master/Messages.html.twig' %}
                 </div>
 
-                {{ webMacros.includeView(webIncludes, templateVars, 'messagesAfter') }}
+                {{ webMacros.includeView(webIncludes, 'messagesAfter', templateVars) }}
             {% endblock %}
 
             {% block wrapper %}
-                {{ webMacros.includeView(webIncludes, templateVars, 'wrapperBefore') }}
+                {{ webMacros.includeView(webIncludes, 'wrapperBefore', templateVars) }}
 
                 {% block sidebar %}
-                    {{ webMacros.includeView(webIncludes, templateVars, 'sidebarBefore') }}
+                    {{ webMacros.includeView(webIncludes, 'sidebarBefore', templateVars) }}
 
                     {% if webPage.idsidebar == -1 and webSettings.sidebardefault > 0 or webPage.idsidebar > 0 or webPage.idsidebar is null and webSettings.sidebardefault > 0 %}
                         <aside class="py-5 {{ (webPage.idsidebar == -1 and webSettings.sidebarposition == 1 or webPage.idsidebar > 0 and webPage.sidebarposition == 1) ? 'order-1' : (webPage.idsidebar == -1 and webSettings.sidebarposition == 2 or webPage.idsidebar > 0 and webPage.sidebarposition == 2) ? 'order-3' : '' }} col-12 col-lg-4">
@@ -335,29 +335,29 @@
                         </aside>
                     {% endif %}
 
-                    {{ webMacros.includeView(webIncludes, templateVars, 'sidebarAfter') }}
+                    {{ webMacros.includeView(webIncludes, 'sidebarAfter', templateVars) }}
                 {% endblock %}
 
                 {% block main %}
-                    {{ webMacros.includeView(webIncludes, templateVars, 'mainBefore') }}
+                    {{ webMacros.includeView(webIncludes, 'mainBefore', templateVars) }}
 
                     <main class="py-5 order-2 col-12 {{ (webPage.idsidebar == -1 and webSettings.sidebardefault > 0 or webPage.idsidebar > 0) ? 'col-lg-8' : '' }}">
                         {{ webPage.content|raw }}
                     </main>
 
-                    {{ webMacros.includeView(webIncludes, templateVars, 'mainAfter') }}
+                    {{ webMacros.includeView(webIncludes, 'mainAfter', templateVars) }}
                 {% endblock %}
 
-                {{ webMacros.includeView(webIncludes, templateVars, 'wrapperAfter') }}
+                {{ webMacros.includeView(webIncludes, 'wrapperAfter', templateVars) }}
             {% endblock %}
         </div>
     </div>
 
-    {{ webMacros.includeView(webIncludes, templateVars, 'contentAfter') }}
+    {{ webMacros.includeView(webIncludes, 'contentAfter', templateVars) }}
 {% endblock %}
 
 {% block footer %}
-    {{ webMacros.includeView(webIncludes, templateVars, 'footerBefore') }}
+    {{ webMacros.includeView(webIncludes, 'footerBefore', templateVars) }}
 
     {% if webPage.idfooter is null or webPage.idfooter == -1 and webSettings.footerdefault > 0 or webPage.idfooter > 0 %}
     <footer class="{{ (webFooter.properties.footershadow) ? 'footer-shadow-bottom-outside' : '' }}">
@@ -418,11 +418,11 @@
     </footer>
     {% endif %}
 
-    {{ webMacros.includeView(webIncludes, templateVars, 'footerAfter') }}
+    {{ webMacros.includeView(webIncludes, 'footerAfter', templateVars) }}
 {% endblock %}
 
 {% block javascriptFooter %}
-    {{ webMacros.includeView(webIncludes, templateVars, 'javascriptFooterBefore') }}
+    {{ webMacros.includeView(webIncludes, 'javascriptFooterBefore', templateVars) }}
 
     <script type="text/javascript" src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
@@ -602,7 +602,7 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     {% endif %}
 
-    {{ webMacros.includeView(webIncludes, templateVars, 'javascriptFooterAfter') }}
+    {{ webMacros.includeView(webIncludes, 'javascriptFooterAfter', templateVars) }}
 
     {# Add global JS #}
     {{ fsc.pageComposer.regexJS(webSettings.globaljsfooter)|raw }}
@@ -614,7 +614,7 @@
 
     {{ debugBarRender.render()|raw }}
 
-    {{ webMacros.includeView(webIncludes, templateVars, 'bodyAfter') }}
+    {{ webMacros.includeView(webIncludes, 'bodyAfter', templateVars) }}
 {% endblock %}
 </body>
 </html>

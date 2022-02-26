@@ -1,4 +1,4 @@
-{% macro includeView(webIncludes, templateVars, location) %}
+{% macro includeView(webIncludes, location, templateVars = {}) %}
     {% for file in webIncludes %}
         {% set aux = file|split('_') %}
 

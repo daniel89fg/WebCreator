@@ -111,7 +111,7 @@
                         </div>
                     </div>
 
-                    {{ webMacros.includeView(webIncludes, templateVars, 'footerContent') }}
+                    {{ webMacros.includeView(webIncludes, 'footerContent', templateVars) }}
                 {% endblock %}
             </div>
         </div>
@@ -406,7 +406,7 @@
                                                     <img src="{{ asset('Dinamic/Assets/Images/footer01.png') }}"/>
                                                 </label>
 
-                                                {{ webMacros.includeView(webIncludes, templateVars, 'footerStyles') }}
+                                                {{ webMacros.includeView(webIncludes, 'footerStyles', templateVars) }}
                                             {% endblock %}
                                         </div>
                                         <div class="text-muted font-italic font-size-10">{{ i18n.trans('footer-layout-help') }}</div>

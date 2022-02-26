@@ -103,7 +103,7 @@
                         </div>
                     </div>
 
-                    {{ webMacros.includeView(webIncludes, templateVars, 'headerContentDesktop') }}
+                    {{ webMacros.includeView(webIncludes, 'headerContentDesktop', templateVars) }}
                 {% endblock %}
             </div>
 
@@ -155,7 +155,7 @@
                         </div>
                     </div>
 
-                    {{ webMacros.includeView(webIncludes, templateVars, 'headerContentMobile') }}
+                    {{ webMacros.includeView(webIncludes, 'headerContentMobile', templateVars) }}
                 {% endblock %}
             </div>
         </div>
@@ -222,7 +222,7 @@
                                 </a>
                             </li>
 
-                            {{ webMacros.includeView(webIncludes, templateVars, 'modalGeneralTab') }}
+                            {{ webMacros.includeView(webIncludes, 'modalGeneralTab', templateVars) }}
                         {% endblock %}
                     </ul>
 
@@ -274,13 +274,13 @@
                                                     <img src="{{ asset('Dinamic/Assets/Images/header01.png') }}"/>
                                                 </label>
 
-                                                {{ webMacros.includeView(webIncludes, templateVars, 'headerStyles') }}
+                                                {{ webMacros.includeView(webIncludes, 'headerStyles', templateVars) }}
                                             {% endblock %}
                                         </div>
                                         <div class="text-muted font-italic font-size-10">{{ i18n.trans('footer-layout-help') }}</div>
                                     </div>
 
-                                    {{ webMacros.includeView(webIncludes, templateVars, 'modalGeneralSettings') }}
+                                    {{ webMacros.includeView(webIncludes, 'modalGeneralSettings', templateVars) }}
                                 {% endblock %}
                             </div>
 
@@ -325,7 +325,7 @@
                                         <div class="text-muted font-italic font-size-10">{{ i18n.trans('sticky-padding-body-help') }}</div>
                                     </div>
 
-                                    {{ webMacros.includeView(webIncludes, templateVars, 'modalGeneralSticky') }}
+                                    {{ webMacros.includeView(webIncludes, 'modalGeneralSticky', templateVars) }}
                                 {% endblock %}
                             </div>
 
@@ -429,7 +429,7 @@
                                         </div>
                                     </div>
 
-                                    {{ webMacros.includeView(webIncludes, templateVars, 'modalGeneralBackground') }}
+                                    {{ webMacros.includeView(webIncludes, 'modalGeneralBackground', templateVars) }}
                                 {% endblock %}
                             </div>
 
@@ -523,11 +523,11 @@
                                         </div>
                                     </div>
 
-                                    {{ webMacros.includeView(webIncludes, templateVars, 'modalGeneralMobile') }}
+                                    {{ webMacros.includeView(webIncludes, 'modalGeneralMobile', templateVars) }}
                                 {% endblock %}
                             </div>
 
-                            {{ webMacros.includeView(webIncludes, templateVars, 'modalGeneralContent') }}
+                            {{ webMacros.includeView(webIncludes, 'modalGeneralContent', templateVars) }}
                         {% endblock %}
                     </div>
                 </div>
@@ -585,7 +585,7 @@
                                     </a>
                                 </li>
 
-                                {{ webMacros.includeView(webIncludes, templateVars, 'modalIndividualTab') }}
+                                {{ webMacros.includeView(webIncludes, 'modalIndividualTab', templateVars) }}
                             {% endblock %}
                         </ul>
 
@@ -668,7 +668,7 @@
                                             <div class="text-muted font-italic font-size-10">{{ i18n.trans('shadow-help') }}</div>
                                         </div>
 
-                                        {{ webMacros.includeView(webIncludes, templateVars, 'modalIndividualSettings') }}
+                                        {{ webMacros.includeView(webIncludes, 'modalIndividualSettings', templateVars) }}
                                     {% endblock %}
                                 </div>
 
@@ -775,7 +775,7 @@
                                             </div>
                                         </div>
 
-                                        {{ webMacros.includeView(webIncludes, templateVars, 'modalIndividualbackground') }}
+                                        {{ webMacros.includeView(webIncludes, 'modalIndividualbackground', templateVars) }}
                                     {% endblock %}
                                 </div>
 
@@ -882,11 +882,11 @@
                                             </div>
                                         </div>
 
-                                        {{ webMacros.includeView(webIncludes, templateVars, 'modalIndividualBorders') }}
+                                        {{ webMacros.includeView(webIncludes, 'modalIndividualBorders', templateVars) }}
                                     {% endblock %}
                                 </div>
 
-                                {{ webMacros.includeView(webIncludes, templateVars, 'modalIndividualContent') }}
+                                {{ webMacros.includeView(webIncludes, 'modalIndividualContent', templateVars) }}
                             {% endblock %}
                         </div>
                     </div>
@@ -1010,5 +1010,5 @@
         });
     </script>
 
-    {{ webMacros.includeView(webIncludes, templateVars, 'javascript') }}
+    {{ webMacros.includeView(webIncludes, 'javascript', templateVars) }}
 {% endblock %}
