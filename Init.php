@@ -48,6 +48,8 @@ class Init extends InitClass
         } else {
             define('WEBMULTILANGUAGE', FALSE);
         }
+
+        $this->loadExtension(new Extension\Controller\ListAttachedFile());
     }
 
     public function update()

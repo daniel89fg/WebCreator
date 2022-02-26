@@ -102,16 +102,6 @@ class WebBlock extends Base\ModelClass
     }
 
     /**
-     * Returns True if there is no errors on properties values.
-     *
-     * @return bool
-     */
-    public function test()
-    {
-        return parent::test();
-    }
-
-    /**
      * Returns the url where to see / modify the data.
      *
      * @param string $type

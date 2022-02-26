@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : webcreator_attached_files.xml
+    Author     : Daniel Fernández Giménez
+    Description:
+        Structure for the webcreator_attached_files table.
+-->
+<table>
+    <column>
+        <name>date</name>
+        <type>date</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>folder</name>
+        <type>text</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>idattached</name>
+        <type>serial</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>name</name>
+        <type>character varying(30)</type>
+        <null>NO</null>
+    </column>
+    <constraint>
+        <name>webcreator_attached_files_pkey</name>
+        <type>PRIMARY KEY (idattached)</type>
+    </constraint>
+</table>
