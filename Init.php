@@ -134,6 +134,14 @@ class Init extends InitClass
             $appSettings->set('webcreator', 'titletag', 'h1');
         }
 
+        if (empty($appSettings->get('webcreator', 'titlebackgroundcolor'))) {
+            $appSettings->set('webcreator', 'titlebackgroundcolor', '#376FB7');
+        }
+
+        if (empty($appSettings->get('webcreator', 'titlebackgroundopacity'))) {
+            $appSettings->set('webcreator', 'titlebackgroundopacity', 0.1);
+        }
+
         if (empty($appSettings->get('webcreator', 'titlewidth'))) {
             $appSettings->set('webcreator', 'titlewidth', 'container');
         }
