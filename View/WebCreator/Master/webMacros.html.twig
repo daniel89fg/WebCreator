@@ -1,9 +1,7 @@
 {% macro includeView(webIncludes, location, templateVars = {}) %}
     {% for file in webIncludes %}
-        {% set aux = file|split('_') %}
-
-        {% if (aux[1] == location ~ '.html.twig') %}
-            {% include['WebCreator/Include/' ~ file, ''] with templateVars %}
+        {% if (file.position == location) %}
+            {% include['WebCreator/Include/' ~ file.path, ''] with templateVars %}
         {% endif %}
     {% endfor %}
 {% endmacro %}

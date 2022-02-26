@@ -36,27 +36,49 @@ trait IncludeViewTrait
         $fileParent = str_replace('.html.twig', '', end($fileParentTemp));
         $path = FS_FOLDER . '/Dinamic/View/WebCreator/Include/';
 
-        if (is_dir($path)) {
-            $ficheros = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
-
-            foreach ($ficheros as $f) {
-                if (!$f->isDir()) {
-                    $file = explode('_', $f->getFilename());
-                    if ($file[0] == $fileParent || $file[0] == 'PortalTemplate') {
-                        $pathName = str_replace('\\', '/', $f->getPathname());
-                        $directories = explode('/', $pathName);
-
-                        $dirPlugin = '';
-                        if ($directories[count($directories) - 2] != 'Include') {
-                            $dirPlugin = $directories[count($directories) - 2] . '/';
-                        }
-
-                        $files[] = $dirPlugin . $f->getFilename();
-                    }
-                }
-            }
-            sort($files);
+        if (!is_dir($path)) {
+            return $files;
         }
+
+        $ficheros = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
+        foreach ($ficheros as $f) {
+            if ($f->isDir()) {
+                continue;
+            }
+
+            $file = explode('_', $f->getFilename());
+            if ($file[0] != $fileParent || $file[0] != 'PortalTemplate') {
+                continue;
+            }
+
+            $pathName = str_replace('\\', '/', $f->getPathname());
+            $directories = explode('/', $pathName);
+
+            $dirPlugin = '';
+            if ($directories[count($directories) - 2] != 'Include') {
+                $dirPlugin = $directories[count($directories) - 2] . '/';
+            }
+
+            $arrayName = explode('_', str_replace('.html.twig', '', $f->getFilename()));
+            $arrayFile = [
+                'path' => $dirPlugin . $f->getFilename(),
+                'file' => $arrayName[0],
+                'position' => $arrayName[1]
+            ];
+
+            if (false === isset($arrayName[2])) {
+                $arrayName[2] = '10';
+            }
+            $arrayFile['order'] = str_pad($arrayName[2], 5, "0", STR_PAD_LEFT);;
+            $files[] = $arrayFile;
+        }
+
+        usort($files,function($a,$b) {
+            return strcmp($a['file'], $b['file']) // status ascending
+                ?: strcmp($a['position'], $b['position']) // start ascending
+                    ?: strcmp($a['order'], $b['order']) // mh ascending
+                ;
+        });
 
         return $files;
     }
