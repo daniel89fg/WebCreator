@@ -316,7 +316,7 @@
             {% block messages %}
                 {{ webMacros.includeView(webIncludes, 'messagesBefore', templateVars) }}
 
-                <div class="container">
+                <div class="container col-12">
                     {% include 'WebCreator/Master/Messages.html.twig' %}
                 </div>
 
@@ -361,7 +361,7 @@
 
     {% if webPage.idfooter is null or webPage.idfooter == -1 and webSettings.footerdefault > 0 or webPage.idfooter > 0 %}
     <footer class="{{ (webFooter.properties.footershadow) ? 'footer-shadow-bottom-outside' : '' }}">
-        {% if webFooter.content.footer5001 != '' and webFooter.content.footer5002 != '' and webFooter.content.footer5003 != '' %}
+        {% if webFooter.content.footer5001 != '' or webFooter.content.footer5002 != '' or webFooter.content.footer5003 != '' %}
             <div class="footer-top {{ (webFooter.properties.footertopbordertopwidth > 0 and webFooter.properties.footertopbordertopcontainer == 'fullwidth') ? 'footer-top-border-top' : '' }} {{ (webFooter.properties.footertopborderbottomwidth > 0 and webFooter.properties.footertopborderbottomcontainer == 'fullwidth') ? 'footer-top-border-bottom' : '' }}">
                 <div class="content py-4 {{ webFooter.properties.footerwidth }} {{ (webFooter.properties.footertopbordertopwidth > 0 and webFooter.properties.footertopbordertopcontainer == 'boxed') ? 'footer-top-border-top' : '' }} {{ (webFooter.properties.footertopborderbottomwidth > 0 and webFooter.properties.footertopborderbottomcontainer == 'boxed') ? 'footer-top-border-bottom' : '' }}">
                     <div class="d-flex justify-content-between">
@@ -396,7 +396,7 @@
             </div>
         {% endif %}
 
-        {% if webFooter.content.footer6001 != '' and webFooter.content.footer6002 != '' and webFooter.content.footer6003 != '' %}
+        {% if webFooter.content.footer6001 != '' or webFooter.content.footer6002 != '' or webFooter.content.footer6003 != '' %}
             <div class="footer-bottom {{ (webFooter.properties.footerbottombordertopwidth > 0 and webFooter.properties.footerbottombordertopcontainer == 'fullwidth') ? 'footer-bottom-border-top' : '' }} {{ (webFooter.properties.footerbottomborderbottomwidth > 0 and webFooter.properties.footerbottomborderbottomcontainer == 'fullwidth') ? 'footer-bottom-border-bottom' : '' }}">
                 <div class="content py-4 {{ webFooter.properties.footerwidth }} {{ (webFooter.properties.footerbottombordertopwidth > 0 and webFooter.properties.footerbottombordertopcontainer == 'boxed') ? 'footer-bottom-border-top' : '' }} {{ (webFooter.properties.footerbottomborderbottomwidth > 0 and webFooter.properties.footerbottomborderbottomcontainer == 'boxed') ? 'footer-bottom-border-bottom' : '' }}">
                     <div class="d-flex justify-content-between">
