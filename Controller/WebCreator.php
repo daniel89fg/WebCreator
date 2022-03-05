@@ -109,6 +109,18 @@ class WebCreator extends PanelController
                 }
             case 'WebSettingsLayout':
             case 'WebSettingsLogin':
+                $loginImage = $view->columnForName('login-image');
+                if ($loginImage) {
+                    $loginImage->widget->setValuesFromCodeModel($images);
+                }
+                $registerImage = $view->columnForName('register-image');
+                if ($registerImage) {
+                    $registerImage->widget->setValuesFromCodeModel($images);
+                }
+                $forgotImage = $view->columnForName('forgot-image');
+                if ($forgotImage) {
+                    $forgotImage->widget->setValuesFromCodeModel($images);
+                }
             case 'WebSettingsGlobal':
             case 'WebSettingsPageTitle':
                 $columnFavicon = $view->columnForName('titlebackgroundimage');

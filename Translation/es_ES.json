@@ -1,12 +1,13 @@
 {
-    "access-facebook": "Acceso con Facebook",
+    "register-image": "Imagen de registro",
+    "forgot-image": "Imagen de recuperar contraseña",
+
     "access-google": "Acceso con Google",
     "activation-email-sent": "Email de activación enviado. Por favor, compruebe su bandeja de entrada, incluso la bandeja de SPAM.",
     "activation-email-sent-error": "No se ha podido enviar el correo de activación",
     "allow-login-contacts": "Permitir login a contactos",
     "allow-new-registrations": "Permitir nuevos registros de contactos",
     "app-id": "Id. de aplicación",
-    "app-secret": "Clave de aplicación",
     "attached-files-web": "Archivos adjuntos web",
     "background": "Fondo",
     "background-image-attachment": "Adjunto de imagen de fondo",

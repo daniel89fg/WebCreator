@@ -52,9 +52,11 @@
 {% block content %}
     <main class="d-flex flex-column align-items-center justify-content-center w-100 vh-100">
         <div class="login-form">
-            <div class="h3">{{ webTitle }}</div>
+            <h1 class="h3">{{ fsc.title|raw }}</h1>
             <div class="card shadow mb-5">
-                <img src="{{ asset('Dinamic/Assets/Images/bg-login-1.jpg') }}" class="card-img-top" alt="login">
+                {% set idregisterimage = appSettings.get('webcreator', 'idregisterimage', '') %}
+                {% set imgRegister = idregisterimage != '' ? fsc.pageComposer.getAttachFile(idregisterimage) : 'Dinamic/Assets/Images/bg-login-1.jpg' %}
+                <img src="{{ webSettings.siteurl ~ asset(imgRegister) }}" class="card-img-top" alt="login">
                 <div class="card-body">
                     {% if appSettings.get('webcreator','google-api') %}
                         <div class="form-group row mb-0">

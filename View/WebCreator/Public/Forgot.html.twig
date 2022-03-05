@@ -51,9 +51,11 @@
 {% block body %}
     <main class="d-flex flex-column align-items-center justify-content-center w-100 vh-100">
         <div class="login-form">
-            <div class="h3">{{ webTitle }}</div>
+            <h1 class="h3">{{ fsc.title|raw }}</h1>
             <div class="card shadow mb-5">
-                <img src="{{ asset('Dinamic/Assets/Images/bg-login-1.jpg') }}" class="card-img-top" alt="login">
+                {% set idforgotimage = appSettings.get('webcreator', 'idforgotimage', '') %}
+                {% set imgForgot = idforgotimage != '' ? fsc.pageComposer.getAttachFile(idforgotimage) : 'Dinamic/Assets/Images/bg-login-1.jpg' %}
+                <img src="{{ webSettings.siteurl ~ asset(imgForgot) }}" class="card-img-top" alt="login">
                 <div class="card-body">
                     <form action="{{ fsc.url() }}" method="post">
                         <input type="hidden" name="action" value="forgot"/>

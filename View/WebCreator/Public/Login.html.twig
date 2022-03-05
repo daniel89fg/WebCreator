@@ -62,7 +62,9 @@
         <div class="login-form">
             <h1 class="h3">{{ fsc.title|raw }}</h1>
             <div class="card shadow mb-5">
-                <img src="{{ asset('Dinamic/Assets/Images/bg-login-1.jpg') }}" class="card-img-top" alt="login">
+                {% set idloginimage = appSettings.get('webcreator', 'idloginimage', '') %}
+                {% set imgLogin = idloginimage != '' ? fsc.pageComposer.getAttachFile(idloginimage) : 'Dinamic/Assets/Images/bg-login-1.jpg' %}
+                <img src="{{ webSettings.siteurl ~ asset(imgLogin) }}" class="card-img-top" alt="login">
                 <div class="card-body">
                     {% if appSettings.get('webcreator','google-api') %}
                         <div class="form-group row mb-0">
