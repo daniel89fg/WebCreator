@@ -143,8 +143,8 @@ class PortalController extends Controller
 
     protected function commonCore()
     {
-        $this->pageComposer = new PageComposer();
         $pageData = new WebPageData($this->uri, $this->contact, $this->request);
+        $this->pageComposer = new PageComposer();
         $this->webPage = $pageData->getWebPage();
 
         $this->setTemplate(static::DEFAULT_TEMPLATE);

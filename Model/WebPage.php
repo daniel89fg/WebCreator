@@ -112,13 +112,18 @@ class WebPage extends Base\ModelOnChangeClass
 
     public static $fieldsTranslate = ['title', 'description', 'permalink'];
 
+    /*protected $fieldReserved = ['content', 'creationdate', 'description',
+        'pageparent', 'idpage', 'code', 'lastmod', 'pagejshead', 'pagejsfooter',
+        'pagemeta', 'permalink', 'title', 'pagecss', 'action', 'activetab',
+        'multireqtoken', 'customcontroller', 'previousData', 'type', 'idfile'];*/
+
     /**
      * Reset the values of all model properties.
      */
     public function clear()
     {
         parent::clear();
-        $this->creationdate = \date('d-m-Y');
+        $this->creationdate = date('Y-m-d H:i:s');
     }
 
     public function delete()
@@ -146,7 +151,6 @@ class WebPage extends Base\ModelOnChangeClass
         foreach ($properties as $key => $value) {
             $this->{$key} = $value;
         }
-        $this->setPreviousData();
     }
 
     /**
@@ -191,13 +195,14 @@ class WebPage extends Base\ModelOnChangeClass
     {
         $utils = $this->toolBox()->utils();
 
-        if (!empty($this->code)) {
+        if (false === empty($this->code)) {
             $this->idpage = $this->code;
             unset($this->code);
         }
 
         $this->description = str_replace("\n", ' ', $utils->noHtml($this->description));
         $this->title = $utils->noHtml($this->title);
+        $this->lastmod = date('Y-m-d H:i:s');
 
         if (isset($this->idbody)) {
             $this->idbody = str_replace(' ', '-', $utils->noHtml($this->idbody));
@@ -207,16 +212,16 @@ class WebPage extends Base\ModelOnChangeClass
             $this->classbody = $utils->noHtml($this->classbody);
         }
 
-        $fieldReserved = array('content', 'creationdate', 'description',
-            'pageparent', 'idpage', 'code', 'lastmod', 'pagejshead', 'pagejsfooter',
-            'pagemeta', 'permalink', 'title', 'pagecss', 'action', 'activetab',
-            'multireqtoken', 'customcontroller', 'previousData', 'type', 'idfile');
+        unset($this->pagetype);
+        unset($this->pageOrig);
+        unset($this->permalinkFinal);
+        unset($this->properties);
 
         $fieldJSON = array();
         foreach ($this as $key => $value) {
-            if (!in_array($key, $fieldReserved)) {
+            if (false === in_array($key, $this->fieldReserved())) {
                 $fieldJSON[$key] = $value;
-                unset($this->$key);
+                unset($this->{$key});
             }
         }
 
@@ -263,6 +268,14 @@ class WebPage extends Base\ModelOnChangeClass
             default:
                 return parent::url($type, $list);
         }
+    }
+
+    protected function fieldReserved()
+    {
+        return $fieldReserved = ['content', 'creationdate', 'description',
+            'pageparent', 'idpage', 'code', 'lastmod', 'pagejshead', 'pagejsfooter',
+            'pagemeta', 'permalink', 'title', 'pagecss', 'action', 'activetab',
+            'multireqtoken', 'customcontroller', 'previousData', 'type', 'idfile'];
     }
 
     /**

@@ -27,6 +27,7 @@ use FacturaScripts\Dinamic\Model\WebSidebar;
 use FacturaScripts\Dinamic\Model\WebFooter;
 use FacturaScripts\Dinamic\Model\Page;
 use FacturaScripts\Plugins\WebCreator\Lib\WebCreator\PermalinkTrait;
+use FacturaScripts\Plugins\WebCreator\Lib\WebCreator\IncludeViewTrait;
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 
 /**
@@ -38,6 +39,7 @@ use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 class EditWebPage extends PanelController
 {
     use PermalinkTrait;
+    use IncludeViewTrait;
 
     public function getControllers(): array
     {
@@ -124,38 +126,23 @@ class EditWebPage extends PanelController
             case 'EditWebPage':
                 switch ($action) {
                     case 'edit':
-                        $page = new WebPage();
-                        $page->loadFromData($this->request->request->all());
-
-                        if ($page->save()) {
-                            $this->toolBox()->i18nLog()->notice('record-updated-correctly');
-                            return true;
-                        } else {
-                            $this->toolBox()->i18nLog()->error('record-save-error');
-                            return false;
-                        }
-                        break;
-
                     case 'insert':
                         $page = new WebPage();
+                        $page->loadFromCode($this->request->request->get('code', ''));
                         $page->loadFromData($this->request->request->all());
 
-                        if ($page->save()) {
-                            $this->redirect($activetab . '?code=' . $page->idpage . '&action=save-ok');
-                        }
-                        break;
-
-                    case 'delete':
-                        $page = new WebPage();
-                        $page->loadFromCode($this->request->request->get('code'));
-                        if ($page->delete()) {
-                            $this->toolBox()->i18nLog()->notice('record-deleted-correctly');
+                        if (false === $page->save()) {
+                            $this->toolBox()->i18nLog()->error('record-save-error');
                             return true;
-                        } else {
-                            $this->toolBox()->i18nLog()->warning('record-deleted-error');
-                            return false;
                         }
-                        break;
+
+                        if (empty($this->request->get('code', ''))) {
+                            $controllerName = 'Edit' . $this->request->request->get('type');
+                            $this->redirect($controllerName . '?code=' . $page->idpage . '&action=save-ok');
+                        }
+
+                        $this->toolBox()->i18nLog()->notice('record-updated-correctly');
+                        return true;
                 }
                 break;
         }
@@ -166,7 +153,7 @@ class EditWebPage extends PanelController
     protected function loadData($viewName, $view)
     {
         switch ($viewName) {
-            default:
+            case 'EditWebPage':
                 AssetManager::add('css', FS_ROUTE . '/Dinamic/Assets/CSS/codemirror.css');
                 AssetManager::add('js', FS_ROUTE . '/Dinamic/Assets/JS/codemirrorBundle.js');
                 $code = $this->request->get('code');

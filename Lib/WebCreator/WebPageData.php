@@ -24,6 +24,7 @@ use FacturaScripts\Dinamic\Model\WebPage;
 use FacturaScripts\Core\Base\ToolBox;
 use FacturaScripts\Dinamic\Lib\Shortcode\Shortcode;
 use FacturaScripts\Core\Base\ExtensionsTrait;
+use FacturaScripts\Dinamic\Model\Redirect;
 
 /**
  * Description of PortalController class

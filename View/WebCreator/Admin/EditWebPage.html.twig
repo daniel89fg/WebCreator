@@ -8,7 +8,7 @@
 {% set headers = fsc.getHeaders() %}
 {% set sidebars = fsc.getSidebars() %}
 {% set footers = fsc.getFooters() %}
-{% set webIncludes = fsc.includeView('EditWebPage') %}
+{% set webIncludes = fsc.includeView(currentView.getViewName()) %}
 {% set templateVars = {
     'i18n': i18n,
     'appSettings': appSettings,
@@ -17,19 +17,19 @@
     'debugBarRender': debugBarRender,
     'fsc': fsc,
     'menuManager': menuManager,
-    'template': 'EditWebHeader'}
+    'template': currentView.getViewName()}
 %}
 
 <form id="formEditWebPage" method="post" enctype="multipart/form-data">
     {% if dataPage.idpage %}
         <input type="hidden" name="action" value="edit">
+        <input type="hidden" name="code" value="{{ dataPage.idpage }}">
     {% else %}
         <input type="hidden" name="action" value="insert">
     {% endif %}
 
-    <input type="hidden" name="type" value="WebPage">
-    <input type="hidden" name="activetab" value="EditWebPage">
-    <input type="hidden" name="code" value="{{ dataPage.idpage }}">
+    <input type="hidden" name="type" value="{{ currentView.model.modelClassName() }}">
+    <input type="hidden" name="activetab" value="{{ currentView.getViewName() }}">
     <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
 
     <div class="container-fluid">
@@ -131,6 +131,8 @@
             </div>
 
             <div class="col-12 col-md-3">
+                {{ webMacros.includeView(webIncludes, 'editPageSidebarFirst', templateVars) }}
+
                 <div class="card">
                     <div class="card-header">
                         {{ i18n.trans('general') }}
@@ -188,6 +190,8 @@
                         </div>
                     </div>
                 </div>
+
+                {{ webMacros.includeView(webIncludes, 'editPageSidebarAdvancedBefore', templateVars) }}
 
                 <div class="card mt-4">
                     <div class="card-header">
@@ -271,6 +275,8 @@
                     </div>
                 </div>
 
+                {{ webMacros.includeView(webIncludes, 'editPageSidebarHeaderBefore', templateVars) }}
+
                 <div class="card mt-4">
                     <div class="card-header">
                         {{ i18n.trans('page-custom-head') }}
@@ -293,6 +299,8 @@
                     </div>
                 </div>
 
+                {{ webMacros.includeView(webIncludes, 'editPageSidebarTitleBefore', templateVars) }}
+
                 <div class="card mt-4">
                     <div class="card-header">
                         {{ i18n.trans('page-custom-title') }}
@@ -311,6 +319,8 @@
                         {% endblock %}
                     </div>
                 </div>
+
+                {{ webMacros.includeView(webIncludes, 'editPageSidebarSidebarBefore', templateVars) }}
 
                 <div class="card mt-4">
                     <div class="card-header">
@@ -341,6 +351,8 @@
                     </div>
                 </div>
 
+                {{ webMacros.includeView(webIncludes, 'editPageSidebarFooterBefore', templateVars) }}
+
                 <div class="card mt-4">
                     <div class="card-header">
                         {{ i18n.trans('page-custom-footer') }}
@@ -362,6 +374,8 @@
                         {% endblock %}
                     </div>
                 </div>
+
+                {{ webMacros.includeView(webIncludes, 'editPageSidebarLast', templateVars) }}
             </div>
         </div>
     </div>

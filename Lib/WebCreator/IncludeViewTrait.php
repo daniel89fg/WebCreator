@@ -47,7 +47,7 @@ trait IncludeViewTrait
             }
 
             $file = explode('_', $f->getFilename());
-            if ($file[0] != $fileParent || $file[0] != 'PortalTemplate') {
+            if ($file[0] != $fileParent /*|| $file[0] != 'PortalTemplate'*/) {
                 continue;
             }
 

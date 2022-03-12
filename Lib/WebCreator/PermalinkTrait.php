@@ -31,8 +31,8 @@ use FacturaScripts\Dinamic\Model\Settings;
  */
 trait PermalinkTrait
 {
-    public $pageOrig;
-    public $permalinkFinal;
+    private $pageOrig;
+    private $permalinkFinal;
 
     public function checkPermalink(WebPage $webpage): string
     {
@@ -59,11 +59,11 @@ trait PermalinkTrait
             $permalink = \substr($permalink, 0, -1);
         }
 
-        if ($webpage->type !== 'WebPage') {
+        /*if ($webpage->type !== 'WebPage') {
             $webSettings = new Settings();
             $propertie = 'permalink_' . strtolower($webpage->type);
-            $permalink = $webSettings->get('webcreator')->$propertie . '/' . $permalink;
-        }
+            $permalink = $webSettings->get('webcreator')->{$propertie} . '/' . $permalink;
+        }*/
 
         $this->pageOrig = $webpage;
         return $this->parentpermalink($permalink, $webpage);

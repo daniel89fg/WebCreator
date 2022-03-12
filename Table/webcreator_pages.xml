@@ -13,7 +13,7 @@
     </column>
     <column>
         <name>creationdate</name>
-        <type>date</type>
+        <type>datetime</type>
     </column>
     <column>
         <name>customcontroller</name>
@@ -35,7 +35,7 @@
     </column>
     <column>
         <name>lastmod</name>
-        <type>date</type>
+        <type>datetime</type>
     </column>
     <column>
         <name>pagecss</name>
