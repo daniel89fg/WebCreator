@@ -8,12 +8,16 @@
 -->
 <table>
     <column>
+        <name>creationdate</name>
+        <type>datetime</type>
+    </column>
+    <column>
         <name>content</name>
         <type>longblob</type>
     </column>
     <column>
-        <name>creationdate</name>
-        <type>datetime</type>
+        <name>classbody</name>
+        <type>character varying(200)</type>
     </column>
     <column>
         <name>customcontroller</name>
@@ -25,8 +29,22 @@
         <null>NO</null>
     </column>
     <column>
+        <name>idbody</name>
+        <type>character varying(200)</type>
+    </column>
+    <column>
         <name>idfile</name>
         <type>integer</type>
+    </column>
+    <column>
+        <name>idfooter</name>
+        <type>integer</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>idheader</name>
+        <type>integer</type>
+        <null>NO</null>
     </column>
     <column>
         <name>idpage</name>
@@ -34,8 +52,18 @@
         <null>NO</null>
     </column>
     <column>
+        <name>idsidebar</name>
+        <type>integer</type>
+        <null>NO</null>
+    </column>
+    <column>
         <name>lastmod</name>
         <type>datetime</type>
+    </column>
+    <column>
+        <name>noindex</name>
+        <type>boolean</type>
+        <default>false</default>
     </column>
     <column>
         <name>pagecss</name>
@@ -58,13 +86,23 @@
         <type>integer</type>
     </column>
     <column>
+        <name>pagetitle</name>
+        <type>integer</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>pagewidth</name>
+        <type>character varying(30)</type>
+        <null>NO</null>
+    </column>
+    <column>
         <name>permalink</name>
         <type>text</type>
         <null>NO</null>
     </column>
     <column>
-        <name>properties</name>
-        <type>longblob</type>
+        <name>sidebarposition</name>
+        <type>integer</type>
     </column>
     <column>
         <name>title</name>

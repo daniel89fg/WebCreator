@@ -129,7 +129,7 @@ class EditWebPage extends PanelController
                     case 'insert':
                         $page = new WebPage();
                         $page->loadFromCode($this->request->request->get('code', ''));
-                        $page->loadFromData($this->request->request->all());
+                        $page->loadFromData($this->request->request->all(), ['code']);
 
                         if (false === $page->save()) {
                             $this->toolBox()->i18nLog()->error('record-save-error');

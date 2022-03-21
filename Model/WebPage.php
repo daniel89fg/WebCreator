@@ -53,12 +53,37 @@ class WebPage extends Base\ModelOnChangeClass
     /**
      * @var string
      */
+    public $classbody;
+
+    /**
+     * @var string
+     */
+    public $customcontroller;
+
+    /**
+     * @var string
+     */
     public $description;
 
     /**
      * @var string
      */
+    public $idbody;
+
+    /**
+     * @var int
+     */
     public $idfile;
+
+    /**
+     * @var int
+     */
+    public $idfooter;
+
+    /**
+     * @var int
+     */
+    public $idheader;
 
     /**
      * @var int
@@ -66,9 +91,19 @@ class WebPage extends Base\ModelOnChangeClass
     public $idpage;
 
     /**
+     * @var int
+     */
+    public $idsidebar;
+
+    /**
      * @var string
      */
     public $lastmod;
+
+    /**
+     * @var bool
+     */
+    public $noindex;
 
     /**
      * @var string
@@ -96,9 +131,14 @@ class WebPage extends Base\ModelOnChangeClass
     public $pageparent;
 
     /**
+     * @var int
+     */
+    public $pagetitle;
+
+    /**
      * @var string
      */
-    public $pagetype;
+    public $pagewidth;
 
     /**
      * @var string
@@ -106,16 +146,21 @@ class WebPage extends Base\ModelOnChangeClass
     public $permalink;
 
     /**
+     * @var int
+     */
+    public $sidebarposition;
+
+    /**
      * @var string
      */
     public $title;
 
-    public static $fieldsTranslate = ['title', 'description', 'permalink'];
+    /**
+     * @var string
+     */
+    public $type;
 
-    /*protected $fieldReserved = ['content', 'creationdate', 'description',
-        'pageparent', 'idpage', 'code', 'lastmod', 'pagejshead', 'pagejsfooter',
-        'pagemeta', 'permalink', 'title', 'pagecss', 'action', 'activetab',
-        'multireqtoken', 'customcontroller', 'previousData', 'type', 'idfile'];*/
+    public static $fieldsTranslate = ['title', 'description', 'permalink'];
 
     /**
      * Reset the values of all model properties.
@@ -136,21 +181,6 @@ class WebPage extends Base\ModelOnChangeClass
         }
 
         return false;
-    }
-
-    /**
-     * Load data from array
-     *
-     * @param array $data
-     * @param array $exclude
-     */
-    public function loadFromData(array $data = [], array $exclude = [])
-    {
-        parent::loadFromData($data, ['properties', 'action']);
-        $properties = isset($data['properties']) ? json_decode($data['properties'], true) : [];
-        foreach ($properties as $key => $value) {
-            $this->{$key} = $value;
-        }
     }
 
     /**
@@ -194,12 +224,6 @@ class WebPage extends Base\ModelOnChangeClass
     public function test()
     {
         $utils = $this->toolBox()->utils();
-
-        if (false === empty($this->code)) {
-            $this->idpage = $this->code;
-            unset($this->code);
-        }
-
         $this->description = str_replace("\n", ' ', $utils->noHtml($this->description));
         $this->title = $utils->noHtml($this->title);
         $this->lastmod = date('Y-m-d H:i:s');
@@ -212,20 +236,6 @@ class WebPage extends Base\ModelOnChangeClass
             $this->classbody = $utils->noHtml($this->classbody);
         }
 
-        unset($this->pagetype);
-        unset($this->pageOrig);
-        unset($this->permalinkFinal);
-        unset($this->properties);
-
-        $fieldJSON = array();
-        foreach ($this as $key => $value) {
-            if (false === in_array($key, $this->fieldReserved())) {
-                $fieldJSON[$key] = $value;
-                unset($this->{$key});
-            }
-        }
-
-        $this->properties = json_encode($fieldJSON);
         $this->permalink = $this->checkPermalink($this);
 
         return parent::test();
@@ -268,14 +278,6 @@ class WebPage extends Base\ModelOnChangeClass
             default:
                 return parent::url($type, $list);
         }
-    }
-
-    protected function fieldReserved()
-    {
-        return $fieldReserved = ['content', 'creationdate', 'description',
-            'pageparent', 'idpage', 'code', 'lastmod', 'pagejshead', 'pagejsfooter',
-            'pagemeta', 'permalink', 'title', 'pagecss', 'action', 'activetab',
-            'multireqtoken', 'customcontroller', 'previousData', 'type', 'idfile'];
     }
 
     /**

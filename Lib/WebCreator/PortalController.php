@@ -161,6 +161,23 @@ class PortalController extends Controller
         new PortalAction($this->uri, $this->contact, $this->request);
     }
 
+    protected function error403()
+    {
+        $this->setTemplate('WebCreator/Error/PortalAccessDenied');
+        $this->response->setStatusCode(Response::HTTP_FORBIDDEN);
+        $this->webPage->noindex = true;
+    }
+
+    protected function error404()
+    {
+        $this->setTemplate('WebCreator/Error/Portal404');
+        $this->response->setStatusCode(Response::HTTP_NOT_FOUND);
+
+        $this->description = $this->toolBox()->i18n()->trans('page-not-found-p');
+        $this->title = $this->toolBox()->i18n()->trans('page-not-found');
+        $this->webPage->noindex = true;
+    }
+
     /**
      * @return bool
      */

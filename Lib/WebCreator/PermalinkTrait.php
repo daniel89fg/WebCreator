@@ -85,7 +85,7 @@ trait PermalinkTrait
     private function findPermalink(string $permalink): string
     {
         foreach (GetRoutes::getRoutes() as $key => $value) {
-            if ($key === $permalink && $value['optionalId'] !== $this->pageOrig->idpage) {
+            if ($key == $permalink && $value['optionalId'] != $this->pageOrig->idpage) {
                 $permalink .= '-2';
             }
         }
