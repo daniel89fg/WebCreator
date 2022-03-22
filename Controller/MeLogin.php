@@ -107,7 +107,7 @@ class MeLogin extends Me
         // add the contact to the token generation seed
         $this->multiRequestProtection->addSeed($this->contact->email);
         $this->saveCookies();
-        $this->createViewsAccount();
+        $this->redirect('Me');
         return true;
     }
 }
