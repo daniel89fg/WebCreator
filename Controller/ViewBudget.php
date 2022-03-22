@@ -40,6 +40,62 @@ class ViewBudget extends PortalViewController
         return 'PresupuestoCliente';
     }
 
+    /**
+     *
+     * @return bool
+     */
+    protected function acceptAction(): bool
+    {
+        if (false === $this->permissions->allowAccess) {
+            $this->toolBox()->i18nLog()->warning('access-denied');
+            return true;
+        }
+
+        $order = $this->preloadModel();
+        foreach ($order->getAvaliableStatus() as $status) {
+            if (false === $status->editable && false === empty($status->generadoc)) {
+                $order->idestado = $status->idestado;
+                break;
+            }
+        }
+
+        if ($order->save()) {
+            $this->toolBox()->i18nLog()->notice('record-updated-correctly');
+            return true;
+        }
+
+        $this->toolBox()->i18nLog()->error('record-save-error');
+        return true;
+    }
+
+    /**
+     *
+     * @return bool
+     */
+    protected function cancelAction(): bool
+    {
+        if (false === $this->permissions->allowAccess) {
+            $this->toolBox()->i18nLog()->warning('access-denied');
+            return true;
+        }
+
+        $order = $this->preloadModel();
+        foreach ($order->getAvaliableStatus() as $status) {
+            if (false === $status->editable && empty($status->generadoc)) {
+                $order->idestado = $status->idestado;
+                break;
+            }
+        }
+
+        if ($order->save()) {
+            $this->toolBox()->i18nLog()->notice('record-updated-correctly');
+            return true;
+        }
+
+        $this->toolBox()->i18nLog()->error('record-save-error');
+        return true;
+    }
+
     protected function createViews()
     {
         if (false === $this->preloadModel()->exists()) {
@@ -64,6 +120,12 @@ class ViewBudget extends PortalViewController
     protected function execPreviousAction($action)
     {
         switch ($action) {
+            case 'accept':
+                return $this->acceptAction();
+
+            case 'cancel':
+                return $this->cancelAction();
+
             case 'print':
                 return $this->printAction();
 

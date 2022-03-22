@@ -57,12 +57,6 @@
                 <i class="fas fa-print fa-fw"
                    aria-hidden="true"></i> {{ i18n.customTrans(fsc.webPage.filelang, 'print') }}
             </a>
-            {% if order.editable %}
-                <a class="btn btn-block btn-outline-danger mt-3" href="{{ asset(order.url('public')) }}&action=cancel">
-                    <i class="fas fa-times-circle fa-fw"
-                       aria-hidden="true"></i> {{ i18n.customTrans(fsc.webPage.filelang, 'cancel') }}
-                </a>
-            {% endif %}
         </div>
     </div>
     <div class="card">
