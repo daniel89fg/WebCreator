@@ -83,14 +83,20 @@ class WebPageData
 
     protected function getPerfectPage(WebPage $webPage): ?WebPage
     {
-        $this->pipe('getPerfectPageBefore');
+        $resultBefore = $this->pipe('getPerfectPageBefore');
+        if (false === is_null($resultBefore)) {
+            return $resultBefore;
+        }
 
         if ($webPage->loadFromCode('', [new DataBaseWhere('permalink', $this->uri)])) {
             $this->pipe('getPerfectPageAfter');
             return $webPage;
         }
 
-        $this->pipe('getPerfectPageAfter');
+        $resultAfter = $this->pipe('getPerfectPageAfter');
+        if (false === is_null($resultAfter)) {
+            return $resultAfter;
+        }
 
         return null;
     }
@@ -130,12 +136,15 @@ class WebPageData
 
     protected function setLang(WebPage $webPage): WebPage
     {
-        $this->pipe('setLangBefore');
+        $resultBefore = $this->pipe('setLangBefore', $webPage);
+        if (false === is_null($resultBefore)) {
+            return $resultBefore;
+        }
 
         $webPage->filelang = $this->toolbox()->appSettings()->get('webcreator', 'langcode');
         $webPage->weblang = str_replace('_', '-', $webPage->filelang);
 
-        if (!isset($_COOKIE['weblang'])) {
+        if (false === isset($_COOKIE['weblang'])) {
             $expire = \time() + \FS_COOKIES_EXPIRE;
             setcookie('weblang', $webPage->weblang, $expire, FS_ROUTE);
         }

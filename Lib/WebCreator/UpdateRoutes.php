@@ -36,7 +36,10 @@ class UpdateRoutes
 
     public function setRoutes()
     {
-        $this->pipe('setRoutesBefore');
+        $resultBefore = $this->pipe('setRoutesBefore');
+        if (false === $resultBefore) {
+            return;
+        }
 
         /// we must clear FacturaScripts custom routes in order to set the new ones.
         $appRouter = new AppRouter();

@@ -159,7 +159,10 @@ class PageComposer
 
     public function getPagesDefault(): array
     {
-        $this->pipe('getPagesDefaultBefore');
+        $resultBefore = $this->pipe('getPagesDefaultBefore');
+        if (false === empty($resultBefore)) {
+            return $resultBefore;
+        }
 
         $homepage = new WebPage();
         $homepage->loadFromCode($this->toolbox()->appSettings()->get('webcreator', 'homepage'));
@@ -184,7 +187,11 @@ class PageComposer
             'termspage' => $termspageUrl
         );
 
-        //$pages = $this->pipe('getPagesDefaultAfter', $pages);
+        $resultAfter = $this->pipe('getPagesDefaultAfter');
+        if (false === empty($resultAfter)) {
+            return $resultAfter;
+        }
+
         return $pages;
     }
 
