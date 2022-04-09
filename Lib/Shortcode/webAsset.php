@@ -33,10 +33,10 @@ class webAsset extends Shortcode
      * Replace the block shortcode with the content of the block if found
      *
      * @param string|null $content
-     *
+     * @param null $webpage
      * @return string|null
      */
-    public static function replace(?string $content): ?string
+    public static function replace(?string $content, $webpage = null): ?string
     {
 
         $shorts = static::searchCode($content, "/\[webAsset(.*?)\]/");

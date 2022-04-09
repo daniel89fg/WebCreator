@@ -110,6 +110,11 @@ class EditWebPage extends PanelController
     protected function createViews()
     {
         $this->addHtmlView('EditWebPage', 'WebCreator/Admin/EditWebPage', 'WebPage', 'page', 'fas fa-globe-americas');
+
+        if (WEBMULTILANGUAGE) {
+            $this->setTabsPosition('top');
+            $this->addEditListView('EditWebPageTranslate', 'WebTranslate', 'translations', 'fa fa-language');
+        }
     }
 
     /**
@@ -158,6 +163,43 @@ class EditWebPage extends PanelController
                 AssetManager::add('js', FS_ROUTE . '/Dinamic/Assets/JS/codemirrorBundle.js');
                 $code = $this->request->get('code');
                 $view->loadData($code);
+                break;
+
+            case 'EditWebPageTranslate':
+                // obtenemos los idiomas para el select de idiomas
+                $modelLanguage = '\\FacturaScripts\\Dinamic\\Model\\WebLanguage';
+                $columnLanguages = $this->views['EditWebPageTranslate']->columnForName('language');
+                if ($columnLanguages && $columnLanguages->widget->getType() === 'select') {
+                    $customValues = [];
+                    foreach ($modelLanguage::getWebLanguages() as $lang) {
+                        $customValues[] = [
+                            'value' => $lang->codicu,
+                            'title' => $lang->name
+                        ];
+                    }
+                    $columnLanguages->widget->setValuesFromArray($customValues);
+                }
+
+                // obtenemos los campos traducibles del modelo para rellenar el select de las keys
+                $columnKeys = $this->views['EditWebPageTranslate']->columnForName('key');
+                if ($columnKeys && $columnKeys->widget->getType() === 'select') {
+                    $customValues = [];
+                    $modelViewFirstName = $this->views['EditWebPage']->model->modelClassName();
+                    $modelClassName = '\\FacturaScripts\\Dinamic\\Model\\' . $modelViewFirstName;
+                    foreach ($modelClassName::$fieldsTranslate as $field) {
+                        $customValues[] = [
+                            'value' => $field,
+                            'title' => $field
+                        ];
+                    }
+                    $columnKeys->widget->setValuesFromArray($customValues);
+                }
+
+                $where = [
+                    new DataBaseWhere('modelid', $this->request->get('code')),
+                    new DataBaseWhere('modelname', $modelViewFirstName)
+                ];
+                $view->loadData('', $where);
                 break;
         }
     }

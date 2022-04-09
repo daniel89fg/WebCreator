@@ -20,6 +20,7 @@
 namespace FacturaScripts\Plugins\WebCreator\Lib\Shortcode;
 
 use FacturaScripts\Core\Base\ToolBox;
+use FacturaScripts\Plugins\WebCreator\Model\WebPage;
 
 /**
  * Description of Shortcode
@@ -28,7 +29,7 @@ use FacturaScripts\Core\Base\ToolBox;
  */
 abstract class Shortcode
 {
-    abstract public static function replace(?string $content): ?string;
+    abstract public static function replace(?string $content, $webpage = null): ?string;
 
     /**
      * @var array
@@ -41,7 +42,6 @@ abstract class Shortcode
     private static $codesActive = [];
 
     /**
-     *
      * @param string $code
      * @param string $className
      */
@@ -50,6 +50,10 @@ abstract class Shortcode
         self::$codes[$code] = '\\FacturaScripts\\Dinamic\\Lib\\Shortcode\\' . $className;
     }
 
+    /**
+     * @param string $className
+     * @return bool
+     */
     public static function getClassName(string $className): bool
     {
         $className = explode('\\', $className);
@@ -63,16 +67,20 @@ abstract class Shortcode
         }
     }
 
+    /**
+     * @param array $pageData
+     * @return array
+     */
     public static function getPageShortcodes(array $pageData): array
     {
         foreach (self::$codes as $code => $className) {
             foreach ($pageData as $key => $value) {
                 switch ($key) {
                     case 'settings':
-                        $value['globalmeta'] = $className::replace($value['globalmeta']);
-                        $value['globalcss'] = $className::replace($value['globalcss']);
-                        $value['globaljshead'] = $className::replace($value['globaljshead']);
-                        $value['globaljsfooter'] = $className::replace($value['globaljsfooter']);
+                        $value['globalmeta'] = $className::replace($value['globalmeta'], $value);
+                        $value['globalcss'] = $className::replace($value['globalcss'], $value);
+                        $value['globaljshead'] = $className::replace($value['globaljshead'], $value);
+                        $value['globaljsfooter'] = $className::replace($value['globaljsfooter'], $value);
                         break;
 
                     case 'header':
@@ -83,20 +91,20 @@ abstract class Shortcode
 
                     case 'footer':
                         foreach ($value->content as $Fkey => $Fvalue) {
-                            $value->content[$Fkey] = Shortcode::getShortcodes($Fvalue);
+                            $value->content[$Fkey] = Shortcode::getShortcodes($Fvalue, $value);
                         }
                         break;
 
                     case 'sidebar':
-                        $value->content = $className::replace($value->content);
+                        $value->content = $className::replace($value->content, $value, $value);
                         break;
 
                     case 'page':
-                        $value->content = $className::replace($value->content);
-                        $value->pagejshead = $className::replace($value->pagejshead);
-                        $value->pagejsfooter = $className::replace($value->pagejsfooter);
-                        $value->pagemeta = $className::replace($value->pagemeta);
-                        $value->pagecss = $className::replace($value->pagecss);
+                        $value->content = $className::replace($value->content, $value);
+                        $value->pagejshead = $className::replace($value->pagejshead, $value);
+                        $value->pagejsfooter = $className::replace($value->pagejsfooter, $value);
+                        $value->pagemeta = $className::replace($value->pagemeta, $value);
+                        $value->pagecss = $className::replace($value->pagecss, $value);
                         break;
                 }
             }
@@ -109,13 +117,13 @@ abstract class Shortcode
      * Find and replace shortcodes
      *
      * @param string $content
-     *
+     * @param WebPage|null $webpage
      * @return string
      */
-    public static function getShortcodes(string $content): string
+    public static function getShortcodes(string $content, ?WebPage $webpage = null): string
     {
         foreach (self::$codes as $code => $className) {
-            $content = $className::replace($content);
+            $content = $className::replace($content, $webpage);
         }
 
         return $content;
@@ -126,7 +134,6 @@ abstract class Shortcode
      *
      * @param string|null $content
      * @param string $search
-     *
      * @return array|null
      */
     protected static function searchCode(?string $content, string $search): ?array
@@ -139,7 +146,6 @@ abstract class Shortcode
      * Obtained the attributes of a shortcode and saves them in an array
      *
      * @param string $short
-     *
      * @return array
      */
     protected static function getAttributes(string $short): array

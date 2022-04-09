@@ -124,7 +124,7 @@ class Sitemap extends Controller
         $items = [];
         $webpageModel = new WebPage();
         foreach ($webpageModel->all([], [], 0, 0) as $wpage) {
-            if (isset($wpage->noindex) || \substr($wpage->permalink, -1) === '*') {
+            if ($wpage->noindex || \substr($wpage->permalink, -1) === '*') {
                 continue;
             }
 

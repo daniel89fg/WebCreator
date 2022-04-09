@@ -46,8 +46,9 @@ trait IncludeViewTrait
                 continue;
             }
 
+            // buscamos que el archivo empiece por el nombre del fichero padre o sea el nombre del fichero que se está incluyendo
             $file = explode('_', $f->getFilename());
-            if ($file[0] != $fileParent /*|| $file[0] != 'PortalTemplate'*/) {
+            if ($file[0] != $fileParent && $file[0] != 'PortalTemplate') {
                 continue;
             }
 

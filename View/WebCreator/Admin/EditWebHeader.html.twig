@@ -12,7 +12,8 @@
     'debugBarRender': debugBarRender,
     'fsc': fsc,
     'menuManager': menuManager,
-    'template': 'EditWebHeader'}
+    'template': 'EditWebHeader',
+    'dataHeader': dataHeader}
 %}
 
 <form id="formEditWebHeader" method="post" enctype="multipart/form-data">
@@ -905,110 +906,110 @@
 {% block javascript %}
 <script type="text/javascript">
     function editViewDelete(viewName) {
-    bootbox.confirm({
-        title: "{{ i18n.trans('confirm-delete') }}",
-                message: "{{ i18n.trans('are-you-sure') }}",
-                closeButton: false,
-                buttons: {
-                    cancel: {
-                        label: '<i class="fas fa-times"></i> {{ i18n.trans('cancel') }}'
-                    },
-                    confirm: {
-                        label: '<i class="fas fa-check"></i> {{ i18n.trans('confirm') }}',
-                        className: "btn-danger"
-                    }
+        bootbox.confirm({
+            title: "{{ i18n.trans('confirm-delete') }}",
+            message: "{{ i18n.trans('are-you-sure') }}",
+            closeButton: false,
+            buttons: {
+                cancel: {
+                    label: '<i class="fas fa-times"></i> {{ i18n.trans('cancel') }}'
                 },
-                callback: function (result) {
-                    if (result) {
-                        $("#form" + viewName + " :input[name=\"action\"]").val("delete");
-                        $("#form" + viewName).submit();
-                    }
+                confirm: {
+                    label: '<i class="fas fa-check"></i> {{ i18n.trans('confirm') }}',
+                    className: "btn-danger"
                 }
-            });
-            return false;
+            },
+            callback: function (result) {
+                if (result) {
+                    $("#form" + viewName + " :input[name=\"action\"]").val("delete");
+                    $("#form" + viewName).submit();
+                }
+            }
+        });
+        return false;
+    }
+
+    $(document).ready(function(){
+        function backgroundColorPreview(color, opacity, divColor) {
+            $(divColor).css('opacity', opacity);
+            $(divColor).css('background-color', color);
         }
 
-        $(document).ready(function(){
-            function backgroundColorPreview(color, opacity, divColor) {
-                $(divColor).css('opacity', opacity);
-                $(divColor).css('background-color', color);
-            }
-
-            $('.selectColor').each(function(){
-                var color = $(this).val();
-                var opacity = $(this).parent().parent().parent().find('.selectOpacity').val();
-                var divColor = $(this).parent().parent().parent().find('.backgroundColor');
-                backgroundColorPreview(color, opacity, divColor);
-            });
-
-            $('.selectColor').change(function(value){
-                var color = $(this).val();
-                var opacity = $(this).parent().parent().parent().find('.selectOpacity').val();
-                var divColor = $(this).parent().parent().parent().find('.backgroundColor');
-                backgroundColorPreview(color, opacity, divColor);
-            });
-
-            $('.selectOpacity').change(function(value){
-                var color = $(this).parent().parent().find('.selectColor').val();
-                var opacity = $(this).val();
-                var divColor = $(this).parent().parent().find('.backgroundColor');
-                backgroundColorPreview(color, opacity, divColor);
-            });
-
-            function changeShip(checkbox) {
-                var div = $(checkbox).parent().find('div.changeShip');
-
-                if($(checkbox).is(':checked')) {
-                    div.show();
-                } else {
-                    div.hide();
-                }
-            }
-
-            $('input.changeShip').each(function(){
-                changeShip(this);
-            });
-
-            $('input.changeShip').on('click', function() {
-                changeShip(this);
-            });
-
-            function changeStickyShip(checkbox) {
-                var div = $(checkbox).parent().parent().parent().find('div.changeGeneralSticky');
-
-                if($(checkbox).is(':checked')) {
-                    div.show();
-                } else {
-                    div.hide();
-                }
-            }
-
-            $('input.hideGeneralSticky').on('click', function(){
-                var div = $(this).parent().parent().parent().find('div.changeGeneralSticky');
-                div.hide();
-            });
-
-            $('input.showGeneralSticky').each(function(){
-                changeStickyShip(this);
-            });
-
-            $('input.showGeneralSticky').on('click', function() {
-                changeStickyShip(this);
-            });
-
-            function layoutsHeader() {
-                $('.headerlayout').hide();
-                $('.header' + $('input[name="headerlayout"]:checked').val()).show();
-            }
-
-            layoutsHeader();
-
-            $('input[name="headerlayout"]').on('click', function(){
-                layoutsHeader();
-                $('.modal-header button').click();
-            });
+        $('.selectColor').each(function(){
+            var color = $(this).val();
+            var opacity = $(this).parent().parent().parent().find('.selectOpacity').val();
+            var divColor = $(this).parent().parent().parent().find('.backgroundColor');
+            backgroundColorPreview(color, opacity, divColor);
         });
-    </script>
 
-    {{ webMacros.includeView(webIncludes, 'javascript', templateVars) }}
+        $('.selectColor').change(function(value){
+            var color = $(this).val();
+            var opacity = $(this).parent().parent().parent().find('.selectOpacity').val();
+            var divColor = $(this).parent().parent().parent().find('.backgroundColor');
+            backgroundColorPreview(color, opacity, divColor);
+        });
+
+        $('.selectOpacity').change(function(value){
+            var color = $(this).parent().parent().find('.selectColor').val();
+            var opacity = $(this).val();
+            var divColor = $(this).parent().parent().find('.backgroundColor');
+            backgroundColorPreview(color, opacity, divColor);
+        });
+
+        function changeShip(checkbox) {
+            var div = $(checkbox).parent().find('div.changeShip');
+
+            if($(checkbox).is(':checked')) {
+                div.show();
+            } else {
+                div.hide();
+            }
+        }
+
+        $('input.changeShip').each(function(){
+            changeShip(this);
+        });
+
+        $('input.changeShip').on('click', function() {
+            changeShip(this);
+        });
+
+        function changeStickyShip(checkbox) {
+            var div = $(checkbox).parent().parent().parent().find('div.changeGeneralSticky');
+
+            if($(checkbox).is(':checked')) {
+                div.show();
+            } else {
+                div.hide();
+            }
+        }
+
+        $('input.hideGeneralSticky').on('click', function(){
+            var div = $(this).parent().parent().parent().find('div.changeGeneralSticky');
+            div.hide();
+        });
+
+        $('input.showGeneralSticky').each(function(){
+            changeStickyShip(this);
+        });
+
+        $('input.showGeneralSticky').on('click', function() {
+            changeStickyShip(this);
+        });
+
+        function layoutsHeader() {
+            $('.headerlayout').hide();
+            $('.header' + $('input[name="headerlayout"]:checked').val()).show();
+        }
+
+        layoutsHeader();
+
+        $('input[name="headerlayout"]').on('click', function(){
+            layoutsHeader();
+            $('.modal-header button').click();
+        });
+    });
+</script>
+
+{{ webMacros.includeView(webIncludes, 'javascript', templateVars) }}
 {% endblock %}

@@ -150,8 +150,10 @@
                                 <label>{{ i18n.trans('permalink') }}</label>
                                 {% set link = dataPage.permalink|split('/') %}
                                 <input type="text" class="form-control" name="permalink" value="{{ link|last }}" required>
-                                <a target="_blank"
-                                   href="{{ fsc.getSiteUrl() ~ dataPage.permalink }}">{{ fsc.getSiteUrl() ~ dataPage.permalink }}</a>
+                                {% if dataPage.idpage is not empty %}
+                                    <a target="_blank" href="{{ fsc.getSiteUrl() ~ dataPage.permalink }}">
+                                        {{ fsc.getSiteUrl() ~ dataPage.permalink }}</a>
+                                {% endif %}
                             </div>
 
                             <div class="form-group pagedescription">

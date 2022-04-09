@@ -21,13 +21,14 @@ namespace FacturaScripts\Plugins\WebCreator\Model;
 
 use FacturaScripts\Core\Model\Base;
 use FacturaScripts\Dinamic\Lib\WebCreator\UpdateRoutes;
-use FacturaScripts\Plugins\WebCreator\Lib\WebCreator\PermalinkTrait;
 use FacturaScripts\Dinamic\Model\WebHeader;
 use FacturaScripts\Dinamic\Model\WebFooter;
 use FacturaScripts\Dinamic\Model\WebSidebar;
 use FacturaScripts\Dinamic\Model\WebBlock;
 use FacturaScripts\Dinamic\Model\WebFont;
 use FacturaScripts\Dinamic\Model\WebFontWeight;
+use FacturaScripts\Plugins\WebCreator\Lib\WebCreator\PermalinkTrait;
+use FacturaScripts\Plugins\WebCreator\Model\Base\WebModelTrait;
 
 /**
  * Description of WebPage
@@ -39,6 +40,7 @@ class WebPage extends Base\ModelOnChangeClass
 {
     use Base\ModelTrait;
     use PermalinkTrait;
+    use WebModelTrait;
 
     /**
      * @var string

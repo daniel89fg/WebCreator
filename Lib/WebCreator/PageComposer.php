@@ -67,25 +67,6 @@ class PageComposer
         return ($_COOKIE[$name]) ?? '';
     }
 
-    public function getDataModel(string $modelName, array $arrayKeys, array $arrayValues, array $arrayOperators, string $return = '', bool $translate = true)
-    {
-        $this->pipe('getDataModelBefore', $modelName, $arrayKeys, $arrayValues, $arrayOperators, $return, $translate);
-
-        if (!$translate) {
-            $data = $this->getDataModelOrigin($modelName, $arrayKeys, $arrayValues, $arrayOperators, $return);
-        } else {
-            $data = $this->getDataModelTrans($arrayKeys, $arrayValues, $arrayOperators);
-        }
-
-        if ($translate && is_null($data)) {
-            $data = $this->getDataModelOrigin($modelName, $arrayKeys, $arrayValues, $arrayOperators, $return);
-        }
-
-        $this->pipe('getDataModelAfter', $modelName, $arrayKeys, $arrayValues, $arrayOperators, $return, $translate);
-
-        return $data;
-    }
-
     public function getFont(int $idfont): string
     {
         $font = new WebFont();
@@ -267,73 +248,6 @@ class PageComposer
         $this->pipe('regexJSAfter');
 
         return $content;
-    }
-
-    private function getDataModelOrigin(string $modelName, array $arrayKeys, array $arrayValues, array $arrayOperators, string $return)
-    {
-        $this->pipe('getDataModelOriginBefore', $modelName, $arrayKeys, $arrayValues, $arrayOperators, $return);
-
-        $result = null;
-        $modelClass = '\\FacturaScripts\\Dinamic\\Model\\' . $modelName;
-
-        if (\class_exists($modelClass)) {
-            $model = new $modelClass();
-
-            if ($modelName === 'Settings') {
-                if (empty($return)) {
-                    $result = $model->get($arrayValues[0]);
-                } else {
-                    $result = $model->get($arrayValues[0])->$return;
-                }
-            }
-
-            if (is_null($result)) {
-                $where = [];
-                $index = 0;
-
-                foreach ($arrayKeys as $key) {
-                    $where[] = new DataBaseWhere($key, $arrayValues[$index], $arrayOperators[$index]);
-                    $index++;
-                }
-
-                $model->loadFromCode('', $where);
-                if (empty($return)) {
-                    $result = $model;
-                } else {
-                    $result = $model->$return;
-                }
-            }
-        }
-
-        $this->pipe('getDataModelOriginAfter', $modelName, $arrayKeys, $arrayValues, $arrayOperators, $return);
-
-        return $result;
-    }
-
-    private function getDataModelTrans(array $arrayKeys, array $arrayValues, array $arrayOperators)
-    {
-        $this->pipe('getDataModelTransBefore', $arrayKeys, $arrayValues, $arrayOperators);
-
-        $result = null;
-        $modelClass = '\\FacturaScripts\\Dinamic\\Model\\WebTranslate';
-
-        if (class_exists($modelClass)) {
-            $model = new $modelClass();
-            $where = [];
-            $index = 0;
-
-            foreach ($arrayKeys as $key) {
-                $where[] = new DataBaseWhere($key, $arrayValues[$index], $arrayOperators[$index]);
-                $index++;
-            }
-
-            $model->loadFromCode('', $where);
-            $result = $model->valuetrans;
-        }
-
-        $this->pipe('getDataModelTransBefore', $arrayKeys, $arrayValues, $arrayOperators);
-
-        return $result;
     }
 
     private function getFontDefault(): string

@@ -27,6 +27,7 @@ use FacturaScripts\Dinamic\Model\User;
 use FacturaScripts\Dinamic\Model\WebPage;
 use FacturaScripts\Dinamic\Lib\WebCreator\WebPageData;
 use FacturaScripts\Dinamic\Lib\WebCreator\PortalAction;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -159,6 +160,18 @@ class PortalController extends Controller
         $this->title = $this->webPage->title;
 
         new PortalAction($this->uri, $this->contact, $this->request);
+    }
+
+    protected function error301(string $newUrl)
+    {
+        $this->setTemplate(false);
+        $this->response = new RedirectResponse($newUrl, 301);
+    }
+
+    protected function error302(string $newUrl)
+    {
+        $this->setTemplate(false);
+        $this->response = new RedirectResponse($newUrl, 302);
     }
 
     protected function error403()
