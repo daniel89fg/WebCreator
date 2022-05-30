@@ -8,16 +8,20 @@
 -->
 <table>
     <column>
+        <name>cssclass</name>
+        <type>character varying(200)</type>
+    </column>
+    <column>
+        <name>cssid</name>
+        <type>character varying(200)</type>
+    </column>
+    <column>
         <name>creationdate</name>
         <type>datetime</type>
     </column>
     <column>
         <name>content</name>
         <type>longblob</type>
-    </column>
-    <column>
-        <name>classbody</name>
-        <type>character varying(200)</type>
     </column>
     <column>
         <name>customcontroller</name>
@@ -27,10 +31,6 @@
         <name>description</name>
         <type>character varying(150)</type>
         <null>NO</null>
-    </column>
-    <column>
-        <name>idbody</name>
-        <type>character varying(200)</type>
     </column>
     <column>
         <name>idfile</name>

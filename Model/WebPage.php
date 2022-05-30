@@ -24,6 +24,7 @@ use FacturaScripts\Dinamic\Lib\WebCreator\UpdateRoutes;
 use FacturaScripts\Dinamic\Model\WebHeader;
 use FacturaScripts\Dinamic\Model\WebFooter;
 use FacturaScripts\Dinamic\Model\WebMenu;
+use FacturaScripts\Dinamic\Model\WebMenuLink;
 use FacturaScripts\Dinamic\Model\WebSidebar;
 use FacturaScripts\Dinamic\Model\WebBlock;
 use FacturaScripts\Dinamic\Model\WebFont;
@@ -202,6 +203,7 @@ class WebPage extends Base\ModelOnChangeClass
         new WebFont();
         new WebFontWeight();
         new WebMenu();
+        new WebMenuLink();
         return parent::install();
     }
 
@@ -232,12 +234,12 @@ class WebPage extends Base\ModelOnChangeClass
         $this->title = $utils->noHtml($this->title);
         $this->lastmod = date('Y-m-d H:i:s');
 
-        if (isset($this->idbody)) {
-            $this->idbody = str_replace(' ', '-', $utils->noHtml($this->idbody));
+        if (isset($this->cssid)) {
+            $this->cssid = str_replace(' ', '-', $utils->noHtml($this->cssid));
         }
 
-        if (isset($this->classbody)) {
-            $this->classbody = $utils->noHtml($this->classbody);
+        if (isset($this->cssclass)) {
+            $this->cssclass = $utils->noHtml($this->cssclass);
         }
 
         $this->permalink = $this->checkPermalink($this);

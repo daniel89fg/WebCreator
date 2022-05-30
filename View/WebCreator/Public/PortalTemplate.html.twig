@@ -275,7 +275,7 @@
     {% endblock %}
 </head>
 
-<body id="{{ webPage.idbody }}" class="{{ webPage.classbody }}">
+<body id="{{ webPage.cssid }}" class="{{ webPage.cssclass }}">
 {% block body %}
     {{ webMacros.includeView(webIncludes, 'bodyBefore', templateVars) }}
 
