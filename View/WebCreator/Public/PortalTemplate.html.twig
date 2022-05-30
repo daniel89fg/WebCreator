@@ -364,7 +364,7 @@
     {{ webMacros.includeView(webIncludes, 'footerBefore', templateVars) }}
 
     {% if webPage.idfooter is null or webPage.idfooter == -1 and webSettings.footerdefault > 0 or webPage.idfooter > 0 %}
-    <footer class="{{ (webFooter.properties.footershadow) ? 'footer-shadow-bottom-outside' : '' }}">
+    <footer id="{{ webFooter.cssid }}" class="{{ webFooter.cssclass }} {{ (webFooter.properties.footershadow) ? 'footer-shadow-bottom-outside' : '' }}">
         {% if webFooter.content.footer5001 != '' or webFooter.content.footer5002 != '' or webFooter.content.footer5003 != '' %}
             <div class="footer-top {{ (webFooter.properties.footertopbordertopwidth > 0 and webFooter.properties.footertopbordertopcontainer == 'fullwidth') ? 'footer-top-border-top' : '' }} {{ (webFooter.properties.footertopborderbottomwidth > 0 and webFooter.properties.footertopborderbottomcontainer == 'fullwidth') ? 'footer-top-border-bottom' : '' }}">
                 <div class="content py-4 {{ webFooter.properties.footerwidth }} {{ (webFooter.properties.footertopbordertopwidth > 0 and webFooter.properties.footertopbordertopcontainer == 'boxed') ? 'footer-top-border-top' : '' }} {{ (webFooter.properties.footertopborderbottomwidth > 0 and webFooter.properties.footertopborderbottomcontainer == 'boxed') ? 'footer-top-border-bottom' : '' }}">

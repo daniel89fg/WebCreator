@@ -19,6 +19,7 @@
 
 namespace FacturaScripts\Plugins\WebCreator\Model;
 
+use FacturaScripts\Core\Base\Utils;
 use FacturaScripts\Core\Model\Base;
 
 /**
@@ -29,6 +30,16 @@ use FacturaScripts\Core\Model\Base;
 class WebFooter extends Base\ModelClass
 {
     use Base\ModelTrait;
+
+    /**
+     * @var string
+     */
+    public $cssclass;
+
+    /**
+     * @var string
+     */
+    public $cssid;
 
     /**
      * @var string
@@ -115,6 +126,14 @@ class WebFooter extends Base\ModelClass
      */
     public function test()
     {
+        if (isset($this->cssid)) {
+            $this->cssid = str_replace(' ', '-', Utils::noHtml($this->cssid));
+        }
+
+        if (isset($this->cssclass)) {
+            $this->cssclass = Utils::noHtml($this->cssclass);
+        }
+
         $content = json_decode($this->content);
         foreach ($content as $key => $value) {
             $content->$key = $value;
