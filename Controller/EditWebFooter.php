@@ -127,7 +127,7 @@ class EditWebFooter extends PanelController
             if ($b) {
                 $content[$key] = $value;
                 unset($data[$key]);
-            } else if ($key == 'name') {
+            } elseif ($key === 'name' || $key === 'cssid' || $key === 'cssclass') {
                 $footer->$key = $value;
                 unset($data[$key]);
             }
