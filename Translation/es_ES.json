@@ -2,6 +2,8 @@
     "register-image": "Imagen de registro",
     "forgot-image": "Imagen de recuperar contraseña",
     "menus": "Menús",
+    "css-id": "CSS ID",
+    "css-class": "CSS Clase",
 
     "access-google": "Acceso con Google",
     "activation-email-sent": "Email de activación enviado. Por favor, compruebe su bandeja de entrada, incluso la bandeja de SPAM.",
