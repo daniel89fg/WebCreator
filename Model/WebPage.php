@@ -47,6 +47,16 @@ class WebPage extends Base\ModelOnChangeClass
     /**
      * @var string
      */
+    public $cssclass;
+
+    /**
+     * @var string
+     */
+    public $cssid;
+
+    /**
+     * @var string
+     */
     public $creationdate;
 
     /**
@@ -57,22 +67,12 @@ class WebPage extends Base\ModelOnChangeClass
     /**
      * @var string
      */
-    public $classbody;
-
-    /**
-     * @var string
-     */
     public $customcontroller;
 
     /**
      * @var string
      */
     public $description;
-
-    /**
-     * @var string
-     */
-    public $idbody;
 
     /**
      * @var int
