@@ -29,6 +29,14 @@
             <column name="name" numcolumns="3" order="110">
                 <widget type="text" fieldname="name" required="true"/>
             </column>
+
+            <column name="css-id" numcolumns="3" order="110">
+                <widget type="text" fieldname="cssid" maxlength="200"/>
+            </column>
+
+            <column name="css-class" numcolumns="3" order="110">
+                <widget type="text" fieldname="cssclass" maxlength="200"/>
+            </column>
         </group>
 
         <group name="content" numcolumns="12">

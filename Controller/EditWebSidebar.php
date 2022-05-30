@@ -51,12 +51,4 @@ class EditWebSidebar extends EditController
         $pagedata['icon'] = 'fas fa-caret-square-left';
         return $pagedata;
     }
-
-    /**
-     * Load views.
-     */
-    protected function createViews()
-    {
-        parent::createViews();
-    }
 }

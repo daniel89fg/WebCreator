@@ -7,6 +7,14 @@
 -->
 <table>
     <column>
+        <name>cssclass</name>
+        <type>character varying(200)</type>
+    </column>
+    <column>
+        <name>cssid</name>
+        <type>character varying(200)</type>
+    </column>
+    <column>
         <name>content</name>
         <type>longblob</type>
     </column>

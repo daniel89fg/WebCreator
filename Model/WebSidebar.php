@@ -19,6 +19,7 @@
 
 namespace FacturaScripts\Plugins\WebCreator\Model;
 
+use FacturaScripts\Core\Base\Utils;
 use FacturaScripts\Core\Model\Base;
 
 /**
@@ -29,6 +30,16 @@ use FacturaScripts\Core\Model\Base;
 class WebSidebar extends Base\ModelClass
 {
     use Base\ModelTrait;
+
+    /**
+     * @var string
+     */
+    public $cssclass;
+
+    /**
+     * @var string
+     */
+    public $cssid;
 
     /**
      * @var string
@@ -87,6 +98,24 @@ class WebSidebar extends Base\ModelClass
     public static function tableName(): string
     {
         return 'webcreator_sidebars';
+    }
+
+    /**
+     * Returns True if there is no errors on properties values.
+     *
+     * @return bool
+     */
+    public function test()
+    {
+        if (isset($this->cssid)) {
+            $this->cssid = str_replace(' ', '-', Utils::noHtml($this->cssid));
+        }
+
+        if (isset($this->cssclass)) {
+            $this->cssclass = Utils::noHtml($this->cssclass);
+        }
+
+        return parent::test();
     }
 
     /**
