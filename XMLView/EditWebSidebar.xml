@@ -30,11 +30,11 @@
                 <widget type="text" fieldname="name" required="true"/>
             </column>
 
-            <column name="css-id" numcolumns="3" order="110">
+            <column name="css-id" numcolumns="3" order="120">
                 <widget type="text" fieldname="cssid" maxlength="200"/>
             </column>
 
-            <column name="css-class" numcolumns="3" order="110">
+            <column name="css-class" numcolumns="3" order="130">
                 <widget type="text" fieldname="cssclass" maxlength="200"/>
             </column>
         </group>
