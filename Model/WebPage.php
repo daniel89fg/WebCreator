@@ -208,7 +208,7 @@ class WebPage extends Base\ModelOnChangeClass
      *
      * @return string
      */
-    public function primaryDescriptionColumn()
+    public function primaryDescriptionColumn(): string
     {
         return 'permalink';
     }
@@ -218,7 +218,7 @@ class WebPage extends Base\ModelOnChangeClass
      *
      * @return string
      */
-    public static function primaryColumn()
+    public static function primaryColumn(): string
     {
         return 'idpage';
     }
@@ -248,7 +248,7 @@ class WebPage extends Base\ModelOnChangeClass
      *
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'webcreator_pages';
     }
@@ -261,7 +261,7 @@ class WebPage extends Base\ModelOnChangeClass
      *
      * @return string
      */
-    public function url(string $type = 'auto', string $list = 'List')
+    public function url(string $type = 'auto', string $list = 'List'): string
     {
         switch ($type) {
             case 'public':

@@ -88,7 +88,7 @@ class AttachedFileWeb extends Base\ModelClass
         return $result;
     }
 
-    public static function primaryColumn()
+    public static function primaryColumn(): string
     {
         return 'idattached';
     }
@@ -107,7 +107,7 @@ class AttachedFileWeb extends Base\ModelClass
         return $result;
     }
 
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'webcreator_attached_files';
     }
@@ -169,7 +169,7 @@ class AttachedFileWeb extends Base\ModelClass
         return parent::test();
     }
 
-    public function url(string $type = 'auto', string $list = 'List')
+    public function url(string $type = 'auto', string $list = 'List'): string
     {
         return parent::url($type, 'ListAttachedFile?activetab=List');
     }

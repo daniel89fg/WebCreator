@@ -45,7 +45,7 @@ class WebFont extends Base\ModelClass
      *
      * @return string
      */
-    public static function primaryColumn()
+    public static function primaryColumn(): string
     {
         return 'idfont';
     }
@@ -65,7 +65,7 @@ class WebFont extends Base\ModelClass
      *
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'webcreator_fonts';
     }

@@ -83,7 +83,7 @@ class WebFooter extends Base\ModelClass
      *
      * @return string
      */
-    public static function primaryColumn()
+    public static function primaryColumn(): string
     {
         return 'idfooter';
     }
@@ -103,7 +103,7 @@ class WebFooter extends Base\ModelClass
      *
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'webcreator_footers';
     }
@@ -132,7 +132,7 @@ class WebFooter extends Base\ModelClass
      *
      * @return string
      */
-    public function url(string $type = 'auto', string $list = 'List')
+    public function url(string $type = 'auto', string $list = 'List'): string
     {
         return parent::url($type, 'ListWebPage?activetab=List');
     }

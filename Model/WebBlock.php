@@ -75,7 +75,7 @@ class WebBlock extends Base\ModelClass
      *
      * @return string
      */
-    public static function primaryColumn()
+    public static function primaryColumn(): string
     {
         return 'idblock';
     }
@@ -96,7 +96,7 @@ class WebBlock extends Base\ModelClass
      *
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'webcreator_blocks';
     }
@@ -109,7 +109,7 @@ class WebBlock extends Base\ModelClass
      *
      * @return string
      */
-    public function url(string $type = 'auto', string $list = 'List')
+    public function url(string $type = 'auto', string $list = 'List'): string
     {
         if ($type === 'public') {
             $webPage = new WebPage();
