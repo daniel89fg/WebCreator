@@ -1,4 +1,4 @@
-<header class="{{ (webHeader.properties.generalstickyoverlap) ? 'fixed-top' : '' }}">
+<header id="{{ webHeader.cssid }}" class="{{ webHeader.cssclass }} {{ (webHeader.properties.generalstickyoverlap) ? 'fixed-top' : '' }}">
     <div class="header-main {{ (webHeader.properties.headermainshadow and webHeader.properties.headerbottomshadow == null) ? 'shadow-bottom-inside' : '' }} {{ (webHeader.properties.headermainhidedesktop and webHeader.properties.headermainhidemobile) ? 'd-none' : (webHeader.properties.headermainhidedesktop) ? 'd-lg-none' : (webHeader.properties.headermainhidemobile) ? 'd-none d-lg-block' }} {{ (webHeader.properties.headermainbordertopwidth > 0 and webHeader.properties.headermainbordertopcontainer == 'fullwidth') ? 'header-main-border-top' : '' }} {{ (webHeader.properties.headermainborderbottomwidth > 0 and webHeader.properties.headermainborderbottomcontainer == 'fullwidth') ? 'header-main-border-bottom' : '' }}">
         <nav class="d-block d-lg-none navbar {{ (webHeader.properties.headermainborderbottomwidth > 0) ? 'header-main-border-bottom' : '' }}">
             <div class="row w-100 m-auto pb-1 d-flex justify-content-between">
