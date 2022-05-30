@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view>
+    <columns>
+        <group name="data" numcolumns="12">
+            <column name="idmenu" display="none" order="100">
+                <widget type="text" fieldname="idmenu" />
+            </column>
+            <column name="name" order="110">
+                <widget type="text" fieldname="name" />
+            </column>
+        </group>
+    </columns>
+</view>

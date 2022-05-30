@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view>
+    <columns>
+        <column name="idmenu" display="none" order="100">
+            <widget type="text" fieldname="idmenu" />
+        </column>
+        <column name="name" order="110">
+            <widget type="text" fieldname="name" />
+        </column>
+        <column name="lastmod" title="last-update" order="120">
+            <widget type="date" fieldname="lastmod" />
+        </column>
+    </columns>
+</view>

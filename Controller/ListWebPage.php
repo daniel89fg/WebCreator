@@ -50,6 +50,7 @@ class ListWebPage extends ListController
     protected function createViews()
     {
         $this->createViewWebPages();
+        $this->createViewsWebMenu();
         $this->createViewWebBlock();
         $this->createViewWebHeader();
         $this->createViewWebFooter();
@@ -88,6 +89,13 @@ class ListWebPage extends ListController
     protected function createViewWebHeader(string $viewName = 'ListWebHeader')
     {
         $this->addView($viewName, 'WebHeader', 'headers', 'fas fa-caret-square-up');
+        $this->addSearchFields($viewName, ['name']);
+        $this->addOrderBy($viewName, ['name'], 'name');
+        $this->addOrderBy($viewName, ['lastmod'], 'last-update');
+    }
+
+    protected function createViewsWebMenu(string $viewName = "ListWebMenu") {
+        $this->addView($viewName, "WebMenu", "menus", "fas fa-bars");
         $this->addSearchFields($viewName, ['name']);
         $this->addOrderBy($viewName, ['name'], 'name');
         $this->addOrderBy($viewName, ['lastmod'], 'last-update');

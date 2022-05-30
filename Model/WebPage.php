@@ -23,6 +23,7 @@ use FacturaScripts\Core\Model\Base;
 use FacturaScripts\Dinamic\Lib\WebCreator\UpdateRoutes;
 use FacturaScripts\Dinamic\Model\WebHeader;
 use FacturaScripts\Dinamic\Model\WebFooter;
+use FacturaScripts\Dinamic\Model\WebMenu;
 use FacturaScripts\Dinamic\Model\WebSidebar;
 use FacturaScripts\Dinamic\Model\WebBlock;
 use FacturaScripts\Dinamic\Model\WebFont;
@@ -200,6 +201,7 @@ class WebPage extends Base\ModelOnChangeClass
         new WebBlock();
         new WebFont();
         new WebFontWeight();
+        new WebMenu();
         return parent::install();
     }
 
