@@ -106,7 +106,6 @@ class WebPageData
         $this->pipe('getWebPageBefore');
 
         $webPage = new WebPage();
-        $result = null;
 
         /// show default page?
         $result = $this->getDefaultPage($webPage);

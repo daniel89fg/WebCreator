@@ -23,14 +23,14 @@ use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 use FacturaScripts\Core\Base\Utils;
 use FacturaScripts\Core\Model\Base\ModelClass;
 use FacturaScripts\Core\Model\Base\ModelTrait;
-use FacturaScripts\Dinamic\Model\WebMenuLink;
+use FacturaScripts\Dinamic\Model\WebPage;
 
 /**
- * Description of WebMenu
+ * Description of WebMenuLink
  *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
-class WebMenu extends ModelClass
+class WebMenuLink extends ModelClass
 {
     use ModelTrait;
 
@@ -47,55 +47,107 @@ class WebMenu extends ModelClass
     /**
      * @var int
      */
+    public $idlink;
+
+    /**
+     * @var int
+     */
     public $idmenu;
 
     /**
-     * @var string
+     * @var int
      */
-    public $lastmod;
+    public $idpage;
+
+    /**
+     * @var int
+     */
+    public $linkparent;
 
     /**
      * @var string
      */
     public $name;
 
-    public function getLinks(): array
+    /**
+     * @var string
+     */
+    public $redirect;
+
+    /**
+     * @var int
+     */
+    public $sort;
+
+    /**
+     * @var bool
+     */
+    public $target;
+
+    public function checkLinkActive(array $links, int $idpage): bool
     {
-        $links = [];
-        $modelLink = new WebMenuLink();
-        $where = [
-            new DataBaseWhere('idmenu', $this->idmenu),
-            new DataBaseWhere('linkparent', null)
-        ];
+        foreach ($links as $link) {
+            if ($link->idpage === $idpage) {
+                return true;
+            }
+            if (count($link->childrens) > 0) {
+                return $this->checkLinkActive($link->childrens, $idpage);
+            }
+        }
+
+        return false;
+    }
+
+    public function clear() {
+        parent::clear();
+        $this->sort = 10;
+        $this->target = false;
+    }
+
+    public function getChildrens(int $idlink): array
+    {
+        $childrens = [];
+        $modelLink = new self();
+        $where = [new DataBaseWhere('linkparent', $idlink)];
         foreach ($modelLink->all($where, ['sort' => 'ASC'], 0, 0) as $link) {
             $link->childrens = $link->getChildrens($link->idlink);
-            $links[] = $link;
+            $childrens[] = $link;
         }
-        return $links;
+        return $childrens;
+    }
+
+    public function getPage(): WebPage
+    {
+        $page = new WebPage();
+        $page->loadFromCode($this->idpage);
+        return $page;
     }
 
     public static function primaryColumn(): string
     {
-        return "idmenu";
-    }
-
-    /**
-     *
-     * @return bool
-     */
-    public function save()
-    {
-        $this->lastmod = date('d-m-Y');
-        return parent::save();
+        return "idlink";
     }
 
     public static function tableName(): string
     {
-        return "webcreator_menus";
+        return "webcreator_menus_links";
     }
 
     public function test()
     {
+        if (empty($this->idpage) && empty($this->redirect)) {
+            $this->toolBox()->i18nLog()->warning('web-menu-link-no-page-or-redirect');
+            return false;
+        }
+
+        if (false === empty($this->idpage) && false === empty($this->redirect)) {
+            $this->redirect = '';
+        }
+
+        if ($this->linkparent === $this->idlink) {
+            $this->linkparent = null;
+        }
+
         if (isset($this->cssid)) {
             $this->cssid = str_replace(' ', '-', Utils::noHtml($this->cssid));
         }
@@ -105,10 +157,5 @@ class WebMenu extends ModelClass
         }
 
         return parent::test();
-    }
-
-    public function url(string $type = 'auto', string $list = 'List'): string
-    {
-        return parent::url($type, 'ListWebPage?activetab=List');
     }
 }

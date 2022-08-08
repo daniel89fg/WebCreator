@@ -52,12 +52,4 @@ class EditWebBlock extends EditController
         $pagedata['icon'] = 'fas fa-code';
         return $pagedata;
     }
-
-    /**
-     * Load views.
-     */
-    protected function createViews()
-    {
-        parent::createViews();
-    }
 }

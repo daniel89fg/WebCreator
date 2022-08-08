@@ -1,0 +1,162 @@
+{% import "WebCreator/Master/webMacros.html.twig" as webMacros %}
+
+{% set firstView = fsc.views | first %}
+{% set currentView = fsc.getCurrentView() %}
+{% set webIncludes = fsc.includeView('EditWebMenuLink') %}
+{% set templateVars = {
+    'i18n': i18n,
+    'appSettings': appSettings,
+    'assetManager': assetManager,
+    'controllerName': controllerName,
+    'debugBarRender': debugBarRender,
+    'fsc': fsc,
+    'menuManager': menuManager,
+    'template': 'EditWebMenuLink'} %}
+
+<form id="formEditWebMenuLink" method="post">
+    <input type="hidden" name="action" value="insert">
+    <input type="hidden" name="code" value="">
+    <input type="hidden" name="activetab" value="EditWebMenuLink">
+    <input type="hidden" name="idmenu" value="{{ firstView.model.primaryColumnValue() }}">
+    <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
+
+    <div class="container-fluid px-0">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        {{ i18n.trans('add-link') }}
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="form-label">{{ i18n.trans('name') }}</label>
+                            <input type="text" class="form-control" name="name" maxlength="100" required/>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">{{ i18n.trans('page') }}</label>
+                            <input type="hidden" name="idpage">
+                            <input type="text" class="form-control" id="findPageInput"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">{{ i18n.trans('redirect') }}</label>
+                            <input type="url" class="form-control" name="redirect"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">{{ i18n.trans('sort') }}</label>
+                            <input type="number" class="form-control" name="sort" min="0" step="1"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">{{ i18n.trans('parent') }}</label>
+                            <select class="form-control" name="linkparent">
+                                {{ fsc.loadParentLinks() | raw }}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">{{ i18n.trans('css-id') }}</label>
+                            <input type="text" class="form-control" maxlength="200" name="cssid"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">{{ i18n.trans('css-class') }}</label>
+                            <input type="text" class="form-control" maxlength="200" name="cssclass"/>
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="linkTarget" name="target" value="1">
+                            <label class="form-check-label" for="linkTarget">{{ i18n.trans('target-blank') }}</label>
+                        </div>
+                    </div>
+                    <div class="card-footer text-right">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save fa-fw"></i>
+                            {{ i18n.trans('save') }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <ul>
+                    {{ _self.printMenuList(firstView.model.getLinks(), i18n) }}
+                </ul>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $("#findPageInput").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                method: "POST",
+                url: '{{ fsc.url() }}',
+                data: {action: 'autocomplete-page', term: request.term},
+                dataType: "json",
+                success: function (results) {
+                    let values = [];
+                    results.forEach(function (element) {
+                        if (element.key === null || element.key === element.value) {
+                            values.push(element);
+                        } else {
+                            values.push({key: element.key, value: element.key + " | " + element.value});
+                        }
+                    });
+                    response(values);
+                },
+                error: function (msg) {
+                    alert(msg.status + " " + msg.responseText);
+                }
+            });
+        },
+        select: function (event, ui) {
+            if (ui.item.key !== null) {
+                const value = ui.item.value.split(" | ");
+                $('#formEditWebMenuLink input[name="idpage"]').val(value[0]);
+            }
+        }
+    });
+
+    function editViewDelete(viewName, idlink) {
+        bootbox.confirm({
+            title: "{{ i18n.trans('confirm-delete') }}",
+            message: "{{ i18n.trans('are-you-sure') }}",
+            closeButton: false,
+            buttons: {
+                cancel: {
+                    label: '<i class="fas fa-times"></i> {{ i18n.trans('cancel') }}'
+                },
+                confirm: {
+                    label: '<i class="fas fa-check"></i> {{ i18n.trans('confirm') }}',
+                    className: "btn-danger"
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    $("#form" + viewName + " :input[name=\"action\"]").val("delete");
+                    $("#form" + viewName + " :input[name=\"code\"]").val(idlink);
+                    $("#form" + viewName).submit();
+                }
+            }
+        });
+        return false;
+    }
+</script>
+
+{% macro printMenuList(links, i18n) %}
+    {% for link in links %}
+        <li>
+            <a href="{{ link.idpage ? link.getPage().url('public') : link.redirect }}"
+               target="_blank">{{ link.name }}</a>
+            <i class="fas fa-trash-alt btn btn-sm text-danger" title="{{ i18n.trans('delete') }}"
+               onclick="editViewDelete('EditWebMenuLink', {{ link.idlink }});"></i>
+            <div class="small">
+                ({{ i18n.trans('sort') }}: {{ link.sort }}
+                {{ ', ' ~ i18n.trans('target-blank') }}: {{ link.target ? i18n.trans('yes') : i18n.trans('no') }}
+                {{ link.cssid ? ', ' ~ i18n.trans('css-id') ~ ': ' ~ link.cssid : '' }}
+                {{ link.cssclass ? ', ' ~ i18n.trans('css-class') ~ ': ' ~ link.cssclass : '' }})
+            </div>
+            {% if link.childrens is not empty %}
+                <ul>
+                    {{ _self.printMenuList(link.childrens, i18n) }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endfor %}
+{% endmacro %}

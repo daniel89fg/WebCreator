@@ -21,6 +21,7 @@ namespace FacturaScripts\Plugins\WebCreator\Lib\Shortcode;
 
 use FacturaScripts\Dinamic\Lib\Shortcode\Shortcode;
 use FacturaScripts\Dinamic\Model\WebBlock as modelWebBlock;
+use FacturaScripts\Dinamic\Model\WebPage;
 
 /**
  * Shortcode of Block
@@ -33,10 +34,10 @@ class webBlock extends Shortcode
      * Replace the block shortcode with the content of the block if found
      *
      * @param string|null $content
-     * @param null $webpage
+     * @param WebPage $webpage
      * @return string|null
      */
-    public static function replace(?string $content, $webpage = null): ?string
+    public static function replace(?string $content, WebPage $webpage): ?string
     {
 
         $shorts = static::searchCode($content, "/\[webBlock(.*?)\]/");

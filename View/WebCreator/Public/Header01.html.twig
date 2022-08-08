@@ -1,10 +1,10 @@
 <header id="{{ webHeader.cssid }}" class="{{ webHeader.cssclass }} {{ (webHeader.properties.generalstickyoverlap) ? 'fixed-top' : '' }}">
     <div class="header-main {{ (webHeader.properties.headermainshadow and webHeader.properties.headerbottomshadow == null) ? 'shadow-bottom-inside' : '' }} {{ (webHeader.properties.headermainhidedesktop and webHeader.properties.headermainhidemobile) ? 'd-none' : (webHeader.properties.headermainhidedesktop) ? 'd-lg-none' : (webHeader.properties.headermainhidemobile) ? 'd-none d-lg-block' }} {{ (webHeader.properties.headermainbordertopwidth > 0 and webHeader.properties.headermainbordertopcontainer == 'fullwidth') ? 'header-main-border-top' : '' }} {{ (webHeader.properties.headermainborderbottomwidth > 0 and webHeader.properties.headermainborderbottomcontainer == 'fullwidth') ? 'header-main-border-bottom' : '' }}">
-        <nav class="d-block d-lg-none navbar {{ (webHeader.properties.headermainborderbottomwidth > 0) ? 'header-main-border-bottom' : '' }}">
+        <nav id="{{ webHeader.menu.cssid }}" class="d-block d-lg-none navbar mobile {{ webHeader.menu.cssclass }} {{ (webHeader.properties.headermainborderbottomwidth > 0) ? 'header-main-border-bottom' : '' }}">
             <div class="row w-100 m-auto pb-1 d-flex justify-content-between">
                 <div class="col-3 px-0 align-self-center {{ (webHeader.properties.generalpositiontogglemobile) ? 'order-2' : 'order-0' }}">
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            data-target="#accordionMenuMobile" aria-controls="accordionMenuMobile"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -15,12 +15,15 @@
                 </div>
             </div>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="accordionMenuMobile">
                 {{ webHeader.content.header0105|raw }}
+                <ul class="navbar-nav mt-1">
+                    {{ _self.menuMobile(webHeader.menu.links, webPage, webHeader.properties) }}
+                </ul>
             </div>
         </nav>
 
-        <div class="content d-none d-lg-block {{ webHeader.properties.headerwidth }} {{ (webHeader.properties.headermainbordertopwidth > 0 and webHeader.properties.headermainbordertopcontainer == 'boxed') ? 'header-main-border-top' : '' }} {{ (webHeader.properties.headermainborderbottomwidth > 0 and webHeader.properties.headermainborderbottomcontainer == 'boxed') ? 'header-main-border-bottom' : '' }}">
+        <div class="content d-none d-lg-block desktop {{ webHeader.properties.headerwidth }} {{ (webHeader.properties.headermainbordertopwidth > 0 and webHeader.properties.headermainbordertopcontainer == 'boxed') ? 'header-main-border-top' : '' }} {{ (webHeader.properties.headermainborderbottomwidth > 0 and webHeader.properties.headermainborderbottomcontainer == 'boxed') ? 'header-main-border-bottom' : '' }}">
             <div class="d-flex justify-content-between">
                 <div class="d-none d-lg-block align-self-center {{ (webHeader.properties.headermainrowflexlayout == 1) ? 'flex-grow-1' : '' }}">
                     {{ webHeader.content.header0101|raw }}
@@ -28,6 +31,13 @@
 
                 <div class="d-none d-lg-block align-self-center {{ (webHeader.properties.headermainrowflexlayout == 0) ? 'flex-grow-1' : '' }}">
                     {{ webHeader.content.header0102|raw }}
+                    <nav id="{{ webHeader.menu.cssid }}" class="navbar navbar-expand {{ webHeader.menu.cssclass }}">
+                        <div class="collapse navbar-collapse">
+                            <ul id="menuDesktop" class="navbar-nav {{ webHeader.properties.desktopmenualignment }}">
+                                {{ _self.menuDesktop(webHeader.menu.links, webPage, webHeader.properties) }}
+                            </ul>
+                        </div>
+                    </nav>
                 </div>
 
                 <div class="d-none d-lg-block align-self-center {{ (webHeader.properties.headermainrowflexlayout == 1) ? 'flex-grow-1' : '' }}">
@@ -37,3 +47,65 @@
         </div>
     </div>
 </header>
+
+{% macro menuDesktop(links, webPage, properties, csslink = 'nav-link') %}
+    {% for link in links %}
+        {% set href = link.idpage ? link.getPage().url('public') : link.redirect %}
+        {% set blank = link.target ? ' target="_blank"' : '' %}
+        {% set active = link.idpage == webPage.idpage ? 'active' : '' %}
+
+        {% if link.childrens|length > 0 %}
+            {% if active == '' %}
+                {% set active = link.checkLinkActive(link.childrens, webPage.idpage) ? 'active' : '' %}
+            {% endif %}
+            {% set cssLiDropdown = link.linkparent is empty ? 'nav-item dropdown' : 'dropdown-submenu' %}
+            {% set cssADropdown = link.linkparent is empty ? 'nav-link dropdown-toggle' : 'dropdown-item' %}
+            <li id="{{ link.cssid }}" class="{{ cssLiDropdown }} {{ active }} {{ link.cssclass }}">
+                <a class="{{ cssADropdown }}" href="{{ href }}" {{ blank }} id="navbarDropdown{{ link.idlink }}" role="button" data-hover="dropdown" aria-expanded="false">
+                    {{ link.name }}
+                    {% if cssLiDropdown == 'nav-item dropdown' %}
+                        <i class="fas fa-caret-down fa-xs"></i>
+                    {% endif %}
+                </a>
+                <ul class="dropdown-menu mt-0" aria-labelledby="navbarDropdown{{ link.idlink }}">
+                    {{ _self.menuDesktop(link.childrens, webPage, properties, 'dropdown-item') }}
+                </ul>
+            </li>
+        {% else %}
+            <li id="{{ link.cssid }}" class="nav-item {{ active }} {{ link.cssclass }}">
+                <a class="{{ csslink }}" href="{{ href }}" {{ blank }}>{{ link.name }}</a>
+            </li>
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+{% macro menuMobile(links, webPage, properties) %}
+    {% for link in links %}
+        {% set href = link.idpage ? link.getPage().url('public') : link.redirect %}
+        {% set blank = link.target ? ' target="_blank"' : '' %}
+        {% set active = link.idpage == webPage.idpage ? 'active' : '' %}
+
+        {% if active == '' and link.childrens|length > 0 %}
+            {% set active = link.checkLinkActive(link.childrens, webPage.idpage) ? 'active' : '' %}
+        {% endif %}
+
+        <li id="{{ link.cssid }}" class="nav-item {{ active }} {{ link.cssclass }}">
+            {% if link.childrens|length > 0 %}
+                {% set idSubmenu = random() %}
+                <div id="acc{{ idSubmenu }}" class="accordion {{ link.cssclass }} {{ active }}">
+                    <button class="btn btn-block text-left px-0 {{ properties.mobilemenualignment }}" type="button" data-toggle="collapse" data-target="#collapse{{ link.idlink }}" aria-expanded="false" aria-controls="collapse{{ link.idlink }}">
+                        <a href="{{ href }}" {{ blank }}>{{ link.name }}</a>
+                        <i class="fas fa-caret-down fa-xs"></i>
+                    </button>
+                    <div id="collapse{{ link.idlink }}" class="collapse" aria-labelledby="heading{{ link.idlink }}" data-parent="#acc{{ idSubmenu }}">
+                        <ul class="pl-1 list-unstyled">
+                            {{ _self.menuMobile(link.childrens, webPage, properties) }}
+                        </ul>
+                    </div>
+                </div>
+            {% else %}
+                <a class="btn btn-block text-left px-0 {{ properties.mobilemenualignment }} {{ csslink }}" href="{{ href }}" {{ blank }}>{{ link.name }}</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+{% endmacro %}

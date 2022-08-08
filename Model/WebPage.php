@@ -214,7 +214,7 @@ class WebPage extends Base\ModelOnChangeClass
      */
     public function primaryDescriptionColumn(): string
     {
-        return 'permalink';
+        return 'title';
     }
 
     /**

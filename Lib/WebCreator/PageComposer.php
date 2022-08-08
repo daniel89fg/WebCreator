@@ -24,13 +24,13 @@ use FacturaScripts\Dinamic\Model\Settings;
 use FacturaScripts\Dinamic\Model\AttachedFile;
 use FacturaScripts\Dinamic\Model\WebPage;
 use FacturaScripts\Dinamic\Model\WebHeader;
+use FacturaScripts\Dinamic\Model\WebMenu;
 use FacturaScripts\Dinamic\Model\WebFooter;
 use FacturaScripts\Dinamic\Model\WebSidebar;
 use FacturaScripts\Dinamic\Lib\Shortcode\Shortcode;
 use FacturaScripts\Dinamic\Model\WebFont;
 use FacturaScripts\Dinamic\Model\WebFontWeight;
 use FacturaScripts\Core\Base\ExtensionsTrait;
-use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 
 /**
  * Description of PageComposer
@@ -120,9 +120,26 @@ class PageComposer
             $header->loadFromCode($idheader);
         }
 
+        $header->menu = $this->getMenu($header->idmenu);
         $this->pipe('getHeaderAfter');
 
         return $header;
+    }
+
+    public function getMenu(?int $idmenu): WebMenu
+    {
+        $menu = new WebMenu();
+
+        $this->pipe('getMenuBefore');
+
+        if ($idmenu > 0) {
+            $menu->loadFromCode($idmenu);
+            $menu->links = $menu->getLinks();
+        }
+
+        $this->pipe('getMenuAfter');
+
+        return $menu;
     }
 
     public function getPageData(WebPage $webPage): array
@@ -176,10 +193,10 @@ class PageComposer
         return $pages;
     }
 
-    public function getShortcodes(string $content)
+    /*public function getShortcodes(string $content, WebPage $webpage)
     {
-        return Shortcode::getShortcodes($content);
-    }
+        return Shortcode::getShortcodes($content, $webpage);
+    }*/
 
     public function getSidebar(?int $idsidebar): WebSidebar
     {

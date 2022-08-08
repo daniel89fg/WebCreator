@@ -15,6 +15,10 @@
     'template': 'EditWebFooter'}
 %}
 
+{% block css %}
+    <link rel="stylesheet" href="/Dinamic/Assets/CSS/WidgetRadio.css"/>
+{% endblock %}
+
 <form id="formEditWebFooter" method="post" enctype="multipart/form-data">
 
     {% if dataFooter.idfooter %}
@@ -408,12 +412,14 @@
                                         <div>
                                             <label class="form-check-label">{{ i18n.trans('footer-layout') }}</label>
                                         </div>
-                                        <div class="btn-group btn-group-toggle py-2 row" data-toggle="buttons">
+                                        <div class="rounded border bg-secondary">
                                             {% block footerStyles %}
-                                                <label class="btn btn-secondary col-6 col-lg-4">
-                                                    <input type="radio" name="footerlayout"
+                                                <div class="widget-radio d-inline-block p-2">
+                                                    <input type="radio" name="footerlayout" class="d-none imgbgchk"
                                                            value="01" {{ (dataFooter.properties.footerlayout == '01' or dataFooter.properties.footerlayout is not defined) ? 'checked' : '' }}>
-                                                    <img src="{{ asset('Dinamic/Assets/Images/footer01.png') }}"/>
+                                                    <label class="mb-0">
+                                                        <img src="{{ asset('Dinamic/Assets/Images/footer01.png') }}"/>
+                                                    </label>
                                                 </label>
 
                                                 {{ webMacros.includeView(webIncludes, 'footerStyles', templateVars) }}

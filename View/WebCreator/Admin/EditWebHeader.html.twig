@@ -3,6 +3,7 @@
 {% set currentView = fsc.getCurrentView() %}
 {% set dataHeader = currentView.model %}
 {% set imagesGallery = fsc.imagesGallery() %}
+{% set menus = fsc.getMenus() %}
 {% set webIncludes = fsc.includeView('EditWebHeader') %}
 {% set templateVars = {
     'i18n': i18n,
@@ -15,6 +16,10 @@
     'template': 'EditWebHeader',
     'dataHeader': dataHeader}
 %}
+
+{% block css %}
+    <link rel="stylesheet" href="/Dinamic/Assets/CSS/WidgetRadio.css"/>
+{% endblock %}
 
 <form id="formEditWebHeader" method="post" enctype="multipart/form-data">
 
@@ -32,9 +37,20 @@
         <div class="card mt-4">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-4">
                         <label class="form-label">{{ i18n.trans('name') }}</label>
                         <input name="name" value="{{ dataHeader.name }}" type="text" class="form-control" required/>
+                    </div>
+
+                    <div class="col-12 col-md-2">
+                        <label class="form-label">{{ i18n.trans('menu') }}</label>
+                        <select name="idmenu" class="form-control">
+                            <option value="">------</option>
+                            {% for menu in menus %}
+                                {% set check = (dataHeader.idmenu == menu.idmenu) ? 'selected' : '' %}
+                                <option value="{{ menu.idmenu }}" {{ check }}>{{ menu.name }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
 
                     <div class="col-12 col-md-2">
@@ -232,6 +248,12 @@
                                     {{ i18n.trans('mobile') }}
                                 </a>
                             </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" data-toggle="tab" href="#generalMenu" role="tab"
+                                   aria-selected="false">
+                                    {{ i18n.trans('menu') }}
+                                </a>
+                            </li>
 
                             {{ webMacros.includeView(webIncludes, 'modalGeneralTab', templateVars) }}
                         {% endblock %}
@@ -277,13 +299,15 @@
                                         <div>
                                             <label class="form-check-label">{{ i18n.trans('header-layout') }}</label>
                                         </div>
-                                        <div class="btn-group btn-group-toggle py-2 row" data-toggle="buttons">
+                                        <div class="rounded border bg-secondary">
                                             {% block headerStyles %}
-                                                <label class="btn btn-secondary col-6 col-lg-4">
-                                                    <input type="radio" name="headerlayout"
+                                                <div class="widget-radio d-inline-block p-2">
+                                                    <input type="radio" name="headerlayout" class="d-none imgbgchk"
                                                            value="01" {{ (dataHeader.properties.headerlayout == '01' or dataHeader.properties.headerlayout is not defined) ? 'checked' : '' }}>
-                                                    <img src="{{ asset('Dinamic/Assets/Images/header01.png') }}"/>
-                                                </label>
+                                                    <label class="mb-0">
+                                                        <img src="{{ asset('Dinamic/Assets/Images/header01.png') }}"/>
+                                                    </label>
+                                                </div>
 
                                                 {{ webMacros.includeView(webIncludes, 'headerStyles', templateVars) }}
                                             {% endblock %}
@@ -535,6 +559,146 @@
                                     </div>
 
                                     {{ webMacros.includeView(webIncludes, 'modalGeneralMobile', templateVars) }}
+                                {% endblock %}
+                            </div>
+
+                            <div class="tab-pane fade" id="generalMenu" role="tabpanel">
+                                {% block modalGeneralMenu %}
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="mt-3">
+                                                <label class="form-label">{{ i18n.trans('alignment-menu-desktop') }}</label>
+                                                <select class="form-control" name="desktopmenualignment">
+                                                    <option value="mr-auto" {{ (dataHeader.properties.desktopmenualignment == 'mr-auto') ? 'selected' : '' }}>
+                                                        {{ i18n.trans('left') }}
+                                                    </option>
+                                                    <option value="mx-auto" {{ (dataHeader.properties.desktopmenualignment == 'mx-auto') ? 'selected' : '' }}>
+                                                        {{ i18n.trans('center') }}
+                                                    </option>
+                                                    <option value="ml-auto" {{ (dataHeader.properties.desktopmenualignment == 'ml-auto' or dataHeader.properties.desktopmenualignment is not defined) ? 'selected' : '' }}>
+                                                        {{ i18n.trans('right') }}
+                                                    </option>
+                                                    <option value="w-100 nav-justified" {{ (dataHeader.properties.desktopmenualignment == 'w-100 nav-justified') ? 'selected' : '' }}>
+                                                        {{ i18n.trans('justified') }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mt-3">
+                                                <label class="form-label">{{ i18n.trans('alignment-menu-mobile') }}</label>
+                                                <select class="form-control" name="mobilemenualignment">
+                                                    <option value="text-left" {{ (dataHeader.properties.mobilemenualignment == 'text-left') ? 'selected' : '' }}>
+                                                        {{ i18n.trans('left') }}
+                                                    </option>
+                                                    <option value="text-center" {{ (dataHeader.properties.mobilemenualignment == 'text-center' or dataHeader.properties.mobilemenualignment is not defined) ? 'selected' : '' }}>
+                                                        {{ i18n.trans('center') }}
+                                                    </option>
+                                                    <option value="text-right" {{ (dataHeader.properties.mobilemenualignment == 'text-right') ? 'selected' : '' }}>
+                                                        {{ i18n.trans('right') }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 bg-secondary text-light py-2 mt-3">
+                                            {{ i18n.trans('color-links') }}
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="mt-3">
+                                                <label class="form-label">{{ i18n.trans('color') }}</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-palette fa-fw"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="color" name="generalmenucolorlink"
+                                                           value="{{ (dataHeader.properties.generalmenucolorlink) ? dataHeader.properties.generalmenucolorlink : '#000000' }}"
+                                                           class="form-control" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="mt-3">
+                                                <label class="form-label">{{ i18n.trans('color-hover') }}</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-palette fa-fw"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="color" name="generalmenucolorlinkhover"
+                                                           value="{{ (dataHeader.properties.generalmenucolorlinkhover) ? dataHeader.properties.generalmenucolorlinkhover : '#017BFF' }}"
+                                                           class="form-control" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="mt-3">
+                                                <label class="form-label">{{ i18n.trans('color-active') }}</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-palette fa-fw"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="color" name="generalmenucolorlinkactive"
+                                                           value="{{ (dataHeader.properties.generalmenucolorlinkactive) ? dataHeader.properties.generalmenucolorlinkactive : '#017BFF' }}"
+                                                           class="form-control" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 bg-secondary text-light py-2 mt-3">
+                                            {{ i18n.trans('color-sublinks') }}
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="mt-3">
+                                                <label class="form-label">{{ i18n.trans('color') }}</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                                <span class="input-group-text">
+                                                                    <i class="fas fa-palette fa-fw"></i>
+                                                                </span>
+                                                    </div>
+                                                    <input type="color" name="generalmenucolorsublink"
+                                                           value="{{ (dataHeader.properties.generalmenucolorsublink) ? dataHeader.properties.generalmenucolorsublink : '#000000' }}"
+                                                           class="form-control" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="mt-3">
+                                                <label class="form-label">{{ i18n.trans('color-hover') }}</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                                <span class="input-group-text">
+                                                                    <i class="fas fa-palette fa-fw"></i>
+                                                                </span>
+                                                    </div>
+                                                    <input type="color" name="generalmenucolorsublinkhover"
+                                                           value="{{ (dataHeader.properties.generalmenucolorsublinkhover) ? dataHeader.properties.generalmenucolorsublinkhover : '#017BFF' }}"
+                                                           class="form-control" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="mt-3">
+                                                <label class="form-label">{{ i18n.trans('color-active') }}</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                                <span class="input-group-text">
+                                                                    <i class="fas fa-palette fa-fw"></i>
+                                                                </span>
+                                                    </div>
+                                                    <input type="color" name="generalmenucolorsublinkactive"
+                                                           value="{{ (dataHeader.properties.generalmenucolorsublinkactive) ? dataHeader.properties.generalmenucolorsublinkactive : '#017BFF' }}"
+                                                           class="form-control" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 {% endblock %}
                             </div>
 

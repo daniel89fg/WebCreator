@@ -21,6 +21,7 @@ namespace FacturaScripts\Plugins\WebCreator\Lib\Shortcode;
 
 use FacturaScripts\Dinamic\Lib\Shortcode\Shortcode;
 use FacturaScripts\Dinamic\Model\AttachedFile;
+use FacturaScripts\Dinamic\Model\WebPage;
 
 /**
  * Shortcode of webLogo
@@ -37,7 +38,7 @@ class webLogo extends Shortcode
      * @param null $webpage
      * @return string|null
      */
-    public static function replace(?string $content, $webpage = null): ?string
+    public static function replace(?string $content, WebPage $webpage): ?string
     {
         $shorts = static::searchCode($content, "/\[webLogo(.*?)\]/");
 

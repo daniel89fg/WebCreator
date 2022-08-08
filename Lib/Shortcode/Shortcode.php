@@ -20,7 +20,7 @@
 namespace FacturaScripts\Plugins\WebCreator\Lib\Shortcode;
 
 use FacturaScripts\Core\Base\ToolBox;
-use FacturaScripts\Plugins\WebCreator\Model\WebPage;
+use FacturaScripts\Dinamic\Model\WebPage;
 
 /**
  * Description of Shortcode
@@ -29,7 +29,7 @@ use FacturaScripts\Plugins\WebCreator\Model\WebPage;
  */
 abstract class Shortcode
 {
-    abstract public static function replace(?string $content, $webpage = null): ?string;
+    abstract public static function replace(?string $content, WebPage $webpage): ?string;
 
     /**
      * @var array
@@ -42,12 +42,11 @@ abstract class Shortcode
     private static $codesActive = [];
 
     /**
-     * @param string $code
      * @param string $className
      */
-    public static function addCode(string $code, string $className)
+    public static function addCode(string $className)
     {
-        self::$codes[$code] = '\\FacturaScripts\\Dinamic\\Lib\\Shortcode\\' . $className;
+        self::$codes[$className] = '\\FacturaScripts\\Dinamic\\Lib\\Shortcode\\' . $className;
     }
 
     /**
@@ -77,34 +76,34 @@ abstract class Shortcode
             foreach ($pageData as $key => $value) {
                 switch ($key) {
                     case 'settings':
-                        $value['globalmeta'] = $className::replace($value['globalmeta'], $value);
-                        $value['globalcss'] = $className::replace($value['globalcss'], $value);
-                        $value['globaljshead'] = $className::replace($value['globaljshead'], $value);
-                        $value['globaljsfooter'] = $className::replace($value['globaljsfooter'], $value);
+                        $value['globalmeta'] = $className::replace($value['globalmeta'], $pageData['page']);
+                        $value['globalcss'] = $className::replace($value['globalcss'], $pageData['page']);
+                        $value['globaljshead'] = $className::replace($value['globaljshead'], $pageData['page']);
+                        $value['globaljsfooter'] = $className::replace($value['globaljsfooter'], $pageData['page']);
                         break;
 
                     case 'header':
                         foreach ($value->content as $Hkey => $Hvalue) {
-                            $value->content[$Hkey] = Shortcode::getShortcodes($Hvalue);
+                            $value->content[$Hkey] = $className::replace($Hvalue, $pageData['page']);
                         }
                         break;
 
                     case 'footer':
                         foreach ($value->content as $Fkey => $Fvalue) {
-                            $value->content[$Fkey] = Shortcode::getShortcodes($Fvalue, $value);
+                            $value->content[$Fkey] = $className::replace($Fvalue, $pageData['page']);
                         }
                         break;
 
                     case 'sidebar':
-                        $value->content = $className::replace($value->content, $value, $value);
+                        $value->content = $className::replace($value->content, $pageData['page']);
                         break;
 
                     case 'page':
-                        $value->content = $className::replace($value->content, $value);
-                        $value->pagejshead = $className::replace($value->pagejshead, $value);
-                        $value->pagejsfooter = $className::replace($value->pagejsfooter, $value);
-                        $value->pagemeta = $className::replace($value->pagemeta, $value);
-                        $value->pagecss = $className::replace($value->pagecss, $value);
+                        $value->content = $className::replace($value->content, $pageData['page']);
+                        $value->pagejshead = $className::replace($value->pagejshead, $pageData['page']);
+                        $value->pagejsfooter = $className::replace($value->pagejsfooter, $pageData['page']);
+                        $value->pagemeta = $className::replace($value->pagemeta, $pageData['page']);
+                        $value->pagecss = $className::replace($value->pagecss, $pageData['page']);
                         break;
                 }
             }
@@ -120,14 +119,14 @@ abstract class Shortcode
      * @param WebPage|null $webpage
      * @return string
      */
-    public static function getShortcodes(string $content, ?WebPage $webpage = null): string
+    /*public static function getShortcodes(string $content, ?WebPage $webpage = null): string
     {
         foreach (self::$codes as $code => $className) {
             $content = $className::replace($content, $webpage);
         }
 
         return $content;
-    }
+    }*/
 
     /**
      * Finds if the string with you the regular expression passed

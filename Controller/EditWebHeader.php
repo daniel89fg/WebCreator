@@ -22,6 +22,7 @@ namespace FacturaScripts\Plugins\WebCreator\Controller;
 use FacturaScripts\Dinamic\Lib\ExtendedController\PanelController;
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 use FacturaScripts\Dinamic\Model\WebHeader;
+use FacturaScripts\Dinamic\Model\WebMenu;
 use FacturaScripts\Dinamic\Lib\AssetManager;
 use FacturaScripts\Plugins\WebCreator\Lib\WebCreator\IncludeViewTrait;
 
@@ -33,6 +34,12 @@ use FacturaScripts\Plugins\WebCreator\Lib\WebCreator\IncludeViewTrait;
 class EditWebHeader extends PanelController
 {
     use IncludeViewTrait;
+
+    public function getMenus(): array
+    {
+        $menu = new WebMenu();
+        return $menu->all([], [], 0, 0);
+    }
 
     /**
      * Returns basic page attributes
@@ -117,7 +124,7 @@ class EditWebHeader extends PanelController
             if ($b) {
                 $content[$key] = $value;
                 unset($data[$key]);
-            } elseif ($key === 'name' || $key === 'cssid' || $key === 'cssclass') {
+            } elseif ($key === 'name' || $key === 'cssid' || $key === 'cssclass' || $key === 'idmenu') {
                 $header->$key = $value;
                 unset($data[$key]);
             }

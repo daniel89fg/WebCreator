@@ -19,7 +19,11 @@
 
 namespace FacturaScripts\Plugins\WebCreator\Controller;
 
+use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 use FacturaScripts\Core\Lib\ExtendedController\EditController;
+use FacturaScripts\Dinamic\Lib\AssetManager;
+use FacturaScripts\Dinamic\Model\WebMenuLink;
+use FacturaScripts\Dinamic\Model\WebPage;
 
 /**
  * Description of EditWebMenu.
@@ -28,14 +32,105 @@ use FacturaScripts\Core\Lib\ExtendedController\EditController;
  */
 class EditWebMenu extends EditController
 {
-    public function getModelClassName() {
-        return "WebMenu";
+
+    public function getModelClassName()
+    {
+        return 'WebMenu';
     }
 
-    public function getPageData() {
+    public function getPageData()
+    {
         $data = parent::getPageData();
+        $data['menu'] = 'web';
         $data["title"] = "WebMenu";
         $data["icon"] = "fas fa-bars";
+        $data['showonmenu'] = false;
         return $data;
+    }
+
+    public function loadParentLinks(): string
+    {
+        $customValues = '<option value="">------</option>';
+        $modelLinks = new WebMenuLink();
+        $where = [
+            new DataBaseWhere('idmenu', $this->getViewModelValue($this->getMainViewName(), 'idmenu')),
+            new DataBaseWhere('idpage', NULL, '!=')
+        ];
+        foreach ($modelLinks->all($where, [], 0, 0) as $link) {
+            $customValues .= '<option value="' . $link->idlink . '">' . $link->getPage()->title . '</option>';
+        }
+        return $customValues;
+    }
+
+    protected function autocompletePageAction(): bool
+    {
+        $this->setTemplate(false);
+
+        $list = [];
+        $pageModel = new WebPage();
+        $query = (string)$this->request->get('term');
+        foreach ($pageModel->codeModelSearch($query, 'idpage') as $value) {
+            $list[] = [
+                'key' => $this->toolBox()->utils()->fixHtml($value->code),
+                'value' => $this->toolBox()->utils()->fixHtml($value->description)
+            ];
+        }
+
+        if (empty($list)) {
+            $list[] = ['key' => null, 'value' => $this->toolBox()->i18n()->trans('no-data')];
+        }
+
+        $this->response->setContent(json_encode($list));
+        return false;
+    }
+
+    protected function createViews()
+    {
+        parent::createViews();
+        $this->setTabsPosition('bottom');
+        $this->createViewsLinks();
+    }
+
+    /**
+     * @param string $viewName
+     */
+    protected function createViewsLinks(string $viewName = 'EditWebMenuLink')
+    {
+        AssetManager::add('css', FS_ROUTE . '/node_modules/jquery-ui-dist/jquery-ui.min.css', 2);
+        AssetManager::add('js', FS_ROUTE . '/node_modules/jquery-ui-dist/jquery-ui.min.js', 2);
+        $this->addHtmlView($viewName, 'WebCreator/Admin/' . $viewName, 'WebMenuLink', 'links','fas fa-link');
+    }
+
+    protected function execPreviousAction($action)
+    {
+        $activeTab = $this->request->request->get('activetab');
+        switch ($action) {
+            case 'autocomplete-page':
+                return $this->autocompletePageAction();
+        }
+
+        if ($activeTab === 'EditWebMenuLink') {
+            switch ($action) {
+                case 'insert':
+                    return $this->saveLinkAction();
+            }
+        }
+
+        return parent::execPreviousAction($action);
+    }
+
+    protected function saveLinkAction(): bool
+    {
+        $link = new WebMenuLink();
+        $link->loadFromData($this->request->request->all());
+        if (empty($link->sort)) {
+            $link->sort = 10;
+        }
+        if (false === $link->save()) {
+            $this->toolBox()->i18nLog()->error('record-save-error');
+            return false;
+        }
+        $this->toolBox()->i18nLog()->notice('record-updated-correctly');
+        return true;
     }
 }

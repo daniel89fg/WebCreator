@@ -45,19 +45,19 @@
         </group>
 
         <group name="default-header-footer" numcolumns="12">
-            <column name="header-default" titleurl="ListWebPage" numcolumns="3" order="100">
+            <column name="header-default" titleurl="ListWebPage?activetab=ListWebHeader" numcolumns="4" order="100">
                 <widget type="select" fieldname="headerdefault" onclick="EditWebHeader">
                     <values source="webcreator_headers" fieldcode="idheader" fieldtitle="name"/>
                 </widget>
             </column>
 
-            <column name="footer-default" titleurl="ListWebFooter" numcolumns="3" order="110">
+            <column name="footer-default" titleurl="ListWebPage?activetab=ListWebFooter" numcolumns="4" order="120">
                 <widget type="select" fieldname="footerdefault" onclick="EditWebFooter">
                     <values source="webcreator_footers" fieldcode="idfooter" fieldtitle="name"/>
                 </widget>
             </column>
 
-            <column name="sidebar-default" titleurl="ListWebSidebar" numcolumns="3" order="120">
+            <column name="sidebar-default" titleurl="ListWebPage?activetab=ListWebSidebar" numcolumns="4" order="130">
                 <widget type="select" fieldname="sidebardefault" onclick="EditWebSidebar">
                     <values source="webcreator_sidebars" fieldcode="idsidebar" fieldtitle="name"/>
                 </widget>

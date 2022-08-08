@@ -24,6 +24,10 @@
         <null>NO</null>
     </column>
     <column>
+        <name>idmenu</name>
+        <type>int</type>
+    </column>
+    <column>
         <name>lastmod</name>
         <type>date</type>
     </column>

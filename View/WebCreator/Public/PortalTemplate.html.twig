@@ -4,6 +4,7 @@
 {% set pageData = fsc.pageComposer.getPageData(fsc.webPage) %}
 {% set webSettings = pageData.settings %}
 {% set webHeader = pageData.header %}
+{% set webMenu = pageData.menu %}
 {% set webFooter = pageData.footer %}
 {% set webSidebar = pageData.sidebar %}
 {% set webPage = pageData.page %}
@@ -20,6 +21,7 @@
     'template': template,
     'webSettings': webSettings,
     'webHeader': webHeader,
+    'webMenu': webMenu,
     'webFooter': webFooter,
     'webSidebar': webSidebar}
 %}
@@ -126,6 +128,12 @@
                     color: {{ webSettings.fonth6color }};
                 }
 
+                {% if webHeader.properties.headerlayout == '01' %}
+                    header .navbar-nav li:hover > ul.dropdown-menu {
+                        display: block;
+                    }
+                {% endif %}
+
                 .header-main,
                 .header-main .content,
                 .header-main .content .d-flex {
@@ -133,12 +141,12 @@
                 }
 
                 .header-main {
-                {% if webHeader.properties.headermainbackgroundimage %} background-image: url('{{ webSettings.siteurl ~ fsc.pageComposer.getAttachFile(webHeader.properties.headermainbackgroundimage) }}');
-                    background-repeat: {{ webHeader.properties.headermainbackgroundimagerepeat }};
-                    background-size: {{ webHeader.properties.headermainbackgroundimagesize }};
-                    background-attachment: {{ webHeader.properties.headermainbackgroundimageattachment }};
-                    background-position: {{ webHeader.properties.headermainbackgroundimageposition }};
-                {% endif %}
+                    {% if webHeader.properties.headermainbackgroundimage %} background-image: url('{{ webSettings.siteurl ~ fsc.pageComposer.getAttachFile(webHeader.properties.headermainbackgroundimage) }}');
+                        background-repeat: {{ webHeader.properties.headermainbackgroundimagerepeat }};
+                        background-size: {{ webHeader.properties.headermainbackgroundimagesize }};
+                        background-attachment: {{ webHeader.properties.headermainbackgroundimageattachment }};
+                        background-position: {{ webHeader.properties.headermainbackgroundimageposition }};
+                    {% endif %}
                 }
 
                 .header-main-border-top {
@@ -151,6 +159,38 @@
                     border-bottom-width: {{ webHeader.properties.headermainborderbottomwidth }}px;
                     border-bottom-color: {{ webHeader.properties.headermainborderbottomcolor }};
                     border-bottom-style: {{ webHeader.properties.headermainborderbottomstyle }};
+                }
+
+                #menuDesktop .nav-item a,
+                #accordionMenuMobile a {
+                    color: {{ webHeader.properties.generalmenucolorlink }};
+                }
+
+                #menuDesktop .dropdown-menu a,
+                #accordionMenuMobile .collapse a {
+                    color: {{ webHeader.properties.generalmenucolorsublink }} !important;
+                }
+
+                #menuDesktop a:hover,
+                #accordionMenuMobile a:hover {
+                    color: {{ webHeader.properties.generalmenucolorlinkhover }};
+                }
+
+                #menuDesktop .dropdown-menu a:hover,
+                #accordionMenuMobile .collapse a:hover {
+                    color: {{ webHeader.properties.generalmenucolorsublinkhover }} !important;
+                }
+
+                #menuDesktop .active .nav-link,
+                #menuDesktop .active .dropdown-item,
+                #accordionMenuMobile .active a {
+                    color: {{ webHeader.properties.generalmenucolorlinkactive }};
+                }
+
+                #menuDesktop .dropdown-menu .active .nav-link,
+                #menuDesktop .dropdown-menu .active .dropdown-item,
+                #accordionMenuMobile .collapse .active a {
+                    color: {{ webHeader.properties.generalmenucolorsublinkactive }} !important;
                 }
 
                 .shadow-bottom-inside {
@@ -166,12 +206,12 @@
                 }
 
                 .page-title {
-                {% if webSettings.titlebackgroundimage %} background-image: url('{{ webSettings.siteurl ~ fsc.pageComposer.getAttachFile(webSettings.titlebackgroundimage) }}');
-                    background-repeat: {{ webSettings.titleimagerepeat }};
-                    background-size: {{ webSettings.titleimagesize }};
-                    background-attachment: {{ webSettings.titleimageattachment }};
-                    background-position: {{ webSettings.titleimageposition }};
-                {% endif %}
+                    {% if webSettings.titlebackgroundimage %} background-image: url('{{ webSettings.siteurl ~ fsc.pageComposer.getAttachFile(webSettings.titlebackgroundimage) }}');
+                        background-repeat: {{ webSettings.titleimagerepeat }};
+                        background-size: {{ webSettings.titleimagesize }};
+                        background-attachment: {{ webSettings.titleimageattachment }};
+                        background-position: {{ webSettings.titleimageposition }};
+                    {% endif %}
                 }
 
                 .footer-shadow-bottom-outside {
@@ -181,12 +221,12 @@
                 }
 
                 footer {
-                {% if webFooter.properties.footerbackgroundimage %} background-image: url('{{ webSettings.siteurl ~ fsc.pageComposer.getAttachFile(webFooter.properties.footerbackgroundimage) }}');
-                    background-repeat: {{ webFooter.properties.footerbackgroundimagerepeat }};
-                    background-size: {{ webFooter.properties.footerbackgroundimagesize }};
-                    background-attachment: {{ webFooter.properties.footerbackgroundimageattachment }};
-                    background-position: {{ webFooter.properties.footerbackgroundimageposition }};
-                {% endif %}
+                    {% if webFooter.properties.footerbackgroundimage %} background-image: url('{{ webSettings.siteurl ~ fsc.pageComposer.getAttachFile(webFooter.properties.footerbackgroundimage) }}');
+                        background-repeat: {{ webFooter.properties.footerbackgroundimagerepeat }};
+                        background-size: {{ webFooter.properties.footerbackgroundimagesize }};
+                        background-attachment: {{ webFooter.properties.footerbackgroundimageattachment }};
+                        background-position: {{ webFooter.properties.footerbackgroundimageposition }};
+                    {% endif %}
                 }
 
                 .footer-top-border-top {

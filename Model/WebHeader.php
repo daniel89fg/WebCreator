@@ -52,6 +52,11 @@ class WebHeader extends Base\ModelClass
     public $idheader;
 
     /**
+     * @var int
+     */
+    public $idmenu;
+
+    /**
      * @var string
      */
     public $lastmod;
@@ -140,6 +145,7 @@ class WebHeader extends Base\ModelClass
         }
         $this->content = json_encode($content);
 
+        $this->idmenu = empty($this->idmenu) ? null : $this->idmenu;
         return parent::test();
     }
 

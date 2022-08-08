@@ -1,0 +1,16 @@
+.webMenu span[data-toggle].collapsed:after {
+    content: "▾";
+}
+
+.webMenu span[data-toggle]:not(.collapsed):after {
+    content: "▴";
+}
+
+.webMenu .nav {
+    list-style: disc;
+}
+
+.webMenu .active {
+    font-weight: bold;
+    color: black;
+}

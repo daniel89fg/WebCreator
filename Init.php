@@ -38,9 +38,10 @@ class Init extends InitClass
 {
     public function init()
     {
-        Shortcode::addCode('block', 'webBlock');
-        Shortcode::addCode('logo', 'webLogo');
-        Shortcode::addCode('asset', 'webAsset');
+        Shortcode::addCode('webBlock');
+        Shortcode::addCode('webLogo');
+        Shortcode::addCode('webAsset');
+        Shortcode::addCode('webMenu');
 
         $translateClass = '\\FacturaScripts\\Dinamic\\Model\\WebTranslate';
         if (\class_exists($translateClass)) {
