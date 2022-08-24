@@ -27,6 +27,7 @@ use FacturaScripts\Dinamic\Model\User;
 use FacturaScripts\Dinamic\Model\WebPage;
 use FacturaScripts\Dinamic\Lib\WebCreator\WebPageData;
 use FacturaScripts\Dinamic\Lib\WebCreator\PortalAction;
+use FacturaScripts\Plugins\Portal\Lib\Portal\PageComposer;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -46,6 +47,11 @@ class PortalController extends Controller
      * @var string
      */
     public $canonicalUrl;
+
+    /**
+     * @var string
+     */
+    public $canonicalUrlWithParameters;
 
     /**
      * The associated contact.
@@ -69,11 +75,27 @@ class PortalController extends Controller
     public $pageComposer;
 
     /**
+     * @var string
+     */
+    public $uriParameters;
+
+    /**
      * The web page object.
      *
      * @var WebPage
      */
     public $webPage;
+
+    /**
+     * @param string $className
+     * @param string $uri
+     */
+    public function __construct(string $className, string $uri = '')
+    {
+        parent::__construct($className, $uri);
+        $uriParts = parse_url($_SERVER["REQUEST_URI"]);
+        $this->uriParameters = $uriParts['query'] ?? '';
+    }
 
     /**
      * Returns basic page attributes
@@ -150,11 +172,15 @@ class PortalController extends Controller
 
         $this->setTemplate(static::DEFAULT_TEMPLATE);
 
-        if ($this->webPage->permalink) {
+        if ('*' === substr($this->webPage->permalink, -1)) {
+            $this->canonicalUrl = $this->uri;
+        } elseif ($this->webPage->permalink) {
             $this->canonicalUrl = $this->webPage->url('public');
         } else {
             $this->canonicalUrl = $this->url();
         }
+
+        $this->canonicalUrlWithParameters = empty($this->uriParameters) ? $this->uri : $this->uri . '?' . $this->uriParameters;
 
         $this->description = $this->webPage->description;
         $this->title = $this->webPage->title;

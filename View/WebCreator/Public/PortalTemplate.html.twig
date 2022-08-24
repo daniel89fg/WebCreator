@@ -640,7 +640,7 @@
     {% if fsc.contact is null and appSettings.get('webcreator', 'google-api', '') != '' %}
     <div id="g_id_onload"
          data-client_id="{{ appSettings.get('webcreator', 'google-api') }}"
-         data-login_uri="{{ webUrl ~ asset('GoogleLogin') }}?return={{ fsc.canonicalUrl }}"
+         data-login_uri="{{ webUrl ~ asset('GoogleLogin') }}?return={{ fsc.canonicalUrlWithParameters|url_encode }}"
          data-your_own_param_1_to_login="any_value">
     </div>
     <script src="https://accounts.google.com/gsi/client" async defer></script>

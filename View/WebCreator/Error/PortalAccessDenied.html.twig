@@ -30,7 +30,7 @@
                 {% else %}
                     <p class="text-center">{{ i18n.customTrans(fsc.webPage.filelang, 'login-to-continue-p') }}</p>
                     <div class="text-center mb-3">
-                        <a class="btn btn-lg btn-primary" href="#" data-toggle="modal" data-target="#loginModal">
+                        <a class="btn btn-lg btn-primary" href="{{ asset('MeLogin') ~ '?return=' ~ fsc.canonicalUrlWithParameters|url_encode }}">
                             {{ i18n.customTrans(fsc.webPage.filelang, 'login') }}
                         </a>
                     </div>
