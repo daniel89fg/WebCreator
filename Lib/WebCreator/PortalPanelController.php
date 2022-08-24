@@ -27,8 +27,6 @@ use FacturaScripts\Dinamic\Lib\ExtendedController\ListView;
 use FacturaScripts\Dinamic\Model\CodeModel;
 
 /**
- * Description of PortalPanelController
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
@@ -47,11 +45,6 @@ abstract class PortalPanelController extends PortalController
      */
     public $hasData = false;
 
-    /**
-     *
-     * @param string $className
-     * @param string $uri
-     */
     public function __construct(string $className, string $uri = '')
     {
         parent::__construct($className, $uri);
@@ -109,13 +102,8 @@ abstract class PortalPanelController extends PortalController
 
     /**
      * Adds a card list type view to the controller.
-     *
-     * @param string $viewName
-     * @param string $modelName
-     * @param string $viewTitle
-     * @param string $viewIcon
      */
-    protected function addCardListView($viewName, $modelName, $viewTitle, $viewIcon = 'fas fa-list')
+    protected function addCardListView(string $viewName, string $modelName, string $viewTitle, string $viewIcon = 'fas fa-list')
     {
         $view = new ListView($viewName, $viewTitle, self::MODEL_NAMESPACE . $modelName, $viewIcon);
         $view->template = 'WebCreator/Private/CardListView.html.twig';
@@ -124,27 +112,17 @@ abstract class PortalPanelController extends PortalController
 
     /**
      * Adds a EditList type view to the controller.
-     *
-     * @param string $viewName
-     * @param string $modelName
-     * @param string $viewTitle
-     * @param string $viewIcon
      */
-    protected function addEditListView($viewName, $modelName, $viewTitle, $viewIcon = 'fas fa-bars')
+    protected function addEditListView(string $viewName, string $modelName, string $viewTitle, string $viewIcon = 'fas fa-bars')
     {
         $view = new EditListView($viewName, $viewTitle, self::MODEL_NAMESPACE . $modelName, $viewIcon);
         $this->addCustomView($viewName, $view);
     }
 
     /**
-     * Adds a Edit type view to the controller.
-     *
-     * @param string $viewName
-     * @param string $modelName
-     * @param string $viewTitle
-     * @param string $viewIcon
+     * Adds Edit type view to the controller.
      */
-    protected function addEditView($viewName, $modelName, $viewTitle, $viewIcon = 'fas fa-edit')
+    protected function addEditView(string $viewName, string $modelName, string $viewTitle, string $viewIcon = 'fas fa-edit')
     {
         $view = new EditView($viewName, $viewTitle, self::MODEL_NAMESPACE . $modelName, $viewIcon);
         $view->settings['card'] = false;
@@ -152,15 +130,9 @@ abstract class PortalPanelController extends PortalController
     }
 
     /**
-     * Adds a HTML type view to the controller.
-     *
-     * @param string $viewName
-     * @param string $fileName
-     * @param string $modelName
-     * @param string $viewTitle
-     * @param string $viewIcon
+     * Adds HTML type view to the controller.
      */
-    protected function addHtmlView($viewName, $fileName, $modelName, $viewTitle, $viewIcon = 'fab fa-html5')
+    protected function addHtmlView(string $viewName, string $fileName, string $modelName, string $viewTitle, string $viewIcon = 'fab fa-html5')
     {
         $view = new HtmlView($viewName, $viewTitle, self::MODEL_NAMESPACE . $modelName, $fileName, $viewIcon);
         $this->addCustomView($viewName, $view);
@@ -168,13 +140,8 @@ abstract class PortalPanelController extends PortalController
 
     /**
      * Adds a List type view to the controller.
-     *
-     * @param string $viewName
-     * @param string $modelName
-     * @param string $viewTitle
-     * @param string $viewIcon
      */
-    protected function addListView($viewName, $modelName, $viewTitle, $viewIcon = 'fas fa-list')
+    protected function addListView(string $viewName, string $modelName, string $viewTitle, string $viewIcon = 'fas fa-list')
     {
         $view = new ListView($viewName, $viewTitle, self::MODEL_NAMESPACE . $modelName, $viewIcon);
         $view->settings['card'] = true;
@@ -195,7 +162,6 @@ abstract class PortalPanelController extends PortalController
      * Run the actions that alter data before reading it.
      *
      * @param string $action
-     *
      * @return bool
      */
     protected function execPreviousAction($action)

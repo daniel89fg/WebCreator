@@ -26,15 +26,12 @@ use FacturaScripts\Dinamic\Model\AttachedFileWeb;
 use ZipArchive;
 
 /**
- * Description of EditAttachedFileWeb
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class EditAttachedFileWeb extends EditController
 {
+
     /**
-     * Returns the model name
-     *
      * @return string
      */
     public function getModelClassName()
@@ -43,8 +40,6 @@ class EditAttachedFileWeb extends EditController
     }
 
     /**
-     * Returns basic page attributes
-     *
      * @return array
      */
     public function getPageData()
@@ -56,9 +51,6 @@ class EditAttachedFileWeb extends EditController
         return $data;
     }
 
-    /**
-     * Load views.
-     */
     protected function createViews()
     {
         parent::createViews();

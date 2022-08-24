@@ -1,6 +1,29 @@
-<header id="{{ webHeader.cssid }}" class="{{ webHeader.cssclass }} {{ (webHeader.properties.generalstickyoverlap) ? 'fixed-top' : '' }}">
+{#
+/**
+ * This file is part of WebCreator plugin for FacturaScripts
+ * Copyright (C) 2022 Carlos Garcia Gomez <carlos@facturascripts.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program. If not, see http://www.gnu.org/licenses/.
+ *
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
+ */
+#}
+<header id="{{ webHeader.cssid }}"
+        class="{{ webHeader.cssclass }} {{ (webHeader.properties.generalstickyoverlap) ? 'fixed-top' : '' }}">
     <div class="header-main {{ (webHeader.properties.headermainshadow and webHeader.properties.headerbottomshadow == null) ? 'shadow-bottom-inside' : '' }} {{ (webHeader.properties.headermainhidedesktop and webHeader.properties.headermainhidemobile) ? 'd-none' : (webHeader.properties.headermainhidedesktop) ? 'd-lg-none' : (webHeader.properties.headermainhidemobile) ? 'd-none d-lg-block' }} {{ (webHeader.properties.headermainbordertopwidth > 0 and webHeader.properties.headermainbordertopcontainer == 'fullwidth') ? 'header-main-border-top' : '' }} {{ (webHeader.properties.headermainborderbottomwidth > 0 and webHeader.properties.headermainborderbottomcontainer == 'fullwidth') ? 'header-main-border-bottom' : '' }}">
-        <nav id="{{ webHeader.menu.cssid }}" class="d-block d-lg-none navbar mobile {{ webHeader.menu.cssclass }} {{ (webHeader.properties.headermainborderbottomwidth > 0) ? 'header-main-border-bottom' : '' }}">
+        <nav id="{{ webHeader.menu.cssid }}"
+             class="d-block d-lg-none navbar mobile {{ webHeader.menu.cssclass }} {{ (webHeader.properties.headermainborderbottomwidth > 0) ? 'header-main-border-bottom' : '' }}">
             <div class="row w-100 m-auto pb-1 d-flex justify-content-between">
                 <div class="col-3 px-0 align-self-center {{ (webHeader.properties.generalpositiontogglemobile) ? 'order-2' : 'order-0' }}">
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -61,7 +84,8 @@
             {% set cssLiDropdown = link.linkparent is empty ? 'nav-item dropdown' : 'dropdown-submenu' %}
             {% set cssADropdown = link.linkparent is empty ? 'nav-link dropdown-toggle' : 'dropdown-item' %}
             <li id="{{ link.cssid }}" class="{{ cssLiDropdown }} {{ active }} {{ link.cssclass }}">
-                <a class="{{ cssADropdown }}" href="{{ href }}" {{ blank }} id="navbarDropdown{{ link.idlink }}" role="button" data-hover="dropdown" aria-expanded="false">
+                <a class="{{ cssADropdown }}" href="{{ href }}" {{ blank }} id="navbarDropdown{{ link.idlink }}"
+                   role="button" data-hover="dropdown" aria-expanded="false">
                     {{ link.name }}
                     {% if cssLiDropdown == 'nav-item dropdown' %}
                         <i class="fas fa-caret-down fa-xs"></i>
@@ -93,18 +117,22 @@
             {% if link.childrens|length > 0 %}
                 {% set idSubmenu = random() %}
                 <div id="acc{{ idSubmenu }}" class="accordion {{ link.cssclass }} {{ active }}">
-                    <button class="btn btn-block text-left px-0 {{ properties.mobilemenualignment }}" type="button" data-toggle="collapse" data-target="#collapse{{ link.idlink }}" aria-expanded="false" aria-controls="collapse{{ link.idlink }}">
+                    <button class="btn btn-block text-left px-0 {{ properties.mobilemenualignment }}" type="button"
+                            data-toggle="collapse" data-target="#collapse{{ link.idlink }}" aria-expanded="false"
+                            aria-controls="collapse{{ link.idlink }}">
                         <a href="{{ href }}" {{ blank }}>{{ link.name }}</a>
                         <i class="fas fa-caret-down fa-xs"></i>
                     </button>
-                    <div id="collapse{{ link.idlink }}" class="collapse" aria-labelledby="heading{{ link.idlink }}" data-parent="#acc{{ idSubmenu }}">
+                    <div id="collapse{{ link.idlink }}" class="collapse" aria-labelledby="heading{{ link.idlink }}"
+                         data-parent="#acc{{ idSubmenu }}">
                         <ul class="pl-1 list-unstyled">
                             {{ _self.menuMobile(link.childrens, webPage, properties) }}
                         </ul>
                     </div>
                 </div>
             {% else %}
-                <a class="btn btn-block text-left px-0 {{ properties.mobilemenualignment }} {{ csslink }}" href="{{ href }}" {{ blank }}>{{ link.name }}</a>
+                <a class="btn btn-block text-left px-0 {{ properties.mobilemenualignment }} {{ csslink }}"
+                   href="{{ href }}" {{ blank }}>{{ link.name }}</a>
             {% endif %}
         </li>
     {% endfor %}

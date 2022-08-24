@@ -29,13 +29,12 @@ use FacturaScripts\Dinamic\Model\WebPage;
 use Symfony\Component\HttpFoundation\Cookie;
 
 /**
- * Description of Me
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class Me extends PortalPanelController
 {
+
     const ACCOUNT_TEMPLATE = 'WebCreator/Private/MeAccount';
 
     /**
@@ -43,10 +42,6 @@ class Me extends PortalPanelController
      */
     public $emailContact;
 
-    /**
-     *
-     * @return bool
-     */
     protected function activateAction(): bool
     {
         $cod = $this->request->get('cod', '');
@@ -97,10 +92,6 @@ class Me extends PortalPanelController
         $this->createViewsInvoices();
     }
 
-    /**
-     *
-     * @param string $viewName
-     */
     protected function createViewsAccount(string $viewName = 'Me')
     {
         $this->setTemplate(self::ACCOUNT_TEMPLATE);
@@ -108,10 +99,6 @@ class Me extends PortalPanelController
         $this->addHtmlView($viewName, 'WebCreator/Private/Me', 'Contacto', 'detail', 'fas fa-user-circle');
     }
 
-    /**
-     *
-     * @param string $viewName
-     */
     protected function createViewsBudgets(string $viewName = 'CardPresupuestoCliente')
     {
         $this->addCardListView($viewName, 'PresupuestoCliente', 'estimations', 'far fa-file-powerpoint');
@@ -121,10 +108,6 @@ class Me extends PortalPanelController
         $this->disableButtons($viewName);
     }
 
-    /**
-     *
-     * @param string $viewName
-     */
     protected function createViewsInvoices(string $viewName = 'CardFacturaCliente')
     {
         $this->addCardListView($viewName, 'FacturaCliente', 'invoices', 'fas fa-file-invoice-dollar');
@@ -134,10 +117,6 @@ class Me extends PortalPanelController
         $this->disableButtons($viewName);
     }
 
-    /**
-     *
-     * @param string $viewName
-     */
     protected function createViewsOrders(string $viewName = 'CardPedidoCliente')
     {
         $this->addCardListView($viewName, 'PedidoCliente', 'orders', 'fas fa-file-powerpoint');
@@ -147,9 +126,6 @@ class Me extends PortalPanelController
         $this->disableButtons($viewName);
     }
 
-    /**
-     * @param string $viewName
-     */
     protected function createViewsPrivacyContact(string $viewName = 'Me')
     {
         $this->setTemplate(self::ACCOUNT_TEMPLATE);
@@ -157,29 +133,17 @@ class Me extends PortalPanelController
         $this->addHtmlView($viewName, 'WebCreator/Private/Privacy', 'Contacto', 'privacy-policy', 'fas fa-check-double');
     }
 
-    /**
-     *
-     * @param string $viewName
-     */
     protected function disableButtons(string $viewName)
     {
         $this->setSettings($viewName, 'btnDelete', false);
         $this->setSettings($viewName, 'btnNew', false);
     }
 
-    /**
-     *
-     * @return bool
-     */
     protected function deleteAction(): bool
     {
         return true;
     }
 
-    /**
-     *
-     * @return bool
-     */
     protected function deleteProfileAction(): bool
     {
         $secutiry = $this->request->request->get('security');
@@ -193,20 +157,12 @@ class Me extends PortalPanelController
         return true;
     }
 
-    /**
-     *
-     * @return bool
-     */
     protected function editAction(): bool
     {
         return true;
     }
 
-    /**
-     *
-     * @return bool
-     */
-    protected function editProfileAction()
+    protected function editProfileAction(): bool
     {
         if (empty($this->contact)) {
             $this->setIPWarning();
@@ -243,9 +199,7 @@ class Me extends PortalPanelController
     }
 
     /**
-     *
      * @param string $action
-     *
      * @return bool
      */
     protected function execPreviousAction($action)
@@ -280,30 +234,20 @@ class Me extends PortalPanelController
         }
     }
 
-    /**
-     *
-     * @param Contacto $contact
-     *
-     * @return string
-     */
     protected function getActivationCode(Contacto $contact): string
     {
         return \sha1($contact->idcontacto . $contact->password);
     }
 
-    /**
-     *
-     * @return bool
-     */
     protected function insertAction(): bool
     {
         return true;
     }
 
     /**
-     *
      * @param string $viewName
      * @param BaseView $view
+     * @return void
      */
     protected function loadData($viewName, $view)
     {
@@ -323,10 +267,6 @@ class Me extends PortalPanelController
         }
     }
 
-    /**
-     *
-     * @return bool
-     */
     protected function logoutAction(): bool
     {
         $this->response->headers->clearCookie('fsIdcontacto');
@@ -344,10 +284,6 @@ class Me extends PortalPanelController
         return true;
     }
 
-    /**
-     *
-     * @return bool
-     */
     protected function recoverAction(): bool
     {
         $key = $this->request->get('key', '');
@@ -387,12 +323,6 @@ class Me extends PortalPanelController
         $this->response->headers->setCookie(new Cookie('fsLogkey', $this->contact->logkey, $expire));
     }
 
-    /**
-     *
-     * @param Contacto $contact
-     *
-     * @return bool
-     */
     protected function sendEmailConfirmation(Contacto $contact): bool
     {
         $i18n = $this->toolBox()->i18n();

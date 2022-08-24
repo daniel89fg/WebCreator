@@ -19,15 +19,17 @@
 
 namespace FacturaScripts\Plugins\WebCreator\Extension\Controller;
 
+use Closure;
+
 /**
- * Description of ListAttachedFile
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class ListAttachedFile
 {
-    public function createViews() {
-        return function() {
+
+    public function createViews(): Closure
+    {
+        return function () {
             $viewName = 'ListAttachedFileWeb';
             $this->addView($viewName, 'AttachedFileWeb', 'attached-files-web', 'fas fa-paperclip');
             $this->views[$viewName]->addOrderBy(['name'], 'date', 2);

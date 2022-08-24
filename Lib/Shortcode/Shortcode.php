@@ -23,8 +23,6 @@ use FacturaScripts\Core\Base\ToolBox;
 use FacturaScripts\Dinamic\Model\WebPage;
 
 /**
- * Description of Shortcode
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 abstract class Shortcode
@@ -49,10 +47,6 @@ abstract class Shortcode
         self::$codes[$className] = '\\FacturaScripts\\Dinamic\\Lib\\Shortcode\\' . $className;
     }
 
-    /**
-     * @param string $className
-     * @return bool
-     */
     public static function getClassName(string $className): bool
     {
         $className = explode('\\', $className);
@@ -66,10 +60,6 @@ abstract class Shortcode
         }
     }
 
-    /**
-     * @param array $pageData
-     * @return array
-     */
     public static function getPageShortcodes(array $pageData): array
     {
         foreach (self::$codes as $code => $className) {
@@ -114,10 +104,6 @@ abstract class Shortcode
 
     /**
      * Find and replace shortcodes
-     *
-     * @param string $content
-     * @param WebPage|null $webpage
-     * @return string
      */
     /*public static function getShortcodes(string $content, ?WebPage $webpage = null): string
     {
@@ -130,10 +116,6 @@ abstract class Shortcode
 
     /**
      * Finds if the string with you the regular expression passed
-     *
-     * @param string|null $content
-     * @param string $search
-     * @return array|null
      */
     protected static function searchCode(?string $content, string $search): ?array
     {
@@ -143,9 +125,6 @@ abstract class Shortcode
 
     /**
      * Obtained the attributes of a shortcode and saves them in an array
-     *
-     * @param string $short
-     * @return array
      */
     protected static function getAttributes(string $short): array
     {

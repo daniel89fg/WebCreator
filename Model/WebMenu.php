@@ -26,12 +26,11 @@ use FacturaScripts\Core\Model\Base\ModelTrait;
 use FacturaScripts\Dinamic\Model\WebMenuLink;
 
 /**
- * Description of WebMenu
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class WebMenu extends ModelClass
 {
+
     use ModelTrait;
 
     /**
@@ -80,7 +79,6 @@ class WebMenu extends ModelClass
     }
 
     /**
-     *
      * @return bool
      */
     public function save()
@@ -94,6 +92,9 @@ class WebMenu extends ModelClass
         return "webcreator_menus";
     }
 
+    /**
+     * @return bool
+     */
     public function test()
     {
         if (isset($this->cssid)) {

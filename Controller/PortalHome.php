@@ -22,8 +22,6 @@ namespace FacturaScripts\Plugins\WebCreator\Controller;
 use FacturaScripts\Dinamic\Lib\WebCreator\PortalController;
 
 /**
- * Description of PortalHome
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  */
 class PortalHome extends PortalController

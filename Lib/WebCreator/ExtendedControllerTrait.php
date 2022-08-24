@@ -27,8 +27,6 @@ use FacturaScripts\Dinamic\Model\CodeModel;
 use FacturaScripts\Dinamic\Lib\Widget\WidgetAutocomplete;
 
 /**
- * Description of ExtendedControllerTrait
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  */
 trait ExtendedControllerTrait
@@ -72,6 +70,7 @@ trait ExtendedControllerTrait
      *
      * @param string $viewName
      * @param BaseView $view
+     * @return void
      */
     abstract protected function loadData($viewName, $view);
 
@@ -91,7 +90,6 @@ trait ExtendedControllerTrait
     }
 
     /**
-     *
      * @param string $viewName
      * @param BaseView|ListView $view
      */
@@ -110,7 +108,6 @@ trait ExtendedControllerTrait
     }
 
     /**
-     *
      * @return BaseView|ListView
      */
     public function getCurrentView()

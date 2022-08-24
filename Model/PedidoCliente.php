@@ -22,19 +22,11 @@ namespace FacturaScripts\Plugins\WebCreator\Model;
 use FacturaScripts\Core\Model\PedidoCliente as ParentModel;
 
 /**
- * Description of PedidoCliente
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class PedidoCliente extends ParentModel
 {
-    /**
-     *
-     * @param string $type
-     * @param string $list
-     *
-     * @return string
-     */
+
     public function url(string $type = 'auto', string $list = 'List'): string
     {
         return $type === 'public' ? 'ViewOrder?code=' . $this->primaryColumnValue() : parent::url($type, $list);

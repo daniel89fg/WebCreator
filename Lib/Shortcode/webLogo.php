@@ -24,19 +24,15 @@ use FacturaScripts\Dinamic\Model\AttachedFile;
 use FacturaScripts\Dinamic\Model\WebPage;
 
 /**
- * Shortcode of webLogo
  * Displays the default logo or the logo set in the general settings.
  *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class webLogo extends Shortcode
 {
+
     /**
      * Replace the block shortcode with the content of the block if found
-     *
-     * @param string|null $content
-     * @param null $webpage
-     * @return string|null
      */
     public static function replace(?string $content, WebPage $webpage): ?string
     {

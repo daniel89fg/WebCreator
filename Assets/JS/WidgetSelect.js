@@ -14,14 +14,11 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
-
-/*
+ *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
-
 function getValueTypeParent(parent) {
-    var term = '';
+    let term = '';
 
     if (parent.is('input')) {
         term = parent.val();
@@ -41,10 +38,10 @@ function getValueTypeParent(parent) {
 function widgetSelectGetData(select) {
     select.html('');
 
-    var data = {
+    let data = {
         action: 'select',
-        formname: $('input[name="activetab"]').val(),
-        term: getValueTypeParent($('[name="'+select.attr('parent')+'"]')),
+        activetab: select.form().find('input[name="activetab"]').val(),
+        term: getValueTypeParent(select.form().find('[name="' + select.attr('parent') + '"]')),
         field: select.attr("data-field"),
         fieldcode: select.attr("data-fieldcode"),
         fieldfilter: select.attr("data-fieldfilter"),
@@ -59,7 +56,7 @@ function widgetSelectGetData(select) {
         dataType: "json",
         success: function (results) {
             results.forEach(function (element) {
-                var selected = (element.key == select.attr('value')) ? 'selected' : '';
+                let selected = (element.key == select.attr('value')) ? 'selected' : '';
                 select.append('<option value="'+element.key+'" '+selected+'>'+element.value+'</option>');
             });
         },
@@ -71,16 +68,16 @@ function widgetSelectGetData(select) {
 
 $(document).ready(function () {
     $('.parentSelect').each(function(){
-        var attr = $(this).attr('parent');
-        if (attr !== 'undefined' && attr !== false && attr !== '') {
-            var select = $(this);
-            var parent = select.attr('parent');
-
-            $('select[name="'+parent+'"]').on('change', function(){
-                widgetSelectGetData(select);
-            });
-
-            widgetSelectGetData(select);
+        let parent = $(this).attr('parent');
+        if (parent === 'undefined' || parent === false || parent === '') {
+            return;
         }
+
+        let select = $(this);
+        select.form().find('select[name="' + parent + '"]').on('change', function(){
+            widgetSelectGetData(select);
+        });
+
+        widgetSelectGetData(select);
     });
 });

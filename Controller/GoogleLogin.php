@@ -26,19 +26,17 @@ use Google_Client;
 use Exception;
 
 /**
- * Description of HybridLogin
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class GoogleLogin extends Me
 {
+
     protected $returnUrl;
 
     /**
-     * Execute the public part of the controller.
-     *
      * @param Response $response
+     * @return void
      */
     public function publicCore(&$response)
     {

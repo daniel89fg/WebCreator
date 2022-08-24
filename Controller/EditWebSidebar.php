@@ -22,15 +22,12 @@ namespace FacturaScripts\Plugins\WebCreator\Controller;
 use FacturaScripts\Dinamic\Lib\ExtendedController\EditController;
 
 /**
- * Description of EditWebSidebar
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class EditWebSidebar extends EditController
 {
+
     /**
-     * Returns the model name
-     *
      * @return string
      */
     public function getModelClassName()
@@ -39,8 +36,6 @@ class EditWebSidebar extends EditController
     }
 
     /**
-     * Returns basic page attributes
-     *
      * @return array
      */
     public function getPageData()

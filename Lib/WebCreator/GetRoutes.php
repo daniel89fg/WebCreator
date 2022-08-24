@@ -20,12 +20,11 @@
 namespace FacturaScripts\Plugins\WebCreator\Lib\WebCreator;
 
 /**
- * Description of GetRoutes
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class GetRoutes
 {
+
     public static function getRoutes()
     {
         $myFile = FS_FOLDER . '/MyFiles/routes.json';

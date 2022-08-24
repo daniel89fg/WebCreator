@@ -26,8 +26,7 @@ use FacturaScripts\Dinamic\Model\WebMenu as WebMenuModel;
 use FacturaScripts\Dinamic\Model\WebPage;
 
 /**
- * Shortcode of webMenu
- * Add menu web
+ * Create menu
  *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
@@ -35,14 +34,9 @@ class webMenu extends Shortcode
 {
     /**
      * Replace the block shortcode with the content of the block if found
-     *
-     * @param string|null $content
-     * @param WebPage $webpage
-     * @return string|null
      */
     public static function replace(?string $content, WebPage $webpage): ?string
     {
-
         $shorts = static::searchCode($content, "/\[webMenu(.*?)\]/");
 
         if (count($shorts[0]) <= 0) {

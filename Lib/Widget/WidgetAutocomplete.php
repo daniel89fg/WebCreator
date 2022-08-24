@@ -22,19 +22,19 @@ namespace FacturaScripts\Plugins\WebCreator\Lib\Widget;
 use FacturaScripts\Core\Lib\Widget\WidgetAutocomplete as ParentWidget;
 
 /**
- * Description of WidgetAutocomplete
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  */
 class WidgetAutocomplete extends ParentWidget
 {
 
     /**
-     *
      * @var array
      */
     private static $allowed = [];
 
+    /**
+     * @param array $data
+     */
     public function __construct($data)
     {
         parent::__construct($data);

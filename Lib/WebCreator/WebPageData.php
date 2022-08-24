@@ -20,26 +20,43 @@
 namespace FacturaScripts\Plugins\WebCreator\Lib\WebCreator;
 
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
+use FacturaScripts\Dinamic\Model\Contacto;
 use FacturaScripts\Dinamic\Model\WebPage;
 use FacturaScripts\Core\Base\ToolBox;
 use FacturaScripts\Dinamic\Lib\Shortcode\Shortcode;
 use FacturaScripts\Core\Base\ExtensionsTrait;
 use FacturaScripts\Dinamic\Model\Redirect;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Description of PortalController class
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class WebPageData
 {
+
     use ExtensionsTrait;
 
-    public $uri;
+    /**
+     * @var Contacto
+     */
     public $contact;
+
+    /**
+     * @var string
+     */
+    public $uri;
+
+    /**
+     * @var Request
+     */
     public $request;
 
+    /**
+     * @param string $uri
+     * @param Contacto $contact
+     * @param Request $request
+     */
     public function __construct($uri, $contact, $request)
     {
         $this->uri = $uri;

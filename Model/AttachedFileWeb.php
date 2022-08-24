@@ -26,17 +26,15 @@ use ZipArchive;
 use finfo;
 
 /**
- * Description of AttachedFileWeb
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
-
 class AttachedFileWeb extends Base\ModelClass
 {
+
     use Base\ModelTrait;
 
     /**
-     * @var date
+     * @var string
      */
     public $date;
 
@@ -116,7 +114,6 @@ class AttachedFileWeb extends Base\ModelClass
     {
         $this->pathMyfiles = FS_FOLDER . DIRECTORY_SEPARATOR . 'MyFiles' . DIRECTORY_SEPARATOR . $this->filezip;
         if (false === file_exists($this->pathMyfiles)) {
-            unlink($this->pathMyfiles);
             $this->toolBox()->i18nLog()->error('file-not-exists');
             return false;
         }

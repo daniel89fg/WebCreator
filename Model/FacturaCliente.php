@@ -22,19 +22,11 @@ namespace FacturaScripts\Plugins\WebCreator\Model;
 use FacturaScripts\Core\Model\FacturaCliente as ParentModel;
 
 /**
- * Description of FacturaCliente
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class FacturaCliente extends ParentModel
 {
-    /**
-     *
-     * @param string $type
-     * @param string $list
-     *
-     * @return string
-     */
+
     public function url(string $type = 'auto', string $list = 'List'): string
     {
         return $type === 'public' ? 'ViewInvoice?code=' . $this->primaryColumnValue() : parent::url($type, $list);

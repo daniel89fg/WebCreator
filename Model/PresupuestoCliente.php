@@ -21,20 +21,9 @@ namespace FacturaScripts\Plugins\WebCreator\Model;
 
 use FacturaScripts\Core\Model\PresupuestoCliente as ParentModel;
 
-/**
- * Description of PresupuestoCliente
- *
- * @author Daniel Fernández Giménez <hola@danielfg.es>
- */
 class PresupuestoCliente extends ParentModel
 {
-    /**
-     *
-     * @param string $type
-     * @param string $list
-     *
-     * @return string
-     */
+
     public function url(string $type = 'auto', string $list = 'List'): string
     {
         return $type === 'public' ? 'ViewBudget?code=' . $this->primaryColumnValue() : parent::url($type, $list);

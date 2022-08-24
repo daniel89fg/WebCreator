@@ -21,22 +21,39 @@ namespace FacturaScripts\Plugins\WebCreator\Lib\WebCreator;
 
 use FacturaScripts\Core\Base\ToolBox;
 use FacturaScripts\Core\Base\ExtensionsTrait;
+use FacturaScripts\Dinamic\Model\Contacto;
 use FacturaScripts\Dinamic\Model\EmailSent;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Description of PortalAction class
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class PortalAction
 {
+
     use ExtensionsTrait;
 
-    public $uri;
+    /**
+     * @var Contacto
+     */
     public $contact;
+
+    /**
+     * @var string
+     */
+    public $uri;
+
+    /**
+     * @var Request
+     */
     public $request;
 
+    /**
+     * @param string $uri
+     * @param Contacto $contact
+     * @param Request $request
+     */
     public function __construct($uri, $contact, $request)
     {
         $this->uri = $uri;

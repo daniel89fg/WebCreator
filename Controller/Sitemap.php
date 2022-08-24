@@ -26,8 +26,6 @@ use FacturaScripts\Dinamic\Model\WebPage;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Description of Sitemap
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
@@ -35,8 +33,6 @@ class Sitemap extends Controller
 {
 
     /**
-     * Returns basic page attributes
-     *
      * @return array
      */
     public function getPageData()
@@ -49,8 +45,6 @@ class Sitemap extends Controller
     }
 
     /**
-     * Execute the public part of the controller.
-     *
      * @param Response $response
      */
     public function publicCore(&$response)
@@ -60,8 +54,6 @@ class Sitemap extends Controller
     }
 
     /**
-     * Runs the controller's private logic.
-     *
      * @param Response $response
      * @param User $user
      * @param ControllerPermissions $permissions
@@ -72,16 +64,6 @@ class Sitemap extends Controller
         $this->generateSitemap();
     }
 
-    /**
-     * Returns a valid sitemap item.
-     *
-     * @param string $loc
-     * @param int $lastmod
-     * @param string $changefreq
-     * @param float $priority
-     *
-     * @return array
-     */
     protected function createItem(string $loc, int $lastmod, string $changefreq = 'weekly', float $priority = 0.5): array
     {
         return [
@@ -92,9 +74,6 @@ class Sitemap extends Controller
         ];
     }
 
-    /**
-     * Generate sitemap.
-     */
     private function generateSitemap()
     {
         $this->setTemplate(false);
@@ -114,11 +93,6 @@ class Sitemap extends Controller
         $this->response->setContent($xml);
     }
 
-    /**
-     * Return sitemap items.
-     *
-     * @return array
-     */
     protected function getSitemapItems(): array
     {
         $items = [];

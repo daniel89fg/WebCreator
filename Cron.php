@@ -25,12 +25,11 @@ use FacturaScripts\Dinamic\Model\WebFont;
 use FacturaScripts\Dinamic\Model\WebFontWeight;
 
 /**
- * Description of Cron
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class Cron extends CronClass
 {
+
     public function run()
     {
         if ($this->isTimeForJob('updateGoogleFonts', '30 days')) {

@@ -25,8 +25,6 @@ use FacturaScripts\Dinamic\Model\Base\ModelClass;
 use FacturaScripts\Core\Lib\ExtendedController\BaseView;
 
 /**
- * Description of PortalViewController
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  */
 abstract class PortalViewController extends PortalPanelController
@@ -52,19 +50,15 @@ abstract class PortalViewController extends PortalPanelController
         $this->addHtmlView(static::MAIN_VIEW_NAME, 'WebCreator/Private/' . $this->getClassName(), $this->getModelClassName(), static::MAIN_VIEW_NAME);
     }
 
-    /**
-     *
-     * @return string
-     */
     protected function getComposeUrlColumn(): string
     {
         return '';
     }
 
     /**
-     *
      * @param string $viewName
      * @param BaseView $view
+     * @return void
      */
     protected function loadData($viewName, $view)
     {
@@ -95,7 +89,6 @@ abstract class PortalViewController extends PortalPanelController
     }
 
     /**
-     *
      * @return ModelClass
      */
     protected function preloadModel()

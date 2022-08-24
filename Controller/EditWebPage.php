@@ -31,13 +31,12 @@ use FacturaScripts\Plugins\WebCreator\Lib\WebCreator\IncludeViewTrait;
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 
 /**
- * Description of EditWebPage.
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class EditWebPage extends PanelController
 {
+
     use PermalinkTrait;
     use IncludeViewTrait;
 
@@ -67,8 +66,6 @@ class EditWebPage extends PanelController
     }
 
     /**
-     * Returns basic page attributes.
-     *
      * @return array
      */
     public function getPageData()
@@ -104,9 +101,6 @@ class EditWebPage extends PanelController
         return $this->toolBox()->appSettings()->get('webcreator', 'siteurl');
     }
 
-    /**
-     * Load views.
-     */
     protected function createViews()
     {
         $this->addHtmlView('EditWebPage', 'WebCreator/Admin/EditWebPage', 'WebPage', 'page', 'fas fa-globe-americas');
@@ -118,10 +112,7 @@ class EditWebPage extends PanelController
     }
 
     /**
-     * Run the actions that alter data before reading it.
-     *
      * @param string $action
-     *
      * @return bool
      */
     protected function execPreviousAction($action)
@@ -155,6 +146,11 @@ class EditWebPage extends PanelController
         return parent::execPreviousAction($action);
     }
 
+    /**
+     * @param string $viewName
+     * @param BaseView $view
+     * @return void
+     */
     protected function loadData($viewName, $view)
     {
         switch ($viewName) {

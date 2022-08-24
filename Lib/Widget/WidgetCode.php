@@ -23,19 +23,17 @@ use FacturaScripts\Core\Lib\AssetManager;
 use FacturaScripts\Core\Lib\Widget\BaseWidget;
 
 /**
- * Description of WidgetCode
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class WidgetCode extends BaseWidget
 {
+
     /**
      * @var string
      */
     protected $lang;
 
     /**
-     *
      * @param array $data
      */
     public function __construct($data)
@@ -54,10 +52,8 @@ class WidgetCode extends BaseWidget
     }
 
     /**
-     *
      * @param string $type
      * @param string $extraClass
-     *
      * @return string
      */
     protected function inputHtml($type = '', $extraClass = '')

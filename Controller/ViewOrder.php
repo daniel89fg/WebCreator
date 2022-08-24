@@ -11,17 +11,12 @@ use FacturaScripts\Dinamic\Lib\ExportManager;
 use FacturaScripts\Dinamic\Lib\WebCreator\PortalViewController;
 
 /**
- * Description of ViewOrder
- *
  * @author Carlos García Gómez <carlos@facturascripts.com>
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class ViewOrder extends PortalViewController
 {
-    /**
-     *
-     * @return string
-     */
+
     public function getModelClassName(): string
     {
         return 'PedidoCliente';
@@ -43,9 +38,7 @@ class ViewOrder extends PortalViewController
     }
 
     /**
-     *
      * @param string $action
-     *
      * @return bool
      */
     protected function execPreviousAction($action)
@@ -60,9 +53,9 @@ class ViewOrder extends PortalViewController
     }
 
     /**
-     *
      * @param string $viewName
      * @param BaseView $view
+     * @return void
      */
     protected function loadData($viewName, $view)
     {

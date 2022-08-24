@@ -26,17 +26,14 @@ use FacturaScripts\Dinamic\Lib\AssetManager;
 use FacturaScripts\Plugins\WebCreator\Lib\WebCreator\IncludeViewTrait;
 
 /**
- * Description of EditWebFooter
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class EditWebFooter extends PanelController
 {
+
     use IncludeViewTrait;
 
     /**
-     * Returns the model name
-     *
      * @return string
      */
     public function getModelClassName()
@@ -45,8 +42,6 @@ class EditWebFooter extends PanelController
     }
 
     /**
-     * Returns basic page attributes
-     *
      * @return array
      */
     public function getPageData()
@@ -66,17 +61,14 @@ class EditWebFooter extends PanelController
         ]);
     }
 
-    /**
-     * Create views
-     */
     protected function createViews()
     {
         $this->addHtmlView('EditWebFooter', 'WebCreator/Admin/EditWebFooter', 'WebFooter', 'footer');
     }
 
     /**
-     *
      * @param string $action
+     * @return bool
      */
     protected function execPreviousAction($action)
     {
@@ -95,9 +87,9 @@ class EditWebFooter extends PanelController
     }
 
     /**
-     *
      * @param string $viewName
      * @param BaseView $view
+     * @return void
      */
     protected function loadData($viewName, $view)
     {

@@ -22,13 +22,12 @@ namespace FacturaScripts\Plugins\WebCreator\Model;
 use FacturaScripts\Core\Model\Base;
 
 /**
- * Description of WebBlock
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class WebBlock extends Base\ModelClass
 {
+
     use Base\ModelTrait;
 
     /**
@@ -61,27 +60,18 @@ class WebBlock extends Base\ModelClass
      */
     public $type;
 
-    /**
-     * Reset the values of all model properties.
-     */
     public function clear()
     {
         parent::clear();
         $this->content = 'Hello world!';
     }
 
-    /**
-     * Returns the name of the column that is the primary key of the model.
-     *
-     * @return string
-     */
     public static function primaryColumn(): string
     {
         return 'idblock';
     }
 
     /**
-     *
      * @return bool
      */
     public function save()
@@ -91,24 +81,11 @@ class WebBlock extends Base\ModelClass
         return parent::save();
     }
 
-    /**
-     * Returns the name of the table that uses this model.
-     *
-     * @return string
-     */
     public static function tableName(): string
     {
         return 'webcreator_blocks';
     }
 
-    /**
-     * Returns the url where to see / modify the data.
-     *
-     * @param string $type
-     * @param string $list
-     *
-     * @return string
-     */
     public function url(string $type = 'auto', string $list = 'List'): string
     {
         if ($type === 'public') {

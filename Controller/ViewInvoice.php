@@ -24,25 +24,16 @@ use FacturaScripts\Dinamic\Lib\ExportManager;
 use FacturaScripts\Dinamic\Lib\WebCreator\PortalViewController;
 
 /**
- * Description of ViewInvoice
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class ViewInvoice extends PortalViewController
 {
-    /**
-     *
-     * @return string
-     */
+
     public function getModelClassName(): string
     {
         return 'FacturaCliente';
     }
 
-    /**
-     *
-     * @return bool
-     */
     protected function cancelAction(): bool
     {
         if (false === $this->permissions->allowAccess) {
@@ -83,9 +74,7 @@ class ViewInvoice extends PortalViewController
     }
 
     /**
-     *
      * @param string $action
-     *
      * @return bool
      */
     protected function execPreviousAction($action)
@@ -103,9 +92,9 @@ class ViewInvoice extends PortalViewController
     }
 
     /**
-     *
      * @param string $viewName
      * @param BaseView $view
+     * @return void
      */
     protected function loadData($viewName, $view)
     {

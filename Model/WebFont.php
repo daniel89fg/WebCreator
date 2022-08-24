@@ -22,12 +22,11 @@ namespace FacturaScripts\Plugins\WebCreator\Model;
 use FacturaScripts\Core\Model\Base;
 
 /**
- * Description of WebFont
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class WebFont extends Base\ModelClass
 {
+
     use Base\ModelTrait;
 
     /**
@@ -40,18 +39,12 @@ class WebFont extends Base\ModelClass
      */
     public $name;
 
-    /**
-     * Returns the name of the column that is the primary key of the model.
-     *
-     * @return string
-     */
     public static function primaryColumn(): string
     {
         return 'idfont';
     }
 
     /**
-     *
      * @return bool
      */
     public function save()
@@ -60,11 +53,6 @@ class WebFont extends Base\ModelClass
         return parent::save();
     }
 
-    /**
-     * Returns the name of the table that uses this model.
-     *
-     * @return string
-     */
     public static function tableName(): string
     {
         return 'webcreator_fonts';

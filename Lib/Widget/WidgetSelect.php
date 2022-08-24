@@ -23,24 +23,24 @@ use FacturaScripts\Core\Lib\Widget\WidgetSelect as parentWidget;
 use FacturaScripts\Core\Lib\AssetManager;
 
 /**
- * Description of WidgetSelect
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class WidgetSelect extends parentWidget
 {
+
     /**
-     *
      * @var string
      */
     protected $fieldfilter;
 
     /**
-     *
      * @var string
      */
     protected $parent;
 
+    /**
+     * @param array $data
+     */
     public function __construct($data)
     {
         parent::__construct($data);
@@ -71,10 +71,8 @@ class WidgetSelect extends parentWidget
     }
 
     /**
-     *
      * @param string $type
      * @param string $extraClass
-     *
      * @return string
      */
     protected function inputHtml($type = 'text', $extraClass = '')

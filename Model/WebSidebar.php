@@ -23,12 +23,11 @@ use FacturaScripts\Core\Base\Utils;
 use FacturaScripts\Core\Model\Base;
 
 /**
- * Description of WebSidebar
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class WebSidebar extends Base\ModelClass
 {
+
     use Base\ModelTrait;
 
     /**
@@ -61,27 +60,18 @@ class WebSidebar extends Base\ModelClass
      */
     public $name;
 
-    /**
-     * Reset the values of all model properties.
-     */
     public function clear()
     {
         parent::clear();
         $this->content = 'Hello world!';
     }
 
-    /**
-     * Returns the name of the column that is the primary key of the model.
-     *
-     * @return string
-     */
     public static function primaryColumn(): string
     {
         return 'idsidebar';
     }
 
     /**
-     *
      * @return bool
      */
     public function save()
@@ -90,19 +80,12 @@ class WebSidebar extends Base\ModelClass
         return parent::save();
     }
 
-    /**
-     * Returns the name of the table that uses this model.
-     *
-     * @return string
-     */
     public static function tableName(): string
     {
         return 'webcreator_sidebars';
     }
 
     /**
-     * Returns True if there is no errors on properties values.
-     *
      * @return bool
      */
     public function test()
@@ -118,14 +101,6 @@ class WebSidebar extends Base\ModelClass
         return parent::test();
     }
 
-    /**
-     * Returns the url where to see / modify the data.
-     *
-     * @param string $type
-     * @param string $list
-     *
-     * @return string
-     */
     public function url(string $type = 'auto', string $list = 'List'): string
     {
         return parent::url($type, 'ListWebPage?activetab=List');

@@ -24,16 +24,11 @@ use FacturaScripts\Dinamic\Lib\ExtendedController\PanelController;
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 
 /**
- * Description of WebCreator
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class WebCreator extends PanelController
 {
-    /**
-     *
-     * @return array
-     */
+
     public function getPageData(): array
     {
         $data = parent::getPageData();
@@ -43,9 +38,6 @@ class WebCreator extends PanelController
         return $data;
     }
 
-    /**
-     * Create views
-     */
     protected function createViews()
     {
         $this->setTemplate('EditSettings');
@@ -68,6 +60,10 @@ class WebCreator extends PanelController
         $this->setSettings('WebSettingsPermalink', 'btnDelete', false);
     }
 
+    /**
+     * @param string $action
+     * @return bool
+     */
     protected function execPreviousAction($action)
     {
         switch ($action) {
@@ -82,9 +78,9 @@ class WebCreator extends PanelController
     }
 
     /**
-     *
      * @param string $viewName
      * @param BaseView $view
+     * @return void
      */
     protected function loadData($viewName, $view)
     {
@@ -159,8 +155,6 @@ class WebCreator extends PanelController
     /**
      * Run the select action.
      * Returns a JSON string for the searched values.
-     *
-     * @return array
      */
     protected function selectAction(): array
     {

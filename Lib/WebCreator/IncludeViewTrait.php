@@ -23,13 +23,12 @@ use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 
 /**
- * Description of IncludeViewTrait
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 trait IncludeViewTrait
 {
-    public static function includeView($fileParent): array
+
+    public static function includeView(string $fileParent): array
     {
         $files = [];
         $fileParentTemp = explode('/', $fileParent);
@@ -74,7 +73,7 @@ trait IncludeViewTrait
             $files[] = $arrayFile;
         }
 
-        usort($files,function($a,$b) {
+        usort($files, function ($a, $b) {
             return strcmp($a['file'], $b['file']) // status ascending
                 ?: strcmp($a['position'], $b['position']) // start ascending
                     ?: strcmp($a['order'], $b['order']) // mh ascending

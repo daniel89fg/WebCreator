@@ -26,12 +26,11 @@ use FacturaScripts\Core\Model\Base\ModelTrait;
 use FacturaScripts\Dinamic\Model\WebPage;
 
 /**
- * Description of WebMenuLink
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class WebMenuLink extends ModelClass
 {
+
     use ModelTrait;
 
     /**
@@ -98,7 +97,8 @@ class WebMenuLink extends ModelClass
         return false;
     }
 
-    public function clear() {
+    public function clear()
+    {
         parent::clear();
         $this->sort = 10;
         $this->target = false;
@@ -133,6 +133,9 @@ class WebMenuLink extends ModelClass
         return "webcreator_menus_links";
     }
 
+    /**
+     * @return bool
+     */
     public function test()
     {
         if (empty($this->idpage) && empty($this->redirect)) {

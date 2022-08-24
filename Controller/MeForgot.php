@@ -27,13 +27,12 @@ use FacturaScripts\Dinamic\Model\Contacto;
 use FacturaScripts\Dinamic\Controller\Me;
 
 /**
- * Description of MeForgot
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class MeForgot extends Me
 {
+
     const FORGOT_TEMPLATE = 'WebCreator/Public/Forgot';
 
     protected function createViews()
@@ -54,7 +53,6 @@ class MeForgot extends Me
 
     /**
      * @param string $action
-     *
      * @return bool
      */
     protected function execPreviousAction($action)
@@ -67,9 +65,6 @@ class MeForgot extends Me
         return parent::execPreviousAction($action);
     }
 
-    /**
-     * @return bool
-     */
     protected function forgotAction(): bool
     {
         $contact = new Contacto();
@@ -91,11 +86,6 @@ class MeForgot extends Me
         return true;
     }
 
-    /**
-     * @param Contacto $contact
-     *
-     * @return bool
-     */
     protected function sendRecoveryMail(Contacto $contact): bool
     {
         $i18n = $this->toolBox()->i18n();

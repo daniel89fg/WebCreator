@@ -27,13 +27,12 @@ use FacturaScripts\Dinamic\Controller\Me;
 use voku\helper\EmailCheck;
 
 /**
- * Description of MeForgot
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class MeRegister extends Me
 {
+
     const REGISTER_TEMPLATE = 'WebCreator/Public/Register';
 
     /**
@@ -78,7 +77,6 @@ class MeRegister extends Me
 
     /**
      * @param string $action
-     *
      * @return bool
      */
     protected function execPreviousAction($action)
@@ -91,9 +89,6 @@ class MeRegister extends Me
         return parent::execPreviousAction($action);
     }
 
-    /**
-     * @return bool
-     */
     protected function registerAction(): bool
     {
         $newContact = new Contacto();

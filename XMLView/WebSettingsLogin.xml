@@ -31,7 +31,8 @@
                     <values title="yes">1</values>
                 </widget>
             </column>
-            <column name="login-image" titleurl="ListAttachedFile" description="click-link-to-add" numcolumns="3" order="110">
+            <column name="login-image" titleurl="ListAttachedFile" description="click-link-to-add" numcolumns="3"
+                    order="110">
                 <widget type="select" fieldname="idloginimage" onclick="EditAttachedFile"/>
             </column>
         </group>
@@ -42,12 +43,14 @@
                     <values title="yes">1</values>
                 </widget>
             </column>
-            <column name="register-image" titleurl="ListAttachedFile" description="click-link-to-add" numcolumns="3" order="110">
+            <column name="register-image" titleurl="ListAttachedFile" description="click-link-to-add" numcolumns="3"
+                    order="110">
                 <widget type="select" fieldname="idregisterimage" onclick="EditAttachedFile"/>
             </column>
         </group>
         <group name="forgot" numcolumns="12">
-            <column name="forgot-image" titleurl="ListAttachedFile" description="click-link-to-add" numcolumns="3" order="100">
+            <column name="forgot-image" titleurl="ListAttachedFile" description="click-link-to-add" numcolumns="3"
+                    order="100">
                 <widget type="select" fieldname="idforgotimage" onclick="EditAttachedFile"/>
             </column>
         </group>

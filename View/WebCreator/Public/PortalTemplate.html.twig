@@ -1,3 +1,24 @@
+{#
+/**
+ * This file is part of WebCreator plugin for FacturaScripts
+ * Copyright (C) 2022 Carlos Garcia Gomez <carlos@facturascripts.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program. If not, see http://www.gnu.org/licenses/.
+ *
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
+ */
+#}
 {% import "WebCreator/Master/webMacros.html.twig" as webMacros %}
 
 {# Website config #}
@@ -23,8 +44,7 @@
     'webHeader': webHeader,
     'webMenu': webMenu,
     'webFooter': webFooter,
-    'webSidebar': webSidebar}
-%}
+    'webSidebar': webSidebar} %}
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="{{ webPage.weblang }}" xml:lang="{{ webPage.weblang }}">
@@ -129,9 +149,10 @@
                 }
 
                 {% if webHeader.properties.headerlayout == '01' %}
-                    header .navbar-nav li:hover > ul.dropdown-menu {
-                        display: block;
-                    }
+                header .navbar-nav li:hover > ul.dropdown-menu {
+                    display: block;
+                }
+
                 {% endif %}
 
                 .header-main,
@@ -141,12 +162,12 @@
                 }
 
                 .header-main {
-                    {% if webHeader.properties.headermainbackgroundimage %} background-image: url('{{ webSettings.siteurl ~ fsc.pageComposer.getAttachFile(webHeader.properties.headermainbackgroundimage) }}');
-                        background-repeat: {{ webHeader.properties.headermainbackgroundimagerepeat }};
-                        background-size: {{ webHeader.properties.headermainbackgroundimagesize }};
-                        background-attachment: {{ webHeader.properties.headermainbackgroundimageattachment }};
-                        background-position: {{ webHeader.properties.headermainbackgroundimageposition }};
-                    {% endif %}
+                {% if webHeader.properties.headermainbackgroundimage %} background-image: url('{{ webSettings.siteurl ~ fsc.pageComposer.getAttachFile(webHeader.properties.headermainbackgroundimage) }}');
+                    background-repeat: {{ webHeader.properties.headermainbackgroundimagerepeat }};
+                    background-size: {{ webHeader.properties.headermainbackgroundimagesize }};
+                    background-attachment: {{ webHeader.properties.headermainbackgroundimageattachment }};
+                    background-position: {{ webHeader.properties.headermainbackgroundimageposition }};
+                {% endif %}
                 }
 
                 .header-main-border-top {
@@ -206,12 +227,12 @@
                 }
 
                 .page-title {
-                    {% if webSettings.titlebackgroundimage %} background-image: url('{{ webSettings.siteurl ~ fsc.pageComposer.getAttachFile(webSettings.titlebackgroundimage) }}');
-                        background-repeat: {{ webSettings.titleimagerepeat }};
-                        background-size: {{ webSettings.titleimagesize }};
-                        background-attachment: {{ webSettings.titleimageattachment }};
-                        background-position: {{ webSettings.titleimageposition }};
-                    {% endif %}
+                {% if webSettings.titlebackgroundimage %} background-image: url('{{ webSettings.siteurl ~ fsc.pageComposer.getAttachFile(webSettings.titlebackgroundimage) }}');
+                    background-repeat: {{ webSettings.titleimagerepeat }};
+                    background-size: {{ webSettings.titleimagesize }};
+                    background-attachment: {{ webSettings.titleimageattachment }};
+                    background-position: {{ webSettings.titleimageposition }};
+                {% endif %}
                 }
 
                 .footer-shadow-bottom-outside {
@@ -221,12 +242,12 @@
                 }
 
                 footer {
-                    {% if webFooter.properties.footerbackgroundimage %} background-image: url('{{ webSettings.siteurl ~ fsc.pageComposer.getAttachFile(webFooter.properties.footerbackgroundimage) }}');
-                        background-repeat: {{ webFooter.properties.footerbackgroundimagerepeat }};
-                        background-size: {{ webFooter.properties.footerbackgroundimagesize }};
-                        background-attachment: {{ webFooter.properties.footerbackgroundimageattachment }};
-                        background-position: {{ webFooter.properties.footerbackgroundimageposition }};
-                    {% endif %}
+                {% if webFooter.properties.footerbackgroundimage %} background-image: url('{{ webSettings.siteurl ~ fsc.pageComposer.getAttachFile(webFooter.properties.footerbackgroundimage) }}');
+                    background-repeat: {{ webFooter.properties.footerbackgroundimagerepeat }};
+                    background-size: {{ webFooter.properties.footerbackgroundimagesize }};
+                    background-attachment: {{ webFooter.properties.footerbackgroundimageattachment }};
+                    background-position: {{ webFooter.properties.footerbackgroundimageposition }};
+                {% endif %}
                 }
 
                 .footer-top-border-top {
@@ -374,7 +395,8 @@
                     {{ webMacros.includeView(webIncludes, 'sidebarBefore', templateVars) }}
 
                     {% if webPage.idsidebar == -1 and webSettings.sidebardefault > 0 or webPage.idsidebar > 0 or webPage.idsidebar is null and webSettings.sidebardefault > 0 %}
-                        <aside id="{{ webSidebar.cssid }}" class="py-5 {{ webSidebar.cssclass }} {{ (webPage.idsidebar == -1 and webSettings.sidebarposition == 1 or webPage.idsidebar > 0 and webPage.sidebarposition == 1) ? 'order-1' : (webPage.idsidebar == -1 and webSettings.sidebarposition == 2 or webPage.idsidebar > 0 and webPage.sidebarposition == 2) ? 'order-3' : '' }} col-12 col-lg-4">
+                        <aside id="{{ webSidebar.cssid }}"
+                               class="py-5 {{ webSidebar.cssclass }} {{ (webPage.idsidebar == -1 and webSettings.sidebarposition == 1 or webPage.idsidebar > 0 and webPage.sidebarposition == 1) ? 'order-1' : (webPage.idsidebar == -1 and webSettings.sidebarposition == 2 or webPage.idsidebar > 0 and webPage.sidebarposition == 2) ? 'order-3' : '' }} col-12 col-lg-4">
                             {{ webSidebar.content|raw }}
                         </aside>
                     {% endif %}
@@ -404,7 +426,8 @@
     {{ webMacros.includeView(webIncludes, 'footerBefore', templateVars) }}
 
     {% if webPage.idfooter is null or webPage.idfooter == -1 and webSettings.footerdefault > 0 or webPage.idfooter > 0 %}
-    <footer id="{{ webFooter.cssid }}" class="{{ webFooter.cssclass }} {{ (webFooter.properties.footershadow) ? 'footer-shadow-bottom-outside' : '' }}">
+    <footer id="{{ webFooter.cssid }}"
+            class="{{ webFooter.cssclass }} {{ (webFooter.properties.footershadow) ? 'footer-shadow-bottom-outside' : '' }}">
         {% if webFooter.content.footer5001 != '' or webFooter.content.footer5002 != '' or webFooter.content.footer5003 != '' %}
             <div class="footer-top {{ (webFooter.properties.footertopbordertopwidth > 0 and webFooter.properties.footertopbordertopcontainer == 'fullwidth') ? 'footer-top-border-top' : '' }} {{ (webFooter.properties.footertopborderbottomwidth > 0 and webFooter.properties.footertopborderbottomcontainer == 'fullwidth') ? 'footer-top-border-bottom' : '' }}">
                 <div class="content py-4 {{ webFooter.properties.footerwidth }} {{ (webFooter.properties.footertopbordertopwidth > 0 and webFooter.properties.footertopbordertopcontainer == 'boxed') ? 'footer-top-border-top' : '' }} {{ (webFooter.properties.footertopborderbottomwidth > 0 and webFooter.properties.footertopborderbottomcontainer == 'boxed') ? 'footer-top-border-bottom' : '' }}">

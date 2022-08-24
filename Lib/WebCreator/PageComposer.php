@@ -33,13 +33,12 @@ use FacturaScripts\Dinamic\Model\WebFontWeight;
 use FacturaScripts\Core\Base\ExtensionsTrait;
 
 /**
- * Description of PageComposer
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class PageComposer
 {
+
     use ExtensionsTrait;
     use IncludeViewTrait;
 

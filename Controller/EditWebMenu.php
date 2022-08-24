@@ -26,18 +26,22 @@ use FacturaScripts\Dinamic\Model\WebMenuLink;
 use FacturaScripts\Dinamic\Model\WebPage;
 
 /**
- * Description of EditWebMenu.
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class EditWebMenu extends EditController
 {
 
+    /**
+     * @return string
+     */
     public function getModelClassName()
     {
         return 'WebMenu';
     }
 
+    /**
+     * @return array
+     */
     public function getPageData()
     {
         $data = parent::getPageData();
@@ -91,16 +95,17 @@ class EditWebMenu extends EditController
         $this->createViewsLinks();
     }
 
-    /**
-     * @param string $viewName
-     */
     protected function createViewsLinks(string $viewName = 'EditWebMenuLink')
     {
         AssetManager::add('css', FS_ROUTE . '/node_modules/jquery-ui-dist/jquery-ui.min.css', 2);
         AssetManager::add('js', FS_ROUTE . '/node_modules/jquery-ui-dist/jquery-ui.min.js', 2);
-        $this->addHtmlView($viewName, 'WebCreator/Admin/' . $viewName, 'WebMenuLink', 'links','fas fa-link');
+        $this->addHtmlView($viewName, 'WebCreator/Admin/' . $viewName, 'WebMenuLink', 'links', 'fas fa-link');
     }
 
+    /**
+     * @param string $action
+     * @return bool
+     */
     protected function execPreviousAction($action)
     {
         $activeTab = $this->request->request->get('activetab');

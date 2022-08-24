@@ -24,26 +24,17 @@ use FacturaScripts\Dinamic\Lib\ExportManager;
 use FacturaScripts\Dinamic\Lib\WebCreator\PortalViewController;
 
 /**
- * Description of ViewBudget
- *
  * @author Carlos García Gómez <carlos@facturascripts.com>
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class ViewBudget extends PortalViewController
 {
-    /**
-     *
-     * @return string
-     */
+
     public function getModelClassName(): string
     {
         return 'PresupuestoCliente';
     }
 
-    /**
-     *
-     * @return bool
-     */
     protected function acceptAction(): bool
     {
         if (false === $this->permissions->allowAccess) {
@@ -68,10 +59,6 @@ class ViewBudget extends PortalViewController
         return true;
     }
 
-    /**
-     *
-     * @return bool
-     */
     protected function cancelAction(): bool
     {
         if (false === $this->permissions->allowAccess) {
@@ -112,9 +99,7 @@ class ViewBudget extends PortalViewController
     }
 
     /**
-     *
      * @param string $action
-     *
      * @return bool
      */
     protected function execPreviousAction($action)
@@ -135,9 +120,9 @@ class ViewBudget extends PortalViewController
     }
 
     /**
-     *
      * @param string $viewName
      * @param BaseView $view
+     * @return void
      */
     protected function loadData($viewName, $view)
     {

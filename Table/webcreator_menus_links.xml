@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : webcreator_menus_links.xml
+    Author     : Daniel Fernández Giménez
+    Description:
+        Structure for the webcreator_menus_links table.
+-->
 <table>
     <column>
         <name>cssclass</name>

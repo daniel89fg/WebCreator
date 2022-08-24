@@ -23,16 +23,13 @@ use FacturaScripts\Dinamic\Lib\ExtendedController\ListController;
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 
 /**
- * Description of ListWebPage
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class ListWebPage extends ListController
 {
+
     /**
-     * Returns basic page attributes
-     *
      * @return array
      */
     public function getPageData()
@@ -44,9 +41,6 @@ class ListWebPage extends ListController
         return $pageData;
     }
 
-    /**
-     * Load views
-     */
     protected function createViews()
     {
         $this->createViewWebPages();
@@ -57,10 +51,6 @@ class ListWebPage extends ListController
         $this->createViewWebSidebar();
     }
 
-    /**
-     *
-     * @param string $viewName
-     */
     protected function createViewWebBlock(string $viewName = 'ListWebBlock')
     {
         $this->addView($viewName, 'WebBlock', 'blocks', 'fas fa-code');
@@ -70,10 +60,6 @@ class ListWebPage extends ListController
         $this->addOrderBy($viewName, ['lastmod'], 'last-update');
     }
 
-    /**
-     *
-     * @param string $viewName
-     */
     protected function createViewWebFooter(string $viewName = 'ListWebFooter')
     {
         $this->addView($viewName, 'WebFooter', 'footers', 'fas fa-caret-square-down');
@@ -82,10 +68,6 @@ class ListWebPage extends ListController
         $this->addOrderBy($viewName, ['lastmod'], 'last-update');
     }
 
-    /**
-     *
-     * @param string $viewName
-     */
     protected function createViewWebHeader(string $viewName = 'ListWebHeader')
     {
         $this->addView($viewName, 'WebHeader', 'headers', 'fas fa-caret-square-up');
@@ -94,17 +76,14 @@ class ListWebPage extends ListController
         $this->addOrderBy($viewName, ['lastmod'], 'last-update');
     }
 
-    protected function createViewsWebMenu(string $viewName = "ListWebMenu") {
+    protected function createViewsWebMenu(string $viewName = "ListWebMenu")
+    {
         $this->addView($viewName, "WebMenu", "menus", "fas fa-bars");
         $this->addSearchFields($viewName, ['name']);
         $this->addOrderBy($viewName, ['name'], 'name');
         $this->addOrderBy($viewName, ['lastmod'], 'last-update');
     }
 
-    /**
-     *
-     * @param string $viewName
-     */
     protected function createViewWebPages(string $viewName = 'ListWebPage')
     {
         $this->addView($viewName, 'WebPage', 'pages', 'fas fa-globe-americas');
@@ -118,10 +97,6 @@ class ListWebPage extends ListController
         $this->addFilterCheckbox($viewName, 'noindex', 'no-index', 'noindex');
     }
 
-    /**
-     *
-     * @param string $viewName
-     */
     protected function createViewWebSidebar(string $viewName = 'ListWebSidebar')
     {
         $this->addView($viewName, 'WebSidebar', 'sidebars', 'fas fa-caret-square-left');
@@ -130,6 +105,11 @@ class ListWebPage extends ListController
         $this->addOrderBy($viewName, ['lastmod'], 'last-update');
     }
 
+    /**
+     * @param string $viewName
+     * @param BaseView $view
+     * @return void
+     */
     protected function loadData($viewName, $view)
     {
         switch ($viewName) {

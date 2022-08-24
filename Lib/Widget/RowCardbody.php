@@ -22,27 +22,22 @@ namespace FacturaScripts\Plugins\WebCreator\Lib\Widget;
 use FacturaScripts\Core\Lib\Widget\VisualItem;
 
 /**
- * Description of RowCardbody
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  */
 class RowCardbody extends VisualItem
 {
 
     /**
-     *
      * @var string
      */
     protected $fieldname;
 
     /**
-     *
      * @var string
      */
     protected $format;
 
     /**
-     *
      * @param array $data
      */
     public function __construct($data)
@@ -52,9 +47,7 @@ class RowCardbody extends VisualItem
     }
 
     /**
-     *
      * @param object $model
-     *
      * @return string
      */
     public function show($model)

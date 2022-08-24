@@ -25,13 +25,12 @@ use FacturaScripts\Dinamic\Model\Contacto;
 use FacturaScripts\Dinamic\Controller\Me;
 
 /**
- * Description of MeLogin
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class MeLogin extends Me
 {
+
     const LOGIN_TEMPLATE = 'WebCreator/Public/Login';
 
     protected function createViews()
@@ -60,7 +59,6 @@ class MeLogin extends Me
 
     /**
      * @param string $action
-     *
      * @return bool
      */
     protected function execPreviousAction($action)
@@ -73,9 +71,6 @@ class MeLogin extends Me
         return parent::execPreviousAction($action);
     }
 
-    /**
-     * @return bool
-     */
     protected function loginAction(): bool
     {
         $contact = new Contacto();

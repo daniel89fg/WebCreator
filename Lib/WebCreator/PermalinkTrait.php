@@ -25,12 +25,11 @@ use FacturaScripts\Dinamic\Lib\WebCreator\GetRoutes;
 use FacturaScripts\Dinamic\Model\Settings;
 
 /**
- * Description of Permalink
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 trait PermalinkTrait
 {
+
     private $pageOrig;
     private $permalinkFinal;
 
@@ -95,7 +94,7 @@ trait PermalinkTrait
 
     private function parentpermalink(string $permalink, WebPage $webpage): string
     {
-        if (!empty($webpage->pageparent)) {
+        if (false === empty($webpage->pageparent)) {
             $parent = new WebPage();
             $parent->loadFromCode($webpage->pageparent);
             $permalink = \substr($parent->permalink, 1) . '/' . $permalink;

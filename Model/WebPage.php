@@ -33,13 +33,12 @@ use FacturaScripts\Plugins\WebCreator\Lib\WebCreator\PermalinkTrait;
 use FacturaScripts\Plugins\WebCreator\Model\Base\WebModelTrait;
 
 /**
- * Description of WebPage
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class WebPage extends Base\ModelOnChangeClass
 {
+
     use Base\ModelTrait;
     use PermalinkTrait;
     use WebModelTrait;
@@ -166,15 +165,15 @@ class WebPage extends Base\ModelOnChangeClass
 
     public static $fieldsTranslate = ['title', 'description', 'permalink'];
 
-    /**
-     * Reset the values of all model properties.
-     */
     public function clear()
     {
         parent::clear();
         $this->creationdate = date('Y-m-d H:i:s');
     }
 
+    /**
+     * @return bool
+     */
     public function delete()
     {
         if (parent::delete()) {
@@ -207,26 +206,19 @@ class WebPage extends Base\ModelOnChangeClass
         return parent::install();
     }
 
-    /**
-     * Returns the name of the column that describes the model, such as name, description...
-     *
-     * @return string
-     */
     public function primaryDescriptionColumn(): string
     {
         return 'title';
     }
 
-    /**
-     * Returns the name of the column that is the primary key of the model.
-     *
-     * @return string
-     */
     public static function primaryColumn(): string
     {
         return 'idpage';
     }
 
+    /**
+     * @return bool
+     */
     public function test()
     {
         $utils = $this->toolBox()->utils();
@@ -247,24 +239,11 @@ class WebPage extends Base\ModelOnChangeClass
         return parent::test();
     }
 
-    /**
-     * Returns the name of the table that uses this model.
-     *
-     * @return string
-     */
     public static function tableName(): string
     {
         return 'webcreator_pages';
     }
 
-    /**
-     * Returns url to list or edit this model.
-     *
-     * @param string $type
-     * @param string $list
-     *
-     * @return string
-     */
     public function url(string $type = 'auto', string $list = 'List'): string
     {
         switch ($type) {

@@ -23,12 +23,11 @@ use FacturaScripts\Core\Base\Utils;
 use FacturaScripts\Core\Model\Base;
 
 /**
- * Description of WebHeader
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class WebHeader extends Base\ModelClass
 {
+
     use Base\ModelTrait;
 
     /**
@@ -71,9 +70,6 @@ class WebHeader extends Base\ModelClass
      */
     public $properties;
 
-    /**
-     * Reset the values of all model properties.
-     */
     public function clear()
     {
         parent::clear();
@@ -81,12 +77,6 @@ class WebHeader extends Base\ModelClass
         $this->content = [];
     }
 
-    /**
-     * Load data from array
-     *
-     * @param array $data
-     * @param array $exclude
-     */
     public function loadFromData(array $data = [], array $exclude = [])
     {
         parent::loadFromData($data, ['properties', 'content', 'action']);
@@ -94,18 +84,12 @@ class WebHeader extends Base\ModelClass
         $this->content = isset($data['content']) ? json_decode($data['content'], true) : [];
     }
 
-    /**
-     * Returns the name of the column that is the primary key of the model.
-     *
-     * @return string
-     */
     public static function primaryColumn(): string
     {
         return 'idheader';
     }
 
     /**
-     *
      * @return bool
      */
     public function save()
@@ -114,19 +98,12 @@ class WebHeader extends Base\ModelClass
         return parent::save();
     }
 
-    /**
-     * Returns the name of the table that uses this model.
-     *
-     * @return string
-     */
     public static function tableName(): string
     {
         return 'webcreator_headers';
     }
 
     /**
-     * Returns True if there is no errors on properties values.
-     *
      * @return bool
      */
     public function test()
@@ -149,14 +126,6 @@ class WebHeader extends Base\ModelClass
         return parent::test();
     }
 
-    /**
-     * Returns the url where to see / modify the data.
-     *
-     * @param string $type
-     * @param string $list
-     *
-     * @return string
-     */
     public function url(string $type = 'auto', string $list = 'List'): string
     {
         return parent::url($type, 'ListWebPage?activetab=List');

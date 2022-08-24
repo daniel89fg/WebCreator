@@ -32,18 +32,16 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Description of PortalController class
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class PortalController extends Controller
 {
+
     const PUBLIC_UPDATE_ACTIVITY_PERIOD = 3600;
     const DEFAULT_TEMPLATE = 'WebCreator/Public/PortalTemplate';
 
     /**
-     *
      * @var string
      */
     public $canonicalUrl;
@@ -55,21 +53,17 @@ class PortalController extends Controller
 
     /**
      * The associated contact.
-     *
      * @var Contacto
      */
     public $contact;
 
     /**
      * Page description.
-     *
      * @var string
      */
     public $description;
 
     /**
-     * The page composer.
-     *
      * @var PageComposer
      */
     public $pageComposer;
@@ -80,16 +74,10 @@ class PortalController extends Controller
     public $uriParameters;
 
     /**
-     * The web page object.
-     *
      * @var WebPage
      */
     public $webPage;
 
-    /**
-     * @param string $className
-     * @param string $uri
-     */
     public function __construct(string $className, string $uri = '')
     {
         parent::__construct($className, $uri);
@@ -98,8 +86,6 @@ class PortalController extends Controller
     }
 
     /**
-     * Returns basic page attributes
-     *
      * @return array
      */
     public function getPageData()
@@ -111,7 +97,6 @@ class PortalController extends Controller
     }
 
     /**
-     *
      * @param Response $response
      * @param User $user
      * @param ControllerPermissions $permissions
@@ -140,7 +125,6 @@ class PortalController extends Controller
     }
 
     /**
-     *
      * @param Response $response
      */
     public function publicCore(&$response)
@@ -217,9 +201,6 @@ class PortalController extends Controller
         $this->webPage->noindex = true;
     }
 
-    /**
-     * @return bool
-     */
     protected function validateFormToken(): bool
     {
         // valid request?

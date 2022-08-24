@@ -1,3 +1,24 @@
+{#
+/**
+ * This file is part of WebCreator plugin for FacturaScripts
+ * Copyright (C) 2022 Carlos Garcia Gomez <carlos@facturascripts.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program. If not, see http://www.gnu.org/licenses/.
+ *
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
+ */
+#}
 {% import "WebCreator/Master/webMacros.html.twig" as webMacros %}
 
 {% set currentView = fsc.getCurrentView() %}
@@ -18,8 +39,7 @@
     'fsc': fsc,
     'menuManager': menuManager,
     'template': currentView.getViewName(),
-    'currentView': currentView}
-%}
+    'currentView': currentView} %}
 
 <form id="formEditWebPage" method="post" enctype="multipart/form-data">
     {% if dataPage.idpage %}
@@ -40,27 +60,32 @@
                     <div class="card-header">
                         <ul class="nav nav-pills" id="myTab" role="tablist">
                             <li class="nav-item" role="content">
-                                <a class="nav-link active" id="content-tab" data-toggle="tab" href="#tabcontent" role="tab" aria-controls="tabcontent" aria-selected="true">
+                                <a class="nav-link active" id="content-tab" data-toggle="tab" href="#tabcontent"
+                                   role="tab" aria-controls="tabcontent" aria-selected="true">
                                     {{ i18n.trans('content') }}
                                 </a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="pagecss-tab" data-toggle="tab" href="#tabpagecss" role="tab" aria-controls="tabpagecss" aria-selected="false">
+                                <a class="nav-link" id="pagecss-tab" data-toggle="tab" href="#tabpagecss" role="tab"
+                                   aria-controls="tabpagecss" aria-selected="false">
                                     {{ i18n.trans('page-css') }}
                                 </a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="pagejshead-tab" data-toggle="tab" href="#tabpagejshead" role="tab" aria-controls="tabpagejshead" aria-selected="false">
+                                <a class="nav-link" id="pagejshead-tab" data-toggle="tab" href="#tabpagejshead"
+                                   role="tab" aria-controls="tabpagejshead" aria-selected="false">
                                     {{ i18n.trans('javascript-head') }}
                                 </a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="pagejsfooter-tab" data-toggle="tab" href="#tabpagejsfooter" role="tab" aria-controls="tabpagejsfooter" aria-selected="false">
+                                <a class="nav-link" id="pagejsfooter-tab" data-toggle="tab" href="#tabpagejsfooter"
+                                   role="tab" aria-controls="tabpagejsfooter" aria-selected="false">
                                     {{ i18n.trans('javascript-footer') }}
                                 </a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="pagemeta-tab" data-toggle="tab" href="#tabpagemeta" role="tab" aria-controls="tabpagemeta" aria-selected="false">
+                                <a class="nav-link" id="pagemeta-tab" data-toggle="tab" href="#tabpagemeta" role="tab"
+                                   aria-controls="tabpagemeta" aria-selected="false">
                                     {{ i18n.trans('page-meta') }}
                                 </a>
                             </li>
@@ -70,7 +95,8 @@
                     </div>
                     <div class="card-body">
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="tabcontent" role="tabpanel" aria-labelledby="tabcontent-tab">
+                            <div class="tab-pane fade show active" id="tabcontent" role="tabpanel"
+                                 aria-labelledby="tabcontent-tab">
                                 {% block content %}
                                     <div id="content" class="codemirror htmlEditor">
                                         <textarea class="d-none" name="content"></textarea>
@@ -91,7 +117,8 @@
                                     {{ webMacros.includeView(webIncludes, 'editPageCss', templateVars) }}
                                 {% endblock %}
                             </div>
-                            <div class="tab-pane fade" id="tabpagejshead" role="tabpanel" aria-labelledby="tabpagejshead-tab">
+                            <div class="tab-pane fade" id="tabpagejshead" role="tabpanel"
+                                 aria-labelledby="tabpagejshead-tab">
                                 {% block editPageJsHead %}
                                     <small class="form-text text-muted">{{ i18n.trans('javascript-head-help') }}</small>
                                     <div id="pagejshead" class="codemirror jsEditor">
@@ -102,7 +129,8 @@
                                     {{ webMacros.includeView(webIncludes, 'editPageJsHead', templateVars) }}
                                 {% endblock %}
                             </div>
-                            <div class="tab-pane fade" id="tabpagejsfooter" role="tabpanel" aria-labelledby="tabpagejsfooter-tab">
+                            <div class="tab-pane fade" id="tabpagejsfooter" role="tabpanel"
+                                 aria-labelledby="tabpagejsfooter-tab">
                                 {% block editPageJsFooter %}
                                     <small class="form-text text-muted">{{ i18n.trans('javascript-footer-help') }}</small>
                                     <div id="pagejsfooter" class="codemirror jsEditor">
@@ -113,7 +141,8 @@
                                     {{ webMacros.includeView(webIncludes, 'editPageJsFooter', templateVars) }}
                                 {% endblock %}
                             </div>
-                            <div class="tab-pane fade" id="tabpagemeta" role="tabpanel" aria-labelledby="tabpagemeta-tab">
+                            <div class="tab-pane fade" id="tabpagemeta" role="tabpanel"
+                                 aria-labelledby="tabpagemeta-tab">
                                 {% block editPageMeta %}
                                     <small class="form-text text-muted">{{ i18n.trans('page-meta-help') }}</small>
                                     <div id="pagemeta" class="codemirror htmlEditor">
@@ -149,7 +178,8 @@
                             <div class="form-group pagepermalink">
                                 <label>{{ i18n.trans('permalink') }}</label>
                                 {% set link = dataPage.permalink|split('/') %}
-                                <input type="text" class="form-control" name="permalink" value="{{ link|last }}" required>
+                                <input type="text" class="form-control" name="permalink" value="{{ link|last }}"
+                                       required>
                                 {% if dataPage.idpage is not empty %}
                                     <a target="_blank" href="{{ fsc.getSiteUrl() ~ dataPage.permalink }}">
                                         {{ fsc.getSiteUrl() ~ dataPage.permalink }}</a>
@@ -210,12 +240,14 @@
 
                             <div class="form-group">
                                 <label>{{ i18n.trans('css-id') }}</label>
-                                <input type="text" class="form-control" maxlength="200" name="cssid" value="{{ dataPage.cssid }}">
+                                <input type="text" class="form-control" maxlength="200" name="cssid"
+                                       value="{{ dataPage.cssid }}">
                             </div>
 
                             <div class="form-group mt-2">
                                 <label>{{ i18n.trans('css-class') }}</label>
-                                <input type="text" class="form-control" maxlength="200" name="cssclass" value="{{ dataPage.cssclass }}">
+                                <input type="text" class="form-control" maxlength="200" name="cssclass"
+                                       value="{{ dataPage.cssclass }}">
                             </div>
 
                             <div class="form-group">
@@ -388,8 +420,8 @@
 {% block javascript %}
 <script>
     function editViewDelete(viewName) {
-        bootbox.confirm({
-            title: "{{ i18n.trans('confirm-delete') }}",
+    bootbox.confirm({
+        title: "{{ i18n.trans('confirm-delete') }}",
             message: "{{ i18n.trans('are-you-sure') }}",
             closeButton: false,
             buttons: {

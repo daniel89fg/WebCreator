@@ -27,12 +27,11 @@ use FacturaScripts\Dinamic\Lib\AssetManager;
 use FacturaScripts\Plugins\WebCreator\Lib\WebCreator\IncludeViewTrait;
 
 /**
- * Description of EditWebHeader
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class EditWebHeader extends PanelController
 {
+
     use IncludeViewTrait;
 
     public function getMenus(): array
@@ -42,8 +41,6 @@ class EditWebHeader extends PanelController
     }
 
     /**
-     * Returns basic page attributes
-     *
      * @return array
      */
     public function getPageData()
@@ -63,17 +60,14 @@ class EditWebHeader extends PanelController
         ]);
     }
 
-    /**
-     * Create views
-     */
     protected function createViews()
     {
         $this->addHtmlView('EditWebHeader', 'WebCreator/Admin/EditWebHeader', 'WebHeader', 'header');
     }
 
     /**
-     *
      * @param string $action
+     * @return bool
      */
     protected function execPreviousAction($action)
     {
@@ -92,9 +86,9 @@ class EditWebHeader extends PanelController
     }
 
     /**
-     *
      * @param string $viewName
      * @param BaseView $view
+     * @return void
      */
     protected function loadData($viewName, $view)
     {

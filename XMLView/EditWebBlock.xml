@@ -23,10 +23,10 @@
     <columns>
         <group name="data" numcolumns="12">
             <column name="code" display="none" order="100">
-                <widget type="text" fieldname="idblock" required="true" />
+                <widget type="text" fieldname="idblock" required="true"/>
             </column>
             <column name="name" order="110">
-                <widget type="text" fieldname="name" required="true" />
+                <widget type="text" fieldname="name" required="true"/>
             </column>
             <column name="type" order="120">
                 <widget type="select" fieldname="type">
@@ -63,13 +63,13 @@
                 </widget>
             </column>
             <column name="sort" order="130">
-                <widget type="number" fieldname="ordernum" icon="fas fa-sort" />
+                <widget type="number" fieldname="ordernum" icon="fas fa-sort"/>
             </column>
         </group>
 
         <group name="content" numcolumns="12">
             <column name="content" numcolumns="12" order="100">
-                <widget type="code" lang="html" fieldname="content" />
+                <widget type="code" lang="html" fieldname="content"/>
             </column>
         </group>
     </columns>

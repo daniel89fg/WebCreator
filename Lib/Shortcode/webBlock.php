@@ -24,22 +24,16 @@ use FacturaScripts\Dinamic\Model\WebBlock as modelWebBlock;
 use FacturaScripts\Dinamic\Model\WebPage;
 
 /**
- * Shortcode of Block
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class webBlock extends Shortcode
 {
+
     /**
      * Replace the block shortcode with the content of the block if found
-     *
-     * @param string|null $content
-     * @param WebPage $webpage
-     * @return string|null
      */
     public static function replace(?string $content, WebPage $webpage): ?string
     {
-
         $shorts = static::searchCode($content, "/\[webBlock(.*?)\]/");
 
         if (count($shorts[0]) <= 0) {

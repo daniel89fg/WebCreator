@@ -23,23 +23,18 @@ use FacturaScripts\Dinamic\Lib\Shortcode\Shortcode;
 use FacturaScripts\Dinamic\Model\WebPage;
 
 /**
- * Shortcode of webAsset
  * Create the url to upload files
  *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class webAsset extends Shortcode
 {
+
     /**
      * Replace the block shortcode with the content of the block if found
-     *
-     * @param string|null $content
-     * @param WebPage $webpage
-     * @return string|null
      */
     public static function replace(?string $content, WebPage $webpage): ?string
     {
-
         $shorts = static::searchCode($content, "/\[webAsset(.*?)\]/");
 
         if (count($shorts[0]) <= 0) {

@@ -24,15 +24,12 @@ use FacturaScripts\Dinamic\Model\WebPage;
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 
 /**
- * Description of Robots
- *
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class Robots extends Controller
 {
+
     /**
-     * Returns basic page attributes
-     *
      * @return array
      */
     public function getPageData()
@@ -45,8 +42,6 @@ class Robots extends Controller
     }
 
     /**
-     * Execute the public part of the controller.
-     *
      * @param Response $response
      */
     public function publicCore(&$response)
@@ -56,8 +51,6 @@ class Robots extends Controller
     }
 
     /**
-     * Runs the controller's private logic.
-     *
      * @param Response $response
      * @param User $user
      * @param ControllerPermissions $permissions

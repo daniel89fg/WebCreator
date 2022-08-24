@@ -1,3 +1,24 @@
+{#
+/**
+ * This file is part of WebCreator plugin for FacturaScripts
+ * Copyright (C) 2022 Carlos Garcia Gomez <carlos@facturascripts.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program. If not, see http://www.gnu.org/licenses/.
+ *
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
+ */
+#}
 {% import "WebCreator/Master/webMacros.html.twig" as webMacros %}
 
 {% set currentView = fsc.getCurrentView() %}
@@ -14,8 +35,7 @@
     'fsc': fsc,
     'menuManager': menuManager,
     'template': 'EditWebHeader',
-    'dataHeader': dataHeader}
-%}
+    'dataHeader': dataHeader} %}
 
 {% block css %}
     <link rel="stylesheet" href="/Dinamic/Assets/CSS/WidgetRadio.css"/>
@@ -55,12 +75,14 @@
 
                     <div class="col-12 col-md-2">
                         <label class="form-label">{{ i18n.trans('css-id') }}</label>
-                        <input type="text" class="form-control" maxlength="200" name="cssid" value="{{ dataHeader.cssid }}">
+                        <input type="text" class="form-control" maxlength="200" name="cssid"
+                               value="{{ dataHeader.cssid }}">
                     </div>
 
                     <div class="col-12 col-md-2">
                         <label class="form-label">{{ i18n.trans('css-class') }}</label>
-                        <input type="text" class="form-control" maxlength="200" name="cssclass" value="{{ dataHeader.cssclass }}">
+                        <input type="text" class="form-control" maxlength="200" name="cssclass"
+                               value="{{ dataHeader.cssclass }}">
                     </div>
 
                     <div class="col-12 col-md-2 d-flex justify-content-end align-self-center">
@@ -267,7 +289,8 @@
                                         <label class="form-label">{{ i18n.trans('width') }}</label>
                                         <select class="form-control" name="headerwidth">
                                             <option value="container" {{ (dataHeader.properties.headerwidth == 'container') ? 'selected' : '' }}>
-                                                Container</option>
+                                                Container
+                                            </option>
                                             <option value="container-sm" {{ (dataHeader.properties.headerwidth == 'container-sm') ? 'selected' : '' }}>
                                                 Container sm
                                             </option>
@@ -1080,8 +1103,8 @@
 {% block javascript %}
 <script type="text/javascript">
     function editViewDelete(viewName) {
-        bootbox.confirm({
-            title: "{{ i18n.trans('confirm-delete') }}",
+    bootbox.confirm({
+        title: "{{ i18n.trans('confirm-delete') }}",
             message: "{{ i18n.trans('are-you-sure') }}",
             closeButton: false,
             buttons: {
@@ -1110,28 +1133,28 @@
         }
 
         $('.selectColor').each(function(){
-            var color = $(this).val();
-            var opacity = $(this).parent().parent().parent().find('.selectOpacity').val();
-            var divColor = $(this).parent().parent().parent().find('.backgroundColor');
+            let color = $(this).val();
+            let opacity = $(this).parent().parent().parent().find('.selectOpacity').val();
+            let divColor = $(this).parent().parent().parent().find('.backgroundColor');
             backgroundColorPreview(color, opacity, divColor);
         });
 
         $('.selectColor').change(function(value){
-            var color = $(this).val();
-            var opacity = $(this).parent().parent().parent().find('.selectOpacity').val();
-            var divColor = $(this).parent().parent().parent().find('.backgroundColor');
+            let color = $(this).val();
+            let opacity = $(this).parent().parent().parent().find('.selectOpacity').val();
+            let divColor = $(this).parent().parent().parent().find('.backgroundColor');
             backgroundColorPreview(color, opacity, divColor);
         });
 
         $('.selectOpacity').change(function(value){
-            var color = $(this).parent().parent().find('.selectColor').val();
-            var opacity = $(this).val();
-            var divColor = $(this).parent().parent().find('.backgroundColor');
+            let color = $(this).parent().parent().find('.selectColor').val();
+            let opacity = $(this).val();
+            let divColor = $(this).parent().parent().find('.backgroundColor');
             backgroundColorPreview(color, opacity, divColor);
         });
 
         function changeShip(checkbox) {
-            var div = $(checkbox).parent().find('div.changeShip');
+            let div = $(checkbox).parent().find('div.changeShip');
 
             if($(checkbox).is(':checked')) {
                 div.show();
@@ -1149,7 +1172,7 @@
         });
 
         function changeStickyShip(checkbox) {
-            var div = $(checkbox).parent().parent().parent().find('div.changeGeneralSticky');
+            let div = $(checkbox).parent().parent().parent().find('div.changeGeneralSticky');
 
             if($(checkbox).is(':checked')) {
                 div.show();
@@ -1159,7 +1182,7 @@
         }
 
         $('input.hideGeneralSticky').on('click', function(){
-            var div = $(this).parent().parent().parent().find('div.changeGeneralSticky');
+            let div = $(this).parent().parent().parent().find('div.changeGeneralSticky');
             div.hide();
         });
 

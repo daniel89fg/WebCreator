@@ -29,13 +29,12 @@ use FacturaScripts\Dinamic\Model\Empresa;
 use FacturaScripts\Dinamic\Model\WebPage;
 
 /**
- * Description of Init
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class Init extends InitClass
 {
+
     public function init()
     {
         Shortcode::addCode('webBlock');
@@ -44,7 +43,7 @@ class Init extends InitClass
         Shortcode::addCode('webMenu');
 
         $translateClass = '\\FacturaScripts\\Dinamic\\Model\\WebTranslate';
-        if (\class_exists($translateClass)) {
+        if (class_exists($translateClass)) {
             define('WEBMULTILANGUAGE', TRUE);
         } else {
             define('WEBMULTILANGUAGE', FALSE);

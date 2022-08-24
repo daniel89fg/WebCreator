@@ -25,13 +25,12 @@ use FacturaScripts\Plugins\WebCreator\Model\WebPage;
 use FacturaScripts\Core\Base\ExtensionsTrait;
 
 /**
- * Description of UpdateRoutes
- *
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
  * @author Daniel Fernández Giménez <hola@danielfg.es>
  */
 class UpdateRoutes
 {
+
     use ExtensionsTrait;
 
     public function setRoutes()
