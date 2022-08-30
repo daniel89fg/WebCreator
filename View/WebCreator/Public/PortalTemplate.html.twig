@@ -378,16 +378,6 @@
 
         <div class="body-content {{ (webPage.pagewidth == -1 or webPage.pagewidth is not defined) ? webSettings.sitewidth : webPage.pagewidth }}">
             <div class="row">
-                {% block messages %}
-                    {{ webMacros.includeView(webIncludes, 'messagesBefore', templateVars) }}
-
-                    <div class="container col-12">
-                        {% include 'WebCreator/Master/Messages.html.twig' %}
-                    </div>
-
-                    {{ webMacros.includeView(webIncludes, 'messagesAfter', templateVars) }}
-                {% endblock %}
-
                 {% block wrapper %}
                     {{ webMacros.includeView(webIncludes, 'wrapperBefore', templateVars) }}
 
@@ -493,8 +483,6 @@
 
         <script type="text/javascript" src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('node_modules/bootbox/dist/bootbox.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('node_modules/bootbox/dist/bootbox.locales.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('node_modules/jquery-ui-dist/jquery-ui.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('Dinamic/Assets/JS/Custom.js') }}"></script>
 
@@ -660,13 +648,19 @@
             });
         </script>
 
+        {% block messages %}
+            {{ webMacros.includeView(webIncludes, 'messagesBefore', templateVars) }}
+            {% include 'WebCreator/Master/Messages.html.twig' %}
+            {{ webMacros.includeView(webIncludes, 'messagesAfter', templateVars) }}
+        {% endblock %}
+
         {% if fsc.contact is null and appSettings.get('webcreator', 'google-api', '') != '' %}
-        <div id="g_id_onload"
-             data-client_id="{{ appSettings.get('webcreator', 'google-api') }}"
-             data-login_uri="{{ webUrl ~ asset('GoogleLogin') }}?return={{ fsc.canonicalUrlWithParameters|url_encode }}"
-             data-your_own_param_1_to_login="any_value">
-        </div>
-        <script src="https://accounts.google.com/gsi/client" async defer></script>
+            <div id="g_id_onload"
+                 data-client_id="{{ appSettings.get('webcreator', 'google-api') }}"
+                 data-login_uri="{{ webUrl ~ asset('GoogleLogin') }}?return={{ fsc.canonicalUrlWithParameters|url_encode }}"
+                 data-your_own_param_1_to_login="any_value">
+            </div>
+            <script src="https://accounts.google.com/gsi/client" async defer></script>
         {% endif %}
 
         {{ webMacros.includeView(webIncludes, 'javascriptFooterAfter', templateVars) }}
