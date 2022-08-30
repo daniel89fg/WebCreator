@@ -350,334 +350,334 @@
         {{ webMacros.includeView(webIncludes, 'headerAfter', templateVars) }}
     {% endblock %}
 
-{% block pageTitle %}
-    {{ webMacros.includeView(webIncludes, 'pageTitleBefore', templateVars) }}
+    {% block pageTitle %}
+        {{ webMacros.includeView(webIncludes, 'pageTitleBefore', templateVars) }}
 
-    {% if webPage.pagetitle == -1 and webSettings.pagetitle > 0 or webPage.pagetitle > 0 or webPage.pagetitle is null and webSettings.pagetitle > 0 %}
-    <div class="row page-title">
-        <div class="{{ webSettings.titlewidth }}">
-            <div class="row">
-                <div class="col-12 py-5 text-{{ webSettings.titlestyle }} color-{{ webSettings.titlecolor }}">
-                    <{{ webSettings.titletag }} class="pl-2 pl-lg-0">{{ fsc.title|raw }}</{{ webSettings.titletag }}>
-                {% if (webSettings.titlebreadcrumbs == 1) %}
-                    <div class="breadcrumbs">
-                        {{ fsc.pageComposer.getBreadcrumbs(webPage)|raw }}
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-    </div>
-    {% endif %}
-
-    {{ webMacros.includeView(webIncludes, 'pageTitleAfter', templateVars) }}
-{% endblock %}
-
-{% block content %}
-    {{ webMacros.includeView(webIncludes, 'contentBefore', templateVars) }}
-
-    <div class="body-content {{ (webPage.pagewidth == -1 or webPage.pagewidth is not defined) ? webSettings.sitewidth : webPage.pagewidth }}">
-        <div class="row">
-            {% block messages %}
-                {{ webMacros.includeView(webIncludes, 'messagesBefore', templateVars) }}
-
-                <div class="container col-12">
-                    {% include 'WebCreator/Master/Messages.html.twig' %}
-                </div>
-
-                {{ webMacros.includeView(webIncludes, 'messagesAfter', templateVars) }}
-            {% endblock %}
-
-            {% block wrapper %}
-                {{ webMacros.includeView(webIncludes, 'wrapperBefore', templateVars) }}
-
-                {% block sidebar %}
-                    {{ webMacros.includeView(webIncludes, 'sidebarBefore', templateVars) }}
-
-                    {% if webPage.idsidebar == -1 and webSettings.sidebardefault > 0 or webPage.idsidebar > 0 or webPage.idsidebar is null and webSettings.sidebardefault > 0 %}
-                        <aside id="{{ webSidebar.cssid }}"
-                               class="py-5 {{ webSidebar.cssclass }} {{ (webPage.idsidebar == -1 and webSettings.sidebarposition == 1 or webPage.idsidebar > 0 and webPage.sidebarposition == 1) ? 'order-1' : (webPage.idsidebar == -1 and webSettings.sidebarposition == 2 or webPage.idsidebar > 0 and webPage.sidebarposition == 2) ? 'order-3' : '' }} col-12 col-lg-4">
-                            {{ webSidebar.content|raw }}
-                        </aside>
+        {% if webPage.pagetitle == -1 and webSettings.pagetitle > 0 or webPage.pagetitle > 0 or webPage.pagetitle is null and webSettings.pagetitle > 0 %}
+        <div class="row page-title">
+            <div class="{{ webSettings.titlewidth }}">
+                <div class="row">
+                    <div class="col-12 py-5 text-{{ webSettings.titlestyle }} color-{{ webSettings.titlecolor }}">
+                        <{{ webSettings.titletag }} class="pl-2 pl-lg-0">{{ fsc.title|raw }}</{{ webSettings.titletag }}>
+                    {% if (webSettings.titlebreadcrumbs == 1) %}
+                        <div class="breadcrumbs">
+                            {{ fsc.pageComposer.getBreadcrumbs(webPage)|raw }}
+                        </div>
                     {% endif %}
-
-                    {{ webMacros.includeView(webIncludes, 'sidebarAfter', templateVars) }}
-                {% endblock %}
-
-                {% block main %}
-                    {{ webMacros.includeView(webIncludes, 'mainBefore', templateVars) }}
-
-                    <main class="py-5 order-2 col-12 {{ (webPage.idsidebar == -1 and webSettings.sidebardefault > 0 or webPage.idsidebar > 0) ? 'col-lg-8' : '' }}">
-                        {{ webPage.content|raw }}
-                    </main>
-
-                    {{ webMacros.includeView(webIncludes, 'mainAfter', templateVars) }}
-                {% endblock %}
-
-                {{ webMacros.includeView(webIncludes, 'wrapperAfter', templateVars) }}
-            {% endblock %}
-        </div>
-    </div>
-
-    {{ webMacros.includeView(webIncludes, 'contentAfter', templateVars) }}
-{% endblock %}
-
-{% block footer %}
-    {{ webMacros.includeView(webIncludes, 'footerBefore', templateVars) }}
-
-    {% if webPage.idfooter is null or webPage.idfooter == -1 and webSettings.footerdefault > 0 or webPage.idfooter > 0 %}
-    <footer id="{{ webFooter.cssid }}"
-            class="{{ webFooter.cssclass }} {{ (webFooter.properties.footershadow) ? 'footer-shadow-bottom-outside' : '' }}">
-        {% if webFooter.content.footer5001 != '' or webFooter.content.footer5002 != '' or webFooter.content.footer5003 != '' %}
-            <div class="footer-top {{ (webFooter.properties.footertopbordertopwidth > 0 and webFooter.properties.footertopbordertopcontainer == 'fullwidth') ? 'footer-top-border-top' : '' }} {{ (webFooter.properties.footertopborderbottomwidth > 0 and webFooter.properties.footertopborderbottomcontainer == 'fullwidth') ? 'footer-top-border-bottom' : '' }}">
-                <div class="content py-4 {{ webFooter.properties.footerwidth }} {{ (webFooter.properties.footertopbordertopwidth > 0 and webFooter.properties.footertopbordertopcontainer == 'boxed') ? 'footer-top-border-top' : '' }} {{ (webFooter.properties.footertopborderbottomwidth > 0 and webFooter.properties.footertopborderbottomcontainer == 'boxed') ? 'footer-top-border-bottom' : '' }}">
-                    <div class="d-flex justify-content-between">
-                        <div class="d-none d-lg-block align-self-center {{ (webFooter.properties.footertoprowflexlayout == 1) ? 'flex-grow-1' : '' }}">
-                            {{ webFooter.content.footer5001|raw }}
-                        </div>
-
-                        <div class="d-none d-lg-block align-self-center {{ (webFooter.properties.footertoprowflexlayout == 0) ? 'flex-grow-1' : '' }}">
-                            {{ webFooter.content.footer5002|raw }}
-                        </div>
-
-                        <div class="d-none d-lg-block align-self-center {{ (webFooter.properties.footertoprowflexlayout == 1) ? 'flex-grow-1' : '' }}">
-                            {{ webFooter.content.footer5003|raw }}
-                        </div>
-                    </div>
                 </div>
             </div>
+        </div>
+        </div>
         {% endif %}
 
-        {% set footermain = true %}
-        {% for key,value in webFooter.content %}
-            {% if 'footer' ~ webFooter.properties.footerlayout in key and value == '' %}
-                {% set footermain = false %}
+        {{ webMacros.includeView(webIncludes, 'pageTitleAfter', templateVars) }}
+    {% endblock %}
+
+    {% block content %}
+        {{ webMacros.includeView(webIncludes, 'contentBefore', templateVars) }}
+
+        <div class="body-content {{ (webPage.pagewidth == -1 or webPage.pagewidth is not defined) ? webSettings.sitewidth : webPage.pagewidth }}">
+            <div class="row">
+                {% block messages %}
+                    {{ webMacros.includeView(webIncludes, 'messagesBefore', templateVars) }}
+
+                    <div class="container col-12">
+                        {% include 'WebCreator/Master/Messages.html.twig' %}
+                    </div>
+
+                    {{ webMacros.includeView(webIncludes, 'messagesAfter', templateVars) }}
+                {% endblock %}
+
+                {% block wrapper %}
+                    {{ webMacros.includeView(webIncludes, 'wrapperBefore', templateVars) }}
+
+                    {% block sidebar %}
+                        {{ webMacros.includeView(webIncludes, 'sidebarBefore', templateVars) }}
+
+                        {% if webPage.idsidebar == -1 and webSettings.sidebardefault > 0 or webPage.idsidebar > 0 or webPage.idsidebar is null and webSettings.sidebardefault > 0 %}
+                            <aside id="{{ webSidebar.cssid }}"
+                                   class="py-5 {{ webSidebar.cssclass }} {{ (webPage.idsidebar == -1 and webSettings.sidebarposition == 1 or webPage.idsidebar > 0 and webPage.sidebarposition == 1) ? 'order-1' : (webPage.idsidebar == -1 and webSettings.sidebarposition == 2 or webPage.idsidebar > 0 and webPage.sidebarposition == 2) ? 'order-3' : '' }} col-12 col-lg-4">
+                                {{ webSidebar.content|raw }}
+                            </aside>
+                        {% endif %}
+
+                        {{ webMacros.includeView(webIncludes, 'sidebarAfter', templateVars) }}
+                    {% endblock %}
+
+                    {% block main %}
+                        {{ webMacros.includeView(webIncludes, 'mainBefore', templateVars) }}
+
+                        <main class="py-5 order-2 col-12 {{ (webPage.idsidebar == -1 and webSettings.sidebardefault > 0 or webPage.idsidebar > 0) ? 'col-lg-8' : '' }}">
+                            {{ webPage.content|raw }}
+                        </main>
+
+                        {{ webMacros.includeView(webIncludes, 'mainAfter', templateVars) }}
+                    {% endblock %}
+
+                    {{ webMacros.includeView(webIncludes, 'wrapperAfter', templateVars) }}
+                {% endblock %}
+            </div>
+        </div>
+
+        {{ webMacros.includeView(webIncludes, 'contentAfter', templateVars) }}
+    {% endblock %}
+
+    {% block footer %}
+        {{ webMacros.includeView(webIncludes, 'footerBefore', templateVars) }}
+
+        {% if webPage.idfooter is null or webPage.idfooter == -1 and webSettings.footerdefault > 0 or webPage.idfooter > 0 %}
+        <footer id="{{ webFooter.cssid }}"
+                class="{{ webFooter.cssclass }} {{ (webFooter.properties.footershadow) ? 'footer-shadow-bottom-outside' : '' }}">
+            {% if webFooter.content.footer5001 != '' or webFooter.content.footer5002 != '' or webFooter.content.footer5003 != '' %}
+                <div class="footer-top {{ (webFooter.properties.footertopbordertopwidth > 0 and webFooter.properties.footertopbordertopcontainer == 'fullwidth') ? 'footer-top-border-top' : '' }} {{ (webFooter.properties.footertopborderbottomwidth > 0 and webFooter.properties.footertopborderbottomcontainer == 'fullwidth') ? 'footer-top-border-bottom' : '' }}">
+                    <div class="content py-4 {{ webFooter.properties.footerwidth }} {{ (webFooter.properties.footertopbordertopwidth > 0 and webFooter.properties.footertopbordertopcontainer == 'boxed') ? 'footer-top-border-top' : '' }} {{ (webFooter.properties.footertopborderbottomwidth > 0 and webFooter.properties.footertopborderbottomcontainer == 'boxed') ? 'footer-top-border-bottom' : '' }}">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-none d-lg-block align-self-center {{ (webFooter.properties.footertoprowflexlayout == 1) ? 'flex-grow-1' : '' }}">
+                                {{ webFooter.content.footer5001|raw }}
+                            </div>
+
+                            <div class="d-none d-lg-block align-self-center {{ (webFooter.properties.footertoprowflexlayout == 0) ? 'flex-grow-1' : '' }}">
+                                {{ webFooter.content.footer5002|raw }}
+                            </div>
+
+                            <div class="d-none d-lg-block align-self-center {{ (webFooter.properties.footertoprowflexlayout == 1) ? 'flex-grow-1' : '' }}">
+                                {{ webFooter.content.footer5003|raw }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             {% endif %}
+
+            {% set footermain = true %}
+            {% for key,value in webFooter.content %}
+                {% if 'footer' ~ webFooter.properties.footerlayout in key and value == '' %}
+                    {% set footermain = false %}
+                {% endif %}
+            {% endfor %}
+
+            {% if footermain %}
+                <div class="footer-main {{ (webFooter.properties.footermainbordertopwidth > 0 and webFooter.properties.footermainbordertopcontainer == 'fullwidth') ? 'footer-main-border-top' : '' }} {{ (webFooter.properties.footermainborderbottomwidth > 0 and webFooter.properties.footermainborderbottomcontainer == 'fullwidth') ? 'footer-main-border-bottom' : '' }}">
+                    <div class="content py-4 {{ webFooter.properties.footerwidth }} {{ (webFooter.properties.footermainbordertopwidth > 0 and webFooter.properties.footermainbordertopcontainer == 'boxed') ? 'footer-main-border-top' : '' }} {{ (webFooter.properties.footermainborderbottomwidth > 0 and webFooter.properties.footermainborderbottomcontainer == 'boxed') ? 'footer-main-border-bottom' : '' }}">
+                        {% include['WebCreator/Public/Footer' ~ webFooter.properties.footerlayout ~ '.html.twig', 'WebCreator/Public/Footer01.html.twig'] %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if webFooter.content.footer6001 != '' or webFooter.content.footer6002 != '' or webFooter.content.footer6003 != '' %}
+                <div class="footer-bottom {{ (webFooter.properties.footerbottombordertopwidth > 0 and webFooter.properties.footerbottombordertopcontainer == 'fullwidth') ? 'footer-bottom-border-top' : '' }} {{ (webFooter.properties.footerbottomborderbottomwidth > 0 and webFooter.properties.footerbottomborderbottomcontainer == 'fullwidth') ? 'footer-bottom-border-bottom' : '' }}">
+                    <div class="content py-4 {{ webFooter.properties.footerwidth }} {{ (webFooter.properties.footerbottombordertopwidth > 0 and webFooter.properties.footerbottombordertopcontainer == 'boxed') ? 'footer-bottom-border-top' : '' }} {{ (webFooter.properties.footerbottomborderbottomwidth > 0 and webFooter.properties.footerbottomborderbottomcontainer == 'boxed') ? 'footer-bottom-border-bottom' : '' }}">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-none d-lg-block align-self-center {{ (webFooter.properties.footerbottomrowflexlayout == 1) ? 'flex-grow-1' : '' }}">
+                                {{ webFooter.content.footer6001|raw }}
+                            </div>
+
+                            <div class="d-none d-lg-block align-self-center {{ (webFooter.properties.footerbottomrowflexlayout == 0) ? 'flex-grow-1' : '' }}">
+                                {{ webFooter.content.footer6002|raw }}
+                            </div>
+
+                            <div class="d-none d-lg-block align-self-center {{ (webFooter.properties.footerbottomrowflexlayout == 1) ? 'flex-grow-1' : '' }}">
+                                {{ webFooter.content.footer6003|raw }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </footer>
+        {% endif %}
+
+        {{ webMacros.includeView(webIncludes, 'footerAfter', templateVars) }}
+    {% endblock %}
+
+    {% block javascriptFooter %}
+        {{ webMacros.includeView(webIncludes, 'javascriptFooterBefore', templateVars) }}
+
+        <script type="text/javascript" src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('node_modules/bootbox/dist/bootbox.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('node_modules/bootbox/dist/bootbox.locales.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('node_modules/jquery-ui-dist/jquery-ui.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('Dinamic/Assets/JS/Custom.js') }}"></script>
+
+        {# Adds custom JS assets #}
+        {% for js in assetManager.get('js') %}
+        <script src="{{ js }}"></script>
         {% endfor %}
 
-        {% if footermain %}
-            <div class="footer-main {{ (webFooter.properties.footermainbordertopwidth > 0 and webFooter.properties.footermainbordertopcontainer == 'fullwidth') ? 'footer-main-border-top' : '' }} {{ (webFooter.properties.footermainborderbottomwidth > 0 and webFooter.properties.footermainborderbottomcontainer == 'fullwidth') ? 'footer-main-border-bottom' : '' }}">
-                <div class="content py-4 {{ webFooter.properties.footerwidth }} {{ (webFooter.properties.footermainbordertopwidth > 0 and webFooter.properties.footermainbordertopcontainer == 'boxed') ? 'footer-main-border-top' : '' }} {{ (webFooter.properties.footermainborderbottomwidth > 0 and webFooter.properties.footermainborderbottomcontainer == 'boxed') ? 'footer-main-border-bottom' : '' }}">
-                    {% include['WebCreator/Public/Footer' ~ webFooter.properties.footerlayout ~ '.html.twig', 'WebCreator/Public/Footer01.html.twig'] %}
-                </div>
-            </div>
-        {% endif %}
+        <script>
+            $(document).ready(function () {
+                function headerBackgroundColor() {
+                    let color = '{{ webHeader.properties.generalbackgroundcolor }}';
+                    let opacity = '{{ webHeader.properties.generalbackgroundcoloropacity }}';
+                    let r = parseInt(color.substr(1, 2), 16);
+                    let g = parseInt(color.substr(3, 2), 16);
+                    let b = parseInt(color.substr(5, 2), 16);
+                    $('header').css('background-color', 'rgb(' + r + ', ' + g + ', ' + b + ', ' + opacity + ')');
+                }
 
-        {% if webFooter.content.footer6001 != '' or webFooter.content.footer6002 != '' or webFooter.content.footer6003 != '' %}
-            <div class="footer-bottom {{ (webFooter.properties.footerbottombordertopwidth > 0 and webFooter.properties.footerbottombordertopcontainer == 'fullwidth') ? 'footer-bottom-border-top' : '' }} {{ (webFooter.properties.footerbottomborderbottomwidth > 0 and webFooter.properties.footerbottomborderbottomcontainer == 'fullwidth') ? 'footer-bottom-border-bottom' : '' }}">
-                <div class="content py-4 {{ webFooter.properties.footerwidth }} {{ (webFooter.properties.footerbottombordertopwidth > 0 and webFooter.properties.footerbottombordertopcontainer == 'boxed') ? 'footer-bottom-border-top' : '' }} {{ (webFooter.properties.footerbottomborderbottomwidth > 0 and webFooter.properties.footerbottomborderbottomcontainer == 'boxed') ? 'footer-bottom-border-bottom' : '' }}">
-                    <div class="d-flex justify-content-between">
-                        <div class="d-none d-lg-block align-self-center {{ (webFooter.properties.footerbottomrowflexlayout == 1) ? 'flex-grow-1' : '' }}">
-                            {{ webFooter.content.footer6001|raw }}
-                        </div>
+                function headerMainBackgroundColor() {
+                    let color = '{{ webHeader.properties.headermainbackgroundcolor }}';
+                    let opacity = '{{ webHeader.properties.headermainbackgroundcoloropacity }}';
+                    let r = parseInt(color.substr(1, 2), 16);
+                    let g = parseInt(color.substr(3, 2), 16);
+                    let b = parseInt(color.substr(5, 2), 16);
+                    $('.header-main').css('background-color', 'rgb(' + r + ', ' + g + ', ' + b + ', ' + opacity + ')');
+                }
 
-                        <div class="d-none d-lg-block align-self-center {{ (webFooter.properties.footerbottomrowflexlayout == 0) ? 'flex-grow-1' : '' }}">
-                            {{ webFooter.content.footer6002|raw }}
-                        </div>
+                function pageTitleBackgroundColor() {
+                    let color = '{{ webSettings.titlebackgroundcolor }}';
+                    let opacity = '{{ webSettings.titlebackgroundopacity }}';
+                    let r = parseInt(color.substr(1, 2), 16);
+                    let g = parseInt(color.substr(3, 2), 16);
+                    let b = parseInt(color.substr(5, 2), 16);
+                    $('.page-title').css('background-color', 'rgb(' + r + ', ' + g + ', ' + b + ', ' + opacity + ')');
+                }
 
-                        <div class="d-none d-lg-block align-self-center {{ (webFooter.properties.footerbottomrowflexlayout == 1) ? 'flex-grow-1' : '' }}">
-                            {{ webFooter.content.footer6003|raw }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-    </footer>
-    {% endif %}
+                function footerBackgroundColor() {
+                    let color = '{{ webFooter.properties.footerbackgroundcolor }}';
+                    let opacity = '{{ webFooter.properties.footerbackgroundcoloropacity }}';
+                    let r = parseInt(color.substr(1, 2), 16);
+                    let g = parseInt(color.substr(3, 2), 16);
+                    let b = parseInt(color.substr(5, 2), 16);
+                    $('footer').css('background-color', 'rgb(' + r + ', ' + g + ', ' + b + ', ' + opacity + ')');
+                }
 
-    {{ webMacros.includeView(webIncludes, 'footerAfter', templateVars) }}
-{% endblock %}
+                function footerTopBackgroundColor() {
+                    let color = '{{ webFooter.properties.footertopbackgroundcolor }}';
+                    let opacity = '{{ webFooter.properties.footertopbackgroundcoloropacity }}';
+                    let r = parseInt(color.substr(1, 2), 16);
+                    let g = parseInt(color.substr(3, 2), 16);
+                    let b = parseInt(color.substr(5, 2), 16);
+                    $('.footer-top').css('background-color', 'rgb(' + r + ', ' + g + ', ' + b + ', ' + opacity + ')');
+                }
 
-{% block javascriptFooter %}
-    {{ webMacros.includeView(webIncludes, 'javascriptFooterBefore', templateVars) }}
+                function footerMainBackgroundColor() {
+                    let color = '{{ webFooter.properties.footermainbackgroundcolor }}';
+                    let opacity = '{{ webFooter.properties.footermainbackgroundcoloropacity }}';
+                    let r = parseInt(color.substr(1, 2), 16);
+                    let g = parseInt(color.substr(3, 2), 16);
+                    let b = parseInt(color.substr(5, 2), 16);
+                    $('.footer-main').css('background-color', 'rgb(' + r + ', ' + g + ', ' + b + ', ' + opacity + ')');
+                }
 
-    <script type="text/javascript" src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('node_modules/bootbox/dist/bootbox.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('node_modules/bootbox/dist/bootbox.locales.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('node_modules/jquery-ui-dist/jquery-ui.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('Dinamic/Assets/JS/Custom.js') }}"></script>
+                function footerBottomBackgroundColor() {
+                    let color = '{{ webFooter.properties.footerbottombackgroundcolor }}';
+                    let opacity = '{{ webFooter.properties.footerbottombackgroundcoloropacity }}';
+                    let r = parseInt(color.substr(1, 2), 16);
+                    let g = parseInt(color.substr(3, 2), 16);
+                    let b = parseInt(color.substr(5, 2), 16);
+                    $('.footer-bottom').css('background-color', 'rgb(' + r + ', ' + g + ', ' + b + ', ' + opacity + ')');
+                }
 
-    {# Adds custom JS assets #}
-    {% for js in assetManager.get('js') %}
-    <script src="{{ js }}"></script>
-    {% endfor %}
+                function mobileButtonColor() {
+                    let btnColor = '{{ webHeader.properties.generalmobilebuttoncolor }}';
+                    let btnOpacity = '{{ webHeader.properties.generalmobilebuttonopacity }}';
+                    let btnRed = parseInt(btnColor.substr(1, 2), 16);
+                    let btnGreen = parseInt(btnColor.substr(3, 2), 16);
+                    let btnBlue = parseInt(btnColor.substr(5, 2), 16);
+                    $('.navbar-toggler-icon').css('background-image', 'url("data:image/svg+xml;charset=utf8,%3Csvg viewBox=\'0 0 32 32\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath stroke=\'rgba(' + btnRed + ',' + btnGreen + ',' + btnBlue + ', ' + btnOpacity + ')\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-miterlimit=\'10\' d=\'M4 8h24M4 16h24M4 24h24\'/%3E%3C/svg%3E")');
 
-    <script>
-        $(document).ready(function () {
-            function headerBackgroundColor() {
-                let color = '{{ webHeader.properties.generalbackgroundcolor }}';
-                let opacity = '{{ webHeader.properties.generalbackgroundcoloropacity }}';
-                let r = parseInt(color.substr(1, 2), 16);
-                let g = parseInt(color.substr(3, 2), 16);
-                let b = parseInt(color.substr(5, 2), 16);
-                $('header').css('background-color', 'rgb(' + r + ', ' + g + ', ' + b + ', ' + opacity + ')');
-            }
+                    let btnBorder = '{{ webHeader.properties.generalmobilebordercolor }}';
+                    let btnBorderOpacity = '{{ webHeader.properties.generalmobileborderopacity }}';
+                    let btnBorderRed = parseInt(btnBorder.substr(1, 2), 16);
+                    let btnBorderGreen = parseInt(btnBorder.substr(3, 2), 16);
+                    let btnBorderBlue = parseInt(btnBorder.substr(5, 2), 16);
+                    $('.navbar-toggler').css('border-color', 'rgba(' + btnBorderRed + ',' + btnBorderGreen + ',' + btnBorderBlue + ',' + btnBorderOpacity + ')');
+                }
 
-            function headerMainBackgroundColor() {
-                let color = '{{ webHeader.properties.headermainbackgroundcolor }}';
-                let opacity = '{{ webHeader.properties.headermainbackgroundcoloropacity }}';
-                let r = parseInt(color.substr(1, 2), 16);
-                let g = parseInt(color.substr(3, 2), 16);
-                let b = parseInt(color.substr(5, 2), 16);
-                $('.header-main').css('background-color', 'rgb(' + r + ', ' + g + ', ' + b + ', ' + opacity + ')');
-            }
+                function backgroundColor() {
+                    headerBackgroundColor();
+                    headerMainBackgroundColor();
+                    pageTitleBackgroundColor();
+                    footerBackgroundColor();
+                    footerTopBackgroundColor();
+                    footerMainBackgroundColor();
+                    footerBottomBackgroundColor();
+                    mobileButtonColor();
+                }
 
-            function pageTitleBackgroundColor() {
-                let color = '{{ webSettings.titlebackgroundcolor }}';
-                let opacity = '{{ webSettings.titlebackgroundopacity }}';
-                let r = parseInt(color.substr(1, 2), 16);
-                let g = parseInt(color.substr(3, 2), 16);
-                let b = parseInt(color.substr(5, 2), 16);
-                $('.page-title').css('background-color', 'rgb(' + r + ', ' + g + ', ' + b + ', ' + opacity + ')');
-            }
-
-            function footerBackgroundColor() {
-                let color = '{{ webFooter.properties.footerbackgroundcolor }}';
-                let opacity = '{{ webFooter.properties.footerbackgroundcoloropacity }}';
-                let r = parseInt(color.substr(1, 2), 16);
-                let g = parseInt(color.substr(3, 2), 16);
-                let b = parseInt(color.substr(5, 2), 16);
-                $('footer').css('background-color', 'rgb(' + r + ', ' + g + ', ' + b + ', ' + opacity + ')');
-            }
-
-            function footerTopBackgroundColor() {
-                let color = '{{ webFooter.properties.footertopbackgroundcolor }}';
-                let opacity = '{{ webFooter.properties.footertopbackgroundcoloropacity }}';
-                let r = parseInt(color.substr(1, 2), 16);
-                let g = parseInt(color.substr(3, 2), 16);
-                let b = parseInt(color.substr(5, 2), 16);
-                $('.footer-top').css('background-color', 'rgb(' + r + ', ' + g + ', ' + b + ', ' + opacity + ')');
-            }
-
-            function footerMainBackgroundColor() {
-                let color = '{{ webFooter.properties.footermainbackgroundcolor }}';
-                let opacity = '{{ webFooter.properties.footermainbackgroundcoloropacity }}';
-                let r = parseInt(color.substr(1, 2), 16);
-                let g = parseInt(color.substr(3, 2), 16);
-                let b = parseInt(color.substr(5, 2), 16);
-                $('.footer-main').css('background-color', 'rgb(' + r + ', ' + g + ', ' + b + ', ' + opacity + ')');
-            }
-
-            function footerBottomBackgroundColor() {
-                let color = '{{ webFooter.properties.footerbottombackgroundcolor }}';
-                let opacity = '{{ webFooter.properties.footerbottombackgroundcoloropacity }}';
-                let r = parseInt(color.substr(1, 2), 16);
-                let g = parseInt(color.substr(3, 2), 16);
-                let b = parseInt(color.substr(5, 2), 16);
-                $('.footer-bottom').css('background-color', 'rgb(' + r + ', ' + g + ', ' + b + ', ' + opacity + ')');
-            }
-
-            function mobileButtonColor() {
-                let btnColor = '{{ webHeader.properties.generalmobilebuttoncolor }}';
-                let btnOpacity = '{{ webHeader.properties.generalmobilebuttonopacity }}';
-                let btnRed = parseInt(btnColor.substr(1, 2), 16);
-                let btnGreen = parseInt(btnColor.substr(3, 2), 16);
-                let btnBlue = parseInt(btnColor.substr(5, 2), 16);
-                $('.navbar-toggler-icon').css('background-image', 'url("data:image/svg+xml;charset=utf8,%3Csvg viewBox=\'0 0 32 32\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath stroke=\'rgba(' + btnRed + ',' + btnGreen + ',' + btnBlue + ', ' + btnOpacity + ')\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-miterlimit=\'10\' d=\'M4 8h24M4 16h24M4 24h24\'/%3E%3C/svg%3E")');
-
-                let btnBorder = '{{ webHeader.properties.generalmobilebordercolor }}';
-                let btnBorderOpacity = '{{ webHeader.properties.generalmobileborderopacity }}';
-                let btnBorderRed = parseInt(btnBorder.substr(1, 2), 16);
-                let btnBorderGreen = parseInt(btnBorder.substr(3, 2), 16);
-                let btnBorderBlue = parseInt(btnBorder.substr(5, 2), 16);
-                $('.navbar-toggler').css('border-color', 'rgba(' + btnBorderRed + ',' + btnBorderGreen + ',' + btnBorderBlue + ',' + btnBorderOpacity + ')');
-            }
-
-            function backgroundColor() {
-                headerBackgroundColor();
-                headerMainBackgroundColor();
-                pageTitleBackgroundColor();
-                footerBackgroundColor();
-                footerTopBackgroundColor();
-                footerMainBackgroundColor();
-                footerBottomBackgroundColor();
-                mobileButtonColor();
-            }
-
-            backgroundColor();
-
-            {% if webHeader.properties.headerlayout == 1 %}
-            {% if webHeader.properties.generalstickypaddingtopbody %}
-            $('body').css('padding-top', $('header').outerHeight() + 'px');
-            {% endif %}
-
-            let lastScroll = 0;
-            $(window).on('scroll', function () {
-                let scroll = $(window).scrollTop();
-                let vh = $(window).height();
+                backgroundColor();
 
                 {% if webHeader.properties.headerlayout == 1 %}
-                {% if webHeader.properties.generalstickyoverlap == false %}
-                // SINGLE FLOATING HEADBOARDS
-                if (scroll > 0) {
-                    {% if webHeader.properties.generalstickyoverlap or webHeader.properties.headermainmakesticky %}
-                    $('header').addClass('fixed-top');
-                    {% else %}
-                    {% if webHeader.properties.headermainmakesticky %}
-                    $('.header-main').addClass('fixed-top').show();
-                    $('header').css('min-height', $('.header-main').height() + 'px');
-                    {% elseif webHeader.properties.generalstickyoverlap %}
-                    $('.header-main').hide();
-                    {% endif %}
-                    {% endif %}
-                } else {
-                    $('header, .header-main')
-                        .css('top', '')
-                        .css('min-height', '')
-                        .removeClass('fixed-top').show();
-                }
-                {% endif %}
+                {% if webHeader.properties.generalstickypaddingtopbody %}
+                $('body').css('padding-top', $('header').outerHeight() + 'px');
                 {% endif %}
 
-                {% if webHeader.properties.generalstickyheadershadow %}
-                // SHOW OVERFLOW IN THE FLOATING MENU
-                if (scroll > 0) {
-                    $('header').addClass('shadow-bottom-outside');
-                } else {
-                    $('header').removeClass('shadow-bottom-outside');
-                }
-                {% endif %}
+                let lastScroll = 0;
+                $(window).on('scroll', function () {
+                    let scroll = $(window).scrollTop();
+                    let vh = $(window).height();
 
-                {% if webHeader.properties.generalstickyoverlap and webHeader.properties.generalstickyhidescrollingdown %}
-                // HIDE AND SHOW MENU BY MOVING SCROLL
-                if (scroll > lastScroll) {
-                    // DOWN SCROLL
-                    if (scroll >= ((vh * 20) / 100)) {
-                        $('header').hide("slide", {direction: "up"}, 300);
+                    {% if webHeader.properties.headerlayout == 1 %}
+                    {% if webHeader.properties.generalstickyoverlap == false %}
+                    // SINGLE FLOATING HEADBOARDS
+                    if (scroll > 0) {
+                        {% if webHeader.properties.generalstickyoverlap or webHeader.properties.headermainmakesticky %}
+                        $('header').addClass('fixed-top');
+                        {% else %}
+                        {% if webHeader.properties.headermainmakesticky %}
+                        $('.header-main').addClass('fixed-top').show();
+                        $('header').css('min-height', $('.header-main').height() + 'px');
+                        {% elseif webHeader.properties.generalstickyoverlap %}
+                        $('.header-main').hide();
+                        {% endif %}
+                        {% endif %}
                     } else {
+                        $('header, .header-main')
+                            .css('top', '')
+                            .css('min-height', '')
+                            .removeClass('fixed-top').show();
+                    }
+                    {% endif %}
+                    {% endif %}
+
+                    {% if webHeader.properties.generalstickyheadershadow %}
+                    // SHOW OVERFLOW IN THE FLOATING MENU
+                    if (scroll > 0) {
+                        $('header').addClass('shadow-bottom-outside');
+                    } else {
+                        $('header').removeClass('shadow-bottom-outside');
+                    }
+                    {% endif %}
+
+                    {% if webHeader.properties.generalstickyoverlap and webHeader.properties.generalstickyhidescrollingdown %}
+                    // HIDE AND SHOW MENU BY MOVING SCROLL
+                    if (scroll > lastScroll) {
+                        // DOWN SCROLL
+                        if (scroll >= ((vh * 20) / 100)) {
+                            $('header').hide("slide", {direction: "up"}, 300);
+                        } else {
+                            $('header').show("slide", {direction: "up"}, 300);
+                        }
+                    } else {
+                        // UP SCROLL
                         $('header').show("slide", {direction: "up"}, 300);
                     }
-                } else {
-                    // UP SCROLL
-                    $('header').show("slide", {direction: "up"}, 300);
-                }
 
-                lastScroll = scroll;
+                    lastScroll = scroll;
+                    {% endif %}
+                });
                 {% endif %}
             });
-            {% endif %}
-        });
-    </script>
+        </script>
 
-    {% if fsc.contact is null and appSettings.get('webcreator', 'google-api', '') != '' %}
-    <div id="g_id_onload"
-         data-client_id="{{ appSettings.get('webcreator', 'google-api') }}"
-         data-login_uri="{{ webUrl ~ asset('GoogleLogin') }}?return={{ fsc.canonicalUrlWithParameters|url_encode }}"
-         data-your_own_param_1_to_login="any_value">
-    </div>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    {% endif %}
+        {% if fsc.contact is null and appSettings.get('webcreator', 'google-api', '') != '' %}
+        <div id="g_id_onload"
+             data-client_id="{{ appSettings.get('webcreator', 'google-api') }}"
+             data-login_uri="{{ webUrl ~ asset('GoogleLogin') }}?return={{ fsc.canonicalUrlWithParameters|url_encode }}"
+             data-your_own_param_1_to_login="any_value">
+        </div>
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+        {% endif %}
 
-    {{ webMacros.includeView(webIncludes, 'javascriptFooterAfter', templateVars) }}
+        {{ webMacros.includeView(webIncludes, 'javascriptFooterAfter', templateVars) }}
 
-    {# Add global JS #}
-    {{ fsc.pageComposer.regexJS(webSettings.globaljsfooter)|raw }}
+        {# Add global JS #}
+        {{ fsc.pageComposer.regexJS(webSettings.globaljsfooter)|raw }}
 
-    {# Add individual JS page #}
-    {{ fsc.pageComposer.regexJS(webPage.pagejsfooter)|raw }}
+        {# Add individual JS page #}
+        {{ fsc.pageComposer.regexJS(webPage.pagejsfooter)|raw }}
 
-{% endblock %}
+    {% endblock %}
 
     {{ debugBarRender.render()|raw }}
 
