@@ -23,12 +23,23 @@
         <column name="name" display="none">
             <widget type="text" fieldname="name" readonly="true" required="true"/>
         </column>
-
-        <group name="login" numcolumns="12">
+        <group name="account" title="my-account" icon="fas fa-user" numcolumns="12">
+            <column name="accountpage" titleurl="ListWebPage" numcolumns="3" order="100">
+                <widget type="select" fieldname="accountpage" onclick="EditWebPage">
+                    <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title"/>
+                </widget>
+            </column>
+        </group>
+        <group name="login" title="login" icon="fas fa-sign-in-alt" numcolumns="12">
             <column name="login-available" description="login-available-help" numcolumns="3" order="100">
                 <widget type="select" fieldname="loginavailable" translate="true" required="true">
                     <values title="no">0</values>
                     <values title="yes">1</values>
+                </widget>
+            </column>
+            <column name="loginpage" titleurl="ListWebPage" numcolumns="3" order="100">
+                <widget type="select" fieldname="loginpage" onclick="EditWebPage">
+                    <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title"/>
                 </widget>
             </column>
             <column name="login-image" titleurl="ListAttachedFile" description="click-link-to-add" numcolumns="3"
@@ -36,11 +47,16 @@
                 <widget type="select" fieldname="idloginimage" onclick="EditAttachedFile"/>
             </column>
         </group>
-        <group name="register" numcolumns="12">
+        <group name="register" title="register" icon="fas fa-user-plus" numcolumns="12">
             <column name="register-available" description="register-available-help" numcolumns="3" order="100">
                 <widget type="select" fieldname="registeravailable" translate="true" required="true">
                     <values title="no">0</values>
                     <values title="yes">1</values>
+                </widget>
+            </column>
+            <column name="registerpage" titleurl="ListWebPage" numcolumns="3" order="100">
+                <widget type="select" fieldname="registerpage" onclick="EditWebPage">
+                    <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title"/>
                 </widget>
             </column>
             <column name="register-image" titleurl="ListAttachedFile" description="click-link-to-add" numcolumns="3"
@@ -48,7 +64,12 @@
                 <widget type="select" fieldname="idregisterimage" onclick="EditAttachedFile"/>
             </column>
         </group>
-        <group name="forgot" numcolumns="12">
+        <group name="forgot" title="forgot-password" icon="fas fa-key" numcolumns="12">
+            <column name="forgotpage" titleurl="ListWebPage" numcolumns="3" order="100">
+                <widget type="select" fieldname="forgotpage" onclick="EditWebPage">
+                    <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title"/>
+                </widget>
+            </column>
             <column name="forgot-image" titleurl="ListAttachedFile" description="click-link-to-add" numcolumns="3"
                     order="100">
                 <widget type="select" fieldname="idforgotimage" onclick="EditAttachedFile"/>

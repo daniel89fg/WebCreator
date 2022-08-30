@@ -35,7 +35,7 @@ class MeLogin extends Me
 
     protected function createViews()
     {
-        if (ToolBox::appSettings()->get('webcreator', 'loginavailable') == false) {
+        if (ToolBox::appSettings()->get('webcreator', 'loginavailable', true) === false) {
             $this->redirect('/');
             return;
         }
@@ -54,7 +54,7 @@ class MeLogin extends Me
             return;
         }
 
-        $this->redirect('Me');
+        $this->redirect($this->pageComposer->getPagesDefault()['accountpage']);
     }
 
     /**
@@ -102,7 +102,7 @@ class MeLogin extends Me
         // add the contact to the token generation seed
         $this->multiRequestProtection->addSeed($this->contact->email);
         $this->saveCookies();
-        $this->redirect('Me');
+        $this->redirect($this->pageComposer->getPagesDefault()['accountpage']);
         return true;
     }
 }

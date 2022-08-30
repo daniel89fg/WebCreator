@@ -19,13 +19,26 @@
 
 namespace FacturaScripts\Plugins\WebCreator\Model;
 
+use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 use FacturaScripts\Core\Model\PresupuestoCliente as ParentModel;
 
+/**
+ * @author Daniel Fernández Giménez <hola@danielfg.es>
+ */
 class PresupuestoCliente extends ParentModel
 {
 
     public function url(string $type = 'auto', string $list = 'List'): string
     {
-        return $type === 'public' ? 'ViewBudget?code=' . $this->primaryColumnValue() : parent::url($type, $list);
+        if ($type === 'public') {
+            $page = new WebPage();
+            $where = [new DataBaseWhere('customcontroller', 'ViewBudget')];
+            if ($page->loadFromCode('', $where)) {
+                return $page->url('public') . '?code=' . $this->primaryColumnValue();
+            }
+            return $this->toolBox()->appSettings()->get('webcreator', 'siteurl') . '/ViewBudget?code=' . $this->primaryColumnValue();
+        }
+
+        return parent::url($type, $list);
     }
 }

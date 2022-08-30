@@ -161,6 +161,8 @@ class PageComposer
             return $resultBefore;
         }
 
+        $siteurl = $this->toolBox()->appSettings()->get('webcreator', 'siteurl');
+
         $homepage = new WebPage();
         $homepage->loadFromCode($this->toolbox()->appSettings()->get('webcreator', 'homepage'));
         $homepageUrl = $homepage->url('public');
@@ -177,11 +179,43 @@ class PageComposer
         $termspage->loadFromCode($this->toolbox()->appSettings()->get('webcreator', 'termspage'));
         $termspageUrl = $termspage->url('public');
 
+        $accountpage = new WebPage();
+        if ($accountpage->loadFromCode($this->toolbox()->appSettings()->get('webcreator', 'accountpage'))) {
+            $accountpageUrl = $accountpage->url('public');
+        } else {
+            $accountpageUrl = $siteurl . '/Me';
+        }
+
+        $loginpage = new WebPage();
+        if ($loginpage->loadFromCode($this->toolbox()->appSettings()->get('webcreator', 'loginpage'))) {
+            $loginpageUrl = $loginpage->url('public');
+        } else {
+            $loginpageUrl = $siteurl . '/MeLogin';
+        }
+
+        $registerpage = new WebPage();
+        if ($registerpage->loadFromCode($this->toolbox()->appSettings()->get('webcreator', 'registerpage'))) {
+            $registerpageUrl = $registerpage->url('public');
+        } else {
+            $registerpageUrl = $siteurl . '/MeRegister';
+        }
+
+        $forgotpage = new WebPage();
+        if ($forgotpage->loadFromCode($this->toolbox()->appSettings()->get('webcreator', 'forgotpage'))) {
+            $forgotpageUrl = $forgotpage->url('public');
+        } else {
+            $forgotpageUrl = $siteurl . '/MeForgot';
+        }
+
         $pages = array(
             'homepage' => $homepageUrl,
             'cookiespage' => $cookiespageUrl,
             'privacypage' => $privacypageUrl,
-            'termspage' => $termspageUrl
+            'termspage' => $termspageUrl,
+            'accountpage' => $accountpageUrl,
+            'loginpage' => $loginpageUrl,
+            'registerpage' => $registerpageUrl,
+            'forgotpage' => $forgotpageUrl
         );
 
         $resultAfter = $this->pipe('getPagesDefaultAfter');

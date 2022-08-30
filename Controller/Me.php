@@ -25,7 +25,6 @@ use FacturaScripts\Dinamic\Lib\Email\ButtonBlock;
 use FacturaScripts\Dinamic\Lib\Email\NewMail;
 use FacturaScripts\Dinamic\Model\Contacto;
 use FacturaScripts\Dinamic\Lib\WebCreator\PortalPanelController;
-use FacturaScripts\Dinamic\Model\WebPage;
 use Symfony\Component\HttpFoundation\Cookie;
 
 /**
@@ -77,7 +76,7 @@ class Me extends PortalPanelController
     protected function createViews()
     {
         if (empty($this->contact)) {
-            $this->redirect('MeLogin');
+            $this->redirect($this->pageComposer->getPagesDefault()['loginpage']);
             return;
         }
 
@@ -326,7 +325,7 @@ class Me extends PortalPanelController
     protected function sendEmailConfirmation(Contacto $contact): bool
     {
         $i18n = $this->toolBox()->i18n();
-        $link = $this->toolBox()->appSettings()->get('webcreator', 'siteurl') . '/Me?action=activate'
+        $link = $this->pageComposer->getPagesDefault()['accountpage'] . '?action=activate'
             . '&cod=' . $this->getActivationCode($contact)
             . '&email=' . \rawurlencode($contact->email);
 

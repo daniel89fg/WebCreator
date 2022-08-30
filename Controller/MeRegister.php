@@ -61,7 +61,7 @@ class MeRegister extends Me
 
     protected function createViews()
     {
-        if (ToolBox::appSettings()->get('webcreator', 'registeravailable') == false) {
+        if (ToolBox::appSettings()->get('webcreator', 'registeravailable', true) === false) {
             $this->redirect('/');
             return;
         }
@@ -72,7 +72,7 @@ class MeRegister extends Me
             return;
         }
 
-        $this->redirect('Me');
+        $this->redirect($this->pageComposer->getPagesDefault()['accountpage']);
     }
 
     /**
@@ -134,7 +134,8 @@ class MeRegister extends Me
         }
 
         $sendmail = $this->sendEmailConfirmation($newContact);
-        $this->redirect('MeLogin?action=register-ok&sendmail=' . $sendmail . '&email=' . $this->emailContact);
+
+        $this->redirect($this->pageComposer->getPagesDefault()['loginpage'] . '?action=register-ok&sendmail=' . $sendmail . '&email=' . $this->emailContact);
         return true;
     }
 }

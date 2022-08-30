@@ -19,6 +19,7 @@
 
 namespace FacturaScripts\Plugins\WebCreator\Model;
 
+use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 use FacturaScripts\Core\Model\FacturaCliente as ParentModel;
 
 /**
@@ -29,6 +30,15 @@ class FacturaCliente extends ParentModel
 
     public function url(string $type = 'auto', string $list = 'List'): string
     {
-        return $type === 'public' ? 'ViewInvoice?code=' . $this->primaryColumnValue() : parent::url($type, $list);
+        if ($type === 'public') {
+            $page = new WebPage();
+            $where = [new DataBaseWhere('customcontroller', 'ViewInvoice')];
+            if ($page->loadFromCode('', $where)) {
+                return $page->url('public') . '?code=' . $this->primaryColumnValue();
+            }
+            return $this->toolBox()->appSettings()->get('webcreator', 'siteurl') . '/ViewInvoice?code=' . $this->primaryColumnValue();
+        }
+
+        return parent::url($type, $list);
     }
 }

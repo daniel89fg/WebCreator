@@ -37,7 +37,7 @@ class MeForgot extends Me
 
     protected function createViews()
     {
-        if (ToolBox::appSettings()->get('webcreator', 'loginavailable') == false) {
+        if (ToolBox::appSettings()->get('webcreator', 'loginavailable', true) === false) {
             $this->redirect('/');
             return;
         }
@@ -48,7 +48,7 @@ class MeForgot extends Me
             return;
         }
 
-        $this->redirect('Me');
+        $this->redirect($this->pageComposer->getPagesDefault()['accountpage']);
     }
 
     /**
@@ -89,12 +89,12 @@ class MeForgot extends Me
     protected function sendRecoveryMail(Contacto $contact): bool
     {
         $i18n = $this->toolBox()->i18n();
-        $link = $this->toolBox()->appSettings()->get('webcreator', 'siteurl') . '/Me?action=recover'
+        $link = $this->pageComposer->getPagesDefault()['accountpage'] . '?action=recover'
             . '&email=' . rawurlencode($contact->email)
             . '&key=' . $this->getActivationCode($contact);
 
         $mail = new NewMail();
-        $mail->fromName = $this->toolBox()->appSettings()->get('portal', 'title');
+        $mail->fromName = $this->toolBox()->appSettings()->get('webcreator', 'title');
         $mail->addAddress($contact->email);
         $mail->title = $i18n->trans('recover-your-account-name', ['%name%' => $contact->nombre]);
         $mail->text = $i18n->trans('recover-your-account-body');

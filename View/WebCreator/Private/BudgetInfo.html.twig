@@ -73,17 +73,17 @@
     </div>
     <div class="card">
         <div class="card-body">
-            <a class="btn btn-block btn-outline-info" href="{{ asset(order.url('public')) }}&action=print"
+            <a class="btn btn-block btn-outline-info" href="{{ order.url('public') }}&action=print"
                target="_blank">
                 <i class="fas fa-print fa-fw"
                    aria-hidden="true"></i> {{ i18n.customTrans(fsc.webPage.filelang, 'print') }}
             </a>
             {% if order.editable %}
-                <a class="btn btn-block btn-outline-success mt-3" href="{{ asset(order.url('public')) }}&action=accept">
+                <a class="btn btn-block btn-outline-success mt-3" href="{{ order.url('public') }}&action=accept">
                     <i class="fas fa-check-circle fa-fw"
                        aria-hidden="true"></i> {{ i18n.customTrans(fsc.webPage.filelang, 'accept') }}
                 </a>
-                <a class="btn btn-block btn-outline-danger mt-3" href="{{ asset(order.url('public')) }}&action=cancel">
+                <a class="btn btn-block btn-outline-danger mt-3" href="{{ order.url('public') }}&action=cancel">
                     <i class="fas fa-times-circle fa-fw"
                        aria-hidden="true"></i> {{ i18n.customTrans(fsc.webPage.filelang, 'cancel') }}
                 </a>

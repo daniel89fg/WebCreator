@@ -97,7 +97,7 @@
                             </div>
                         </div>
                     {% endif %}
-                    <form action="{{ fsc.url() }}" method="post">
+                    <form action="{{ fsc.pageComposer.getPagesDefault().registerpage }}" method="post">
                         <input type="hidden" name="action" value="register"/>
                         <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
                         <div class="form-group row">
@@ -157,7 +157,7 @@
                                     <label class="form-check-label" for="agree_privacy">
                                         {{ i18n.trans('i-accept-privacy-policy') }}
                                     </label>
-                                    <a href="{{ fsc.pageComposer.getPagesDefault()['privacypage'] }}" target="_blank">
+                                    <a href="{{ fsc.pageComposer.getPagesDefault().privacypage }}" target="_blank">
                                         {{ i18n.trans('read-more') }}
                                     </a>
                                 </div>
@@ -172,7 +172,7 @@
                     </form>
                 </div>
                 <div class="card-footer">
-                    <a href="/MeLogin" class="btn btn-block btn-link">{{ i18n.trans('login') }}</a>
+                    <a href="{{ fsc.pageComposer.getPagesDefault().loginpage }}" class="btn btn-block btn-link">{{ i18n.trans('login') }}</a>
                 </div>
             </div>
             <p class="text-center mt-5">{{ webCopyright }}</p>

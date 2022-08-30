@@ -1,6 +1,10 @@
-"creationdate";"customcontroller";"description";idpage;"lastmod";"permalink";"title";"type";idfooter;idheader;idsidebar;"pagewidth";pagetitle
-NULL;NULL;"Home description";1;NULL;"/home";"Home";"WebPage";-1;-1;-1;"-1";-1
-NULL;NULL;"Cookies description";2;NULL;"/cookies";"Cookies";"WebPage";-1;-1;-1;"-1";-1
-NULL;NULL;"Privacy description";3;NULL;"/privacy";"Privacy";"WebPage";-1;-1;-1;"-1";-1
-NULL;Sitemap;"Sitemap description";4;NULL;"/sitemap.xml";"Sitemap";"WebPage";0;0;0;" ";0
-NULL;Robots;"Robots description";5;NULL;"/robots.txt";"Robots";"WebPage";0;0;0;" ";0
+"creationdate";"customcontroller";"description";idpage;"lastmod";"permalink";"title";"type";idfooter;idheader;idsidebar;"pagewidth";pagetitle;pageparent
+NULL;NULL;"Home description";1;NULL;"/home";"Home";"WebPage";-1;-1;-1;"-1";-1;NULL
+NULL;NULL;"Cookies description";2;NULL;"/cookies";"Cookies";"WebPage";-1;-1;-1;"-1";-1;NULL
+NULL;NULL;"Privacy description";3;NULL;"/privacy";"Privacy";"WebPage";-1;-1;-1;"-1";-1;NULL
+NULL;Sitemap;"Sitemap description";4;NULL;"/sitemap.xml";"Sitemap";"WebPage";0;0;0;" ";0;NULL
+NULL;Robots;"Robots description";5;NULL;"/robots.txt";"Robots";"WebPage";0;0;0;" ";0;NULL
+NULL;Me;"Mi cuenta";6;NULL;"/mi-cuenta";"Mi cuenta";"WebPage";-1;-1;-1;"-1";-1;NULL
+NULL;MeLogin;"Iniciar sesión";7;NULL;"/mi-cuenta/iniciar-sesion";"Iniciar sesión";"WebPage";-1;-1;-1;"-1";-1;6
+NULL;MeRegister;"Registrarme";8;NULL;"/mi-cuenta/registrarme";"Registrarme";"WebPage";-1;-1;-1;"-1";-1;6
+NULL;MeForgot;"Recuperar contraseña";9;NULL;"/mi-cuenta/recuperar-clave";"Recuperar contraseña";"WebPage";-1;-1;-1;"-1";-1;6

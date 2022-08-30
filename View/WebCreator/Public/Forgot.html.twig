@@ -78,16 +78,9 @@
                 {% set imgForgot = idforgotimage != '' ? fsc.pageComposer.getAttachFile(idforgotimage) : 'Dinamic/Assets/Images/bg-login-1.jpg' %}
                 <img src="{{ webSettings.siteurl ~ asset(imgForgot) }}" class="card-img-top" alt="login">
                 <div class="card-body">
-                    <form action="{{ fsc.url() }}" method="post">
+                    <form action="{{ fsc.pageComposer.getPagesDefault().forgotpage }}" method="post">
                         <input type="hidden" name="action" value="forgot"/>
                         <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
-                        <div class="form-group row mb-0">
-                            <div class="col-sm-9 offset-sm-3">
-                                <div class="strike">
-                                    <span>{{ i18n.trans('password-recovery') }}</span>
-                                </div>
-                            </div>
-                        </div>
                         <div class="form-group row">
                             <label for="inputEmail" class="col-sm-3 col-form-label text-sm-right">
                                 {{ i18n.trans('email') }}
@@ -102,13 +95,13 @@
                                 <button type="submit" class="btn btn-block btn-primary mb-3">
                                     {{ i18n.trans('send') }}
                                 </button>
-                                <p class="text-muted text-justify mb-4">{{ i18n.trans('password-recovery-p') }}</p>
+                                <p class="text-muted text-justify mb-4 small">{{ i18n.trans('password-recovery-p') }}</p>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="card-footer">
-                    <a href="/MeLogin" class="btn btn-block btn-link">{{ i18n.trans('login') }}</a>
+                    <a href="{{ fsc.pageComposer.getPagesDefault().loginpage }}" class="btn btn-block btn-link">{{ i18n.trans('login') }}</a>
                 </div>
             </div>
             <p class="text-center mt-5">{{ webCopyright }}</p>

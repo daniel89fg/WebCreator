@@ -118,6 +118,22 @@ class Init extends InitClass
             $appSettings->set('webcreator', 'registeravailable', 1);
         }
 
+        if (empty($appSettings->get('webcreator', 'accountpage'))) {
+            $appSettings->set('webcreator', 'accountpage', 6);
+        }
+
+        if (empty($appSettings->get('webcreator', 'loginpage'))) {
+            $appSettings->set('webcreator', 'loginpage', 7);
+        }
+
+        if (empty($appSettings->get('webcreator', 'registerpage'))) {
+            $appSettings->set('webcreator', 'registerpage', 8);
+        }
+
+        if (empty($appSettings->get('webcreator', 'forgotpage'))) {
+            $appSettings->set('webcreator', 'forgotpage', 9);
+        }
+
         if (empty($appSettings->get('webcreator', 'loginavailable'))) {
             $appSettings->set('webcreator', 'loginavailable', 1);
         }

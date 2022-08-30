@@ -87,7 +87,7 @@
         {% set rowStatus = currentView.getRow('status') %}
         <div class="card {{ rowStatus.trClass(model, 'border-') }} shadow mb-3">
             <div class="card-body">
-                <a href="{{ asset(model.url('public')) }}" class="h5">
+                <a href="{{ model.url('public') }}" class="h5">
                     {{ currentView.getRow('cardtitle').show(model) | raw }}
                 </a>
                 <p class="text-justify mb-0">
