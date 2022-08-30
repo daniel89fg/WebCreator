@@ -25,9 +25,9 @@ use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 use FacturaScripts\Dinamic\Model\Contacto;
 use FacturaScripts\Dinamic\Model\User;
 use FacturaScripts\Dinamic\Model\WebPage;
-use FacturaScripts\Dinamic\Lib\WebCreator\WebPageData;
+use FacturaScripts\Dinamic\Lib\WebCreator\PageComposer;
 use FacturaScripts\Dinamic\Lib\WebCreator\PortalAction;
-use FacturaScripts\Plugins\Portal\Lib\Portal\PageComposer;
+use FacturaScripts\Dinamic\Lib\WebCreator\WebPageData;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
