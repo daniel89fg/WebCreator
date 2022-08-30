@@ -40,8 +40,8 @@ function widgetSelectGetData(select) {
 
     let data = {
         action: 'select',
-        activetab: select.form().find('input[name="activetab"]').val(),
-        term: getValueTypeParent(select.form().find('[name="' + select.attr('parent') + '"]')),
+        activetab: select.closest('form').find('input[name="activetab"]').val(),
+        term: getValueTypeParent(select.closest('form').find('[name="' + select.attr('parent') + '"]')),
         field: select.attr("data-field"),
         fieldcode: select.attr("data-fieldcode"),
         fieldfilter: select.attr("data-fieldfilter"),
@@ -74,7 +74,7 @@ $(document).ready(function () {
         }
 
         let select = $(this);
-        select.form().find('select[name="' + parent + '"]').on('change', function(){
+        select.closest('form').find('select[name="' + parent + '"]').on('change', function(){
             widgetSelectGetData(select);
         });
 
