@@ -57,7 +57,8 @@ class EditAttachedFileWeb extends EditController
         if (empty($this->request->get('code', ''))) {
             $this->views[$this->getMainViewName()]->disableColumn('folder');
         } else {
-            $this->views[$this->getMainViewName()]->setReadOnly(true);
+            $this->setSettings($this->getMainViewName(), 'btnSave', false);
+            $this->setSettings($this->getMainViewName(), 'btnUndo', false);
             $this->views[$this->getMainViewName()]->disableColumn('file');
         }
     }
