@@ -161,6 +161,12 @@ class AttachedFileWeb extends Base\ModelClass
             return false;
         }
 
+        foreach (FileManager::scanFolder($this->pathPublic, true) as $file) {
+            if (substr($file, -4) === '.php') {
+                unlink($this->pathPublic . DIRECTORY_SEPARATOR . $file);
+            }
+        }
+
         unlink($this->pathMyfiles);
         $this->folder = implode(',', $folders);
         return parent::test();
