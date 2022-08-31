@@ -135,6 +135,8 @@
     "idpage": "Orriaren IDa",
     "image-default": "Irudi lehenetsia",
     "inherit": "Heredatu",
+    "inherit-global": "Heredar de la configuración global",
+    "inherit-parent": "Heredar del padre",
     "inset": "Kaxa",
     "invalid-activation-code": "%email% egiaztapen-kodea baliogabea.",
     "ipinfodb-credentials": "IPInfoDB kredentzialak",

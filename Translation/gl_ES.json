@@ -135,6 +135,8 @@
     "idpage": "Id. páxina",
     "image-default": "Imaxe por defecto",
     "inherit": "Herdar",
+    "inherit-global": "Heredar de la configuración global",
+    "inherit-parent": "Heredar del padre",
     "inset": "Recadro",
     "invalid-activation-code": "Código de verificación para %email% non válido.",
     "ipinfodb-credentials": "Credenciais IPInfoDB",
