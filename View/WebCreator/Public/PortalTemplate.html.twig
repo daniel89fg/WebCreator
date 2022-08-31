@@ -343,7 +343,7 @@
     {% block header %}
         {{ webMacros.includeView(webIncludes, 'headerBefore', templateVars) }}
 
-        {% if webPage.idheader is null or webPage.idheader == -1 and webSettings.headerdefault > 0 or webPage.idheader > 0 %}
+        {% if webHeader.idheader is not empty %}
             {% include['WebCreator/Public/Header' ~ webHeader.properties.headerlayout ~ '.html.twig', 'WebCreator/Public/Header01.html.twig'] %}
         {% endif %}
 
@@ -384,9 +384,9 @@
                     {% block sidebar %}
                         {{ webMacros.includeView(webIncludes, 'sidebarBefore', templateVars) }}
 
-                        {% if webPage.idsidebar == -1 and webSettings.sidebardefault > 0 or webPage.idsidebar > 0 or webPage.idsidebar is null and webSettings.sidebardefault > 0 %}
+                        {% if webSidebar.idsidebar is not empty %}
                             <aside id="{{ webSidebar.cssid }}"
-                                   class="py-5 {{ webSidebar.cssclass }} {{ (webPage.idsidebar == -1 and webSettings.sidebarposition == 1 or webPage.idsidebar > 0 and webPage.sidebarposition == 1) ? 'order-1' : (webPage.idsidebar == -1 and webSettings.sidebarposition == 2 or webPage.idsidebar > 0 and webPage.sidebarposition == 2) ? 'order-3' : '' }} col-12 col-lg-4">
+                                   class="py-5 {{ webSidebar.cssclass }} {{ webSidebar.position == 1 ? 'order-1' : webSidebar.position == 2 ? 'order-3' : '' }} col-12 col-lg-4">
                                 {{ webSidebar.content|raw }}
                             </aside>
                         {% endif %}
@@ -397,7 +397,7 @@
                     {% block main %}
                         {{ webMacros.includeView(webIncludes, 'mainBefore', templateVars) }}
 
-                        <main class="py-5 order-2 col-12 {{ (webPage.idsidebar == -1 and webSettings.sidebardefault > 0 or webPage.idsidebar > 0) ? 'col-lg-8' : '' }}">
+                        <main class="py-5 order-2 col-12 {{ webSidebar.idsidebar is not empty ? 'col-lg-8' : '' }}">
                             {{ webPage.content|raw }}
                         </main>
 
@@ -415,7 +415,7 @@
     {% block footer %}
         {{ webMacros.includeView(webIncludes, 'footerBefore', templateVars) }}
 
-        {% if webPage.idfooter is null or webPage.idfooter == -1 and webSettings.footerdefault > 0 or webPage.idfooter > 0 %}
+        {% if webFooter.idfooter is not empty %}
         <footer id="{{ webFooter.cssid }}"
                 class="{{ webFooter.cssclass }} {{ (webFooter.properties.footershadow) ? 'footer-shadow-bottom-outside' : '' }}">
             {% if webFooter.content.footer5001 != '' or webFooter.content.footer5002 != '' or webFooter.content.footer5003 != '' %}

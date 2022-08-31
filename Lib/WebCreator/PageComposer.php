@@ -73,16 +73,20 @@ class PageComposer
         return $font->name;
     }
 
-    public function getFooter(?int $idfooter): WebFooter
+    public function getFooter(WebPage $webPage): WebFooter
     {
         $footer = new WebFooter();
 
         $this->pipe('getFooterBefore');
 
-        if (is_null($idfooter) || $idfooter == -1) {
+        if (is_null($webPage->idfooter) || $webPage->idfooter == -1) {
             $footer->loadFromCode($this->toolbox()->appSettings()->get('webcreator', 'footerdefault'));
-        } else if ($idfooter > 0) {
-            $footer->loadFromCode($idfooter);
+        } else if ($webPage->idfooter > 0) {
+            $footer->loadFromCode($webPage->idfooter);
+        } else if ($webPage->idfooter == -2 && $webPage->pageparent) {
+            $page = new WebPage();
+            $page->loadFromCode($webPage->pageparent);
+            return $this->getFooter($page);
         }
 
         $this->pipe('getFooterAfter');
@@ -107,16 +111,20 @@ class PageComposer
         return '<link href="' . $link . '" rel="stylesheet">';
     }
 
-    public function getHeader(?int $idheader): WebHeader
+    public function getHeader(WebPage $webPage): WebHeader
     {
         $header = new WebHeader();
 
         $this->pipe('getHeaderBefore');
 
-        if (is_null($idheader) || $idheader == -1) {
+        if (is_null($webPage->idheader) || $webPage->idheader == -1) {
             $header->loadFromCode($this->toolbox()->appSettings()->get('webcreator', 'headerdefault'));
-        } else if ($idheader > 0) {
-            $header->loadFromCode($idheader);
+        } else if ($webPage->idheader > 0) {
+            $header->loadFromCode($webPage->idheader);
+        } else if ($webPage->idheader == -2 && $webPage->pageparent) {
+            $page = new WebPage();
+            $page->loadFromCode($webPage->pageparent);
+            return $this->getHeader($page);
         }
 
         $header->menu = $this->getMenu($header->idmenu);
@@ -145,10 +153,10 @@ class PageComposer
     {
         $pageData = array(
             'settings' => $this->getWebSettings(),
-            'header' => $this->getHeader($webPage->idheader ?? null),
-            'sidebar' => $this->getSidebar($webPage->idsidebar ?? null),
+            'header' => $this->getHeader($webPage),
+            'sidebar' => $this->getSidebar($webPage),
             'page' => $webPage,
-            'footer' => $this->getFooter($webPage->idfooter ?? null)
+            'footer' => $this->getFooter($webPage)
         );
 
         return Shortcode::getPageShortcodes($pageData);
@@ -231,17 +239,22 @@ class PageComposer
         return Shortcode::getShortcodes($content, $webpage);
     }*/
 
-    public function getSidebar(?int $idsidebar): WebSidebar
+    public function getSidebar(WebPage $webPage): WebSidebar
     {
         $sidebar = new WebSidebar();
 
         $this->pipe('getSidebarBefore');
 
-        if (is_null($idsidebar) || $idsidebar == -1) {
+        if (is_null($webPage->idsidebar) || $webPage->idsidebar == -1) {
             $sidebar->loadFromCode($this->toolbox()->appSettings()->get('webcreator', 'sidebardefault'));
-        } else if ($idsidebar > 0) {
-            $sidebar->loadFromCode($idsidebar);
+        } else if ($webPage->idsidebar > 0) {
+            $sidebar->loadFromCode($webPage->idsidebar);
+        } else if ($webPage->idsidebar == -2 && $webPage->pageparent) {
+            $page = new WebPage();
+            $page->loadFromCode($webPage->pageparent);
+            return $this->getSidebar($page);
         }
+        $sidebar->position = $webPage->sidebarposition;
 
         $this->pipe('getSidebarAfter');
 

@@ -284,7 +284,12 @@
                             </div>
 
                             <div class="form-group">
-                                <label>{{ i18n.trans('page-parent') }}</label>
+                                {% if dataPage.pageparent is not empty %}
+                                    <label><a href="{{ asset('EditWebPage') }}?code={{ dataPage.pageparent }}">{{ i18n.trans('page-parent') }}</a></label>
+                                    <a href="{{ dataPage.getParent().url('public') }}" target="_blank" class="float-right"><i class="fas fa-eye"></i></a>
+                                {% else %}
+                                    <label>{{ i18n.trans('page-parent') }}</label>
+                                {% endif %}
                                 <select class="form-control" name="pageparent">
                                     <option value="">-----</option>
                                     {% for page in pages %}
@@ -314,13 +319,18 @@
 
                 <div class="card mt-4">
                     <div class="card-header">
-                        {{ i18n.trans('page-custom-head') }}
+                        {% if dataPage.idheader > 0 %}
+                            <a href="{{ asset('EditWebHeader') }}?code={{ dataPage.idheader }}">{{ i18n.trans('page-custom-head') }}</a>
+                        {% else %}
+                            {{ i18n.trans('page-custom-head') }}
+                        {% endif %}
                     </div>
                     <div class="card-body">
                         {% block editPageHeader %}
                             <div class="form-group">
                                 <select class="form-control" name="idheader">
-                                    <option value="-1" {{ (dataPage.idheader == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                    <option value="-2" {{ (dataPage.idheader == '-2') ? 'selected' : '' }}>{{ i18n.trans('inherit-parent') }}</option>
+                                    <option value="-1" {{ (dataPage.idpage is empty or dataPage.idheader == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit-global') }}</option>
                                     <option value="0" {{ (dataPage.idheader == '0') ? 'selected' : '' }}>{{ i18n.trans('hidden') }}</option>
                                     {% for header in headers %}
                                         {% set check = (dataPage.idheader == header.idheader) ? 'selected' : '' %}
@@ -344,7 +354,8 @@
                         {% block editPageTitle %}
                             <div class="form-group">
                                 <select class="form-control" name="pagetitle">
-                                    <option value="-1" {{ (dataPage.pagetitle == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                    <option value="-2" {{ (dataPage.pagetitle == '-2') ? 'selected' : '' }}>{{ i18n.trans('inherit-parent') }}</option>
+                                    <option value="-1" {{ (dataPage.idpage is empty or dataPage.pagetitle == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit-global') }}</option>
                                     <option value="0" {{ (dataPage.pagetitle == '0') ? 'selected' : '' }}>{{ i18n.trans('hidden') }}</option>
                                     <option value="1" {{ (dataPage.pagetitle == '1') ? 'selected' : '' }}>{{ i18n.trans('show') }}</option>
                                 </select>
@@ -359,13 +370,18 @@
 
                 <div class="card mt-4">
                     <div class="card-header">
-                        {{ i18n.trans('page-custom-sidebar') }}
+                        {% if dataPage.idheader > 0 %}
+                            <a href="{{ asset('EditWebSidebar') }}?code={{ dataPage.idsidebar }}">{{ i18n.trans('page-custom-sidebar') }}</a>
+                        {% else %}
+                            {{ i18n.trans('page-custom-sidebar') }}
+                        {% endif %}
                     </div>
                     <div class="card-body">
                         {% block editPageSidebar %}
                             <div class="form-group">
                                 <select class="form-control" name="idsidebar">
-                                    <option value="-1" {{ (dataPage.idsidebar == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                    <option value="-2" {{ (dataPage.idsidebar == '-2') ? 'selected' : '' }}>{{ i18n.trans('inherit-parent') }}</option>
+                                    <option value="-1" {{ (dataPage.idpage is empty or dataPage.idsidebar == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit-global') }}</option>
                                     <option value="0" {{ (dataPage.idsidebar == '0') ? 'selected' : '' }}>{{ i18n.trans('hidden') }}</option>
                                     {% for sidebar in sidebars %}
                                         {% set check = (dataPage.idsidebar == sidebar.idsidebar) ? 'selected' : '' %}
@@ -391,13 +407,18 @@
 
                 <div class="card mt-4">
                     <div class="card-header">
-                        {{ i18n.trans('page-custom-footer') }}
+                        {% if dataPage.idheader > 0 %}
+                            <a href="{{ asset('EditWebFooter') }}?code={{ dataPage.idfooter }}">{{ i18n.trans('page-custom-footer') }}</a>
+                        {% else %}
+                            {{ i18n.trans('page-custom-footer') }}
+                        {% endif %}
                     </div>
                     <div class="card-body">
                         {% block editPageFooter %}
                             <div class="form-group">
                                 <select class="form-control" name="idfooter">
-                                    <option value="-1" {{ (dataPage.idfooter == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit') }}</option>
+                                    <option value="-2" {{ (dataPage.idfooter == '-2') ? 'selected' : '' }}>{{ i18n.trans('inherit-parent') }}</option>
+                                    <option value="-1" {{ (dataPage.idpage is empty or dataPage.idfooter == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit-global') }}</option>
                                     <option value="0" {{ (dataPage.idfooter == '0') ? 'selected' : '' }}>{{ i18n.trans('hidden') }}</option>
                                     {% for footer in footers %}
                                         {% set check = (dataPage.idfooter == footer.idfooter) ? 'selected' : '' %}

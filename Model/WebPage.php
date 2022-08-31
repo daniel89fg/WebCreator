@@ -186,6 +186,13 @@ class WebPage extends Base\ModelOnChangeClass
         return false;
     }
 
+    public function getParent(): WebPage
+    {
+        $page = new self();
+        $page->loadFromCode($this->pageparent);
+        return $page;
+    }
+
     /**
      * This function is called when creating the model table. Returns the SQL
      * that will be executed after the creation of the table. Useful to insert values
