@@ -27,6 +27,7 @@ use FacturaScripts\Dinamic\Model\WebHeader;
 use FacturaScripts\Dinamic\Model\WebMenu;
 use FacturaScripts\Dinamic\Model\WebFooter;
 use FacturaScripts\Dinamic\Model\WebSidebar;
+use FacturaScripts\Dinamic\Model\WebTitle;
 use FacturaScripts\Dinamic\Lib\Shortcode\Shortcode;
 use FacturaScripts\Dinamic\Model\WebFont;
 use FacturaScripts\Dinamic\Model\WebFontWeight;
@@ -49,12 +50,12 @@ class PageComposer
         return $file->url('download-permanent');
     }
 
-    public function getBreadcrumbs(WebPage $page): string
+    public function getBreadcrumbs(WebPage $page, string $separator): string
     {
         $this->pipe('getBreadcrumbsBefore');
 
         $breadcrumb = $page->title;
-        $breadcrumb = $this->getPageParent($breadcrumb, $page);
+        $breadcrumb = $this->getPageParent($breadcrumb, $page, $separator);
 
         $this->pipe('getBreadcrumbsAfter');
 
@@ -156,7 +157,8 @@ class PageComposer
             'header' => $this->getHeader($webPage),
             'sidebar' => $this->getSidebar($webPage),
             'page' => $webPage,
-            'footer' => $this->getFooter($webPage)
+            'footer' => $this->getFooter($webPage),
+            'title' => $this->getTitle($webPage),
         );
 
         return Shortcode::getPageShortcodes($pageData);
@@ -259,6 +261,27 @@ class PageComposer
         $this->pipe('getSidebarAfter');
 
         return $sidebar;
+    }
+
+    public function getTitle(WebPage $webPage): WebTitle
+    {
+        $title = new WebTitle();
+
+        $this->pipe('getTitleBefore');
+
+        if (is_null($webPage->idtitle) || $webPage->idtitle == -1) {
+            $title->loadFromCode($this->toolbox()->appSettings()->get('webcreator', 'titledefault'));
+        } else if ($webPage->idtitle > 0) {
+            $title->loadFromCode($webPage->idtitle);
+        } else if ($webPage->idtitle == -2 && $webPage->pageparent) {
+            $page = new WebPage();
+            $page->loadFromCode($webPage->pageparent);
+            return $this->getTitle($page);
+        }
+
+        $this->pipe('getTitleAfter');
+
+        return $title;
     }
 
     public function getWebSettings(): array
@@ -394,17 +417,15 @@ class PageComposer
         return $font->name . ':' . $fontWeight->weight . '|';
     }
 
-    private function getPageParent(string $breadcrumb, WebPage $page): string
+    private function getPageParent(string $breadcrumb, WebPage $page, string $separator): string
     {
         $this->pipe('getPageParentBefore');
 
         if ($page->idpage != $page->pageparent) {
-            $siteurl = $this->toolBox()->appSettings()->get('webcreator', 'siteurl');
-
             if ($page->pageparent) {
                 $webPage = new WebPage();
                 $webPage->loadFromCode($page->pageparent);
-                $breadcrumb = '<a href="' . $siteurl . $webPage->permalink . '">' . $webPage->title . '</a>' . $this->setSeparatorBreadcrumb() . $breadcrumb;
+                $breadcrumb = '<a href="' . $webPage->url('public') . '">' . $webPage->title . '</a>' . $this->setSeparatorBreadcrumb($separator) . $breadcrumb;
                 $breadcrumb = $this->getPageParent($breadcrumb, $webPage);
             }
         }
@@ -414,12 +435,12 @@ class PageComposer
         return $breadcrumb;
     }
 
-    private function setSeparatorBreadcrumb(): string
+    private function setSeparatorBreadcrumb(string $separator): string
     {
         $this->pipe('setSeparatorBreadcrumbBefore');
-        $separator = $this->toolBox()->appSettings()->get('webcreator', 'titlebreadcrumbsseparate');
+        $html = '<span class="mx-1">' . $separator . '</span>';
         $this->pipe('setSeparatorBreadcrumbAfter');
-        return '<span class="mx-1">' . $separator . '</span>';
+        return $html;
     }
 
     private function toolBox(): ToolBox

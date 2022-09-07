@@ -28,6 +28,7 @@
 {% set webMenu = pageData.menu %}
 {% set webFooter = pageData.footer %}
 {% set webSidebar = pageData.sidebar %}
+{% set webTitle = pageData.title %}
 {% set webPage = pageData.page %}
 {% set webIncludes = fsc.pageComposer.includeView(template) %}
 {% set webUrl = appSettings.get('webcreator', 'siteurl', '') %}
@@ -353,21 +354,21 @@
     {% block pageTitle %}
         {{ webMacros.includeView(webIncludes, 'pageTitleBefore', templateVars) }}
 
-        {% if webPage.pagetitle == -1 and webSettings.pagetitle > 0 or webPage.pagetitle > 0 or webPage.pagetitle is null and webSettings.pagetitle > 0 %}
-        <div class="row page-title">
-            <div class="{{ webSettings.titlewidth }}">
-                <div class="row">
-                    <div class="col-12 py-5 text-{{ webSettings.titlestyle }} color-{{ webSettings.titlecolor }}">
-                        <{{ webSettings.titletag }} class="pl-2 pl-lg-0">{{ fsc.title|raw }}</{{ webSettings.titletag }}>
-                    {% if (webSettings.titlebreadcrumbs == 1) %}
-                        <div class="breadcrumbs">
-                            {{ fsc.pageComposer.getBreadcrumbs(webPage)|raw }}
+        {% if webTitle.idtitle is not empty %}
+            <div class="row page-title">
+                <div class="{{ webTitle.width }}">
+                    <div class="row">
+                        <div class="col-12 py-5 text-{{ webTitle.align }}">
+                            <{{ webTitle.tag }} class="pl-3 pl-lg-0">{{ fsc.title|raw }}</{{ webTitle.tag }}>
+                            {% if (webTitle.breadcrumbs == 1) %}
+                                <div class="pl-3 pl-lg-0 breadcrumbs">
+                                    {{ fsc.pageComposer.getBreadcrumbs(webPage, webTitle.breadcrumbsseparator)|raw }}
+                                </div>
+                            {% endif %}
                         </div>
-                    {% endif %}
+                    </div>
                 </div>
             </div>
-        </div>
-        </div>
         {% endif %}
 
         {{ webMacros.includeView(webIncludes, 'pageTitleAfter', templateVars) }}
@@ -512,11 +513,11 @@
                 }
 
                 function pageTitleBackgroundColor() {
-                    let color = '{{ webSettings.titlebackgroundcolor }}';
-                    let opacity = '{{ webSettings.titlebackgroundopacity }}';
-                    let r = parseInt(color.substr(1, 2), 16);
-                    let g = parseInt(color.substr(3, 2), 16);
-                    let b = parseInt(color.substr(5, 2), 16);
+                    let bgcolor = '{{ webTitle.bgcolor }}';
+                    let opacity = '{{ webTitle.imageopacity }}';
+                    let r = parseInt(bgcolor.substr(1, 2), 16);
+                    let g = parseInt(bgcolor.substr(3, 2), 16);
+                    let b = parseInt(bgcolor.substr(5, 2), 16);
                     $('.page-title').css('background-color', 'rgb(' + r + ', ' + g + ', ' + b + ', ' + opacity + ')');
                 }
 

@@ -100,7 +100,7 @@
                                      data-logo_alignment="center">
                                 </div>
                                 <div class="strike">
-                                    <span>{{ i18n.trans('choose-method') }}</span>
+                                    <span>{{ i18n.customTrans(fsc.webPage.filelang, 'choose-method') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -110,26 +110,26 @@
                         <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
                         <div class="form-group row">
                             <label for="inputEmail" class="col-sm-3 col-form-label text-sm-right">
-                                {{ i18n.trans('email') }}
+                                {{ i18n.customTrans(fsc.webPage.filelang, 'email') }}
                             </label>
                             <div class="col-sm-9">
                                 <input type="email" name="email" id="inputEmail" class="form-control"
-                                       placeholder="{{ i18n.trans('email') }}" value="{{ fsc.emailContact }}"
+                                       placeholder="{{ i18n.customTrans(fsc.webPage.filelang, 'email') }}" value="{{ fsc.emailContact }}"
                                        maxlength="100" required autofocus>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputPasswd" class="col-sm-3 col-form-label text-sm-right">
-                                {{ i18n.trans('password') }}
+                                {{ i18n.customTrans(fsc.webPage.filelang, 'password') }}
                             </label>
                             <div class="col-sm-9">
                                 <input type="password" name="passwd" id="inputPasswd" class="form-control"
-                                       placeholder="{{ i18n.trans('password') }}" maxlength="255">
+                                       placeholder="{{ i18n.customTrans(fsc.webPage.filelang, 'password') }}" maxlength="255">
                                 <a href="{{ fsc.pageComposer.getPagesDefault().forgotpage }}" class="btn btn-block btn-link">
-                                    {{ i18n.trans('forgot-password-q') }}
+                                    {{ i18n.customTrans(fsc.webPage.filelang, 'forgot-password-q') }}
                                 </a>
                                 <button type="submit" class="btn btn-block btn-primary mb-4">
-                                    {{ i18n.trans('login') }}
+                                    {{ i18n.customTrans(fsc.webPage.filelang, 'login') }}
                                 </button>
                             </div>
                         </div>
@@ -138,11 +138,11 @@
                 <div class="card-footer">
                     <div class="row align-items-baseline">
                         <div class="col-sm">
-                            <p class="text-right mb-0">{{ i18n.trans('do-not-have-account') }}</p>
+                            <p class="text-right mb-0">{{ i18n.customTrans(fsc.webPage.filelang, 'do-not-have-account') }}</p>
                         </div>
                         <div class="col-sm-4">
                             <a href="{{ fsc.pageComposer.getPagesDefault().registerpage }}" class="btn btn-block btn-success">
-                                {{ i18n.trans('register-me') }}
+                                {{ i18n.customTrans(fsc.webPage.filelang, 'register-me') }}
                             </a>
                         </div>
                     </div>

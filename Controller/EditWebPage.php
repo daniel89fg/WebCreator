@@ -21,11 +21,12 @@ namespace FacturaScripts\Plugins\WebCreator\Controller;
 
 use FacturaScripts\Dinamic\Lib\ExtendedController\PanelController;
 use FacturaScripts\Dinamic\Lib\AssetManager;
-use FacturaScripts\Dinamic\Model\WebPage;
-use FacturaScripts\Dinamic\Model\WebHeader;
-use FacturaScripts\Dinamic\Model\WebSidebar;
-use FacturaScripts\Dinamic\Model\WebFooter;
 use FacturaScripts\Dinamic\Model\Page;
+use FacturaScripts\Dinamic\Model\WebFooter;
+use FacturaScripts\Dinamic\Model\WebHeader;
+use FacturaScripts\Dinamic\Model\WebPage;
+use FacturaScripts\Dinamic\Model\WebSidebar;
+use FacturaScripts\Dinamic\Model\WebTitle;
 use FacturaScripts\Plugins\WebCreator\Lib\WebCreator\PermalinkTrait;
 use FacturaScripts\Plugins\WebCreator\Lib\WebCreator\IncludeViewTrait;
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
@@ -56,6 +57,12 @@ class EditWebPage extends PanelController
     {
         $header = new WebHeader();
         return $header->all([], [], 0, 0);
+    }
+
+    public function getTitles(): array
+    {
+        $title = new WebTitle();
+        return $title->all([], [], 0, 0);
     }
 
     public function getImages(): array

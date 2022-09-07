@@ -27,7 +27,7 @@
         <group name="layouts" numcolumns="12">
             <column name="site-width" numcolumns="3" order="100">
                 <widget type="select" fieldname="sitewidth" translate="false" required="true">
-                    <values title="none"></values>
+                    <values title="none"> </values>
                     <values title="Container">container</values>
                     <values title="Container sm">container-sm</values>
                     <values title="Container md">container-md</values>
@@ -45,19 +45,25 @@
         </group>
 
         <group name="default-header-footer" numcolumns="12">
-            <column name="header-default" titleurl="ListWebPage?activetab=ListWebHeader" numcolumns="4" order="100">
+            <column name="header-default" titleurl="ListWebPage?activetab=ListWebHeader" numcolumns="3" order="100">
                 <widget type="select" fieldname="headerdefault" onclick="EditWebHeader">
                     <values source="webcreator_headers" fieldcode="idheader" fieldtitle="name"/>
                 </widget>
             </column>
 
-            <column name="footer-default" titleurl="ListWebPage?activetab=ListWebFooter" numcolumns="4" order="120">
+            <column name="title-default" titleurl="ListWebPage?activetab=ListWebTitle" numcolumns="3" order="110">
+                <widget type="select" fieldname="titledefault" onclick="EditWebTitle">
+                    <values source="webcreator_titles" fieldcode="idtitle" fieldtitle="name"/>
+                </widget>
+            </column>
+
+            <column name="footer-default" titleurl="ListWebPage?activetab=ListWebFooter" numcolumns="3" order="120">
                 <widget type="select" fieldname="footerdefault" onclick="EditWebFooter">
                     <values source="webcreator_footers" fieldcode="idfooter" fieldtitle="name"/>
                 </widget>
             </column>
 
-            <column name="sidebar-default" titleurl="ListWebPage?activetab=ListWebSidebar" numcolumns="4" order="130">
+            <column name="sidebar-default" titleurl="ListWebPage?activetab=ListWebSidebar" numcolumns="3" order="130">
                 <widget type="select" fieldname="sidebardefault" onclick="EditWebSidebar">
                     <values source="webcreator_sidebars" fieldcode="idsidebar" fieldtitle="name"/>
                 </widget>

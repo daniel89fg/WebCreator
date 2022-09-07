@@ -85,6 +85,10 @@ class Init extends InitClass
             $appSettings->set('webcreator', 'headerdefault', 1);
         }
 
+        if (empty($appSettings->get('webcreator', 'titledefault'))) {
+            $appSettings->set('webcreator', 'titledefault', 1);
+        }
+
         if (empty($appSettings->get('webcreator', 'footerdefault'))) {
             $appSettings->set('webcreator', 'footerdefault', 1);
         }
@@ -136,38 +140,6 @@ class Init extends InitClass
 
         if (empty($appSettings->get('webcreator', 'loginavailable'))) {
             $appSettings->set('webcreator', 'loginavailable', 1);
-        }
-
-        if (empty($appSettings->get('webcreator', 'pagetitle'))) {
-            $appSettings->set('webcreator', 'pagetitle', 1);
-        }
-
-        if (empty($appSettings->get('webcreator', 'titlestyle'))) {
-            $appSettings->set('webcreator', 'titlestyle', 'left');
-        }
-
-        if (empty($appSettings->get('webcreator', 'titletag'))) {
-            $appSettings->set('webcreator', 'titletag', 'h1');
-        }
-
-        if (empty($appSettings->get('webcreator', 'titlebackgroundcolor'))) {
-            $appSettings->set('webcreator', 'titlebackgroundcolor', '#376FB7');
-        }
-
-        if (empty($appSettings->get('webcreator', 'titlebackgroundopacity'))) {
-            $appSettings->set('webcreator', 'titlebackgroundopacity', 0.1);
-        }
-
-        if (empty($appSettings->get('webcreator', 'titlewidth'))) {
-            $appSettings->set('webcreator', 'titlewidth', 'container');
-        }
-
-        if (empty($appSettings->get('webcreator', 'titlebreadcrumbs'))) {
-            $appSettings->set('webcreator', 'titlebreadcrumbs', 1);
-        }
-
-        if (empty($appSettings->get('webcreator', 'titlebreadcrumbsseparate'))) {
-            $appSettings->set('webcreator', 'titlebreadcrumbsseparate', '>');
         }
 
         if (empty($appSettings->get('webcreator', 'fontdefault'))) {

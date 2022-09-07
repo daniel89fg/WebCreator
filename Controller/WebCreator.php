@@ -47,7 +47,6 @@ class WebCreator extends PanelController
         $this->addEditView('WebSettingsLayout', $modelName, 'general-layouts');
         $this->addEditView('WebSettingsLogin', $modelName, 'login-register');
         $this->addEditView('WebSettingsGlobal', $modelName, 'global-custom');
-        $this->addEditView('WebSettingsPageTitle', $modelName, 'page-title');
         $this->addEditView('WebSettingsTypography', $modelName, 'typography-color');
         $this->addEditView('WebSettingsPermalink', $modelName, 'permalinks');
 
@@ -55,7 +54,6 @@ class WebCreator extends PanelController
         $this->setSettings('WebSettingsLayout', 'btnDelete', false);
         $this->setSettings('WebSettingsLogin', 'btnDelete', false);
         $this->setSettings('WebSettingsGlobal', 'btnDelete', false);
-        $this->setSettings('WebSettingsPageTitle', 'btnDelete', false);
         $this->setSettings('WebSettingsTypography', 'btnDelete', false);
         $this->setSettings('WebSettingsPermalink', 'btnDelete', false);
     }
@@ -118,7 +116,6 @@ class WebCreator extends PanelController
                     $forgotImage->widget->setValuesFromCodeModel($images);
                 }
             case 'WebSettingsGlobal':
-            case 'WebSettingsPageTitle':
                 $columnFavicon = $view->columnForName('titlebackgroundimage');
                 if ($columnFavicon) {
                     $columnFavicon->widget->setValuesFromCodeModel($images);

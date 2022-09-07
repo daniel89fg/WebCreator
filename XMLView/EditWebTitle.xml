@@ -20,28 +20,22 @@
 -->
 <view>
     <columns>
-        <column name="name" display="none">
-            <widget type="text" fieldname="name" readonly="true" required="true"/>
-        </column>
-
-        <group name="page-title" numcolumns="12">
-            <column name="pagetitle" title="show" numcolumns="2" order="100">
-                <widget type="select" fieldname="pagetitle" translate="true" required="true">
-                    <values title="yes">1</values>
-                    <values title="no">0</values>
-                </widget>
+        <group name="data" numcolumns="12">
+            <column name="code" display="none" order="100">
+                <widget type="text" fieldname="idtitle" required="true"/>
             </column>
-
-            <column name="titlestyle" title="style" numcolumns="2" order="110">
-                <widget type="select" fieldname="titlestyle" translate="true" required="true">
+            <column name="name" order="110">
+                <widget type="text" fieldname="name" required="true"/>
+            </column>
+            <column name="alignment" order="120">
+                <widget type="select" fieldname="align" translate="true" required="true">
                     <values title="left">left</values>
                     <values title="center">center</values>
                     <values title="right">right</values>
                 </widget>
             </column>
-
-            <column name="titletag" title="tag" numcolumns="2" order="130">
-                <widget type="select" fieldname="titletag" translate="false" required="true">
+            <column name="tag" order="130">
+                <widget type="select" fieldname="tag" translate="false" required="true">
                     <values title="h1">h1</values>
                     <values title="h2">h2</values>
                     <values title="h3">h3</values>
@@ -53,9 +47,8 @@
                     <values title="span">span</values>
                 </widget>
             </column>
-
-            <column name="width" numcolumns="2" order="140">
-                <widget type="select" fieldname="titlewidth" translate="false" required="true">
+            <column name="width" order="140">
+                <widget type="select" fieldname="width" translate="false" required="true">
                     <values title="Container">container</values>
                     <values title="Container sm">container-sm</values>
                     <values title="Container md">container-md</values>
@@ -64,23 +57,22 @@
                 </widget>
             </column>
         </group>
-
         <group name="page-title-background" title="color-and-background" numcolumns="12">
-            <column name="titlebackgroundimage" title="image" titleurl="ListAttachedFile"
+            <column name="idimage" title="image" titleurl="ListAttachedFile"
                     description="click-link-to-add" numcolumns="4" order="100">
-                <widget type="select" fieldname="titlebackgroundimage" onclick="EditAttachedFile"/>
+                <widget type="select" fieldname="idimage" onclick="EditAttachedFile"/>
             </column>
 
-            <column name="titlebackgroundcolor" title="color" numcolumns="4" order="110">
-                <widget type="color" fieldname="titlebackgroundcolor"/>
+            <column name="bgcolor" title="color" numcolumns="4" order="110">
+                <widget type="color" fieldname="bgcolor" required="true"/>
             </column>
 
-            <column name="titlebackgroundopacity" title="opacity" numcolumns="4" order="120">
-                <widget type="number" decimal="1" min="0" max="1" step="0.1" fieldname="titlebackgroundopacity"/>
+            <column name="imageopacity" title="opacity" numcolumns="4" order="120">
+                <widget type="number" decimal="1" min="0" max="1" step="0.1" fieldname="imageopacity" required="true"/>
             </column>
 
-            <column name="titleimagerepeat" title="only-repeat" numcolumns="3" order="130">
-                <widget type="select" fieldname="titleimagerepeat" translate="true" required="true">
+            <column name="imagerepeat" title="only-repeat" numcolumns="3" order="130">
+                <widget type="select" fieldname="imagerepeat" translate="true" required="true">
                     <values title="inherit">inherit</values>
                     <values title="no-repeat">no-repeat</values>
                     <values title="repeat">repeat</values>
@@ -89,24 +81,24 @@
                 </widget>
             </column>
 
-            <column name="titleimagesize" title="size" numcolumns="3" order="140">
-                <widget type="select" fieldname="titleimagesize" translate="true" required="true">
+            <column name="imagesize" title="size" numcolumns="3" order="140">
+                <widget type="select" fieldname="imagesize" translate="true" required="true">
                     <values title="inherit">inherit</values>
                     <values title="cover">cover</values>
                     <values title="contain">contain</values>
                 </widget>
             </column>
 
-            <column name="titleimageattachment" title="fixed-attachment" numcolumns="3" order="150">
-                <widget type="select" fieldname="titleimageattachment" translate="true" required="true">
+            <column name="imagefixed" title="fixed-attachment" numcolumns="3" order="150">
+                <widget type="select" fieldname="imagefixed" translate="true" required="true">
                     <values title="inherit">inherit</values>
                     <values title="fixed">fixed</values>
                     <values title="scroll">scroll</values>
                 </widget>
             </column>
 
-            <column name="titleimageposition" title="position" numcolumns="3" order="160">
-                <widget type="select" fieldname="titleimageposition" translate="true" required="true">
+            <column name="imageposition" title="position" numcolumns="3" order="160">
+                <widget type="select" fieldname="imageposition" translate="true" required="true">
                     <values title="inherit">inherit</values>
                     <values title="left-top">left top</values>
                     <values title="left-center">left center</values>
@@ -120,17 +112,16 @@
                 </widget>
             </column>
         </group>
-
         <group name="page-title-breadcrumbs" title="breadcrumbs" numcolumns="12">
-            <column name="titlebreadcrumbs" title="show" numcolumns="4" order="100">
-                <widget type="select" fieldname="titlebreadcrumbs" translate="true" required="true">
+            <column name="breadcrumbs" title="show" numcolumns="4" order="100">
+                <widget type="select" fieldname="breadcrumbs" translate="true" required="true">
                     <values title="yes">1</values>
                     <values title="no">0</values>
                 </widget>
             </column>
 
-            <column name="titlebreadcrumbsseparate" title="breadcrumbs-separate" numcolumns="4" order="110">
-                <widget type="text" fieldname="titlebreadcrumbsseparate" maxlength="5"/>
+            <column name="breadcrumbsseparator" title="breadcrumbs-separate" numcolumns="4" order="110">
+                <widget type="text" fieldname="breadcrumbsseparator" maxlength="3"/>
             </column>
         </group>
     </columns>

@@ -57,6 +57,11 @@
         <null>NO</null>
     </column>
     <column>
+        <name>idtitle</name>
+        <type>integer</type>
+        <null>NO</null>
+    </column>
+    <column>
         <name>lastmod</name>
         <type>datetime</type>
     </column>
@@ -84,11 +89,6 @@
     <column>
         <name>pageparent</name>
         <type>integer</type>
-    </column>
-    <column>
-        <name>pagetitle</name>
-        <type>integer</type>
-        <null>NO</null>
     </column>
     <column>
         <name>pagewidth</name>

@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?php
+/**
  * This file is part of WebCreator plugin for FacturaScripts.
- * Copyright (C) 2022 Carlos Garcia Gomez  <carlos@facturascripts.com>
+ * Copyright (C) 2022 Carlos Garcia Gomez <carlos@facturascripts.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -15,22 +15,35 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- *
+ */
+
+namespace FacturaScripts\Plugins\WebCreator\Controller;
+
+use FacturaScripts\Dinamic\Lib\ExtendedController\EditController;
+
+/**
  * @author Daniel Fernández Giménez <hola@danielfg.es>
--->
-<view>
-    <columns>
-        <column name="code" display="none" order="100">
-            <widget type="text" fieldname="idattached" required="true"/>
-        </column>
-        <column name="name" order="110">
-            <widget type="text" fieldname="name" required="true" readonly="dinamic"/>
-        </column>
-        <column name="file" numcolumns="8" order="120">
-            <widget type="file" fieldname="filezip" accept=".zip" required="true" readonly="dinamic"/>
-        </column>
-        <column name="folder" order="130">
-            <widget type="text" fieldname="folder" readonly="true"/>
-        </column>
-    </columns>
-</view>
+ */
+class EditWebTitle extends EditController
+{
+
+    /**
+     * @return string
+     */
+    public function getModelClassName()
+    {
+        return 'WebTitle';
+    }
+
+    /**
+     * @return array
+     */
+    public function getPageData()
+    {
+        $pagedata = parent::getPageData();
+        $pagedata['menu'] = 'web';
+        $pagedata['title'] = 'web-title';
+        $pagedata['icon'] = 'fas fa-heading';
+        return $pagedata;
+    }
+}

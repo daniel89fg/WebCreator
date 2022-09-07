@@ -46,6 +46,7 @@ class ListWebPage extends ListController
         $this->createViewWebPages();
         $this->createViewsWebMenu();
         $this->createViewWebBlock();
+        $this->createViewWebTitle();
         $this->createViewWebHeader();
         $this->createViewWebFooter();
         $this->createViewWebSidebar();
@@ -100,6 +101,14 @@ class ListWebPage extends ListController
     protected function createViewWebSidebar(string $viewName = 'ListWebSidebar')
     {
         $this->addView($viewName, 'WebSidebar', 'sidebars', 'fas fa-caret-square-left');
+        $this->addSearchFields($viewName, ['name']);
+        $this->addOrderBy($viewName, ['name'], 'name');
+        $this->addOrderBy($viewName, ['lastmod'], 'last-update');
+    }
+
+    protected function createViewWebTitle(string $viewName = 'ListWebTitle')
+    {
+        $this->addView($viewName, 'WebTitle', 'page-titles', 'fas fa-heading');
         $this->addSearchFields($viewName, ['name']);
         $this->addOrderBy($viewName, ['name'], 'name');
         $this->addOrderBy($viewName, ['lastmod'], 'last-update');

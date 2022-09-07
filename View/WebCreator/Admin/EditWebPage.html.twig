@@ -27,6 +27,7 @@
 {% set controllers = fsc.getControllers() %}
 {% set images = fsc.getImages() %}
 {% set headers = fsc.getHeaders() %}
+{% set titles = fsc.getTitles() %}
 {% set sidebars = fsc.getSidebars() %}
 {% set footers = fsc.getFooters() %}
 {% set webIncludes = fsc.includeView(currentView.getViewName()) %}
@@ -348,16 +349,23 @@
 
                 <div class="card mt-4">
                     <div class="card-header">
-                        {{ i18n.trans('page-custom-title') }}
+                        {% if dataPage.idtitle > 0 %}
+                            <a href="{{ asset('EditWebTitle') }}?code={{ dataPage.idtitle }}">{{ i18n.trans('page-custom-title') }}</a>
+                        {% else %}
+                            {{ i18n.trans('page-custom-title') }}
+                        {% endif %}
                     </div>
                     <div class="card-body">
                         {% block editPageTitle %}
                             <div class="form-group">
-                                <select class="form-control" name="pagetitle">
-                                    <option value="-2" {{ (dataPage.pagetitle == '-2') ? 'selected' : '' }}>{{ i18n.trans('inherit-parent') }}</option>
-                                    <option value="-1" {{ (dataPage.idpage is empty or dataPage.pagetitle == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit-global') }}</option>
-                                    <option value="0" {{ (dataPage.pagetitle == '0') ? 'selected' : '' }}>{{ i18n.trans('hidden') }}</option>
-                                    <option value="1" {{ (dataPage.pagetitle == '1') ? 'selected' : '' }}>{{ i18n.trans('show') }}</option>
+                                <select class="form-control" name="idtitle">
+                                    <option value="-2" {{ (dataPage.idtitle == '-2') ? 'selected' : '' }}>{{ i18n.trans('inherit-parent') }}</option>
+                                    <option value="-1" {{ (dataPage.idpage is empty or dataPage.idtitle == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit-global') }}</option>
+                                    <option value="0" {{ (dataPage.idtitle == '0') ? 'selected' : '' }}>{{ i18n.trans('hidden') }}</option>
+                                    {% for title in titles %}
+                                        {% set check = (dataPage.idtitle == title.idtitle) ? 'selected' : '' %}
+                                        <option value="{{ title.idtitle }}" {{ check }}>{{ title.name }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
 

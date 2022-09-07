@@ -21,14 +21,15 @@ namespace FacturaScripts\Plugins\WebCreator\Model;
 
 use FacturaScripts\Core\Model\Base;
 use FacturaScripts\Dinamic\Lib\WebCreator\UpdateRoutes;
+use FacturaScripts\Dinamic\Model\WebBlock;
+use FacturaScripts\Dinamic\Model\WebFont;
+use FacturaScripts\Dinamic\Model\WebFontWeight;
 use FacturaScripts\Dinamic\Model\WebHeader;
 use FacturaScripts\Dinamic\Model\WebFooter;
 use FacturaScripts\Dinamic\Model\WebMenu;
 use FacturaScripts\Dinamic\Model\WebMenuLink;
 use FacturaScripts\Dinamic\Model\WebSidebar;
-use FacturaScripts\Dinamic\Model\WebBlock;
-use FacturaScripts\Dinamic\Model\WebFont;
-use FacturaScripts\Dinamic\Model\WebFontWeight;
+use FacturaScripts\Dinamic\Model\WebTitle;
 use FacturaScripts\Plugins\WebCreator\Lib\WebCreator\PermalinkTrait;
 use FacturaScripts\Plugins\WebCreator\Model\Base\WebModelTrait;
 
@@ -99,6 +100,11 @@ class WebPage extends Base\ModelOnChangeClass
     public $idsidebar;
 
     /**
+     * @var int
+     */
+    public $idtitle;
+
+    /**
      * @var string
      */
     public $lastmod;
@@ -132,11 +138,6 @@ class WebPage extends Base\ModelOnChangeClass
      * @var string
      */
     public $pageparent;
-
-    /**
-     * @var int
-     */
-    public $pagetitle;
 
     /**
      * @var string
@@ -206,6 +207,7 @@ class WebPage extends Base\ModelOnChangeClass
         new WebFooter();
         new WebSidebar();
         new WebBlock();
+        new WebTitle();
         new WebFont();
         new WebFontWeight();
         new WebMenu();

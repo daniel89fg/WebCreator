@@ -83,22 +83,22 @@
                         <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
                         <div class="form-group row">
                             <label for="inputEmail" class="col-sm-3 col-form-label text-sm-right">
-                                {{ i18n.trans('email') }}
+                                {{ i18n.customTrans(fsc.webPage.filelang, 'email') }}
                             </label>
                             <div class="col-sm-9">
                                 <input type="email" name="email" id="inputEmail" class="form-control"
-                                       placeholder="{{ i18n.trans('email') }}" value="{{ fsc.emailContact }}"
+                                       placeholder="{{ i18n.customTrans(fsc.webPage.filelang, 'email') }}" value="{{ fsc.emailContact }}"
                                        maxlength="100" required autofocus>
                                 <button type="submit" class="btn btn-block btn-primary mb-3">
-                                    {{ i18n.trans('send') }}
+                                    {{ i18n.customTrans(fsc.webPage.filelang, 'send') }}
                                 </button>
-                                <p class="text-muted text-justify mb-4 small">{{ i18n.trans('password-recovery-p') }}</p>
+                                <p class="text-muted text-justify mb-4 small">{{ i18n.customTrans(fsc.webPage.filelang, 'password-recovery-p') }}</p>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="card-footer">
-                    <a href="{{ fsc.pageComposer.getPagesDefault().loginpage }}" class="btn btn-block btn-link">{{ i18n.trans('login') }}</a>
+                    <a href="{{ fsc.pageComposer.getPagesDefault().loginpage }}" class="btn btn-block btn-link">{{ i18n.customTrans(fsc.webPage.filelang, 'login') }}</a>
                 </div>
             </div>
             <p class="text-center mt-5">{{ webCopyright }}</p>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : webcreator_titles.xml
+    Author     : Daniel Fernández Giménez
+    Description:
+        Structure for the webcreator_titles table.
+-->
+<table>
+    <column>
+        <name>align</name>
+        <type>character varying(10)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>bgcolor</name>
+        <type>character varying(10)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>breadcrumbs</name>
+        <type>boolean</type>
+        <default>true</default>
+    </column>
+    <column>
+        <name>breadcrumbsseparator</name>
+        <type>character varying(3)</type>
+    </column>
+    <column>
+        <name>cssclass</name>
+        <type>character varying(200)</type>
+    </column>
+    <column>
+        <name>cssid</name>
+        <type>character varying(200)</type>
+    </column>
+    <column>
+        <name>idimage</name>
+        <type>integer</type>
+    </column>
+    <column>
+        <name>idtitle</name>
+        <type>serial</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>imagefixed</name>
+        <type>character varying(10)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>imageopacity</name>
+        <type>double precision</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>imageposition</name>
+        <type>character varying(20)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>imagerepeat</name>
+        <type>character varying(10)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>imagesize</name>
+        <type>character varying(10)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>lastmod</name>
+        <type>date</type>
+    </column>
+    <column>
+        <name>name</name>
+        <type>character varying(100)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>tag</name>
+        <type>character varying(10)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>width</name>
+        <type>character varying(10)</type>
+        <null>NO</null>
+    </column>
+    <constraint>
+        <name>webcreator_titles_pkey</name>
+        <type>PRIMARY KEY (idtitle)</type>
+    </constraint>
+    <constraint>
+        <name>ca_webcreator_titles_attached_files</name>
+        <type>FOREIGN KEY (idimage) REFERENCES attached_files (idfile) ON DELETE SET NULL ON UPDATE CASCADE</type>
+    </constraint>
+</table>
