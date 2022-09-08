@@ -43,14 +43,14 @@
 
 <form id="formEditWebHeader" method="post" enctype="multipart/form-data">
 
-    {% if dataHeader.idheader %}
+    {% if dataHeader.id %}
         <input type="hidden" name="action" value="edit">
     {% else %}
         <input type="hidden" name="action" value="insert">
     {% endif %}
 
     <input type="hidden" name="activetab" value="EditWebHeader">
-    <input type="hidden" name="code" value="{{ dataHeader.idheader }}">
+    <input type="hidden" name="code" value="{{ dataHeader.id }}">
     <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
 
     <div class="container-fluid px-0">
@@ -67,8 +67,8 @@
                         <select name="idmenu" class="form-control">
                             <option value="">------</option>
                             {% for menu in menus %}
-                                {% set check = (dataHeader.idmenu == menu.idmenu) ? 'selected' : '' %}
-                                <option value="{{ menu.idmenu }}" {{ check }}>{{ menu.name }}</option>
+                                {% set check = (dataHeader.idmenu == menu.id) ? 'selected' : '' %}
+                                <option value="{{ menu.id }}" {{ check }}>{{ menu.name }}</option>
                             {% endfor %}
                         </select>
                     </div>

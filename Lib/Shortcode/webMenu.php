@@ -48,7 +48,7 @@ class webMenu extends Shortcode
         for ($x = 0; $x < count($shorts[1]); $x++) {
             $params = static::getAttributes($shorts[1][$x]);
 
-            $idmenu = $params['idmenu'] ?? '';
+            $id = $params['id'] ?? '';
             $inline = isset($params['inline']) && $params['inline'] == 'yes' ? '' : 'flex-column ';
             $unstyle = !isset($params['unstyle']) || $params['unstyle'] == 'yes' ? '' : 'list-unstyled ';
 
@@ -72,7 +72,7 @@ class webMenu extends Shortcode
             }
 
             $menu = new WebMenuModel();
-            if (false === $menu->loadFromCode($idmenu)) {
+            if (false === $menu->loadFromCode($id)) {
                 continue;
             }
 

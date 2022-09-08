@@ -57,11 +57,11 @@ class EditWebMenu extends EditController
         $customValues = '<option value="">------</option>';
         $modelLinks = new WebMenuLink();
         $where = [
-            new DataBaseWhere('idmenu', $this->getViewModelValue($this->getMainViewName(), 'idmenu')),
+            new DataBaseWhere('id', $this->getViewModelValue($this->getMainViewName(), 'id')),
             new DataBaseWhere('idpage', NULL, '!=')
         ];
         foreach ($modelLinks->all($where, [], 0, 0) as $link) {
-            $customValues .= '<option value="' . $link->idlink . '">' . $link->getPage()->title . '</option>';
+            $customValues .= '<option value="' . $link->id . '">' . $link->getPage()->title . '</option>';
         }
         return $customValues;
     }

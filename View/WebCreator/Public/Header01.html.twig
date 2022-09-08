@@ -75,23 +75,23 @@
     {% for link in links %}
         {% set href = link.idpage ? link.getPage().url('public') : link.redirect %}
         {% set blank = link.target ? ' target="_blank"' : '' %}
-        {% set active = link.idpage == webPage.idpage ? 'active' : '' %}
+        {% set active = link.idpage == webPage.id ? 'active' : '' %}
 
         {% if link.childrens|length > 0 %}
             {% if active == '' %}
-                {% set active = link.checkLinkActive(link.childrens, webPage.idpage) ? 'active' : '' %}
+                {% set active = link.checkLinkActive(link.childrens, webPage.id) ? 'active' : '' %}
             {% endif %}
             {% set cssLiDropdown = link.linkparent is empty ? 'nav-item dropdown' : 'dropdown-submenu' %}
             {% set cssADropdown = link.linkparent is empty ? 'nav-link dropdown-toggle' : 'dropdown-item' %}
             <li id="{{ link.cssid }}" class="{{ cssLiDropdown }} {{ active }} {{ link.cssclass }}">
-                <a class="{{ cssADropdown }}" href="{{ href }}" {{ blank }} id="navbarDropdown{{ link.idlink }}"
+                <a class="{{ cssADropdown }}" href="{{ href }}" {{ blank }} id="navbarDropdown{{ link.id }}"
                    role="button" data-hover="dropdown" aria-expanded="false">
                     {{ link.name }}
                     {% if cssLiDropdown == 'nav-item dropdown' %}
                         <i class="fas fa-caret-down fa-xs"></i>
                     {% endif %}
                 </a>
-                <ul class="dropdown-menu mt-0" aria-labelledby="navbarDropdown{{ link.idlink }}">
+                <ul class="dropdown-menu mt-0" aria-labelledby="navbarDropdown{{ link.id }}">
                     {{ _self.menuDesktop(link.childrens, webPage, properties, 'dropdown-item') }}
                 </ul>
             </li>
@@ -107,10 +107,10 @@
     {% for link in links %}
         {% set href = link.idpage ? link.getPage().url('public') : link.redirect %}
         {% set blank = link.target ? ' target="_blank"' : '' %}
-        {% set active = link.idpage == webPage.idpage ? 'active' : '' %}
+        {% set active = link.idpage == webPage.id ? 'active' : '' %}
 
         {% if active == '' and link.childrens|length > 0 %}
-            {% set active = link.checkLinkActive(link.childrens, webPage.idpage) ? 'active' : '' %}
+            {% set active = link.checkLinkActive(link.childrens, webPage.id) ? 'active' : '' %}
         {% endif %}
 
         <li id="{{ link.cssid }}" class="nav-item {{ active }} {{ link.cssclass }}">
@@ -118,12 +118,12 @@
                 {% set idSubmenu = random() %}
                 <div id="acc{{ idSubmenu }}" class="accordion {{ link.cssclass }} {{ active }}">
                     <button class="btn btn-block text-left px-0 {{ properties.mobilemenualignment }}" type="button"
-                            data-toggle="collapse" data-target="#collapse{{ link.idlink }}" aria-expanded="false"
-                            aria-controls="collapse{{ link.idlink }}">
+                            data-toggle="collapse" data-target="#collapse{{ link.id }}" aria-expanded="false"
+                            aria-controls="collapse{{ link.id }}">
                         <a href="{{ href }}" {{ blank }}>{{ link.name }}</a>
                         <i class="fas fa-caret-down fa-xs"></i>
                     </button>
-                    <div id="collapse{{ link.idlink }}" class="collapse" aria-labelledby="heading{{ link.idlink }}"
+                    <div id="collapse{{ link.id }}" class="collapse" aria-labelledby="heading{{ link.id }}"
                          data-parent="#acc{{ idSubmenu }}">
                         <ul class="pl-1 list-unstyled">
                             {{ _self.menuMobile(link.childrens, webPage, properties) }}

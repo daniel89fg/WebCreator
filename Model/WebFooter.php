@@ -21,6 +21,7 @@ namespace FacturaScripts\Plugins\WebCreator\Model;
 
 use FacturaScripts\Core\Base\Utils;
 use FacturaScripts\Core\Model\Base;
+use FacturaScripts\Dinamic\Model\Base\ModelCore;
 
 /**
  * @author Daniel Fernández Giménez <hola@danielfg.es>
@@ -30,46 +31,44 @@ class WebFooter extends Base\ModelClass
 
     use Base\ModelTrait;
 
-    /**
-     * @var string
-     */
+    /** @var string */
+    public $creationdate;
+
+    /** @var string */
     public $cssclass;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $cssid;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $content;
 
-    /**
-     * @var int
-     */
-    public $idfooter;
+    /** @var int */
+    public $id;
 
-    /**
-     * @var string
-     */
-    public $lastmod;
+    /** @var string */
+    public $lastnick;
 
-    /**
-     * @var string
-     */
+    /** @var string */
+    public $lastupdate;
+
+    /** @var string */
     public $name;
 
-    /**
-     * @var array
-     */
+    /** @var string */
+    public $nick;
+
+    /** @var array */
     public $properties;
 
     public function clear()
     {
         parent::clear();
-        $this->properties = [];
         $this->content = [];
+        $this->creationdate = date(ModelCore::DATETIME_STYLE);
+        $this->lastupdate = $this->creationdate;
+        $this->nick = $_COOKIE['fsNick'];
+        $this->properties = [];
     }
 
     public function loadFromData(array $data = [], array $exclude = [])
@@ -81,16 +80,7 @@ class WebFooter extends Base\ModelClass
 
     public static function primaryColumn(): string
     {
-        return 'idfooter';
-    }
-
-    /**
-     * @return bool
-     */
-    public function save()
-    {
-        $this->lastmod = date('d-m-Y');
-        return parent::save();
+        return 'id';
     }
 
     public static function tableName(): string
@@ -123,5 +113,12 @@ class WebFooter extends Base\ModelClass
     public function url(string $type = 'auto', string $list = 'List'): string
     {
         return parent::url($type, 'ListWebPage?activetab=List');
+    }
+
+    protected function saveUpdate(array $values = [])
+    {
+        $this->lastnick = $_COOKIE['fsNick'];
+        $this->lastupdate = date(ModelCore::DATETIME_STYLE);
+        return parent::saveUpdate($values);
     }
 }

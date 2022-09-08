@@ -22,7 +22,7 @@
     <columns>
         <group name="data" numcolumns="12">
             <column name="code" display="none" order="100">
-                <widget type="text" fieldname="idtitle" required="true"/>
+                <widget type="text" fieldname="id" required="true"/>
             </column>
             <column name="name" order="110">
                 <widget type="text" fieldname="name" required="true"/>

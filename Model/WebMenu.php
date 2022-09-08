@@ -23,6 +23,7 @@ use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 use FacturaScripts\Core\Base\Utils;
 use FacturaScripts\Core\Model\Base\ModelClass;
 use FacturaScripts\Core\Model\Base\ModelTrait;
+use FacturaScripts\Dinamic\Model\Base\ModelCore;
 use FacturaScripts\Dinamic\Model\WebMenuLink;
 
 /**
@@ -33,41 +34,48 @@ class WebMenu extends ModelClass
 
     use ModelTrait;
 
-    /**
-     * @var string
-     */
+    /** @var string */
+    public $creationdate;
+
+    /** @var string */
     public $cssclass;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $cssid;
 
-    /**
-     * @var int
-     */
-    public $idmenu;
+    /** @var int */
+    public $id;
 
-    /**
-     * @var string
-     */
-    public $lastmod;
+    /** @var string */
+    public $lastnick;
 
-    /**
-     * @var string
-     */
+    /** @var string */
+    public $lastupdate;
+
+    /** @var string */
     public $name;
+
+    /** @var string */
+    public $nick;
+
+    public function clear()
+    {
+        parent::clear();
+        $this->creationdate = date(ModelCore::DATETIME_STYLE);
+        $this->lastupdate = $this->creationdate;
+        $this->nick = $_COOKIE['fsNick'];
+    }
 
     public function getLinks(): array
     {
         $links = [];
         $modelLink = new WebMenuLink();
         $where = [
-            new DataBaseWhere('idmenu', $this->idmenu),
+            new DataBaseWhere('idmenu', $this->id),
             new DataBaseWhere('linkparent', null)
         ];
         foreach ($modelLink->all($where, ['sort' => 'ASC'], 0, 0) as $link) {
-            $link->childrens = $link->getChildrens($link->idlink);
+            $link->childrens = $link->getChildrens($link->id);
             $links[] = $link;
         }
         return $links;
@@ -75,16 +83,7 @@ class WebMenu extends ModelClass
 
     public static function primaryColumn(): string
     {
-        return "idmenu";
-    }
-
-    /**
-     * @return bool
-     */
-    public function save()
-    {
-        $this->lastmod = date('d-m-Y');
-        return parent::save();
+        return "id";
     }
 
     public static function tableName(): string
@@ -111,5 +110,12 @@ class WebMenu extends ModelClass
     public function url(string $type = 'auto', string $list = 'List'): string
     {
         return parent::url($type, 'ListWebPage?activetab=List');
+    }
+
+    protected function saveUpdate(array $values = [])
+    {
+        $this->lastnick = $_COOKIE['fsNick'];
+        $this->lastupdate = date(ModelCore::DATETIME_STYLE);
+        return parent::saveUpdate($values);
     }
 }

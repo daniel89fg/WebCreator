@@ -7,6 +7,10 @@
 -->
 <table>
     <column>
+        <name>creationdate</name>
+        <type>timestamp</type>
+    </column>
+    <column>
         <name>cssclass</name>
         <type>character varying(200)</type>
     </column>
@@ -15,7 +19,7 @@
         <type>character varying(200)</type>
     </column>
     <column>
-        <name>idlink</name>
+        <name>id</name>
         <type>serial</type>
     </column>
     <column>
@@ -27,6 +31,14 @@
         <type>integer</type>
     </column>
     <column>
+        <name>lastnick</name>
+        <type>character varying(50)</type>
+    </column>
+    <column>
+        <name>lastupdate</name>
+        <type>timestamp</type>
+    </column>
+    <column>
         <name>linkparent</name>
         <type>integer</type>
     </column>
@@ -34,6 +46,10 @@
         <name>name</name>
         <type>character varying(100)</type>
         <null>NO</null>
+    </column>
+    <column>
+        <name>nick</name>
+        <type>character varying(50)</type>
     </column>
     <column>
         <name>redirect</name>
@@ -50,14 +66,22 @@
     </column>
     <constraint>
         <name>webcreator_menus_links_pkey</name>
-        <type>PRIMARY KEY (idlink)</type>
+        <type>PRIMARY KEY (id)</type>
     </constraint>
     <constraint>
         <name>ca_webcreator_menus_links_webcreator_menus</name>
-        <type>FOREIGN KEY (idmenu) REFERENCES webcreator_menus (idmenu) ON DELETE RESTRICT ON UPDATE CASCADE</type>
+        <type>FOREIGN KEY (idmenu) REFERENCES webcreator_menus (id) ON DELETE RESTRICT ON UPDATE CASCADE</type>
     </constraint>
     <constraint>
         <name>ca_webcreator_menus_links_parent</name>
-        <type>FOREIGN KEY (linkparent) REFERENCES webcreator_menus_links (idlink) ON DELETE SET NULL ON UPDATE CASCADE</type>
+        <type>FOREIGN KEY (linkparent) REFERENCES webcreator_menus_links (id) ON DELETE SET NULL ON UPDATE CASCADE</type>
+    </constraint>
+    <constraint>
+        <name>webcreator_menus_links_users_nick</name>
+        <type>FOREIGN KEY (nick) REFERENCES users (nick) ON DELETE SET NULL ON UPDATE CASCADE</type>
+    </constraint>
+    <constraint>
+        <name>webcreator_menus_links_users_lastnick</name>
+        <type>FOREIGN KEY (lastnick) REFERENCES users (nick) ON DELETE SET NULL ON UPDATE CASCADE</type>
     </constraint>
 </table>

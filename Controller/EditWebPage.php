@@ -85,12 +85,12 @@ class EditWebPage extends PanelController
         return $pageData;
     }
 
-    public function getPages($idpage): array
+    public function getPages($id): array
     {
         $webpage = new WebPage();
         $result = array();
         foreach ($webpage->all([], [], 0, 0) as $page) {
-            if ($idpage != $page->idpage) {
+            if ($id != $page->id) {
                 $result[] = $page;
             }
         }
@@ -141,7 +141,7 @@ class EditWebPage extends PanelController
 
                         if (empty($this->request->get('code', ''))) {
                             $controllerName = 'Edit' . $this->request->request->get('type');
-                            $this->redirect($controllerName . '?code=' . $page->idpage . '&action=save-ok');
+                            $this->redirect($controllerName . '?code=' . $page->id . '&action=save-ok');
                         }
 
                         $this->toolBox()->i18nLog()->notice('record-updated-correctly');

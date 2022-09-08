@@ -56,9 +56,9 @@ class ListWebPage extends ListController
     {
         $this->addView($viewName, 'WebBlock', 'blocks', 'fas fa-code');
         $this->addSearchFields($viewName, ['name']);
-        $this->addOrderBy($viewName, ['idblock'], 'code');
+        $this->addOrderBy($viewName, ['id'], 'code');
         $this->addOrderBy($viewName, ['name'], 'name');
-        $this->addOrderBy($viewName, ['lastmod'], 'last-update');
+        $this->addOrderBy($viewName, ['lastupdate'], 'last-update');
     }
 
     protected function createViewWebFooter(string $viewName = 'ListWebFooter')
@@ -66,7 +66,7 @@ class ListWebPage extends ListController
         $this->addView($viewName, 'WebFooter', 'footers', 'fas fa-caret-square-down');
         $this->addSearchFields($viewName, ['name']);
         $this->addOrderBy($viewName, ['name'], 'name');
-        $this->addOrderBy($viewName, ['lastmod'], 'last-update');
+        $this->addOrderBy($viewName, ['lastupdate'], 'last-update');
     }
 
     protected function createViewWebHeader(string $viewName = 'ListWebHeader')
@@ -74,7 +74,7 @@ class ListWebPage extends ListController
         $this->addView($viewName, 'WebHeader', 'headers', 'fas fa-caret-square-up');
         $this->addSearchFields($viewName, ['name']);
         $this->addOrderBy($viewName, ['name'], 'name');
-        $this->addOrderBy($viewName, ['lastmod'], 'last-update');
+        $this->addOrderBy($viewName, ['lastupdate'], 'last-update');
     }
 
     protected function createViewsWebMenu(string $viewName = "ListWebMenu")
@@ -82,7 +82,7 @@ class ListWebPage extends ListController
         $this->addView($viewName, "WebMenu", "menus", "fas fa-bars");
         $this->addSearchFields($viewName, ['name']);
         $this->addOrderBy($viewName, ['name'], 'name');
-        $this->addOrderBy($viewName, ['lastmod'], 'last-update');
+        $this->addOrderBy($viewName, ['lastupdate'], 'last-update');
     }
 
     protected function createViewWebPages(string $viewName = 'ListWebPage')
@@ -92,7 +92,7 @@ class ListWebPage extends ListController
         $this->addOrderBy($viewName, ['CONCAT(title, pageparent)'], 'title-parent');
         $this->addOrderBy($viewName, ['title'], 'title');
         $this->addOrderBy($viewName, ['permalink'], 'permalink');
-        $this->addOrderBy($viewName, ['lastmod'], 'last-update');
+        $this->addOrderBy($viewName, ['lastupdate'], 'last-update');
 
         /// filters
         $this->addFilterCheckbox($viewName, 'noindex', 'no-index', 'noindex');
@@ -103,7 +103,7 @@ class ListWebPage extends ListController
         $this->addView($viewName, 'WebSidebar', 'sidebars', 'fas fa-caret-square-left');
         $this->addSearchFields($viewName, ['name']);
         $this->addOrderBy($viewName, ['name'], 'name');
-        $this->addOrderBy($viewName, ['lastmod'], 'last-update');
+        $this->addOrderBy($viewName, ['lastupdate'], 'last-update');
     }
 
     protected function createViewWebTitle(string $viewName = 'ListWebTitle')
@@ -111,7 +111,7 @@ class ListWebPage extends ListController
         $this->addView($viewName, 'WebTitle', 'page-titles', 'fas fa-heading');
         $this->addSearchFields($viewName, ['name']);
         $this->addOrderBy($viewName, ['name'], 'name');
-        $this->addOrderBy($viewName, ['lastmod'], 'last-update');
+        $this->addOrderBy($viewName, ['lastupdate'], 'last-update');
     }
 
     /**

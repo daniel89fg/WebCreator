@@ -41,14 +41,14 @@
 
 <form id="formEditWebFooter" method="post" enctype="multipart/form-data">
 
-    {% if dataFooter.idfooter %}
+    {% if dataFooter.id %}
         <input type="hidden" name="action" value="edit">
     {% else %}
         <input type="hidden" name="action" value="insert">
     {% endif %}
 
     <input type="hidden" name="activetab" value="EditWebFooter">
-    <input type="hidden" name="code" value="{{ dataFooter.idfooter }}">
+    <input type="hidden" name="code" value="{{ dataFooter.id }}">
     <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
 
     <div class="container-fluid px-0">

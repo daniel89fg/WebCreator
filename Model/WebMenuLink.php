@@ -23,6 +23,7 @@ use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 use FacturaScripts\Core\Base\Utils;
 use FacturaScripts\Core\Model\Base\ModelClass;
 use FacturaScripts\Core\Model\Base\ModelTrait;
+use FacturaScripts\Dinamic\Model\Base\ModelCore;
 use FacturaScripts\Dinamic\Model\WebPage;
 
 /**
@@ -33,54 +34,46 @@ class WebMenuLink extends ModelClass
 
     use ModelTrait;
 
-    /**
-     * @var string
-     */
+    /** @var string */
+    public $creationdate;
+
+    /** @var string */
     public $cssclass;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $cssid;
 
-    /**
-     * @var int
-     */
-    public $idlink;
+    /** @var int */
+    public $id;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $idmenu;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $idpage;
 
-    /**
-     * @var int
-     */
+    /** @var string */
+    public $lastnick;
+
+    /** @var string */
+    public $lastupdate;
+
+    /** @var int */
     public $linkparent;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $name;
 
-    /**
-     * @var string
-     */
+    /** @var string */
+    public $nick;
+
+    /** @var string */
     public $redirect;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $sort;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     public $target;
 
     public function checkLinkActive(array $links, int $idpage): bool
@@ -100,17 +93,20 @@ class WebMenuLink extends ModelClass
     public function clear()
     {
         parent::clear();
+        $this->creationdate = date(ModelCore::DATETIME_STYLE);
+        $this->lastupdate = $this->creationdate;
+        $this->nick = $_COOKIE['fsNick'];
         $this->sort = 10;
         $this->target = false;
     }
 
-    public function getChildrens(int $idlink): array
+    public function getChildrens(int $id): array
     {
         $childrens = [];
         $modelLink = new self();
-        $where = [new DataBaseWhere('linkparent', $idlink)];
+        $where = [new DataBaseWhere('linkparent', $id)];
         foreach ($modelLink->all($where, ['sort' => 'ASC'], 0, 0) as $link) {
-            $link->childrens = $link->getChildrens($link->idlink);
+            $link->childrens = $link->getChildrens($link->id);
             $childrens[] = $link;
         }
         return $childrens;
@@ -125,7 +121,7 @@ class WebMenuLink extends ModelClass
 
     public static function primaryColumn(): string
     {
-        return "idlink";
+        return "id";
     }
 
     public static function tableName(): string
@@ -147,7 +143,7 @@ class WebMenuLink extends ModelClass
             $this->redirect = '';
         }
 
-        if ($this->linkparent === $this->idlink) {
+        if ($this->linkparent === $this->id) {
             $this->linkparent = null;
         }
 
@@ -160,5 +156,12 @@ class WebMenuLink extends ModelClass
         }
 
         return parent::test();
+    }
+
+    protected function saveUpdate(array $values = [])
+    {
+        $this->lastnick = $_COOKIE['fsNick'];
+        $this->lastupdate = date(ModelCore::DATETIME_STYLE);
+        return parent::saveUpdate($values);
     }
 }

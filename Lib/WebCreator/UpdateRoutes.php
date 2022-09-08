@@ -48,11 +48,11 @@ class UpdateRoutes
         $homePage = new WebPage();
         $homePage->loadFromCode(AppSettings::get('webcreator', 'homepage'));
         $customController = empty($homePage->customcontroller) ? 'PortalHome' : $homePage->customcontroller;
-        $appRouter->setRoute('/', $customController, $homePage->idpage, false);
+        $appRouter->setRoute('/', $customController, $homePage->id, false);
 
         foreach ($homePage->all([], [], 0, 0) as $webpage) {
             $customController = empty($webpage->customcontroller) ? 'PortalHome' : $webpage->customcontroller;
-            $appRouter->setRoute($webpage->permalink, $customController, $webpage->idpage, false);
+            $appRouter->setRoute($webpage->permalink, $customController, $webpage->id, false);
         }
 
         $this->pipe('setRoutesAfter');

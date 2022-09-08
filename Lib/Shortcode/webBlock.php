@@ -44,9 +44,9 @@ class webBlock extends Shortcode
         for ($x = 0; $x < count($shorts[1]); $x++) {
             $params = static::getAttributes($shorts[1][$x]);
 
-            if (isset($params['idblock'])) {
+            if (isset($params['id'])) {
                 foreach ($blocks->all([], [], 0, 0) as $block) {
-                    if ($block->idblock == $params['idblock']) {
+                    if ($block->id == $params['id']) {
                         $content = str_replace($shorts[0][$x], $block->content, $content);
                     }
                 }

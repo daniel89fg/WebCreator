@@ -68,10 +68,10 @@ class PageComposer
         return ($_COOKIE[$name]) ?? '';
     }
 
-    public function getFont(int $idfont): string
+    public function getFont(int $id): string
     {
         $font = new WebFont();
-        $font->loadFromCode($idfont);
+        $font->loadFromCode($id);
         return $font->name;
     }
 
@@ -129,20 +129,19 @@ class PageComposer
             return $this->getHeader($page);
         }
 
-        $header->menu = $this->getMenu($header->idmenu);
+        $header->menu = $this->getMenu($header->id);
         $this->pipe('getHeaderAfter');
 
         return $header;
     }
 
-    public function getMenu(?int $idmenu): WebMenu
+    public function getMenu(?int $id): WebMenu
     {
         $menu = new WebMenu();
-
         $this->pipe('getMenuBefore');
 
-        if ($idmenu > 0) {
-            $menu->loadFromCode($idmenu);
+        if ($id > 0) {
+            $menu->loadFromCode($id);
             $menu->links = $menu->getLinks();
         }
 
@@ -248,7 +247,7 @@ class PageComposer
 
         $this->pipe('getSidebarBefore');
 
-        if (is_null($webPage->idsidebar) || $webPage->idsidebar == -1) {
+        if (is_null($webPage->id) || $webPage->id == -1) {
             $sidebar->loadFromCode($this->toolbox()->appSettings()->get('webcreator', 'sidebardefault'));
         } else if ($webPage->idsidebar > 0) {
             $sidebar->loadFromCode($webPage->idsidebar);
@@ -422,7 +421,7 @@ class PageComposer
     {
         $this->pipe('getPageParentBefore');
 
-        if ($page->idpage != $page->pageparent) {
+        if ($page->id != $page->pageparent) {
             if ($page->pageparent) {
                 $webPage = new WebPage();
                 $webPage->loadFromCode($page->pageparent);

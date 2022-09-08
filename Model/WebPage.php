@@ -21,6 +21,7 @@ namespace FacturaScripts\Plugins\WebCreator\Model;
 
 use FacturaScripts\Core\Model\Base;
 use FacturaScripts\Dinamic\Lib\WebCreator\UpdateRoutes;
+use FacturaScripts\Dinamic\Model\Base\ModelCore;
 use FacturaScripts\Dinamic\Model\WebBlock;
 use FacturaScripts\Dinamic\Model\WebFont;
 use FacturaScripts\Dinamic\Model\WebFontWeight;
@@ -44,124 +45,82 @@ class WebPage extends Base\ModelOnChangeClass
     use PermalinkTrait;
     use WebModelTrait;
 
-    /**
-     * @var string
-     */
-    public $cssclass;
-
-    /**
-     * @var string
-     */
-    public $cssid;
-
-    /**
-     * @var string
-     */
+    /** @var string */
     public $creationdate;
 
-    /**
-     * @var string
-     */
+    /** @var string */
+    public $cssclass;
+
+    /** @var string */
+    public $cssid;
+
+    /** @var string */
     public $content;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $customcontroller;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $description;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $idimage;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $idfooter;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $idheader;
 
-    /**
-     * @var int
-     */
-    public $idpage;
+    /** @var int */
+    public $id;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $idsidebar;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $idtitle;
 
-    /**
-     * @var string
-     */
-    public $lastmod;
+    /** @var string */
+    public $lastnick;
 
-    /**
-     * @var bool
-     */
+    /** @var string */
+    public $lastupdate;
+
+    /** @var bool */
     public $noindex;
 
-    /**
-     * @var string
-     */
+    /** @var string */
+    public $nick;
+
+    /** @var string */
     public $pagecss;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $pagejshead;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $pagejsfooter;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $pagemeta;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $pageparent;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $pagewidth;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $permalink;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $sidebarposition;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $title;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $type;
 
     public static $fieldsTranslate = ['title', 'description', 'permalink'];
@@ -169,7 +128,9 @@ class WebPage extends Base\ModelOnChangeClass
     public function clear()
     {
         parent::clear();
-        $this->creationdate = date('Y-m-d H:i:s');
+        $this->creationdate = date(ModelCore::DATETIME_STYLE);
+        $this->lastupdate = $this->creationdate;
+        $this->nick = $_COOKIE['fsNick'];
     }
 
     /**
@@ -222,7 +183,7 @@ class WebPage extends Base\ModelOnChangeClass
 
     public static function primaryColumn(): string
     {
-        return 'idpage';
+        return 'id';
     }
 
     /**
@@ -233,7 +194,6 @@ class WebPage extends Base\ModelOnChangeClass
         $utils = $this->toolBox()->utils();
         $this->description = str_replace("\n", ' ', $utils->noHtml($this->description));
         $this->title = $utils->noHtml($this->title);
-        $this->lastmod = date('Y-m-d H:i:s');
 
         if (isset($this->cssid)) {
             $this->cssid = str_replace(' ', '-', $utils->noHtml($this->cssid));
@@ -243,6 +203,9 @@ class WebPage extends Base\ModelOnChangeClass
             $this->cssclass = $utils->noHtml($this->cssclass);
         }
 
+        if (empty($this->permalink)) {
+            $this->permalink = $this->title;
+        }
         $this->permalink = $this->checkPermalink($this);
 
         return parent::test();
@@ -259,7 +222,7 @@ class WebPage extends Base\ModelOnChangeClass
             case 'public':
                 $siteurl = $this->toolBox()->appSettings()->get('webcreator', 'siteurl');
                 /// don't use ===
-                if ($this->idpage == $this->toolBox()->appSettings()->get('webcreator', 'homepage')) {
+                if ($this->id == $this->toolBox()->appSettings()->get('webcreator', 'homepage')) {
                     return $siteurl;
                 }
 
@@ -297,5 +260,12 @@ class WebPage extends Base\ModelOnChangeClass
     {
         $more = ['permalink', 'pageparent'];
         parent::setPreviousData(array_merge($more, $fields));
+    }
+
+    protected function saveUpdate(array $values = [])
+    {
+        $this->lastnick = $_COOKIE['fsNick'];
+        $this->lastupdate = date(ModelCore::DATETIME_STYLE);
+        return parent::saveUpdate($values);
     }
 }

@@ -356,7 +356,7 @@
     {% block header %}
         {{ webMacros.includeView(webIncludes, 'headerBefore', templateVars) }}
 
-        {% if webHeader.idheader is not empty %}
+        {% if webHeader.id is not empty %}
             {% include['WebCreator/Public/Header' ~ webHeader.properties.headerlayout ~ '.html.twig', 'WebCreator/Public/Header01.html.twig'] %}
         {% endif %}
 
@@ -366,7 +366,7 @@
     {% block pageTitle %}
         {{ webMacros.includeView(webIncludes, 'pageTitleBefore', templateVars) }}
 
-        {% if webTitle.idtitle is not empty %}
+        {% if webTitle.id is not empty %}
             <div class="row page-title">
                 <div class="{{ webTitle.width }}">
                     <div class="row">
@@ -397,7 +397,7 @@
                     {% block sidebar %}
                         {{ webMacros.includeView(webIncludes, 'sidebarBefore', templateVars) }}
 
-                        {% if webSidebar.idsidebar is not empty %}
+                        {% if webSidebar.id is not empty %}
                             <aside id="{{ webSidebar.cssid }}"
                                    class="py-5 {{ webSidebar.cssclass }} {{ webSidebar.position == 1 ? 'order-1' : webSidebar.position == 2 ? 'order-3' : '' }} col-12 col-lg-4">
                                 {{ webSidebar.content|raw }}
@@ -410,7 +410,7 @@
                     {% block main %}
                         {{ webMacros.includeView(webIncludes, 'mainBefore', templateVars) }}
 
-                        <main class="py-5 order-2 col-12 {{ webSidebar.idsidebar is not empty ? 'col-lg-8' : '' }}">
+                        <main class="py-5 order-2 col-12 {{ webSidebar.id is not empty ? 'col-lg-8' : '' }}">
                             {{ webPage.content|raw }}
                         </main>
 
@@ -428,7 +428,7 @@
     {% block footer %}
         {{ webMacros.includeView(webIncludes, 'footerBefore', templateVars) }}
 
-        {% if webFooter.idfooter is not empty %}
+        {% if webFooter.id is not empty %}
         <footer id="{{ webFooter.cssid }}"
                 class="{{ webFooter.cssclass }} {{ (webFooter.properties.footershadow) ? 'footer-shadow-bottom-outside' : '' }}">
             {% if webFooter.content.footer5001 != '' or webFooter.content.footer5002 != '' or webFooter.content.footer5003 != '' %}

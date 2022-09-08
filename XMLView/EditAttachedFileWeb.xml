@@ -21,7 +21,7 @@
 <view>
     <columns>
         <column name="code" display="none" order="100">
-            <widget type="text" fieldname="idattached" required="true"/>
+            <widget type="text" fieldname="id" required="true"/>
         </column>
         <column name="name" order="110">
             <widget type="text" fieldname="name" required="true" readonly="dinamic"/>
@@ -31,6 +31,9 @@
         </column>
         <column name="folder" order="130">
             <widget type="text" fieldname="folder" readonly="true"/>
+        </column>
+        <column name="creation-date" order="130">
+            <widget type="date" fieldname="creationdate" readonly="true"/>
         </column>
     </columns>
 </view>

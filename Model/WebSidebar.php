@@ -21,6 +21,7 @@ namespace FacturaScripts\Plugins\WebCreator\Model;
 
 use FacturaScripts\Core\Base\Utils;
 use FacturaScripts\Core\Model\Base;
+use FacturaScripts\Dinamic\Model\Base\ModelCore;
 
 /**
  * @author Daniel Fernández Giménez <hola@danielfg.es>
@@ -30,54 +31,45 @@ class WebSidebar extends Base\ModelClass
 
     use Base\ModelTrait;
 
-    /**
-     * @var string
-     */
+    /** @var string */
+    public $creationdate;
+
+    /** @var string */
     public $cssclass;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $cssid;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $content;
 
-    /**
-     * @var int
-     */
-    public $idsidebar;
+    /** @var int */
+    public $id;
 
-    /**
-     * @var string
-     */
-    public $lastmod;
+    /** @var string */
+    public $lastnick;
 
-    /**
-     * @var string
-     */
+    /** @var string */
+    public $lastupdate;
+
+    /** @var string */
     public $name;
+
+    /** @var string */
+    public $nick;
 
     public function clear()
     {
         parent::clear();
         $this->content = 'Hello world!';
+        $this->creationdate = date(ModelCore::DATETIME_STYLE);
+        $this->lastupdate = $this->creationdate;
+        $this->nick = $_COOKIE['fsNick'];
     }
 
     public static function primaryColumn(): string
     {
-        return 'idsidebar';
-    }
-
-    /**
-     * @return bool
-     */
-    public function save()
-    {
-        $this->lastmod = date('d-m-Y');
-        return parent::save();
+        return 'id';
     }
 
     public static function tableName(): string
@@ -104,5 +96,12 @@ class WebSidebar extends Base\ModelClass
     public function url(string $type = 'auto', string $list = 'List'): string
     {
         return parent::url($type, 'ListWebPage?activetab=List');
+    }
+
+    protected function saveUpdate(array $values = [])
+    {
+        $this->lastnick = $_COOKIE['fsNick'];
+        $this->lastupdate = date(ModelCore::DATETIME_STYLE);
+        return parent::saveUpdate($values);
     }
 }

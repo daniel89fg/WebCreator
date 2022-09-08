@@ -75,7 +75,7 @@ class EditWebFooter extends PanelController
         switch ($action) {
             case 'insert':
                 if ($this->saveDataAction()) {
-                    $this->redirect('EditWebFooter?code=' . $this->views['EditWebFooter']->model->idfooter . '&action=save-ok');
+                    $this->redirect('EditWebFooter?code=' . $this->views['EditWebFooter']->model->id . '&action=save-ok');
                 }
                 return true;
             case 'edit':
@@ -110,7 +110,7 @@ class EditWebFooter extends PanelController
 
         $footer = new WebFooter();
         if (!empty($data['code'])) {
-            $footer->idfooter = $data['code'];
+            $footer->id = $data['code'];
         }
 
         $modelFields = ['name', 'cssid', 'cssclass'];

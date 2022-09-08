@@ -22,6 +22,7 @@ namespace FacturaScripts\Plugins\WebCreator\Model;
 use FacturaScripts\Core\Base\FileManager;
 use FacturaScripts\Core\Base\ToolBox;
 use FacturaScripts\Core\Model\Base;
+use FacturaScripts\Dinamic\Model\Base\ModelCore;
 use ZipArchive;
 use finfo;
 
@@ -33,76 +34,59 @@ class AttachedFileWeb extends Base\ModelClass
 
     use Base\ModelTrait;
 
-    /**
-     * @var string
-     */
-    public $date;
+    /** @var string */
+    public $creationdate;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $folder;
 
-    /**
-     * @var int
-     */
-    public $idattached;
+    /** @var int */
+    public $id;
 
-    /**
-     * @var string
-     */
+    /** @var string */
+    public $lastnick;
+
+    /** @var string */
+    public $lastupdate;
+
+    /** @var string */
     public $name;
 
-    /**
-     * @var string
-     */
+    /** @var string */
+    public $nick;
+
+    /** @var string */
     private $pathMyfiles;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $pathPublic;
 
     public function clear()
     {
         parent::clear();
-        $this->date = date('d-m-Y H:i:s');
+        $this->creationdate = date(ModelCore::DATETIME_STYLE);
+        $this->lastupdate = $this->creationdate;
+        $this->nick = $_COOKIE['fsNick'];
     }
 
     public function delete()
     {
-        $result = parent::delete();
-
-        if (false === $result) {
-            return $result;
+        if (false === parent::delete()) {
+            return false;
         }
 
         $folders = explode(',', $this->folder);
-        $this->pathPublic = FS_FOLDER . DIRECTORY_SEPARATOR . 'MyFiles' . DIRECTORY_SEPARATOR . 'Public' . DIRECTORY_SEPARATOR;
+        $this->pathPublic = FS_FOLDER . '/MyFiles/Public/';
         foreach ($folders as $folder) {
             FileManager::delTree($this->pathPublic . $folder);
         }
 
-        return $result;
+        return true;
     }
 
     public static function primaryColumn(): string
     {
-        return 'idattached';
-    }
-
-    public function save()
-    {
-        $result = parent::save();
-
-        if (false === $result) {
-            $folders = explode(',', $this->folder);
-            foreach ($folders as $folder) {
-                FileManager::delTree($this->pathPublic . DIRECTORY_SEPARATOR . $folder);
-            }
-        }
-
-        return $result;
+        return 'id';
     }
 
     public static function tableName(): string
@@ -112,7 +96,7 @@ class AttachedFileWeb extends Base\ModelClass
 
     public function test()
     {
-        $this->pathMyfiles = FS_FOLDER . DIRECTORY_SEPARATOR . 'MyFiles' . DIRECTORY_SEPARATOR . $this->filezip;
+        $this->pathMyfiles = FS_FOLDER . '/MyFiles/' . $this->filezip;
         if (false === file_exists($this->pathMyfiles)) {
             $this->toolBox()->i18nLog()->error('file-not-exists');
             return false;
@@ -153,7 +137,7 @@ class AttachedFileWeb extends Base\ModelClass
             return false;
         }
 
-        $this->pathPublic = FS_FOLDER . DIRECTORY_SEPARATOR . 'MyFiles' . DIRECTORY_SEPARATOR . 'Public';
+        $this->pathPublic = FS_FOLDER . '/MyFiles/Public';
         if (false === $zipFile->extractTo($this->pathPublic)) {
             unlink($this->pathMyfiles);
             ToolBox::log()->error('ZIP EXTRACT ERROR: ' . $this->filezip);
@@ -163,7 +147,7 @@ class AttachedFileWeb extends Base\ModelClass
 
         foreach (FileManager::scanFolder($this->pathPublic, true) as $file) {
             if (substr($file, -4) === '.php') {
-                unlink($this->pathPublic . DIRECTORY_SEPARATOR . $file);
+                unlink($this->pathPublic . '/' . $file);
             }
         }
 
@@ -175,5 +159,25 @@ class AttachedFileWeb extends Base\ModelClass
     public function url(string $type = 'auto', string $list = 'List'): string
     {
         return parent::url($type, 'ListAttachedFile?activetab=List');
+    }
+
+    protected function saveInsert(array $values = [])
+    {
+        if (false === parent::saveInsert()) {
+            $folders = explode(',', $this->folder);
+            foreach ($folders as $folder) {
+                FileManager::delTree($this->pathPublic . '/' . $folder);
+            }
+            return false;
+        }
+
+        return true;
+    }
+
+    protected function saveUpdate(array $values = [])
+    {
+        $this->lastnick = $_COOKIE['fsNick'];
+        $this->lastupdate = date(ModelCore::DATETIME_STYLE);
+        return parent::saveUpdate($values);
     }
 }

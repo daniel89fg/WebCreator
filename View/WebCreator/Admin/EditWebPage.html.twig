@@ -23,7 +23,7 @@
 
 {% set currentView = fsc.getCurrentView() %}
 {% set dataPage = currentView.model %}
-{% set pages = fsc.getPages(dataPage.idpage) %}
+{% set pages = fsc.getPages(dataPage.id) %}
 {% set controllers = fsc.getControllers() %}
 {% set images = fsc.getImages() %}
 {% set headers = fsc.getHeaders() %}
@@ -43,9 +43,9 @@
     'currentView': currentView} %}
 
 <form id="formEditWebPage" method="post" enctype="multipart/form-data">
-    {% if dataPage.idpage %}
+    {% if dataPage.id %}
         <input type="hidden" name="action" value="edit">
-        <input type="hidden" name="code" value="{{ dataPage.idpage }}">
+        <input type="hidden" name="code" value="{{ dataPage.id }}">
     {% else %}
         <input type="hidden" name="action" value="insert">
     {% endif %}
@@ -179,9 +179,8 @@
                             <div class="form-group pagepermalink">
                                 <label>{{ i18n.trans('permalink') }}</label>
                                 {% set link = dataPage.permalink|split('/') %}
-                                <input type="text" class="form-control" name="permalink" value="{{ link|last }}"
-                                       required>
-                                {% if dataPage.idpage is not empty %}
+                                <input type="text" class="form-control" name="permalink" value="{{ link|last }}">
+                                {% if dataPage.id is not empty %}
                                     <a target="_blank" href="{{ fsc.getSiteUrl() ~ dataPage.permalink }}">
                                         {{ fsc.getSiteUrl() ~ dataPage.permalink }}</a>
                                 {% endif %}
@@ -200,13 +199,13 @@
 
                         <div>
                             <div>{{ i18n.trans('creation-date') }}: {{ dataPage.creationdate }}</div>
-                            <div>{{ i18n.trans('updated-date') }}: {{ dataPage.lastmod }}</div>
+                            <div>{{ i18n.trans('updated-date') }}: {{ dataPage.lastupdate }}</div>
                         </div>
                     </div>
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                {% if dataPage.idpage != '' %}
+                                {% if dataPage.id != '' %}
                                     <button type="button" class="btn btn-sm btn-danger"
                                             onclick="editViewDelete('EditWebPage');">
                                         <i class="fas fa-trash-alt fa-fw" aria-hidden="true"></i>
@@ -294,8 +293,8 @@
                                 <select class="form-control" name="pageparent">
                                     <option value="">-----</option>
                                     {% for page in pages %}
-                                        {% set check = (dataPage.pageparent == page.idpage) ? 'selected' : '' %}
-                                        <option value="{{ page.idpage }}" {{ check }}>{{ page.title }}</option>
+                                        {% set check = (dataPage.pageparent == page.id) ? 'selected' : '' %}
+                                        <option value="{{ page.id }}" {{ check }}>{{ page.title }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -331,11 +330,11 @@
                             <div class="form-group">
                                 <select class="form-control" name="idheader">
                                     <option value="-2" {{ (dataPage.idheader == '-2') ? 'selected' : '' }}>{{ i18n.trans('inherit-parent') }}</option>
-                                    <option value="-1" {{ (dataPage.idpage is empty or dataPage.idheader == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit-global') }}</option>
+                                    <option value="-1" {{ (dataPage.id is empty or dataPage.idheader == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit-global') }}</option>
                                     <option value="0" {{ (dataPage.idheader == '0') ? 'selected' : '' }}>{{ i18n.trans('hidden') }}</option>
                                     {% for header in headers %}
-                                        {% set check = (dataPage.idheader == header.idheader) ? 'selected' : '' %}
-                                        <option value="{{ header.idheader }}" {{ check }}>{{ header.name }}</option>
+                                        {% set check = (dataPage.idheader == header.id) ? 'selected' : '' %}
+                                        <option value="{{ header.id }}" {{ check }}>{{ header.name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -360,11 +359,11 @@
                             <div class="form-group">
                                 <select class="form-control" name="idtitle">
                                     <option value="-2" {{ (dataPage.idtitle == '-2') ? 'selected' : '' }}>{{ i18n.trans('inherit-parent') }}</option>
-                                    <option value="-1" {{ (dataPage.idpage is empty or dataPage.idtitle == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit-global') }}</option>
+                                    <option value="-1" {{ (dataPage.id is empty or dataPage.idtitle == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit-global') }}</option>
                                     <option value="0" {{ (dataPage.idtitle == '0') ? 'selected' : '' }}>{{ i18n.trans('hidden') }}</option>
                                     {% for title in titles %}
-                                        {% set check = (dataPage.idtitle == title.idtitle) ? 'selected' : '' %}
-                                        <option value="{{ title.idtitle }}" {{ check }}>{{ title.name }}</option>
+                                        {% set check = (dataPage.idtitle == title.id) ? 'selected' : '' %}
+                                        <option value="{{ title.id }}" {{ check }}>{{ title.name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -378,7 +377,7 @@
 
                 <div class="card mt-4">
                     <div class="card-header">
-                        {% if dataPage.idheader > 0 %}
+                        {% if dataPage.idsidebar > 0 %}
                             <a href="{{ asset('EditWebSidebar') }}?code={{ dataPage.idsidebar }}">{{ i18n.trans('page-custom-sidebar') }}</a>
                         {% else %}
                             {{ i18n.trans('page-custom-sidebar') }}
@@ -392,8 +391,8 @@
                                     <option value="-1" {{ (dataPage.idpage is empty or dataPage.idsidebar == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit-global') }}</option>
                                     <option value="0" {{ (dataPage.idsidebar == '0') ? 'selected' : '' }}>{{ i18n.trans('hidden') }}</option>
                                     {% for sidebar in sidebars %}
-                                        {% set check = (dataPage.idsidebar == sidebar.idsidebar) ? 'selected' : '' %}
-                                        <option value="{{ sidebar.idsidebar }}" {{ check }}>{{ sidebar.name }}</option>
+                                        {% set check = (dataPage.idsidebar == sidebar.id) ? 'selected' : '' %}
+                                        <option value="{{ sidebar.id }}" {{ check }}>{{ sidebar.name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -415,7 +414,7 @@
 
                 <div class="card mt-4">
                     <div class="card-header">
-                        {% if dataPage.idheader > 0 %}
+                        {% if dataPage.idfooter > 0 %}
                             <a href="{{ asset('EditWebFooter') }}?code={{ dataPage.idfooter }}">{{ i18n.trans('page-custom-footer') }}</a>
                         {% else %}
                             {{ i18n.trans('page-custom-footer') }}
@@ -429,8 +428,8 @@
                                     <option value="-1" {{ (dataPage.idpage is empty or dataPage.idfooter == '-1') ? 'selected' : '' }}>{{ i18n.trans('inherit-global') }}</option>
                                     <option value="0" {{ (dataPage.idfooter == '0') ? 'selected' : '' }}>{{ i18n.trans('hidden') }}</option>
                                     {% for footer in footers %}
-                                        {% set check = (dataPage.idfooter == footer.idfooter) ? 'selected' : '' %}
-                                        <option value="{{ footer.idfooter }}" {{ check }}>{{ footer.name }}</option>
+                                        {% set check = (dataPage.idfooter == footer.id) ? 'selected' : '' %}
+                                        <option value="{{ footer.id }}" {{ check }}>{{ footer.name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>

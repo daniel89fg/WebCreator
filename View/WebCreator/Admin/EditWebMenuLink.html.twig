@@ -134,7 +134,7 @@
         }
     });
 
-    function editViewDelete(viewName, idlink) {
+    function editViewDelete(viewName, id) {
         bootbox.confirm({
             title: "{{ i18n.trans('confirm-delete') }}",
             message: "{{ i18n.trans('are-you-sure') }}",
@@ -151,7 +151,7 @@
             callback: function (result) {
                 if (result) {
                     $("#form" + viewName + " :input[name=\"action\"]").val("delete");
-                    $("#form" + viewName + " :input[name=\"code\"]").val(idlink);
+                    $("#form" + viewName + " :input[name=\"code\"]").val(id);
                     $("#form" + viewName).submit();
                 }
             }
@@ -166,7 +166,7 @@
             <a href="{{ link.idpage ? link.getPage().url('public') : link.redirect }}"
                target="_blank">{{ link.name }}</a>
             <i class="fas fa-trash-alt btn btn-sm text-danger" title="{{ i18n.trans('delete') }}"
-               onclick="editViewDelete('EditWebMenuLink', {{ link.idlink }});"></i>
+               onclick="editViewDelete('EditWebMenuLink', {{ link.id }});"></i>
             <div class="small">
                 ({{ i18n.trans('sort') }}: {{ link.sort }}
                 {{ ', ' ~ i18n.trans('target-blank') }}: {{ link.target ? i18n.trans('yes') : i18n.trans('no') }}

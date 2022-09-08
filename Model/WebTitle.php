@@ -21,6 +21,7 @@ namespace FacturaScripts\Plugins\WebCreator\Model;
 
 use FacturaScripts\Core\Base\Utils;
 use FacturaScripts\Core\Model\Base;
+use FacturaScripts\Dinamic\Model\Base\ModelCore;
 
 /**
  * @author Daniel Fernández Giménez <hola@danielfg.es>
@@ -30,89 +31,64 @@ class WebTitle extends Base\ModelClass
 
     use Base\ModelTrait;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $align;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $bgcolor;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     public $breadcrumbs;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $breadcrumbsseparator;
 
-    /**
-     * @var string
-     */
+    /** @var string */
+    public $creationdate;
+
+    /** @var string */
     public $cssclass;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $cssid;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $idimage;
 
-    /**
-     * @var int
-     */
-    public $idtitle;
+    /** @var int */
+    public $id;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $imagefixed;
 
-    /**
-     * @var float
-     */
+    /** @var float */
     public $imageopacity;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $imageposition;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $imagerepeat;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $imagesize;
 
-    /**
-     * @var string
-     */
-    public $lastmod;
+    /** @var string */
+    public $lastnick;
 
-    /**
-     * @var string
-     */
+    /** @var string */
+    public $lastupdate;
+
+    /** @var string */
     public $name;
 
-    /**
-     * @var string
-     */
+    /** @var string */
+    public $nick;
+
+    /** @var string */
     public $tag;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $width;
 
     public function clear()
@@ -122,18 +98,21 @@ class WebTitle extends Base\ModelClass
         $this->bgcolor = '#376FB7';
         $this->breadcrumbs = true;
         $this->breadcrumbsseparator = '>';
+        $this->creationdate = date(ModelCore::DATETIME_STYLE);
+        $this->lastupdate = $this->creationdate;
         $this->imagefixed = 'fixed';
         $this->imageopacity = 0.1;
         $this->imageposition = 'center center';
         $this->imagerepeat = 'repeat';
         $this->imagesize = 'cover';
+        $this->nick = $_COOKIE['fsNick'];
         $this->tag = 'h1';
         $this->width = 'container';
     }
 
     public static function primaryColumn(): string
     {
-        return 'idtitle';
+        return 'id';
     }
 
     /**
@@ -169,5 +148,12 @@ class WebTitle extends Base\ModelClass
     public function url(string $type = 'auto', string $list = 'List'): string
     {
         return parent::url($type, 'ListWebPage?activetab=List');
+    }
+
+    protected function saveUpdate(array $values = [])
+    {
+        $this->lastnick = $_COOKIE['fsNick'];
+        $this->lastupdate = date(ModelCore::DATETIME_STYLE);
+        return parent::saveUpdate($values);
     }
 }

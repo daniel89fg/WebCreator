@@ -7,18 +7,30 @@
 -->
 <table>
     <column>
+        <name>creationdate</name>
+        <type>timestamp</type>
+    </column>
+    <column>
         <name>idfont</name>
         <type>integer</type>
         <null>NO</null>
     </column>
     <column>
-        <name>idfontweight</name>
+        <name>id</name>
         <type>serial</type>
         <null>NO</null>
     </column>
     <column>
-        <name>lastmod</name>
-        <type>date</type>
+        <name>lastnick</name>
+        <type>character varying(50)</type>
+    </column>
+    <column>
+        <name>lastupdate</name>
+        <type>timestamp</type>
+    </column>
+    <column>
+        <name>nick</name>
+        <type>character varying(50)</type>
     </column>
     <column>
         <name>weight</name>
@@ -27,7 +39,7 @@
     </column>
     <constraint>
         <name>webcreator_fontsweight_pkey</name>
-        <type>PRIMARY KEY (idfontweight)</type>
+        <type>PRIMARY KEY (id)</type>
     </constraint>
     <constraint>
         <name>uniq_idfont_weight_webcreator_fontsweight</name>
@@ -35,6 +47,14 @@
     </constraint>
     <constraint>
         <name>ca_webcreator_fontsweight_webcreator_fonts</name>
-        <type>FOREIGN KEY (idfont) REFERENCES webcreator_fonts (idfont) ON DELETE RESTRICT ON UPDATE CASCADE</type>
+        <type>FOREIGN KEY (idfont) REFERENCES webcreator_fonts (id) ON DELETE RESTRICT ON UPDATE CASCADE</type>
+    </constraint>
+    <constraint>
+        <name>webcreator_fontsweight_users_nick</name>
+        <type>FOREIGN KEY (nick) REFERENCES users (nick) ON DELETE SET NULL ON UPDATE CASCADE</type>
+    </constraint>
+    <constraint>
+        <name>webcreator_fontsweight_users_lastnick</name>
+        <type>FOREIGN KEY (lastnick) REFERENCES users (nick) ON DELETE SET NULL ON UPDATE CASCADE</type>
     </constraint>
 </table>

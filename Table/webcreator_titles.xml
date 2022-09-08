@@ -26,6 +26,10 @@
         <type>character varying(3)</type>
     </column>
     <column>
+        <name>creationdate</name>
+        <type>timestamp</type>
+    </column>
+    <column>
         <name>cssclass</name>
         <type>character varying(200)</type>
     </column>
@@ -38,7 +42,7 @@
         <type>integer</type>
     </column>
     <column>
-        <name>idtitle</name>
+        <name>id</name>
         <type>serial</type>
         <null>NO</null>
     </column>
@@ -68,13 +72,21 @@
         <null>NO</null>
     </column>
     <column>
-        <name>lastmod</name>
-        <type>date</type>
+        <name>lastnick</name>
+        <type>character varying(50)</type>
+    </column>
+    <column>
+        <name>lastupdate</name>
+        <type>timestamp</type>
     </column>
     <column>
         <name>name</name>
         <type>character varying(100)</type>
         <null>NO</null>
+    </column>
+    <column>
+        <name>nick</name>
+        <type>character varying(50)</type>
     </column>
     <column>
         <name>tag</name>
@@ -88,10 +100,18 @@
     </column>
     <constraint>
         <name>webcreator_titles_pkey</name>
-        <type>PRIMARY KEY (idtitle)</type>
+        <type>PRIMARY KEY (id)</type>
     </constraint>
     <constraint>
         <name>ca_webcreator_titles_attached_files</name>
         <type>FOREIGN KEY (idimage) REFERENCES attached_files (idfile) ON DELETE SET NULL ON UPDATE CASCADE</type>
+    </constraint>
+    <constraint>
+        <name>webcreator_titles_users_nick</name>
+        <type>FOREIGN KEY (nick) REFERENCES users (nick) ON DELETE SET NULL ON UPDATE CASCADE</type>
+    </constraint>
+    <constraint>
+        <name>webcreator_titles_users_lastnick</name>
+        <type>FOREIGN KEY (lastnick) REFERENCES users (nick) ON DELETE SET NULL ON UPDATE CASCADE</type>
     </constraint>
 </table>

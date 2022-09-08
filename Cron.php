@@ -32,7 +32,7 @@ class Cron extends CronClass
 
     public function run()
     {
-        if ($this->isTimeForJob('updateGoogleFonts', '30 days')) {
+        if ($this->isTimeForJob('updateGoogleFonts', '1 months')) {
             $this->updateGoogleFonts();
             $this->jobDone('updateGoogleFonts');
         }
@@ -41,7 +41,8 @@ class Cron extends CronClass
     private function setFont($googleFont): WebFont
     {
         $font = new WebFont();
-        if (!$font->loadFromCode('', [new DataBaseWhere('name', $googleFont->family)])) {
+        $where = [new DataBaseWhere('name', $googleFont->family)];
+        if (false === $font->loadFromCode('', $where)) {
             $font->name = $googleFont->family;
             $font->save();
         }
@@ -53,12 +54,12 @@ class Cron extends CronClass
         $fontWeight = new WebFontWeight();
 
         foreach ($variants as $variant) {
-            $fontWeight->loadFromCode('', [
-                new DataBaseWhere('idfont', $font->primaryColumnValue()),
+            $where = [
+                new DataBaseWhere('id', $font->primaryColumnValue()),
                 new DataBaseWhere('weight', $variant)
-            ]);
+            ];
 
-            if ($fontWeight != false) {
+            if ($fontWeight->loadFromCode('', $where)) {
                 $fontWeight->idfont = $font->primaryColumnValue();
                 $fontWeight->weight = $variant;
                 $fontWeight->save();
@@ -69,15 +70,16 @@ class Cron extends CronClass
     private function updateGoogleFonts()
     {
         $appSettings = $this->toolBox()->appSettings();
-        $googleApi = $appSettings->get('webcreator', 'google-api');
+        $googleApi = $appSettings->get('webcreator', 'google-api', '');
+        if (empty($googleApi)) {
+            return;
+        }
 
-        if (!empty($googleApi)) {
-            $googleFonts = json_decode(file_get_contents('https://www.googleapis.com/webfonts/v1/webfonts?key=' . $googleApi));
-            if ($googleFonts) {
-                foreach ($googleFonts->items as $googleFont) {
-                    $font = $this->setFont($googleFont);
-                    $this->setFontWeight($googleFont->variants, $font);
-                }
+        $googleFonts = json_decode(file_get_contents('https://www.googleapis.com/webfonts/v1/webfonts?key=' . $googleApi));
+        if ($googleFonts) {
+            foreach ($googleFonts->items as $googleFont) {
+                $font = $this->setFont($googleFont);
+                $this->setFontWeight($googleFont->variants, $font);
             }
         }
     }

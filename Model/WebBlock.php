@@ -20,6 +20,7 @@
 namespace FacturaScripts\Plugins\WebCreator\Model;
 
 use FacturaScripts\Core\Model\Base;
+use FacturaScripts\Dinamic\Model\Base\ModelCore;
 
 /**
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
@@ -30,55 +31,45 @@ class WebBlock extends Base\ModelClass
 
     use Base\ModelTrait;
 
-    /**
-     * @var string
-     */
+    /** @var string */
+    public $creationdate;
+
+    /** @var string */
     public $content;
 
-    /**
-     * @var int
-     */
-    public $idblock;
+    /** @var int */
+    public $id;
 
-    /**
-     * @var string
-     */
-    public $lastmod;
+    /** @var string */
+    public $lastnick;
 
-    /**
-     * @var string
-     */
+    /** @var string */
+    public $lastupdate;
+
+    /** @var string */
     public $name;
 
-    /**
-     * @var int
-     */
+    /** @var string */
+    public $nick;
+
+    /** @var int */
     public $ordernum;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $type;
 
     public function clear()
     {
         parent::clear();
         $this->content = 'Hello world!';
+        $this->creationdate = date(ModelCore::DATETIME_STYLE);
+        $this->lastupdate = $this->creationdate;
+        $this->nick = $_COOKIE['fsNick'];
     }
 
     public static function primaryColumn(): string
     {
-        return 'idblock';
-    }
-
-    /**
-     * @return bool
-     */
-    public function save()
-    {
-        /// update last modification date
-        $this->lastmod = date('d-m-Y');
-        return parent::save();
+        return 'id';
     }
 
     public static function tableName(): string
@@ -98,5 +89,12 @@ class WebBlock extends Base\ModelClass
         }
 
         return parent::url($type, 'ListWebPage?activetab=List');
+    }
+
+    protected function saveUpdate(array $values = [])
+    {
+        $this->lastnick = $_COOKIE['fsNick'];
+        $this->lastupdate = date(ModelCore::DATETIME_STYLE);
+        return parent::saveUpdate($values);
     }
 }

@@ -26,7 +26,7 @@
         <group name="account" title="my-account" icon="fas fa-user" numcolumns="12">
             <column name="accountpage" titleurl="ListWebPage" numcolumns="3" order="100">
                 <widget type="select" fieldname="accountpage" onclick="EditWebPage">
-                    <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title"/>
+                    <values source="webcreator_pages" fieldcode="id" fieldtitle="title"/>
                 </widget>
             </column>
         </group>
@@ -39,7 +39,7 @@
             </column>
             <column name="loginpage" titleurl="ListWebPage" numcolumns="3" order="100">
                 <widget type="select" fieldname="loginpage" onclick="EditWebPage">
-                    <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title"/>
+                    <values source="webcreator_pages" fieldcode="id" fieldtitle="title"/>
                 </widget>
             </column>
             <column name="login-image" titleurl="ListAttachedFile" description="click-link-to-add" numcolumns="3"
@@ -56,7 +56,7 @@
             </column>
             <column name="registerpage" titleurl="ListWebPage" numcolumns="3" order="100">
                 <widget type="select" fieldname="registerpage" onclick="EditWebPage">
-                    <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title"/>
+                    <values source="webcreator_pages" fieldcode="id" fieldtitle="title"/>
                 </widget>
             </column>
             <column name="register-image" titleurl="ListAttachedFile" description="click-link-to-add" numcolumns="3"
@@ -67,7 +67,7 @@
         <group name="forgot" title="forgot-password" icon="fas fa-key" numcolumns="12">
             <column name="forgotpage" titleurl="ListWebPage" numcolumns="3" order="100">
                 <widget type="select" fieldname="forgotpage" onclick="EditWebPage">
-                    <values source="webcreator_pages" fieldcode="idpage" fieldtitle="title"/>
+                    <values source="webcreator_pages" fieldcode="id" fieldtitle="title"/>
                 </widget>
             </column>
             <column name="forgot-image" titleurl="ListAttachedFile" description="click-link-to-add" numcolumns="3"

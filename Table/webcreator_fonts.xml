@@ -7,25 +7,41 @@
 -->
 <table>
     <column>
-        <name>idfont</name>
+        <name>creationdate</name>
+        <type>timestamp</type>
+    </column>
+    <column>
+        <name>id</name>
         <type>serial</type>
         <null>NO</null>
     </column>
     <column>
-        <name>lastmod</name>
-        <type>date</type>
+        <name>lastnick</name>
+        <type>character varying(50)</type>
+    </column>
+    <column>
+        <name>lastupdate</name>
+        <type>timestamp</type>
     </column>
     <column>
         <name>name</name>
         <type>character varying(100)</type>
         <null>NO</null>
     </column>
+    <column>
+        <name>nick</name>
+        <type>character varying(50)</type>
+    </column>
     <constraint>
-        <name>webcreator_blocks_pkey</name>
-        <type>PRIMARY KEY (idfont)</type>
+        <name>webcreator_fonts_pkey</name>
+        <type>PRIMARY KEY (id)</type>
     </constraint>
     <constraint>
-        <name>uniq_name_webcreator_blocks</name>
-        <type>UNIQUE (name)</type>
+        <name>webcreator_fonts_users_nick</name>
+        <type>FOREIGN KEY (nick) REFERENCES users (nick) ON DELETE SET NULL ON UPDATE CASCADE</type>
+    </constraint>
+    <constraint>
+        <name>webcreator_fonts_users_lastnick</name>
+        <type>FOREIGN KEY (lastnick) REFERENCES users (nick) ON DELETE SET NULL ON UPDATE CASCADE</type>
     </constraint>
 </table>

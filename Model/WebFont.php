@@ -20,6 +20,7 @@
 namespace FacturaScripts\Plugins\WebCreator\Model;
 
 use FacturaScripts\Core\Model\Base;
+use FacturaScripts\Dinamic\Model\Base\ModelCore;
 
 /**
  * @author Daniel Fernández Giménez <hola@danielfg.es>
@@ -29,32 +30,46 @@ class WebFont extends Base\ModelClass
 
     use Base\ModelTrait;
 
-    /**
-     * @var string
-     */
-    public $lastmod;
+    /** @var string */
+    public $creationdate;
 
-    /**
-     * @var string
-     */
+    /** @var int */
+    public $id;
+
+    /** @var string */
+    public $lastnick;
+
+    /** @var string */
+    public $lastupdate;
+
+    /** @var string */
     public $name;
+
+    /** @var string */
+    public $nick;
+
+    public function clear()
+    {
+        parent::clear();
+        $this->creationdate = date(ModelCore::DATETIME_STYLE);
+        $this->lastupdate = $this->creationdate;
+        $this->nick = $_COOKIE['fsNick'] ?? null;
+    }
 
     public static function primaryColumn(): string
     {
-        return 'idfont';
-    }
-
-    /**
-     * @return bool
-     */
-    public function save()
-    {
-        $this->lastmod = date('d-m-Y');
-        return parent::save();
+        return 'id';
     }
 
     public static function tableName(): string
     {
         return 'webcreator_fonts';
+    }
+
+    protected function saveUpdate(array $values = [])
+    {
+        $this->lastnick = $_COOKIE['fsNick'];
+        $this->lastupdate = date(ModelCore::DATETIME_STYLE);
+        return parent::saveUpdate($values);
     }
 }

@@ -74,7 +74,7 @@ class EditWebHeader extends PanelController
         switch ($action) {
             case 'insert':
                 if ($this->saveDataAction()) {
-                    $this->redirect('EditWebHeader?code=' . $this->views['EditWebHeader']->model->idheader . '&action=save-ok');
+                    $this->redirect('EditWebHeader?code=' . $this->views['EditWebHeader']->model->id . '&action=save-ok');
                 }
                 return true;
             case 'edit':
@@ -109,7 +109,7 @@ class EditWebHeader extends PanelController
 
         $header = new WebHeader();
         if (!empty($data['code'])) {
-            $header->idheader = $data['code'];
+            $header->id = $data['code'];
         }
 
         $modelFields = ['name', 'cssid', 'cssclass', 'idmenu'];

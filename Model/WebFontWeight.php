@@ -20,6 +20,7 @@
 namespace FacturaScripts\Plugins\WebCreator\Model;
 
 use FacturaScripts\Core\Model\Base;
+use FacturaScripts\Dinamic\Model\Base\ModelCore;
 
 /**
  * @author Daniel Fernández Giménez <hola@danielfg.es>
@@ -29,42 +30,49 @@ class WebFontWeight extends Base\ModelClass
 
     use Base\ModelTrait;
 
-    /**
-     * @var string
-     */
-    public $lastmod;
+    /** @var string */
+    public $creationdate;
 
-    /**
-     * @var string
-     */
+    /** @var string */
+    public $id;
+
+    /** @var string */
     public $idfont;
 
-    /**
-     * @var string
-     */
-    public $idfontweight;
+    /** @var string */
+    public $lastnick;
 
-    /**
-     * @var string
-     */
+    /** @var string */
+    public $lastupdate;
+
+    /** @var string */
+    public $nick;
+
+    /** @var string */
     public $weight;
+
+    public function clear()
+    {
+        parent::clear();
+        $this->creationdate = date(ModelCore::DATETIME_STYLE);
+        $this->lastupdate = $this->creationdate;
+        $this->nick = $_COOKIE['fsNick'] ?? null;
+    }
 
     public static function primaryColumn(): string
     {
-        return 'idfontweight';
-    }
-
-    /**
-     * @return bool
-     */
-    public function save()
-    {
-        $this->lastmod = date('d-m-Y');
-        return parent::save();
+        return 'id';
     }
 
     public static function tableName(): string
     {
         return 'webcreator_fontsweight';
+    }
+
+    protected function saveUpdate(array $values = [])
+    {
+        $this->lastnick = $_COOKIE['fsNick'];
+        $this->lastupdate = date(ModelCore::DATETIME_STYLE);
+        return parent::saveUpdate($values);
     }
 }

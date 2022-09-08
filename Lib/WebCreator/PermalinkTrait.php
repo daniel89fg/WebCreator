@@ -71,7 +71,7 @@ trait PermalinkTrait
     public function refreshPermalinkSons(WebPage $webpage, bool $deleteParent = false)
     {
         $pageModel = new WebPage();
-        $where = [new DataBaseWhere('pageparent', $webpage->idpage)];
+        $where = [new DataBaseWhere('pageparent', $webpage->id)];
 
         foreach ($pageModel->all($where, [], 0, 0) as $page) {
             $url = explode('/', $page->permalink);
@@ -84,7 +84,7 @@ trait PermalinkTrait
     private function findPermalink(string $permalink): string
     {
         foreach (GetRoutes::getRoutes() as $key => $value) {
-            if ($key == $permalink && $value['optionalId'] != $this->pageOrig->idpage) {
+            if ($key == $permalink && $value['optionalId'] != $this->pageOrig->id) {
                 $permalink .= '-2';
             }
         }

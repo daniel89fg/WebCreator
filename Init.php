@@ -66,118 +66,58 @@ class Init extends InitClass
 
     protected function configure()
     {
+        $name = 'webcreator';
         $appSettings = $this->toolBox()->appSettings();
-        if (empty($appSettings->get('webcreator', 'title'))) {
-            $empresa = new Empresa();
-            $empresa->loadFromCode($appSettings->get('default', 'idempresa'));
-            $appSettings->set('webcreator', 'title', $empresa->nombrecorto);
-        }
 
-        if (empty($appSettings->get('webcreator', 'siteurl'))) {
-            $appSettings->set('webcreator', 'siteurl', $this->getSiteUrl());
-        }
+        $empresa = new Empresa();
+        $empresa->loadFromCode($appSettings->get('default', 'idempresa'));
 
-        if (empty($appSettings->get('webcreator', 'langcode'))) {
-            $appSettings->set('webcreator', 'langcode', FS_LANG);
-        }
-
-        if (empty($appSettings->get('webcreator', 'headerdefault'))) {
-            $appSettings->set('webcreator', 'headerdefault', 1);
-        }
-
-        if (empty($appSettings->get('webcreator', 'titledefault'))) {
-            $appSettings->set('webcreator', 'titledefault', 1);
-        }
-
-        if (empty($appSettings->get('webcreator', 'footerdefault'))) {
-            $appSettings->set('webcreator', 'footerdefault', 1);
-        }
-
-        if (empty($appSettings->get('webcreator', 'sidebardefault'))) {
-            $appSettings->set('webcreator', 'sidebardefault', 1);
-        }
-
-        if (empty($appSettings->get('webcreator', 'homepage'))) {
-            $appSettings->set('webcreator', 'homepage', 1);
-            $appSettings->set('default', 'homepage', 'PortalHome');
-        }
-
-        if (empty($appSettings->get('webcreator', 'cookiespage'))) {
-            $appSettings->set('webcreator', 'cookiespage', 2);
-        }
-
-        if (empty($appSettings->get('webcreator', 'privacypage'))) {
-            $appSettings->set('webcreator', 'privacypage', 3);
-        }
-
-        if (empty($appSettings->get('webcreator', 'sitewidth'))) {
-            $appSettings->set('webcreator', 'sitewidth', 'container');
-        }
-
-        if (empty($appSettings->get('webcreator', 'sidebarposition'))) {
-            $appSettings->set('webcreator', 'sidebarposition', 1);
-        }
-
-        if (empty($appSettings->get('webcreator', 'registeravailable'))) {
-            $appSettings->set('webcreator', 'registeravailable', 1);
-        }
-
-        if (empty($appSettings->get('webcreator', 'accountpage'))) {
-            $appSettings->set('webcreator', 'accountpage', 6);
-        }
-
-        if (empty($appSettings->get('webcreator', 'loginpage'))) {
-            $appSettings->set('webcreator', 'loginpage', 7);
-        }
-
-        if (empty($appSettings->get('webcreator', 'registerpage'))) {
-            $appSettings->set('webcreator', 'registerpage', 8);
-        }
-
-        if (empty($appSettings->get('webcreator', 'forgotpage'))) {
-            $appSettings->set('webcreator', 'forgotpage', 9);
-        }
-
-        if (empty($appSettings->get('webcreator', 'loginavailable'))) {
-            $appSettings->set('webcreator', 'loginavailable', 1);
-        }
-
-        if (empty($appSettings->get('webcreator', 'fontdefault'))) {
-            $appSettings->set('webcreator', 'fontdefault', 864);
-            $appSettings->set('webcreator', 'fontlink', 864);
-            $appSettings->set('webcreator', 'fontp', 864);
-            $appSettings->set('webcreator', 'fonth1', 864);
-            $appSettings->set('webcreator', 'fonth2', 864);
-            $appSettings->set('webcreator', 'fonth3', 864);
-            $appSettings->set('webcreator', 'fonth4', 864);
-            $appSettings->set('webcreator', 'fonth5', 864);
-            $appSettings->set('webcreator', 'fonth6', 864);
-        }
-
-        if (empty($appSettings->get('webcreator', 'fontdefaultweight'))) {
-            $appSettings->set('webcreator', 'fontdefaultweight', 3034);
-            $appSettings->set('webcreator', 'fontlinkweight', 3034);
-            $appSettings->set('webcreator', 'fontpweight', 3034);
-            $appSettings->set('webcreator', 'fonth1weight', 3034);
-            $appSettings->set('webcreator', 'fonth2weight', 3034);
-            $appSettings->set('webcreator', 'fonth3weight', 3034);
-            $appSettings->set('webcreator', 'fonth4weight', 3034);
-            $appSettings->set('webcreator', 'fonth5weight', 3034);
-            $appSettings->set('webcreator', 'fonth6weight', 3034);
-        }
-
-        if (empty($appSettings->get('webcreator', 'fontlinkcolor'))) {
-            $appSettings->set('webcreator', 'fontlinkcolor', '#212529');
-            $appSettings->set('webcreator', 'fontlinkcolorhover', '#007bff');
-            $appSettings->set('webcreator', 'fontpcolor', '#212529');
-            $appSettings->set('webcreator', 'fonth1color', '#212529');
-            $appSettings->set('webcreator', 'fonth2color', '#212529');
-            $appSettings->set('webcreator', 'fonth3color', '#212529');
-            $appSettings->set('webcreator', 'fonth4color', '#212529');
-            $appSettings->set('webcreator', 'fonth5color', '#212529');
-            $appSettings->set('webcreator', 'fonth6color', '#212529');
-        }
-
+        $appSettings->get($name, 'title', $empresa->nombrecorto);
+        $appSettings->get($name, 'siteurl', $this->getSiteUrl());
+        $appSettings->get($name, 'langcode', FS_LANG);
+        $appSettings->get($name, 'headerdefault', 1);
+        $appSettings->get($name, 'titledefault', 1);
+        $appSettings->get($name, 'footerdefault', 1);
+        $appSettings->get($name, 'sidebardefault', 1);
+        $appSettings->get($name, 'homepage', 1);
+        $appSettings->get('default', 'homepage', 'PortalHome');
+        $appSettings->get($name, 'cookiespage', 2);
+        $appSettings->get($name, 'privacypage', 3);
+        $appSettings->get($name, 'sitewidth', 'container');
+        $appSettings->get($name, 'sidebarposition', 1);
+        $appSettings->get($name, 'registeravailable', 1);
+        $appSettings->get($name, 'accountpage', 6);
+        $appSettings->get($name, 'loginpage', 7);
+        $appSettings->get($name, 'registerpage', 8);
+        $appSettings->get($name, 'forgotpage', 9);
+        $appSettings->get($name, 'loginavailable', 1);
+        $appSettings->get($name, 'fontdefault', 864);
+        $appSettings->get($name, 'fontlink', 864);
+        $appSettings->get($name, 'fontp', 864);
+        $appSettings->get($name, 'fonth1', 864);
+        $appSettings->get($name, 'fonth2', 864);
+        $appSettings->get($name, 'fonth3', 864);
+        $appSettings->get($name, 'fonth4', 864);
+        $appSettings->get($name, 'fonth5', 864);
+        $appSettings->get($name, 'fonth6', 864);
+        $appSettings->get($name, 'fontdefaultweight', 3034);
+        $appSettings->get($name, 'fontlinkweight', 3034);
+        $appSettings->get($name, 'fontpweight', 3034);
+        $appSettings->get($name, 'fonth1weight', 3034);
+        $appSettings->get($name, 'fonth2weight', 3034);
+        $appSettings->get($name, 'fonth3weight', 3034);
+        $appSettings->get($name, 'fonth4weight', 3034);
+        $appSettings->get($name, 'fonth5weight', 3034);
+        $appSettings->get($name, 'fonth6weight', 3034);
+        $appSettings->get($name, 'fontlinkcolor', '#212529');
+        $appSettings->get($name, 'fontlinkcolorhover', '#007bff');
+        $appSettings->get($name, 'fontpcolor', '#212529');
+        $appSettings->get($name, 'fonth1color', '#212529');
+        $appSettings->get($name, 'fonth2color', '#212529');
+        $appSettings->get($name, 'fonth3color', '#212529');
+        $appSettings->get($name, 'fonth4color', '#212529');
+        $appSettings->get($name, 'fonth5color', '#212529');
+        $appSettings->get($name, 'fonth6color', '#212529');
         $appSettings->save();
 
         $routes = new UpdateRoutes();

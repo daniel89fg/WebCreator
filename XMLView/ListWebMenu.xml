@@ -20,14 +20,14 @@
 -->
 <view>
     <columns>
-        <column name="idmenu" display="none" order="100">
-            <widget type="text" fieldname="idmenu"/>
+        <column name="code" display="none" order="100">
+            <widget type="text" fieldname="id"/>
         </column>
         <column name="name" order="110">
             <widget type="text" fieldname="name"/>
         </column>
-        <column name="lastmod" title="last-update" order="120">
-            <widget type="date" fieldname="lastmod"/>
+        <column name="last-update" order="120">
+            <widget type="date" fieldname="lastupdate"/>
         </column>
     </columns>
 </view>
