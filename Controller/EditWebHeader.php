@@ -112,13 +112,14 @@ class EditWebHeader extends PanelController
             $header->idheader = $data['code'];
         }
 
+        $modelFields = ['name', 'cssid', 'cssclass', 'idmenu'];
         foreach ($data as $key => $value) {
             preg_match("/header\d/", $key, $b);
 
             if ($b) {
                 $content[$key] = $value;
                 unset($data[$key]);
-            } elseif ($key === 'name' || $key === 'cssid' || $key === 'cssclass' || $key === 'idmenu') {
+            } elseif (in_array($key, $modelFields)) {
                 $header->$key = $value;
                 unset($data[$key]);
             }

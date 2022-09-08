@@ -113,13 +113,14 @@ class EditWebFooter extends PanelController
             $footer->idfooter = $data['code'];
         }
 
+        $modelFields = ['name', 'cssid', 'cssclass'];
         foreach ($data as $key => $value) {
             preg_match("/footer\d/", $key, $b);
 
             if ($b) {
                 $content[$key] = $value;
                 unset($data[$key]);
-            } elseif ($key === 'name' || $key === 'cssid' || $key === 'cssclass') {
+            } elseif (in_array($key, $modelFields)) {
                 $footer->$key = $value;
                 unset($data[$key]);
             }
