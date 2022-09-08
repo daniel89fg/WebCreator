@@ -46,8 +46,8 @@ class webLogo extends Shortcode
         for ($x = 0; $x < count($shorts[1]); $x++) {
             $params = static::getAttributes($shorts[1][$x]);
 
-            $class = $params['class'] ?? '';
-            $id = $params['id'] ?? '';
+            $cssclass = $params['class'] ?? '';
+            $cssid = $params['id'] ?? '';
             $width = $params['width'] ?? '';
             $height = $params['height'] ?? '';
 
@@ -59,7 +59,7 @@ class webLogo extends Shortcode
                 $logo = $file->url('download-permanent');
             }
 
-            $img = '<img src="' . $logo . '" class="' . $class . '" id="' . $id . '" width="' . $width . '" height="' . $height . '">';
+            $img = '<img src="' . $logo . '" class="' . $cssclass . '" id="' . $cssid . '" width="' . $width . '" height="' . $height . '">';
 
             $content = str_replace($shorts[0][$x], $img, $content);
         }
