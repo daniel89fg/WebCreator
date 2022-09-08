@@ -263,10 +263,6 @@ class WebPage extends Base\ModelOnChangeClass
                     return $siteurl;
                 }
 
-                if ('*' === substr($this->permalink, -1)) {
-                    return $siteurl . substr($this->permalink, 0, -1);
-                }
-
                 return $siteurl . $this->permalink;
 
             default:

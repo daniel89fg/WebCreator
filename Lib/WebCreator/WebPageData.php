@@ -82,22 +82,6 @@ class WebPageData
         return null;
     }
 
-    protected function getOtherPage(WebPage $webPage): ?WebPage
-    {
-        $this->pipe('getOtherPageBefore');
-
-        foreach ($webPage->all([new DataBaseWhere('permalink', '*', 'LIKE')], [], 0, 0) as $wpage) {
-            if (0 === \strncmp($this->uri, $wpage->permalink, \strlen($wpage->permalink) - 1)) {
-                $this->pipe('getOtherPageAfter');
-                return $wpage;
-            }
-        }
-
-        $this->pipe('getOtherPageAfter');
-
-        return null;
-    }
-
     protected function getPerfectPage(WebPage $webPage): ?WebPage
     {
         $resultBefore = $this->pipe('getPerfectPageBefore');
@@ -132,11 +116,6 @@ class WebPageData
             $result = $this->getPerfectPage($webPage);
         }
 
-        /// match with pages with * in permalink?
-        if (is_null($result)) {
-            $result = $this->getOtherPage($webPage);
-        }
-
         /// if no page found, then we use this page with noindex activated.
         if (is_null($result)) {
             $webPage->noindex = true;
@@ -164,8 +143,6 @@ class WebPageData
             $expire = \time() + \FS_COOKIES_EXPIRE;
             setcookie('weblang', $webPage->weblang, $expire, FS_ROUTE);
         }
-
-        //$webPage->canonicalUrl = $webPage->url('public');
 
         $this->pipe('setLangAfter');
 

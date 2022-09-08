@@ -156,9 +156,7 @@ class PortalController extends Controller
 
         $this->setTemplate(static::DEFAULT_TEMPLATE);
 
-        if ('*' === substr($this->webPage->permalink, -1)) {
-            $this->canonicalUrl = $this->uri;
-        } elseif ($this->webPage->permalink) {
+        if ($this->webPage->permalink) {
             $this->canonicalUrl = $this->webPage->url('public');
         } else {
             $this->canonicalUrl = $this->url();
