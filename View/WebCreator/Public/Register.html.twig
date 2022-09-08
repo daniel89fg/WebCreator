@@ -146,7 +146,7 @@
                                 {{ i18n.customTrans(fsc.webPage.filelang, 'country') }}
                             </label>
                             <div class="col-sm-9">
-                                {{ forms.simpleSelect('codpais', 'codpais', fsc.countryContact,
+                                {{ forms.simpleSelect('codpais', 'codpais', fsc.countryContact ?? appSettings.get('default', 'codpais', 'ESP'),
                                     fsc.getSelectValues('paises', 'codpais', 'nombre', true)) }}
                             </div>
                         </div>
