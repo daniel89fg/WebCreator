@@ -33,7 +33,7 @@
         <null>NO</null>
     </column>
     <column>
-        <name>idfile</name>
+        <name>idimage</name>
         <type>integer</type>
     </column>
     <column>
@@ -120,6 +120,6 @@
     </constraint>
     <constraint>
         <name>ca_webcreator_pages_attached_files</name>
-        <type>FOREIGN KEY (idfile) REFERENCES attached_files (idfile) ON DELETE SET NULL ON UPDATE CASCADE</type>
+        <type>FOREIGN KEY (idimage) REFERENCES attached_files (idfile) ON DELETE SET NULL ON UPDATE CASCADE</type>
     </constraint>
 </table>

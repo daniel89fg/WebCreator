@@ -276,9 +276,9 @@
 
                             <div class="form-group">
                                 <label>{{ i18n.trans('image-default') }}</label>
-                                <select class="form-control" name="idfile">
+                                <select class="form-control" name="idimage">
                                     {% for image in images %}
-                                        {% set check = (dataPage.idfile == image.code) ? 'selected' : '' %}
+                                        {% set check = (dataPage.idimage == image.code) ? 'selected' : '' %}
                                         <option value="{{ image.code }}" {{ check }}>{{ image.description }}</option>
                                     {% endfor %}
                                 </select>

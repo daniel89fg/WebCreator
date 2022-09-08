@@ -78,10 +78,22 @@
         {% block icons %}
             {{ webMacros.includeView(webIncludes, 'iconsBefore', templateVars) }}
             <link rel="shortcut icon"
-                  href="{{ (webSettings.idfavicon) ? fsc.pageComposer.getAttachFile(webSettings.idfavicon) : asset('Dinamic/Assets/Images/favicon.svg') }}"/>
+                  href="{{ (webSettings.idfavicon) ? fsc.pageComposer.getAttachFile(webSettings.idfavicon) : webUrl ~ asset('Dinamic/Assets/Images/favicon.svg') }}"/>
             <link rel="apple-touch-icon" sizes="180x180"
-                  href="{{ (webSettings.idfavicon) ? fsc.pageComposer.getAttachFile(webSettings.idfavicon) : asset('Dinamic/Assets/Images/favicon.svg') }}"/>
-            {{ webMacros.includeView(webIncludes, 'iconsafter', templateVars) }}
+                  href="{{ (webSettings.idfavicon) ? fsc.pageComposer.getAttachFile(webSettings.idfavicon) : webUrl ~ asset('Dinamic/Assets/Images/favicon.svg') }}"/>
+            {{ webMacros.includeView(webIncludes, 'iconsAfter', templateVars) }}
+        {% endblock %}
+
+        {% block openGraph %}
+            {{ webMacros.includeView(webIncludes, 'openGraphBefore', templateVars) }}
+            <meta property="og:title" content="{{ fsc.title|raw }}" />
+            <meta property="og:description" content="{{ fsc.description|raw }}" />
+            <meta property="og:url" content="{{ fsc.canonicalUrl }}" />
+            <meta property="og:locale" content="{{ webPage.filelang }}" />
+            {% if webPage.idimage %}
+                <meta property="og:image" content="{{ fsc.pageComposer.getAttachFile(webPage.idimage) }}" />
+            {% endif %}
+            {{ webMacros.includeView(webIncludes, 'openGraphAfter', templateVars) }}
         {% endblock %}
 
         {% block css %}

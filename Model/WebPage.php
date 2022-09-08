@@ -77,7 +77,7 @@ class WebPage extends Base\ModelOnChangeClass
     /**
      * @var int
      */
-    public $idfile;
+    public $idimage;
 
     /**
      * @var int

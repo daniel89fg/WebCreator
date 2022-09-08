@@ -45,9 +45,10 @@ class PageComposer
 
     public function getAttachFile(int $idfile): string
     {
+        $siteurl = $this->toolBox()->appSettings()->get('webcreator', 'siteurl');
         $file = new AttachedFile();
         $file->loadFromCode($idfile);
-        return $file->url('download-permanent');
+        return $siteurl . '/' . $file->url('download-permanent');
     }
 
     public function getBreadcrumbs(WebPage $page, string $separator): string
