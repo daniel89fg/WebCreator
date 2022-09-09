@@ -1,9 +1,4 @@
 {
-    "page-titles": "Títulos de página",
-    "web-title": "Título web",
-    "title-default": "Título por defecto",
-
-
     "access-facebook": "Acceso con Facebook",
     "access-google": "Acceso con Google",
     "accountpage": "Página de cuenta",
@@ -200,6 +195,7 @@
     "page-not-found-p": "No hemos encontrado la página que busca.",
     "page-parent": "Página padre",
     "page-title": "Títulos de página",
+    "page-titles": "Títulos de página",
     "page-width": "Ancho de la página",
     "password-recovery": "Recuperar contraseña",
     "password-recovery-p": "Le enviaremos un email con instrucciones para poder iniciar sesión. Si no lo recibe, compruebe la bandeja de SPAM o correo no deseado.",
@@ -219,7 +215,6 @@
     "recover-your-account-name": "%name%, recupere el acceso a su cuenta",
     "recovery-timed-out": "Recuperación caducada o ya realizada.",
     "redir-link": "Redireccionar",
-    "redirect": "Redirección",
     "register-available": "Permitir registrarse",
     "register-available-help": "Permite a los usuarios poder registrarse.",
     "register-image": "Imagen de registro",
@@ -291,6 +286,7 @@
     "text-color-sixth-help": "Puede usarlo con la clase css .text-color-sixth.",
     "text-color-third": "Tercero",
     "text-color-third-help": "Puede usarlo con la clase css .text-color-third.",
+    "title-default": "Título por defecto",
     "twitter-login": "Acceder con Twitter",
     "typography": "Tipografía",
     "typography-color": "Tipografía y color",
@@ -302,6 +298,7 @@
     "web-footer": "Pie de página",
     "web-header": "Encabezado de página",
     "web-sidebar": "Barra lateral web",
+    "web-title": "Título web",
     "weight": "Peso",
     "you-must-accept-cookies": "Debe aceptar la política de cookies",
     "you-must-accept-privacy-policy": "Debe aceptar la política de privacidad",
