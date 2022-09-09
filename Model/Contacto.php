@@ -21,6 +21,7 @@ namespace FacturaScripts\Plugins\WebCreator\Model;
 
 use FacturaScripts\Core\Model\Contacto as ParentModel;
 use FacturaScripts\Dinamic\Model\Cliente as DinCliente;
+use FacturaScripts\Dinamic\Model\GrupoClientes;
 
 /**
  * @author Daniel Fernández Giménez <hola@danielfg.es>
@@ -63,5 +64,12 @@ class Contacto extends ParentModel
         }
 
         return $cliente;
+    }
+
+    public function getGroup(): GrupoClientes
+    {
+        $grupo = new GrupoClientes();
+        $grupo->loadFromCode($this->codgrupo);
+        return $grupo;
     }
 }
