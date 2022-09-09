@@ -26,6 +26,7 @@ use Closure;
  */
 class ListCliente
 {
+
     protected function createViews(): Closure
     {
         return function () {
