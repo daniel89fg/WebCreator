@@ -34,6 +34,13 @@ trait WebModelTrait
             $modelName = $this->modelClassName();
         }
 
+        // comprobamos que el modelo existe
+        $modelName = '\\FacturaScripts\\Dinamic\\Model\\' . $modelName;
+        if (false === class_exists($modelName)) {
+            return 'model-not-found';
+        }
+        $modelClass = new $modelName();
+
         // obtenemos el ID del modelo
         if (empty($modelId)) {
             $modelId = $this->primaryColumnValue();
@@ -41,7 +48,7 @@ trait WebModelTrait
 
         // si el plugin multi-idioma no está instalado, devolvemos el valor directamente
         if (false === WEBMULTILANGUAGE) {
-            return $this->getModelValue($modelName, $modelId, $column);
+            return $this->getModelValue($modelClass, $modelId, $column);
         }
 
         $translateClass = '\\FacturaScripts\\Dinamic\\Model\\WebTranslate';
@@ -66,17 +73,17 @@ trait WebModelTrait
             return $translate->valuetrans;
         }
 
-        return $this->getModelValue($modelName, $modelId, $column);
+        return $this->getModelValue($modelClass, $modelId, $column);
     }
 
-    private function getModelValue(string $modelName, string $modelId, string $column): string
+    private function getModelValue($modelClass, string $modelId, string $column): string
     {
         // si el modelo es Settings, entonces es un modelo especial
-        if ($modelName === 'Settings' || $modelName === 'WebSettings') {
-            return $this->get($modelId)->{$column};
+        if (in_array($modelClass->modelClassName(), ['Settings', 'WebSettings'])) {
+            return $modelClass->get($modelId)->{$column};
         }
 
         // devolvemos el valor directamente
-        return $this->{$column};
+        return $modelClass->{$column};
     }
 }
