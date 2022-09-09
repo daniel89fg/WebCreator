@@ -21,6 +21,7 @@ namespace FacturaScripts\Plugins\WebCreator\Model;
 
 use FacturaScripts\Core\Model\Base;
 use FacturaScripts\Dinamic\Lib\WebCreator\UpdateRoutes;
+use FacturaScripts\Dinamic\Lib\WebCreator\WebCookie;
 use FacturaScripts\Dinamic\Model\Base\ModelCore;
 use FacturaScripts\Dinamic\Model\WebBlock;
 use FacturaScripts\Dinamic\Model\WebFont;
@@ -130,7 +131,7 @@ class WebPage extends Base\ModelOnChangeClass
         parent::clear();
         $this->creationdate = date(ModelCore::DATETIME_STYLE);
         $this->lastupdate = $this->creationdate;
-        $this->nick = $_COOKIE['fsNick'];
+        $this->nick = WebCookie::getCookie('fsNick');
     }
 
     /**
@@ -264,7 +265,7 @@ class WebPage extends Base\ModelOnChangeClass
 
     protected function saveUpdate(array $values = [])
     {
-        $this->lastnick = $_COOKIE['fsNick'];
+        $this->lastnick = WebCookie::getCookie('fsNick');
         $this->lastupdate = date(ModelCore::DATETIME_STYLE);
         return parent::saveUpdate($values);
     }

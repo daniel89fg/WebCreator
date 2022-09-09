@@ -24,6 +24,7 @@ use FacturaScripts\Dinamic\Model\Contacto;
 use FacturaScripts\Dinamic\Model\WebPage;
 use FacturaScripts\Core\Base\ToolBox;
 use FacturaScripts\Dinamic\Lib\Shortcode\Shortcode;
+use FacturaScripts\Dinamic\Lib\WebCreator\WebCookie;
 use FacturaScripts\Core\Base\ExtensionsTrait;
 use FacturaScripts\Dinamic\Model\Redirect;
 use Symfony\Component\HttpFoundation\Request;
@@ -139,9 +140,8 @@ class WebPageData
         $webPage->filelang = $this->toolbox()->appSettings()->get('webcreator', 'langcode');
         $webPage->weblang = str_replace('_', '-', $webPage->filelang);
 
-        if (false === isset($_COOKIE['weblang'])) {
-            $expire = \time() + \FS_COOKIES_EXPIRE;
-            setcookie('weblang', $webPage->weblang, $expire, FS_ROUTE);
+        if (empty(WebCookie::getCookie('webLang'))) {
+            WebCookie::saveCookie('webLang', $webPage->weblang);
         }
 
         $this->pipe('setLangAfter');

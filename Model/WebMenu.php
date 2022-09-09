@@ -23,6 +23,7 @@ use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 use FacturaScripts\Core\Base\Utils;
 use FacturaScripts\Core\Model\Base\ModelClass;
 use FacturaScripts\Core\Model\Base\ModelTrait;
+use FacturaScripts\Dinamic\Lib\WebCreator\WebCookie;
 use FacturaScripts\Dinamic\Model\Base\ModelCore;
 use FacturaScripts\Dinamic\Model\WebMenuLink;
 
@@ -63,7 +64,7 @@ class WebMenu extends ModelClass
         parent::clear();
         $this->creationdate = date(ModelCore::DATETIME_STYLE);
         $this->lastupdate = $this->creationdate;
-        $this->nick = $_COOKIE['fsNick'];
+        $this->nick = WebCookie::getCookie('fsNick');
     }
 
     public function getLinks(): array
@@ -114,7 +115,7 @@ class WebMenu extends ModelClass
 
     protected function saveUpdate(array $values = [])
     {
-        $this->lastnick = $_COOKIE['fsNick'];
+        $this->lastnick = WebCookie::getCookie('fsNick');
         $this->lastupdate = date(ModelCore::DATETIME_STYLE);
         return parent::saveUpdate($values);
     }

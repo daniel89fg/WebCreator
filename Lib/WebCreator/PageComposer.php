@@ -20,6 +20,8 @@
 namespace FacturaScripts\Plugins\WebCreator\Lib\WebCreator;
 
 use FacturaScripts\Core\Base\ToolBox;
+use FacturaScripts\Dinamic\Lib\Shortcode\Shortcode;
+use FacturaScripts\Dinamic\Lib\WebCreator\WebCookie;
 use FacturaScripts\Dinamic\Model\Settings;
 use FacturaScripts\Dinamic\Model\AttachedFile;
 use FacturaScripts\Dinamic\Model\WebPage;
@@ -28,7 +30,6 @@ use FacturaScripts\Dinamic\Model\WebMenu;
 use FacturaScripts\Dinamic\Model\WebFooter;
 use FacturaScripts\Dinamic\Model\WebSidebar;
 use FacturaScripts\Dinamic\Model\WebTitle;
-use FacturaScripts\Dinamic\Lib\Shortcode\Shortcode;
 use FacturaScripts\Dinamic\Model\WebFont;
 use FacturaScripts\Dinamic\Model\WebFontWeight;
 use FacturaScripts\Core\Base\ExtensionsTrait;
@@ -63,9 +64,9 @@ class PageComposer
         return $breadcrumb;
     }
 
-    public function getCookie(string $name): string
+    public function getCookie(string $name): ?string
     {
-        return ($_COOKIE[$name]) ?? '';
+        return WebCookie::getCookie($name);
     }
 
     public function getFont(int $id): string

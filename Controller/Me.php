@@ -25,7 +25,7 @@ use FacturaScripts\Dinamic\Lib\Email\ButtonBlock;
 use FacturaScripts\Dinamic\Lib\Email\NewMail;
 use FacturaScripts\Dinamic\Model\Contacto;
 use FacturaScripts\Dinamic\Lib\WebCreator\PortalPanelController;
-use Symfony\Component\HttpFoundation\Cookie;
+use FacturaScripts\Dinamic\Lib\WebCreator\WebCookie;
 
 /**
  * @author Carlos Garcia Gomez <carlos@facturascripts.com>
@@ -268,8 +268,8 @@ class Me extends PortalPanelController
 
     protected function logoutAction(): bool
     {
-        $this->response->headers->clearCookie('fsIdcontacto');
-        $this->response->headers->clearCookie('fsLogkey');
+        WebCookie::deleteCookie('fsIdcontacto');
+        WebCookie::deleteCookie('fsLogkey');
         $this->contact = null;
         $this->redirect('/');
         return true;
@@ -317,9 +317,8 @@ class Me extends PortalPanelController
         $this->contact->newLogkey($this->toolBox()->ipFilter()->getClientIp());
         $this->contact->save();
 
-        $expire = \time() + \FS_COOKIES_EXPIRE;
-        $this->response->headers->setCookie(new Cookie('fsIdcontacto', $this->contact->idcontacto, $expire));
-        $this->response->headers->setCookie(new Cookie('fsLogkey', $this->contact->logkey, $expire));
+        WebCookie::saveCookie('fsIdcontacto', $this->contact->idcontacto);
+        WebCookie::saveCookie('fsLogkey', $this->contact->logkey);
     }
 
     protected function sendEmailConfirmation(Contacto $contact): bool

@@ -21,6 +21,7 @@ namespace FacturaScripts\Plugins\WebCreator\Model;
 
 use FacturaScripts\Core\Base\Utils;
 use FacturaScripts\Core\Model\Base;
+use FacturaScripts\Dinamic\Lib\WebCreator\WebCookie;
 use FacturaScripts\Dinamic\Model\Base\ModelCore;
 
 /**
@@ -67,7 +68,7 @@ class WebFooter extends Base\ModelClass
         $this->content = [];
         $this->creationdate = date(ModelCore::DATETIME_STYLE);
         $this->lastupdate = $this->creationdate;
-        $this->nick = $_COOKIE['fsNick'];
+        $this->nick = WebCookie::getCookie('fsNick');
         $this->properties = [];
     }
 
@@ -117,7 +118,7 @@ class WebFooter extends Base\ModelClass
 
     protected function saveUpdate(array $values = [])
     {
-        $this->lastnick = $_COOKIE['fsNick'];
+        $this->lastnick = WebCookie::getCookie('fsNick');
         $this->lastupdate = date(ModelCore::DATETIME_STYLE);
         return parent::saveUpdate($values);
     }
