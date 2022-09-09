@@ -83,6 +83,7 @@ class GoogleLogin extends Me
             $contact->email = $userProfile['email'];
             $contact->nombre = $userProfile['given_name'];
             $contact->apellidos = $userProfile['family_name'];
+            $contact->codgrupo = $this->toolBox()->appSettings()->get('webcreator', 'registergroup', null);
         } elseif (!$contact->habilitado) {
             $this->toolBox()->i18nLog()->warning('email-disabled', ['%email%' => $contact['email']]);
             $this->setIPWarning();

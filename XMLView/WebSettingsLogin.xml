@@ -63,6 +63,12 @@
                     order="110">
                 <widget type="select" fieldname="idregisterimage" onclick="EditAttachedFile"/>
             </column>
+            <column name="group" titleurl="ListCliente?activetab=ListGrupoClientes" numcolumns="3"
+                    order="120">
+                <widget type="select" fieldname="registergroup" onclick="EditGrupoClientes">
+                    <values source="gruposclientes" fieldcode="codgrupo" fieldtitle="nombre"/>
+                </widget>
+            </column>
         </group>
         <group name="forgot" title="forgot-password" icon="fas fa-key" numcolumns="12">
             <column name="forgotpage" titleurl="ListWebPage" numcolumns="3" order="100">

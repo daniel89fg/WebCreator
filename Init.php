@@ -50,6 +50,7 @@ class Init extends InitClass
         }
 
         $this->loadExtension(new Extension\Controller\ListAttachedFile());
+        $this->loadExtension(new Extension\Controller\ListCliente());
     }
 
     public function update()

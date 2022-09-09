@@ -128,6 +128,7 @@ class MeRegister extends Me
         $newContact->nombre = $this->nameContact;
         $newContact->telefono1 = $this->phoneContact;
         $newContact->codpais = $this->countryContact;
+        $newContact->codgrupo = $this->toolBox()->appSettings()->get('webcreator', 'registergroup', null);
         if (false === $newContact->save()) {
             $this->toolBox()->i18nLog()->warning('record-save-error');
             return true;
