@@ -55,6 +55,7 @@ class WebFont extends Base\ModelClass
         $this->creationdate = date(ModelCore::DATETIME_STYLE);
         $this->lastupdate = $this->creationdate;
         $this->nick = WebCookie::getCookie('fsNick');
+        $this->lastnick = $this->nick;
     }
 
     public static function primaryColumn(): string

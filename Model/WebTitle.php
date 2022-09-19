@@ -107,6 +107,7 @@ class WebTitle extends Base\ModelClass
         $this->imagerepeat = 'repeat';
         $this->imagesize = 'cover';
         $this->nick = WebCookie::getCookie('fsNick');
+        $this->lastnick = $this->nick;
         $this->tag = 'h1';
         $this->width = 'container';
     }

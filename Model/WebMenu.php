@@ -65,6 +65,7 @@ class WebMenu extends ModelClass
         $this->creationdate = date(ModelCore::DATETIME_STYLE);
         $this->lastupdate = $this->creationdate;
         $this->nick = WebCookie::getCookie('fsNick');
+        $this->lastnick = $this->nick;
     }
 
     public function getLinks(): array

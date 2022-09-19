@@ -88,13 +88,11 @@ class EditWebPage extends PanelController
     public function getPages($id): array
     {
         $webpage = new WebPage();
-        $result = array();
-        foreach ($webpage->all([], [], 0, 0) as $page) {
-            if ($id != $page->id) {
-                $result[] = $page;
-            }
-        }
-        return $result;
+        $where = [
+            new DataBaseWhere('id', $id, '!='),
+            new DataBaseWhere('type', 'WebPage')
+        ];
+        return $webpage->all($where, ['title' => 'ASC'], 0, 0);
     }
 
     public function getSidebars(): array

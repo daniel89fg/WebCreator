@@ -71,6 +71,8 @@ class WebHeader extends Base\ModelClass
         $this->content = [];
         $this->creationdate = date(ModelCore::DATETIME_STYLE);
         $this->lastupdate = $this->creationdate;
+        $this->nick = WebCookie::getCookie('fsNick');
+        $this->lastnick = $this->nick;
         $this->properties = [];
     }
 

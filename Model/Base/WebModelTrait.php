@@ -46,6 +46,9 @@ trait WebModelTrait
             $modelId = $this->primaryColumnValue();
         }
 
+        // cargamos el modelo
+        $modelClass->loadFromCode($modelId);
+
         // si el plugin multi-idioma no está instalado, devolvemos el valor directamente
         if (false === WEBMULTILANGUAGE) {
             return $this->getModelValue($modelClass, $modelId, $column);
